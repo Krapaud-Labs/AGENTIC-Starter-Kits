@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.69 - 2026-09-30
+
+- Fusionne automatiquement les PR prévues vers `dev` ou `develop` dans un flux déjà autorisé, sans confirmation redondante.
+
 ## 1.12.68 - 2026-09-30
 
 - Interdit de déclarer l'onboarding terminé avant la PR vérifiée vers `dev`.

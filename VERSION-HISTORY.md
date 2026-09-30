@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.12.69 | 2026-09-30 | Fusion autonome des PR vers la branche d'intégration dans un flux autorisé. |
+
 | 1.12.68 | 2026-09-30 | PR vers dev obligatoire avant clôture de l'onboarding. |
 
 | 1.12.67 | 2026-09-30 | Audit final complet de chaque carte avant clôture de l'initialisation Trello. |
