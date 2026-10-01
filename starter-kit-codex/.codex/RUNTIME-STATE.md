@@ -26,6 +26,9 @@
 - goal_blocked_condition: [[A_COMPLETER]]
 - goal_session_id: none
 - goal_delivery_status: not-required
+- goal_delegation_plan: [[A_COMPLETER]]
+- goal_agents_created: none
+- goal_agent_assignments: none
 - integration_branch: none
 - pushed_integration_commit: none
 - pull_request_status: not-required
