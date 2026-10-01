@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.72 - 2026-10-01
+
+- Rend obligatoire l'inscription et l'activation des agents parallèles dans le Goal avant le premier check.
+
 ## 1.12.71 - 2026-10-01
 
 - Vérifie l'ordre numérique et les dépendances des cartes avant chaque démarrage.
