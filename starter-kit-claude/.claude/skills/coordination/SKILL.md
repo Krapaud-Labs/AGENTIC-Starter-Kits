@@ -54,7 +54,7 @@ Plusieurs agents du même rôle peuvent être activés pour accélérer une fami
 
 ## Sélection de la prochaine carte
 
-Pour une autorisation `continuous-until-done` portant sur un lot Trello, le Coordinateur ne s'arrête pas après la clôture d'une carte. Il relit le tableau, filtre les cartes `Ready` ou reprenables sans dépendance ouverte, échéance bloquante ou blocage documenté, puis démarre immédiatement la première carte éligible. Il met à jour l'état runtime et lance une action observable dans le même tour. Une demande explicitement limitée à une carte reste limitée à cette carte.
+Pour une autorisation `continuous-until-done` portant sur un lot Trello, le Coordinateur ne s'arrête pas après la clôture d'une carte. Avant chaque démarrage, il relit le tableau et extrait le numéro stable de chaque carte candidate, en séparant `MVP` et `POST-MVP`. Il trie les numéros numériquement, vérifie les dépendances et refuse de démarrer `03` si `02` est encore éligible. Il vérifie aussi qu'aucun numéro attendu n'est manquant, dupliqué ou incohérent avec la source locale. Il filtre ensuite les cartes `Ready` ou reprenables sans dépendance ouverte, échéance bloquante ou blocage documenté, puis démarre la première carte dans l'ordre vérifié. Il enregistre les cartes examinées, la carte choisie et les raisons des cartes ignorées dans le work item et l'état runtime. Une demande explicitement limitée à une carte reste limitée à cette carte, mais ses dépendances et son ordre doivent tout de même être vérifiés.
 
 ## Boucle d.optimisation du Coordinateur
 

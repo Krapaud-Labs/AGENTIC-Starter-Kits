@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.71 - 2026-10-01
+
+- Vérifie l'ordre numérique et les dépendances des cartes avant chaque démarrage.
+
 ## 1.12.70 - 2026-10-01
 
 - Ajoute le cycle de vie obligatoire des sessions navigateur et leur fermeture après chaque feature ou lot externe terminé.
