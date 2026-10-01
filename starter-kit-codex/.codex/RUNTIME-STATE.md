@@ -39,6 +39,11 @@
 - pending_turn_id: none
 - environment_status: not-required
 - environment_shutdown_status: not-required
+- browser_session_status: not-required
+- browser_session_id: none
+- browser_open_tabs: none
+- browser_last_action: none
+- browser_shutdown_evidence: none
 - budget_status: not-applicable
 - trace_id: none
 - artifact_manifest: none

@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.70 - 2026-10-01
+
+- Ajoute le cycle de vie obligatoire des sessions navigateur et leur fermeture après chaque feature ou lot externe terminé.
+
 ## 1.12.69 - 2026-09-30
 
 - Fusionne automatiquement les PR prévues vers `dev` ou `develop` dans un flux déjà autorisé, sans confirmation redondante.
