@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.12.76 | 2026-10-02 | Matrice complète de scénarios et contrôle de couverture CI. |
+
 | 1.12.75 | 2026-10-02 | Scénarios sandbox isolés exécutés dans la CI avant livraison. |
 
 | 1.12.74 | 2026-10-02 | Labels obligatoires préparés avant toute création de carte. |

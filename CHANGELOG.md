@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.76 - 2026-10-02
+
+- Ajoute une matrice versionnée de scénarios nominaux et une porte CI de couverture minimale.
+
 ## 1.12.75 - 2026-10-02
 
 - Ajoute des scénarios sandbox isolés pour tester les Goals, labels, délégations, séquencement et sessions navigateur avant promotion.

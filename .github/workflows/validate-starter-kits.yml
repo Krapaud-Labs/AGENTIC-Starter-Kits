@@ -45,6 +45,11 @@ jobs:
       - name: Run isolated agentic sandbox scenarios
         run: bash scripts/test-sandbox-scenarios.sh
 
+      - name: Verify scenario coverage matrix
+        run: |
+          test "$(grep -c '^|' docs/TEST-SCENARIO-MATRIX.md)" -ge 30
+          grep -q 'Une ligne non exécutée' docs/TEST-SCENARIO-MATRIX.md
+
       - name: Require all public READMEs for starter kit changes
         shell: bash
         run: |
