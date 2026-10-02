@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.74 - 2026-10-02
+
+- Interdit de créer une carte Trello avant la préparation et la vérification de ses étiquettes obligatoires.
+
 ## 1.12.73 - 2026-10-02
 
 - Interdit explicitement de demander une confirmation pour une carte Trello déjà demandée par l'utilisateur.
