@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.80 - 2026-10-02
+
+- Ajoute des simulations d'adaptateurs Trello, navigateur, GitFlow et délégation dans la CI sandbox.
+
 ## 1.12.79 - 2026-10-02
 
 - Étend les scénarios sandbox aux dépôts Git temporaires et aux parcours d'initialisation Codex et Claude.
