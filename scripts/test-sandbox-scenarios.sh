@@ -54,4 +54,51 @@ for kit in codex claude; do
   bash "$scenario/$hidden/scripts/guard-before-response.sh" >/dev/null
 done
 
+# Parcours d'initialisation réel dans deux projets temporaires indépendants.
+for kit in codex claude; do
+  hidden=".$kit"
+  source="$root/starter-kit-$kit/$hidden"
+  project="$tmp/init-$kit"
+  mkdir -p "$project/$hidden"
+  git init --quiet "$project"
+  git -C "$project" config user.email sandbox@example.invalid
+  git -C "$project" config user.name sandbox
+  cp -R "$source/." "$project/$hidden/"
+  if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$project/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$project/CLAUDE.md"; fi
+  if python3 -c 'import tomllib' >/dev/null 2>&1; then
+    bash "$project/$hidden/scripts/lint-kit.sh"
+  else
+    # Python 3.9 ne possède pas tomllib ; la CI fournit Python 3.11.
+    assert_contains "$root/.github/workflows/validate-starter-kits.yml" 'python-version: "3.11"'
+    echo "SCENARIO SANDBOX: lint dynamique reporté à la CI Python 3.11 pour $kit"
+  fi
+  bash "$project/$hidden/scripts/init-project.sh"
+  if bash "$project/$hidden/scripts/preflight.sh" >/dev/null 2>&1; then
+    echo "ECHEC SANDBOX: preflight accepté sans cahier pour $kit" >&2
+    exit 1
+  fi
+  cp "$project/$hidden/templates/project-brief.md" "$project/$hidden/PROJECT-BRIEF.md"
+  cp "$project/$hidden/templates/project-profile.toml" "$project/$hidden/project-profile.toml"
+  perl -0pi -e 's/\bpending\b/accepted/ if /## Statut/' "$project/$hidden/PROJECT-BRIEF.md"
+  KIT_NAME="$kit" perl -0pi -e 's/project_name = "à compléter"/project_name = "sandbox-$ENV{KIT_NAME}"/; s/trello_choice = "pending"/trello_choice = "disabled"/' "$project/$hidden/project-profile.toml"
+  if python3 -c 'import tomllib' >/dev/null 2>&1; then
+    bash "$project/$hidden/scripts/initialize-project-design.sh" >/dev/null
+    test -f "$project/docs/design/design-readiness.md"
+  else
+    assert_contains "$source/ORCHESTRATION.md" 'ensure-tools.sh'
+  fi
+done
+
+# Contrats statiques des domaines qui nécessitent une intégration externe réelle.
+for kit in codex claude; do
+  hidden=".$kit"
+  source="$root/starter-kit-$kit/$hidden"
+  assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'PATH'
+  assert_contains "$source/policies/GIT-FLOW.md" 'une seule Pull Request finale'
+  assert_contains "$source/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" 'test de non-régression'
+  assert_contains "$source/policies/PROJECT-BOUNDARY-POLICY.md" 'ne doivent jamais être référencés'
+  assert_contains "$source/policies/BROWSER-SESSION-LIFECYCLE.md" 'aucun onglet sensible ouvert'
+  assert_contains "$source/skills/documentation-audit/SKILL.md" 'README'
+done
+
 echo "Scénarios sandbox isolés OK"
