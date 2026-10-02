@@ -42,6 +42,9 @@ jobs:
       - name: Validate executable governance gates
         run: bash scripts/test-executable-gates.sh
 
+      - name: Run isolated agentic sandbox scenarios
+        run: bash scripts/test-sandbox-scenarios.sh
+
       - name: Require all public READMEs for starter kit changes
         shell: bash
         run: |

@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.75 - 2026-10-02
+
+- Ajoute des scénarios sandbox isolés pour tester les Goals, labels, délégations, séquencement et sessions navigateur avant promotion.
+
 ## 1.12.74 - 2026-10-02
 
 - Interdit de créer une carte Trello avant la préparation et la vérification de ses étiquettes obligatoires.
