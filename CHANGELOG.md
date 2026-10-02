@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.78 - 2026-10-02
+
+- Corrige les séparations Markdown détectées par la CI sandbox.
+
 ## 1.12.77 - 2026-10-02
 
 - Active la CI du kit sur les PR vers `dev` et ajoute ce scénario à la matrice sandbox.
