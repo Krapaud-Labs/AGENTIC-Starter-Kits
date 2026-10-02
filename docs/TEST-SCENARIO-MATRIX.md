@@ -27,6 +27,7 @@ Cette matrice définit les parcours à rejouer dans un projet temporaire avant t
 | GitFlow | Promotion | PR unique `dev` vers `main` | sandbox |
 | CI | Push de branche de travail | aucun workflow coûteux non prévu | sandbox |
 | CI | PR d’intégration | contrôles complets et concurrence | sandbox |
+| CI | PR vers `dev` | workflow déclenché et contrôles visibles | sandbox |
 | Versionnement | Mise à jour du kit | VERSION, changelog et historique alignés | sandbox |
 | Documentation | Livraison d’une feature | README et docs de conception synchronisés | sandbox |
 | Navigateur | Validation externe terminée | onglets et session fermés | sandbox |

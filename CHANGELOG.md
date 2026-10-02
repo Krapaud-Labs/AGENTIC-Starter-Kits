@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.77 - 2026-10-02
+
+- Active la CI du kit sur les PR vers `dev` et ajoute ce scénario à la matrice sandbox.
+
 ## 1.12.76 - 2026-10-02
 
 - Ajoute une matrice versionnée de scénarios nominaux et une porte CI de couverture minimale.
