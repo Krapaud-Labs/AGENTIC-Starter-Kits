@@ -13,6 +13,7 @@ Le projet livré doit rester indépendant et professionnel. Ne jamais exposer da
 Les fichiers internes nécessaires au fonctionnement de l'orchestrateur peuvent rester dans leur répertoire technique privé. Ils ne doivent jamais être référencés par les artefacts produit ni inclus dans un paquet, une image, une extension ou une documentation publiée.
 
 Avant chaque livraison, l'agent vérifie les fichiers modifiés et retire toute trace accidentelle. La preuve reste dans l'espace de contrôle interne et le résultat publié reste neutre et orienté métier.
+
 ## Suivi Git du kit et des projets consommateurs
 
 - Dans un projet consommateur, `.codex/` ou `.claude/` est une installation locale et doit être ignoré par Git. Ne pas le retirer du disque ni créer une PR pour ses changements automatiques.

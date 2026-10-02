@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.12.78 | 2026-10-02 | Correction du lint Markdown détectée par la CI sandbox. |
+
 | 1.12.77 | 2026-10-02 | CI déclenchée et vérifiée sur les PR vers dev. |
 
 | 1.12.76 | 2026-10-02 | Matrice complète de scénarios et contrôle de couverture CI. |
