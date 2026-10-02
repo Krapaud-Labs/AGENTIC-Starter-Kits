@@ -1,5 +1,17 @@
 ## Unreleased
 
+## 1.12.77 - 2026-10-02
+
+- Active la CI du kit sur les PR vers `dev` et ajoute ce scénario à la matrice sandbox.
+
+## 1.12.76 - 2026-10-02
+
+- Ajoute une matrice versionnée de scénarios nominaux et une porte CI de couverture minimale.
+
+## 1.12.75 - 2026-10-02
+
+- Ajoute des scénarios sandbox isolés pour tester les Goals, labels, délégations, séquencement et sessions navigateur avant promotion.
+
 ## 1.12.74 - 2026-10-02
 
 - Interdit de créer une carte Trello avant la préparation et la vérification de ses étiquettes obligatoires.

@@ -2,9 +2,9 @@ name: Validate starter kits
 
 on:
   pull_request:
-    branches: [develop, main]
+    branches: [dev, develop, main]
   push:
-    branches: [develop, main]
+    branches: [dev, develop, main]
 
 permissions:
   contents: read
