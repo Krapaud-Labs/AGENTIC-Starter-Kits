@@ -1,6 +1,6 @@
 # Kit d'orchestration Codex portable
 
-![Version du kit](https://img.shields.io/badge/version-1.12.73-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.12.74-blue.svg)
 
 Ce kit installe une gouvernance projet pour Codex. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
