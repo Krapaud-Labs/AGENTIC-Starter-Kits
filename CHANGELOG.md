@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.73 - 2026-10-02
+
+- Interdit explicitement de demander une confirmation pour une carte Trello déjà demandée par l'utilisateur.
+
 ## 1.12.72 - 2026-10-01
 
 - Rend obligatoire l'inscription et l'activation des agents parallèles dans le Goal avant le premier check.
