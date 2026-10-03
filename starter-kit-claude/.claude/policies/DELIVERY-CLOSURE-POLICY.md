@@ -10,6 +10,7 @@ Une carte ne doit jamais rester globalement `En cours` uniquement parce qu’une
 - `needs-review` : Le travail est prêt, mais une décision humaine est requise avant une action sensible.
 
 Une carte en `Review` déclenche d’abord l’agent `auditeur` et, si nécessaire, les spécialistes requis. `Review` ne signifie pas « validation humaine en attente ». Le Coordinateur ne demande une validation humaine que si les critères, le cahier ou une décision enregistrée identifient explicitement cette décision ; sinon il active l’audit et poursuit automatiquement.
+
 - `blocked` : Une dépendance externe ou technique empêche réellement de poursuivre.
 - `in-progress` : Au moins une action autonome reste à exécuter.
 

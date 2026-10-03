@@ -1,6 +1,6 @@
 # Kit d'orchestration Claude Code portable
 
-![Version du kit](https://img.shields.io/badge/version-1.12.91-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.12.92-blue.svg)
 
 Ce kit installe une gouvernance projet native pour Claude Code. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
@@ -195,7 +195,7 @@ Le Coordinateur ne les appelle pas tous systématiquement. Il lit `.claude/SPECI
 
 Une CI en cours ne clôture jamais le work item. Le Coordinateur attend les résultats, traite les erreurs, corrige les lints et les dettes historiques du périmètre par lots, puis relance les contrôles jusqu’à la Definition of Done.
 
-Le kit est actuellement en version `1.12.42`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
+Le kit est actuellement en version `1.12.92`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
 
 Le contrat central `.claude/policies/CORE-EXECUTION-CONTRACT.md` impose un registre d obligations, huit portes de validation et une reprise persistante. Une tâche ne peut être clôturée tant qu une obligation applicable ne possède pas de preuve.
 
@@ -234,7 +234,7 @@ L’initialisation installe un workflow GitHub Actions hebdomadaire qui ouvre un
 ## Qualité documentaire premium
 
 Utilisez `documentation-authoring` pour rédiger et `documentation-audit` pour relire. Le contrôle `bash .claude/scripts/validate-documentation.sh` vérifie les métadonnées, les dates et les marqueurs incomplets avant la livraison.
-La version du kit évolue uniquement lorsqu’un changement consommé par un projet importateur le justifie.
+La version du kit évolue uniquement lorsqu’un changement consommé par un projet importateur le justifie. Après promotion sur `main`, le workflow de release crée automatiquement le tag SemVer et la GitHub Release correspondante.
 L’installateur vérifie que le workflow de mise à jour est suivi par Git avant la première publication.
 Le Coordinateur applique une politique universelle de routage pour toute demande nouvelle, corrective ou hors cahier des charges.
 
