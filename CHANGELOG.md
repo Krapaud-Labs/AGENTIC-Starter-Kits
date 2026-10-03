@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.13.2 - 2026-10-03
+
+- Refuse un Goal qui annonce des lots parallèles sans au moins deux agents et affectations distinctes.
+- Rend la création effective des agents parallèles vérifiable dès le démarrage du Goal.
+
 ## 1.13.1 - 2026-10-03
 
 - Interdit les transitions contradictoires entre conception, audit et implémentation.

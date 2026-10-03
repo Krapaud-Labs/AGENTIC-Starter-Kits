@@ -23,6 +23,14 @@ if [ "$GOAL_DELEGATION" != "none" ] && [ "$GOAL_DELEGATION" != "séquentiel just
   echo "GOAL: délégation annoncée sans agents créés et affectations explicites; création obligatoire avant le démarrage" >&2
   exit 3
 fi
+if [[ "$GOAL_DELEGATION" =~ (parall|indépend|multi[-_]t[aâ]che|plusieurs) ]]; then
+  agent_count=$(( $(tr -cd ',' <<< "$GOAL_AGENTS_CREATED" | wc -c) + 1 ))
+  assignment_count=$(( $(tr -cd ',' <<< "$GOAL_AGENT_ASSIGNMENTS" | wc -c) + 1 ))
+  if [ "$agent_count" -lt 2 ] || [ "$assignment_count" -lt 2 ]; then
+    echo "GOAL: lots parallèles détectés sans au moins deux agents et affectations distinctes" >&2
+    exit 3
+  fi
+fi
 export GOAL_STARTED_AT="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 export GOAL_SESSION_ID="goal-${GOAL_STARTED_AT//:/}"
 
