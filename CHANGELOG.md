@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.12.98 - 2026-10-03
+
+- Répare l'initialisation et la synchronisation des fichiers obligatoires du runtime, du brief et du profil projet.
+- Corrige les URLs de synchronisation et de workflow vers le dépôt canonique `Krapaud-Labs/AGENTIC-Starter-Kits`.
+- Empêche la perte silencieuse des fichiers locaux exclus par la synchronisation.
+
 ## 1.12.97 - 2026-10-03
 
 - Rend obligatoire le refus de toute tâche hors rôle, hors fichiers autorisés ou relevant d’un autre agent.

@@ -33,6 +33,11 @@ source_kit="$(find "$tmp_dir" -mindepth 2 -maxdepth 2 -type d -name starter-kit-
 [ -n "$source_kit" ] || { echo "Kit Claude absent de l'archive." >&2; exit 1; }
 rsync -a --delete --exclude 'PROJECT-BRIEF.md' --exclude 'project-profile.toml' --exclude 'project-inventory.md' --exclude 'RUNTIME-STATE.md' --exclude 'decisions/' --exclude 'work-items/' --exclude 'reports/' --exclude 'metrics/' --exclude 'evaluations/' "$source_kit/.claude/" "$kit_root/.claude/"
 cp "$source_kit/CLAUDE.md" "$kit_root/CLAUDE.md"
+for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
+  if [ ! -f "$kit_root/$local_file" ]; then
+    cp "$source_kit/.claude/$local_file" "$kit_root/.claude/$local_file"
+  fi
+done
 sed -i.bak "s/^kit_version = .*/kit_version = \"\$latest\"/" "$manifest"
 rm -f "$manifest.bak"
 printf 'Kit Claude mis à jour : %s -> %s\nSauvegarde : %s\n' "$installed" "$latest" "$backup_root"

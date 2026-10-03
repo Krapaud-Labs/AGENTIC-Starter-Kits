@@ -13,6 +13,12 @@ assert_contains() {
 for kit in codex claude; do
   hidden=".$kit"
   source="$root/starter-kit-$kit/$hidden"
+  assert_contains "$source/scripts/sync-workspace-kit.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md'
+  assert_contains "$source/scripts/init-project.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml'
+  if rg -n 'github\.com/krapaud/AGENTIC-Starter-Kits|raw\.githubusercontent\.com/krapaud/AGENTIC-Starter-Kits' "$source" "$root/distributions" >/dev/null; then
+    echo "ECHEC SANDBOX: ancienne URL du kit détectée pour $kit" >&2
+    exit 1
+  fi
   scenario="$tmp/$kit"
   mkdir -p "$scenario/$hidden/scripts"
   cp "$source/RUNTIME-STATE.md" "$scenario/$hidden/"

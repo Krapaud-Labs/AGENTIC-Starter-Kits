@@ -49,6 +49,13 @@ for context_file in PROJECT-CONTEXT.md PROJECT-DATA-BOUNDARY.md; do
   fi
 done
 
+# Les fichiers d'état et d'onboarding sont obligatoires dès l'installation.
+# Ils restent locaux au projet et ne sont jamais écrasés s'ils existent déjà.
+for local_file in PROJECT-BRIEF.md project-profile.toml; do
+  if [ ! -f "$config_root/$local_file" ] && [ -f "$config_root/templates/$local_file" ]; then
+    cp "$config_root/templates/$local_file" "$config_root/$local_file"
+  fi
+done
 inventory="$config_root/project-inventory.md"
 {
   echo "# Inventaire de projet"
