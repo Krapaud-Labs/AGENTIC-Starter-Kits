@@ -190,7 +190,12 @@ for kit in codex claude; do
     exit 1
   fi
 
-  perl -0pi -e 's/goal_status: .*/goal_status: complete/; s/goal_delivery_status: .*/goal_delivery_status: verified/; s/pushed_integration_commit: .*/pushed_integration_commit: abc123/; s/pull_request_status: .*/pull_request_status: open/' "$config/RUNTIME-STATE.md"
+  perl -0pi -e 's/goal_status: .*/goal_status: complete/; s/goal_delivery_status: .*/goal_delivery_status: verified/; s/pushed_integration_commit: .*/pushed_integration_commit: abc123/; s/integration_remote_evidence: .*/integration_remote_evidence: none/; s/pull_request_status: .*/pull_request_status: open/' "$config/RUNTIME-STATE.md"
+  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+    echo "ECHEC TEST: une PR ouverte aurait dû bloquer complete $kit"
+    exit 1
+  fi
+  perl -0pi -e 's/integration_remote_evidence: .*/integration_remote_evidence: origin\/dev contient abc123/; s/pull_request_status: .*/pull_request_status: verified/' "$config/RUNTIME-STATE.md"
   bash "$config/scripts/guard-before-response.sh" >/dev/null
 
   perl -0pi -e 's/\tverified\ttest-evidence\t/\tverified\tnot-collected\t/' "$config/work-items/demo/obligations.tsv"

@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.12.95 - 2026-10-03
+
+- Interdit de clôturer un Goal avec une PR seulement ouverte ou une branche d’intégration non relue.
+- Exige la fusion effective et la preuve que `origin/dev` ou `origin/develop` contient le commit livré.
+- Ajoute un test de non-régression pour une PR verte mais non fusionnée.
+
 ## 1.12.94 - 2026-10-03
 
 - Interdit techniquement les push directs vers `dev`, `develop`, `main` et `master`, même avec un profil mal configuré.

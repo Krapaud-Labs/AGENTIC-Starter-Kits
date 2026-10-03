@@ -55,6 +55,7 @@ values = {
     "goal_agent_assignments": os.environ.get("GOAL_AGENT_ASSIGNMENTS") or ("none" if os.environ["GOAL_DELEGATION"] in ("none", "séquentiel justifié") else "missing"),
     "integration_branch": os.environ["GOAL_BRANCH"],
     "pushed_integration_commit": "none",
+    "integration_remote_evidence": "none",
     "pull_request_status": "not-required",
     "last_turn_status": "verified",
     "session_status": "active",
