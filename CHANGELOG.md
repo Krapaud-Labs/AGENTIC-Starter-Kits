@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.13.3 - 2026-10-03
+
+- Renforce le rôle frontend artistique avec une validation comparative obligatoire avant/après.
+- Refuse une refonte visuellement négligeable et la renvoie en `rework`.
+
 ## 1.13.2 - 2026-10-03
 
 - Refuse un Goal qui annonce des lots parallèles sans au moins deux agents et affectations distinctes.
