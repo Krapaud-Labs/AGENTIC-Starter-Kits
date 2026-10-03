@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.12.93 - 2026-10-03
+
+- Configure l’identité du bot GitHub Actions avant la création automatique des tags de Release.
+
 ## 1.12.92 - 2026-10-03
 
 - Déclenche automatiquement la publication d’une Release après une mise à jour de `main` qui modifie la version ou les documents de release.
