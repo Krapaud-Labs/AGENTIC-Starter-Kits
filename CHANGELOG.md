@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.12.96 - 2026-10-03
+
+- Interdit au Coordinateur de remplacer un agent spécialisé disponible.
+- Exige une affectation réelle par tâche avec livrable et preuve attendue.
+
 ## 1.12.95 - 2026-10-03
 
 - Interdit de clôturer un Goal avec une PR seulement ouverte ou une branche d’intégration non relue.

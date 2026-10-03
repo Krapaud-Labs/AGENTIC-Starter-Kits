@@ -184,6 +184,7 @@ for kit in codex claude; do
   bash "$config/scripts/validate-obligations.sh" --require-active >/dev/null
   bash "$config/scripts/guard-before-response.sh" >/dev/null
 
+
   perl -0pi -e 's/goal_status: .*/goal_status: active/; s/goal_delivery_status: .*/goal_delivery_status: pending/; s/integration_branch: .*/integration_branch: dev/; s/pushed_integration_commit: .*/pushed_integration_commit: none/; s/pull_request_status: .*/pull_request_status: not-required/' "$config/RUNTIME-STATE.md"
   if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
     echo "ECHEC TEST: un goal sans livraison vers dev aurait dû bloquer complete $kit"
