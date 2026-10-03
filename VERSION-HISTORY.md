@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.13.3 | 2026-10-03 | Validation artistique comparative et refus des refontes visuellement négligeables. |
+
 | 1.13.2 | 2026-10-03 | Vérification technique de la création et de l'affectation des agents parallèles. |
 
 | 1.13.1 | 2026-10-03 | Transition atomique des phases et blocage de l'implémentation avant conception approuvée. |
