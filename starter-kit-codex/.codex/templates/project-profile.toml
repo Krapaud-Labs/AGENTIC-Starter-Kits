@@ -94,4 +94,4 @@ max_changed_lines_per_commit = 1200
 [updates]
 # ask, pr ou off. Le mode pr ouvre une Pull Request automatique.
 mode = "pr"
-source = "https://github.com/krapaud/AGENTIC-Starter-Kits.git"
+source = "https://github.com/Krapaud-Labs/AGENTIC-Starter-Kits.git"
