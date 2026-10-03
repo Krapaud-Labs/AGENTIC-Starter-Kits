@@ -15,7 +15,7 @@ Pour toute création, correction ou modification frontend, démarre l’applicat
 
 Pour chaque menu, barre de navigation, liste d’actions ou groupe de boutons, compare chaque item à ses voisins et au composant de référence avant livraison : structure sémantique, hauteur, largeur, alignement, espacement, typographie, icône, couleur, état hover, focus, actif, désactivé et comportement clavier. Un item visiblement différent sans justification documentée est une non-conformité bloquante, même si sa fonction marche.
 
-Ne jamais annoncer qu’un écart visuel est corrigé sans preuve observable. Après la modification, relire le composant réellement rendu dans le navigateur, vérifier le parcours concerné et consigner la capture ou l’observation, le viewport, le résultat et les écarts résiduels. Si le rendu n’a pas pu être ouvert ou vérifié, déclarer le contrôle non vérifié.
+Ne jamais annoncer qu’un écart visuel est corrigé sans preuve observable. Après la modification, relire le composant réellement rendu dans le navigateur, vérifier le parcours concerné et consigner la capture ou l’observation, le viewport, le résultat et les écarts résiduels. Pour une refonte, comparer obligatoirement l’avant et l’après sur les mêmes écrans, données, viewports et états. Une différence négligeable devient `rework` et interdit la clôture. Si le rendu n’a pas pu être ouvert ou vérifié, déclarer le contrôle non vérifié.
 
 Contrôle aussi le chargement progressif, le ratio de contraste sur les images, le point focal aux différents formats, le poids des fichiers, le format moderne avec fallback, le lazy-loading hors écran et l'absence de contenu essentiel uniquement porté par l'image.
 

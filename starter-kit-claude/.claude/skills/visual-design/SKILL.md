@@ -29,6 +29,8 @@ Cahier des charges accepté, dossier de conception, profil technologique, contra
 
 Une phrase indiquant qu’un composant a été corrigé ne constitue pas une preuve. La preuve doit provenir du rendu réellement observé après correction, avec viewport, parcours, interaction testée et écart résiduel explicite.
 
+Pour une refonte, la preuve compare obligatoirement l'avant et l'après sur les mêmes écrans, données, viewports et états. Le rapport liste les différences perceptibles, les composants réellement transformés et les écarts résiduels. Si la différence est négligeable, le livrable est `rework` et l'agent frontend poursuit la direction artistique au lieu de clôturer la carte.
+
 ## Direction artistique
 
 Avant de coder, produire ou mettre à jour `docs/design/visual-direction.md` avec l'intention émotionnelle, les références et anti-références, la palette sémantique, les typographies, le rythme spatial, les règles de composition, le langage des composants, les états, les transitions, le responsive et les principes de traitement des médias. Relier chaque décision aux utilisateurs et au produit.
