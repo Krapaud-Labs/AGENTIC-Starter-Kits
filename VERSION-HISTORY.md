@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.13.0 | 2026-10-03 | Contrat universel de récupération et interdiction des arrêts prématurés pour toute action. |
+
 | 1.12.99 | 2026-10-03 | Design-gate incomplet traité en rework avec délégation obligatoire avant tout blocage. |
 
 | 1.12.98 | 2026-10-03 | Réparation de l'initialisation, de la synchronisation des fichiers obligatoires et des URLs du dépôt canonique. |
