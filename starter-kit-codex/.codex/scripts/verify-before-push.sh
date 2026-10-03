@@ -53,11 +53,15 @@ PY
 )
 
 branch="$(git -C "$root" branch --show-current)"
+protected_branch=false
+case "$branch" in
+  dev|develop|main|master) protected_branch=true ;;
+esac
+if [ "$protected_branch" = "true" ] || { [ "$require_feature_branch" = "true" ] && [ -z "$branch" ]; }; then
+  echo "ECHEC GITFLOW: créer une branche de travail avant le push, aucun push direct vers dev, develop, main ou master"
+  exit 1
+fi
 if [ "$require_feature_branch" = "true" ]; then
-  if [ -z "$branch" ] || [ "$branch" = "$integration_branch" ] || [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
-    echo "ECHEC GITFLOW: créer une branche de travail avant le push, jamais pousser directement vers $integration_branch ou main"
-    exit 1
-  fi
   case "$branch" in feature/*|fix/*|hotfix/*|chore/*|docs/*|refactor/*|test/*) ;; *)
     echo "ECHEC GITFLOW: branche invalide $branch. Utiliser feature/, fix/, hotfix/, chore/, docs/, refactor/ ou test/"
     exit 1 ;;

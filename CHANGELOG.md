@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.12.94 - 2026-10-03
+
+- Interdit techniquement les push directs vers `dev`, `develop`, `main` et `master`, même avec un profil mal configuré.
+- Vérifie que le hook `pre-push` est réellement configuré avant toute validation GitFlow.
+
 ## 1.12.93 - 2026-10-03
 
 - Configure l’identité du bot GitHub Actions avant la création automatique des tags de Release.
