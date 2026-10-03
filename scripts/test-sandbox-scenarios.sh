@@ -131,6 +131,8 @@ for kit in codex claude; do
   assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'PATH'
   assert_contains "$source/policies/GIT-FLOW.md" 'une seule Pull Request finale'
 assert_contains "$source/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" 'test de non-régression'
+assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'Il refuse immédiatement toute tâche hors domaine'
+assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'agent qui a réellement produit le livrable'
 assert_contains "$source/skills/coordination/SKILL.md" 'tâche → agent concerné → identifiant réel'
 assert_contains "$source/skills/coordination/SKILL.md" 'Le Coordinateur assemble et vérifie, mais ne remplace pas ces agents'
 if [ "$kit" = "codex" ]; then

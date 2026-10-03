@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.12.97 | 2026-10-03 | Blocage des tâches hors rôle et preuve d’exécution attribuée à l’agent réel. |
+
 | 1.12.96 | 2026-10-03 | Délégation obligatoire de chaque tâche à l’agent spécialisé concerné. |
 
 | 1.12.95 | 2026-10-03 | Clôture de Goal conditionnée à la fusion et à la relecture de la branche d’intégration. |
