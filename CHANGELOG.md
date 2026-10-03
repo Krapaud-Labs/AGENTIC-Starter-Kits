@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.12.97 - 2026-10-03
+
+- Rend obligatoire le refus de toute tâche hors rôle, hors fichiers autorisés ou relevant d’un autre agent.
+- Exige que chaque preuve identifie l’agent ayant réellement produit le livrable.
+
 ## 1.12.96 - 2026-10-03
 
 - Interdit au Coordinateur de remplacer un agent spécialisé disponible.

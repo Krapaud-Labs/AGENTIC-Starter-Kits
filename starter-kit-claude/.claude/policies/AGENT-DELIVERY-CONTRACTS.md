@@ -4,6 +4,9 @@ Le Coordinateur active uniquement les agents dont le domaine est présent dans l
 
 ## Contrat commun
 
+- Un agent n’exécute que les tâches correspondant à son rôle déclaré et à la matrice d’affectation reçue. Il refuse immédiatement toute tâche hors domaine, toute modification d’un fichier non autorisé et toute validation relevant d’un autre agent.
+- Le Coordinateur ne peut pas réaffecter silencieusement une tâche spécialisée à lui-même ou à un agent non compétent. Toute réaffectation exige une nouvelle affectation, une justification et une preuve d’habilitation.
+- La preuve d’exécution doit identifier l’agent qui a réellement produit le livrable. Une déclaration du Coordinateur ne remplace jamais cette preuve.
 - Lire le cahier, le profil, le work item, les décisions et les contraintes avant d’agir.
 - Distinguer faits observés, hypothèses, décisions et éléments non vérifiés.
 - Ne jamais inventer une feature, un contrôle ou une obligation absente du cahier ou du périmètre accepté.
