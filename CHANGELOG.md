@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.12.92 - 2026-10-03
+
+- Déclenche automatiquement la publication d’une Release après une mise à jour de `main` qui modifie la version ou les documents de release.
+- Crée le tag SemVer manquant de manière idempotente et rend le lancement manuel compatible avec une version explicite.
+- Évite que la section Releases reste vide lorsque personne ne crée le tag à la main.
+
 ## 1.12.91 - 2026-10-03
 
 - Rend l’analyse de délégation obligatoire pour tout travail, même sans carte Trello.
