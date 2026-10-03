@@ -41,3 +41,9 @@ Une CI, une PR, une fusion, un audit partiel, une documentation partielle ou un 
 ## Échec de contrat
 
 Si aucune action autonome n'est exécutée, le message de statut est invalide et doit être remplacé par l'action réelle. Si une action n'est pas possible, consigner la preuve, essayer l'alternative sûre, continuer les tâches indépendantes et utiliser `blocked` ou `needs-review` uniquement avec une raison vérifiable.
+
+## Récupération universelle avant arrêt
+
+Cette règle s'applique à toute action, pas seulement au code ou à Trello. Un échec, une preuve incomplète, un outil absent, une incohérence, une branche non livrée, une session interrompue, une délégation non confirmée ou un résultat visuel non vérifié déclenche immédiatement une boucle diagnostic, attribution à l'agent compétent, correction, test, relecture et nouvelle action. Le Coordinateur ne peut pas remplacer un agent spécialisé disponible.
+
+Avant `blocked`, le Coordinateur doit vérifier et journaliser le périmètre, la cause, les alternatives gratuites et réversibles, les outils réellement disponibles sur la machine, les agents disponibles, les tâches indépendantes, la prochaine action et la preuve d'impossibilité. Un même symptôme ne peut pas être répété deux fois sans changement d'approche. Toute tâche encore réalisable devient `rework` ou `in-progress`, jamais `blocked`. Une conclusion sans action suivante, preuve et propriétaire est interdite.

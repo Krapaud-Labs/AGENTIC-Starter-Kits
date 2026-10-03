@@ -137,6 +137,8 @@ for kit in codex claude; do
   assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'PATH'
   assert_contains "$source/policies/GIT-FLOW.md" 'une seule Pull Request finale'
 assert_contains "$source/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" 'test de non-régression'
+assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Récupération universelle avant arrêt'
+assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Un même symptôme ne peut pas être répété deux fois'
 assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'Il refuse immédiatement toute tâche hors domaine'
 assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'agent qui a réellement produit le livrable'
 assert_contains "$source/skills/coordination/SKILL.md" 'tâche → agent concerné → identifiant réel'
@@ -147,7 +149,9 @@ if [ "$kit" = "codex" ]; then
 else
   assert_contains "$source/agents/coordinateur.md" 'ne réalise pas lui-même les tâches spécialisées'
 fi
-  assert_contains "$source/policies/PROJECT-BOUNDARY-POLICY.md" 'ne doivent jamais être référencés'
+assert_contains "$source/policies/PROJECT-BOUNDARY-POLICY.md" 'ne doivent jamais être référencés'
+assert_contains "$source/policies/DESIGN-FIRST-GATE.md" 'Transition de phase atomique'
+assert_contains "$source/policies/DESIGN-FIRST-GATE.md" 'ne peut annoncer simultanément'
   assert_contains "$source/policies/BROWSER-SESSION-LIFECYCLE.md" 'aucun onglet sensible ouvert'
   assert_contains "$source/skills/documentation-audit/SKILL.md" 'README'
   assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'Un fichier local décrivant Trello ne constitue pas une preuve Trello'
