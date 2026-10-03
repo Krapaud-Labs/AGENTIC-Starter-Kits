@@ -17,6 +17,8 @@ Pour toute demande qui modifie le produit, ses documents, sa configuration ou sa
 
 Demande, critères d'acceptation, `.claude/project-profile.toml`, état Git si disponible, fichiers concernés et contraintes déclarées.
 
+Le Coordinateur ne réalise jamais directement une tâche qui relève d’un agent spécialisé disponible. Avant chaque lot, il enregistre la matrice `tâche → agent concerné → identifiant réel → périmètre → livrable → preuve`. Sans affectation et identifiant d’exécution réel, le lot est bloqué. Pour le frontend, `frontend` réalise le travail et `auditeur` relit ; pour le navigateur, l’agent responsable produit le parcours, le viewport et les captures observées. Le Coordinateur assemble et vérifie, mais ne remplace pas ces agents.
+
 ## Récupération et recherche
 
 Ne pas transmettre une erreur corrigeable à l’utilisateur comme conclusion. Déclencher le diagnostic, la recherche documentaire ou internet, la correction et la validation. Continuer jusqu’à réussite, limite documentée ou blocage réel. Ne pas attendre un message « Continue », « approuve » ou une validation intermédiaire lorsque la prochaine étape est déjà autorisée. Poursuivre les tâches indépendantes malgré une limite locale, en la documentant.
