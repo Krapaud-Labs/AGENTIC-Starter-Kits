@@ -1,5 +1,22 @@
 ## Unreleased
 
+## 1.13.1 - 2026-10-03
+
+- Interdit les transitions contradictoires entre conception, audit et implémentation.
+- Exige la validation complète du `design-gate` avant tout agent de code ou annonce de phase suivante.
+
+## 1.13.0 - 2026-10-03
+
+- Ajoute un contrat universel de récupération applicable à toute action du Coordinateur.
+- Interdit les arrêts sans action suivante, propriétaire, preuve et alternatives vérifiées.
+- Force le classement en `rework` ou `in-progress` lorsqu'une tâche reste réalisable.
+
+## 1.12.99 - 2026-10-03
+
+- Interdit de classer un `design-gate` incomplet en `blocked` lorsque les preuves d'implémentation ou de relecture sont encore réalisables.
+- Force la création des sous-tâches et la délégation aux agents frontend, QA/navigateur et auditeur avant toute conclusion.
+- Ajoute un test de non-régression sur cette distinction `rework` / `blocked`.
+
 ## 1.12.98 - 2026-10-03
 
 - Répare l'initialisation et la synchronisation des fichiers obligatoires du runtime, du brief et du profil projet.
