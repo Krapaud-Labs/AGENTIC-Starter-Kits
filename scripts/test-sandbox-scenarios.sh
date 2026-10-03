@@ -15,6 +15,7 @@ for kit in codex claude; do
   source="$root/starter-kit-$kit/$hidden"
   assert_contains "$source/scripts/sync-workspace-kit.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md'
   assert_contains "$source/scripts/init-project.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml'
+  assert_contains "$source/scripts/start-goal.sh" 'lots parallèles détectés sans au moins deux agents'
   if rg -n 'github\.com/krapaud/AGENTIC-Starter-Kits|raw\.githubusercontent\.com/krapaud/AGENTIC-Starter-Kits' "$source" "$root/distributions" >/dev/null; then
     echo "ECHEC SANDBOX: ancienne URL du kit détectée pour $kit" >&2
     exit 1
