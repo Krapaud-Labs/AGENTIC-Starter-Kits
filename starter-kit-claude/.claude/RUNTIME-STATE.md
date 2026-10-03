@@ -31,6 +31,7 @@
 - goal_agent_assignments: none
 - integration_branch: none
 - pushed_integration_commit: none
+- integration_remote_evidence: none
 - pull_request_status: not-required
 - required_action_type: none
 - required_action_id: none
