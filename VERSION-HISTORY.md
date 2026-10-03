@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.13.1 | 2026-10-03 | Transition atomique des phases et blocage de l'implémentation avant conception approuvée. |
+
 | 1.13.0 | 2026-10-03 | Contrat universel de récupération et interdiction des arrêts prématurés pour toute action. |
 
 | 1.12.99 | 2026-10-03 | Design-gate incomplet traité en rework avec délégation obligatoire avant tout blocage. |

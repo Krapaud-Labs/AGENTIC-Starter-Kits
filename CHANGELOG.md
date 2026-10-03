@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.13.1 - 2026-10-03
+
+- Interdit les transitions contradictoires entre conception, audit et implémentation.
+- Exige la validation complète du `design-gate` avant tout agent de code ou annonce de phase suivante.
+
 ## 1.13.0 - 2026-10-03
 
 - Ajoute un contrat universel de récupération applicable à toute action du Coordinateur.
