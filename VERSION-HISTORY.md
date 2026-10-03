@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.12.95 | 2026-10-03 | Clôture de Goal conditionnée à la fusion et à la relecture de la branche d’intégration. |
+
 | 1.12.94 | 2026-10-03 | Renforcement du blocage des push directs et vérification du hook GitFlow. |
 
 | 1.12.93 | 2026-10-03 | Identité explicite du bot pour créer les tags automatiquement sur le runner GitHub. |
