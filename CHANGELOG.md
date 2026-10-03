@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.12.99 - 2026-10-03
+
+- Interdit de classer un `design-gate` incomplet en `blocked` lorsque les preuves d'implémentation ou de relecture sont encore réalisables.
+- Force la création des sous-tâches et la délégation aux agents frontend, QA/navigateur et auditeur avant toute conclusion.
+- Ajoute un test de non-régression sur cette distinction `rework` / `blocked`.
+
 ## 1.12.98 - 2026-10-03
 
 - Répare l'initialisation et la synchronisation des fichiers obligatoires du runtime, du brief et du profil projet.

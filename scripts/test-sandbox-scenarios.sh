@@ -141,6 +141,7 @@ assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'Il refuse imméd
 assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'agent qui a réellement produit le livrable'
 assert_contains "$source/skills/coordination/SKILL.md" 'tâche → agent concerné → identifiant réel'
 assert_contains "$source/skills/coordination/SKILL.md" 'Le Coordinateur assemble et vérifie, mais ne remplace pas ces agents'
+assert_contains "$source/skills/coordination/SKILL.md" 'design-gate.*rework.*jamais un blocage'
 if [ "$kit" = "codex" ]; then
   assert_contains "$source/agents/coordinateur.toml" 'exécuter soi-même une tâche relevant d un agent spécialisé disponible'
 else
