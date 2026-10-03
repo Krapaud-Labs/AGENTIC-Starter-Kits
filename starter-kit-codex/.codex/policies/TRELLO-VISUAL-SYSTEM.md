@@ -12,13 +12,18 @@ Tout contenu rédigé dans Trello doit être exclusivement en français : noms d
 
 Create missing lists in this order:
 
-1. `Inbox`
-2. `Ready`
-3. `In Progress`
-4. `Blocked`
-5. `Review`
-6. `Done`
-7. `Archived`
+1. `À trier`
+2. `Prêt à concevoir`
+3. `Conception en cours`
+4. `Prêt à développer`
+5. `En développement`
+6. `En revue`
+7. `En validation`
+8. `Bloqué`
+9. `Terminé`
+10. `Archivé`
+
+Après chaque création ou reprise, relire les positions réelles et réordonner explicitement les listes. Si Trello place les nouvelles listes en tête, créer dans l'ordre inverse ou utiliser le réordonnancement. La synchronisation reste non vérifiée tant que cette séquence n'est pas confirmée.
 
 Use `Inbox` only for captured requests. Move a card to `Ready` after its scope, owner, dependencies and Definition of Done are complete. A card remains in `In Progress` while work is active. Use `Blocked` only with a documented blocker and next action. Use `Review` only when implementation is complete and a real review remains. Use `Done` only after every checklist item is proven. The final checklist item before opening the card branch PR must always update and reread applicable README files, documentation, changelog and release notes. The PR is forbidden until this item is proven; after the PR, reread it again before `Done`.
 
@@ -41,19 +46,19 @@ Create or reuse these labels with the same names and colors:
 
 | Label | Color | Meaning |
 | --- | --- | --- |
-| `Feature` | Green | New product capability. |
-| `Bug` | Red | Defect or regression. |
-| `Security` | Orange | Security, privacy or compliance risk. |
+| `Fonctionnalité` | Green | Nouvelle capacité produit. |
+| `Anomalie` | Red | Défaut ou régression. |
+| `Sécurité` | Orange | Risque de sécurité, confidentialité ou conformité. |
 | `Architecture` | Purple | Architecture or design decision. |
 | `Frontend` | Blue | User interface or client work. |
 | `Backend` | Blue | API, service or server work. |
-| `Data` | Yellow | Database, migration or data contract. |
+| `Données` | Yellow | Base, migration ou contrat de données. |
 | `DevOps` | Black | CI, deployment or infrastructure. |
 | `Documentation` | Sky | Documentation or knowledge transfer. |
-| `QA` | Lime | Testing and validation. |
-| `Blocked` | Red | Active blocker. |
-| `Priority: High` | Orange | Must be handled before normal work. |
-| `External validation` | Pink | Human, legal, client or external evidence required. |
+| `Qualité` | Lime | Tests et validation. |
+| `Bloqué` | Red | Blocage actif. |
+| `Priorité haute` | Orange | À traiter avant le travail normal. |
+| `Validation externe` | Pink | Preuve humaine, juridique, client ou externe requise. |
 
 Use at least one type label and one domain label. Add risk, priority and validation labels only when relevant. Never create near-duplicate labels such as `frontend`, `Front end` and `UI`.
 

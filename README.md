@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.12.40-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.12.99-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -243,8 +243,9 @@ La politique [WEB-RESEARCH-POLICY.md](starter-kit-codex/.codex/policies/WEB-RESE
 - [Sécurité](SECURITY.md)
 - [Versionnement](VERSIONING.md)
 - [Historique des changements](CHANGELOG.md)
+- [Historique chronologique des versions](VERSION-HISTORY.md)
 
-## État fonctionnel de la version 1.12.10
+## État fonctionnel de la version 1.12.98
 
 La version actuelle inclut 16 agents au total : six agents du noyau et dix spécialistes optionnels. Elle inclut leurs politiques de modèles, la gouvernance d’activation, les Skills d’orchestration, les scripts d’initialisation, les checkpoints, le suivi des coûts et les contrôles CI. Les détails contractuels des spécialistes sont dans `SPECIALIST-AGENTS.md` dans chaque kit.
 
@@ -312,7 +313,7 @@ Le kit impose désormais un contrat documentaire : chaque document indique son s
 
 ## Release et section About GitHub
 
-Après la promotion humaine vers `main`, la publication d’un tag SemVer `vX.Y.Z` déclenche le workflow `publish-release-and-about.yml`. Il vérifie que le tag correspond à `VERSION`, publie la GitHub Release avec les notes générées, puis met à jour la description et les topics de la section About du dépôt. Le workflow n’est pas déclenché par les branches `dev` ou `develop`.
+Après la promotion vers `main`, une modification de `VERSION`, `CHANGELOG.md` ou `VERSION-HISTORY.md` déclenche le workflow `publish-release-and-about.yml`. Il lit `VERSION`, crée le tag SemVer manquant, publie la GitHub Release avec les notes générées, puis met à jour la description et les topics de la section About du dépôt. Le workflow n’est pas déclenché par les branches `dev` ou `develop` et peut aussi être lancé manuellement avec une version explicite.
 
 ### Autoriser la mise à jour de la section About
 

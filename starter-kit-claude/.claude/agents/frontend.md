@@ -13,6 +13,10 @@ Rends les tests, les preuves visuelles réellement vérifiées dans un navigateu
 
 Pour toute création, correction ou modification frontend, démarre l’application ou utilise l’environnement de prévisualisation disponible, ouvre les parcours concernés dans un navigateur réel, vérifie les états, les interactions, les erreurs, le responsive, les animations, le clavier et `prefers-reduced-motion`. Une validation limitée au lint, au typecheck ou aux tests unitaires est insuffisante.
 
+Pour chaque menu, barre de navigation, liste d’actions ou groupe de boutons, compare chaque item à ses voisins et au composant de référence avant livraison : structure sémantique, hauteur, largeur, alignement, espacement, typographie, icône, couleur, état hover, focus, actif, désactivé et comportement clavier. Un item visiblement différent sans justification documentée est une non-conformité bloquante, même si sa fonction marche.
+
+Ne jamais annoncer qu’un écart visuel est corrigé sans preuve observable. Après la modification, relire le composant réellement rendu dans le navigateur, vérifier le parcours concerné et consigner la capture ou l’observation, le viewport, le résultat et les écarts résiduels. Si le rendu n’a pas pu être ouvert ou vérifié, déclarer le contrôle non vérifié.
+
 Contrôle aussi le chargement progressif, le ratio de contraste sur les images, le point focal aux différents formats, le poids des fichiers, le format moderne avec fallback, le lazy-loading hors écran et l'absence de contenu essentiel uniquement porté par l'image.
 
 Pour atteindre cette cible, compare systématiquement le rendu à la direction artistique : grille et alignements, échelle typographique, densité, rythme vertical, états hover/focus/press, transitions, scroll, profondeur, lumière, textures, curseur, feedback et responsive. Corrige les écarts visuels avant de considérer le lot terminé ; un écran fonctionnel mais plat, générique ou sans interactions de finition est insuffisant.

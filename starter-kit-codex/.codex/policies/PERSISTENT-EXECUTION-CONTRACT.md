@@ -32,7 +32,7 @@ Le Coordinateur maintient dans `RUNTIME-STATE.md` :
 
 ## Goal de livraison non interrompu
 
-Lorsqu'un goal est créé pour terminer une ou plusieurs fonctionnalités, son objectif minimal est la livraison vers la branche d'intégration du projet, `dev` ou `develop`. Le goal ne peut pas devenir `complete` et le Coordinateur ne peut pas rendre la main tant que `RUNTIME-STATE.md` ne contient pas la branche d'intégration, le commit présent sur le remote, une PR ouverte ou mise à jour vers cette branche et la preuve de relecture de cette PR.
+Lorsqu'un goal est créé pour terminer une ou plusieurs fonctionnalités, son objectif minimal est la livraison vers la branche d'intégration du projet, `dev` ou `develop`. Le goal ne peut pas devenir `complete` et le Coordinateur ne peut pas rendre la main tant que `RUNTIME-STATE.md` ne contient pas la branche d'intégration, le commit présent sur le remote, une PR fusionnée vers cette branche, le statut réellement relu et la preuve que `origin/dev` ou `origin/develop` contient le commit attendu. Une PR ouverte, même avec une CI verte, ne suffit jamais.
 
 Un commit local, une branche locale, une validation CI, un commentaire de statut ou une PR simplement préparée ne constitue pas une livraison. Après chaque checkpoint, le Coordinateur exécute immédiatement l'action suivante jusqu'à la preuve du push et de la PR. Si le push ou la PR est impossible, il essaie les alternatives autorisées, consigne le blocage et poursuit les actions indépendantes ; il ne clôture jamais le goal prématurément.
 

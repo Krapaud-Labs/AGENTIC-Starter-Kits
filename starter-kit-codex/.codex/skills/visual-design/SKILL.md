@@ -6,7 +6,9 @@ Concevoir une expérience frontend comme un travail de direction artistique, pui
 
 ## Quand l’utiliser
 
-Pour toute création, refonte ou correction d’interface, de composant, de parcours visuel ou de média frontend.
+Pour toute création, refonte ou correction d'interface, de composant, de parcours visuel ou de média frontend.
+
+Pour les menus et navigations, effectuer une revue item par item contre le système de composants et l’élément voisin de référence. Contrôler la parité de structure, dimensions, alignement, espacement, états interactifs, icônes, libellés, focus clavier et responsive. Toute rupture non intentionnelle doit être corrigée avant la validation.
 
 ## Entrées requises
 
@@ -19,6 +21,8 @@ Cahier des charges accepté, dossier de conception, profil technologique, contra
 3. Concevoir le système visuel et les états.
 4. Implémenter par petits changements cohérents.
 5. Tester, capturer et faire auditer le rendu.
+
+Une phrase indiquant qu’un composant a été corrigé ne constitue pas une preuve. La preuve doit provenir du rendu réellement observé après correction, avec viewport, parcours, interaction testée et écart résiduel explicite.
 
 ## Direction artistique
 

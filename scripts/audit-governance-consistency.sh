@@ -61,6 +61,13 @@ for intake in "$codex/skills/project-intake/SKILL.md" "$claude/skills/project-in
   require_text "$intake" "ne constitue pas un motif d’arrêt"
 done
 
+for delegation in "$codex/skills/coordination/SKILL.md" "$claude/skills/coordination/SKILL.md" "$codex/skills/trello-planning/SKILL.md" "$claude/skills/trello-planning/SKILL.md" "$codex/policies/SESSION-CONTINUITY-POLICY.md" "$claude/policies/SESSION-CONTINUITY-POLICY.md"; do
+  require_text "$delegation" "au moins deux"
+  if grep -Eq "au moins trois (tâches|cases) .*indépendantes" "$delegation"; then
+    fail "$delegation conserve un seuil de délégation contradictoire"
+  fi
+done
+
 for push_policy in "$codex/policies/PUSH-VALIDATION.md" "$claude/policies/PUSH-VALIDATION.md"; do
   require_text "$push_policy" "Toute modification non rattachée au work item bloque le push"
   require_text "$push_policy" "créer une branche propre"
@@ -69,6 +76,10 @@ done
 for autonomy_policy in "$codex/policies/AUTONOMY-AND-RECOVERY.md" "$claude/policies/AUTONOMY-AND-RECOVERY.md"; do
   require_text "$autonomy_policy" "Une demande explicite d'action vaut autorisation"
   require_text "$autonomy_policy" "Ne jamais demander ensuite"
+done
+for improvement in "$codex/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" "$claude/policies/CONTINUOUS-IMPROVEMENT-POLICY.md"; do
+  require_text "$improvement" "test de non-régression"
+  require_text "$improvement" "incidents"
 done
 
 for kit_root in "$codex" "$claude"; do

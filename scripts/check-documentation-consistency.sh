@@ -12,5 +12,6 @@ for kit in codex claude; do
 done
 grep -Fq "version-" "$root/README.md" || { echo "Version absente du README principal" >&2; exit 1; }
 grep -Fq "## $version -" "$root/CHANGELOG.md" || { echo "Entrée changelog absente: $version" >&2; exit 1; }
+grep -Fq "| $version |" "$root/VERSION-HISTORY.md" || { echo "Entrée historique absente: $version" >&2; exit 1; }
 bash "$root/scripts/audit-governance-consistency.sh"
 printf 'Documentation et version cohérentes: %s\n' "$version"

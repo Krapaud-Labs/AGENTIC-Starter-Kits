@@ -430,7 +430,7 @@ Ce document est la source versionnée du tableau. Chaque carte possède un ident
 
 ## Listes du tableau
 
-1. Backlog validé
+1. À trier
 2. Prêt à concevoir
 3. Conception en cours
 4. Prêt à développer
@@ -439,6 +439,7 @@ Ce document est la source versionnée du tableau. Chaque carte possède un ident
 7. En validation
 8. Bloqué
 9. Terminé
+10. Archivé
 
 ## Cartes détaillées
 

@@ -16,6 +16,40 @@ for coordinator in \
   fi
 done
 
+for closure in "$root/starter-kit-codex/.codex/policies/DELIVERY-CLOSURE-POLICY.md" "$root/starter-kit-claude/.claude/policies/DELIVERY-CLOSURE-POLICY.md"; do
+  grep -q 'carte en `Review` déclenche d’abord l’agent `auditeur`' "$closure" || {
+    echo "ECHEC TEST: Review ne route pas explicitement vers l auditeur"; exit 1;
+  }
+  grep -q 'ne demande une validation humaine que si' "$closure" || {
+    echo "ECHEC TEST: conditions de validation humaine absentes"; exit 1;
+  }
+done
+
+for flow in \
+  "$root/starter-kit-codex/.codex/policies/GIT-FLOW.md" \
+  "$root/starter-kit-claude/.claude/policies/GIT-FLOW.md"; do
+  grep -q "Tant qu'un seul check" "$flow" || {
+    echo "ECHEC TEST: la PR prématurée n'est pas interdite dans $flow"; exit 1;
+  }
+  grep -q "dernière checklist" "$flow" || {
+    echo "ECHEC TEST: la condition de PR finale est absente de $flow"; exit 1;
+  }
+done
+
+for coordinator in \
+  "$root/starter-kit-codex/.codex/ORCHESTRATION.md" \
+  "$root/starter-kit-claude/.claude/ORCHESTRATION.md"; do
+  grep -q "préparation de session obligatoire" "$coordinator" || {
+    echo "ECHEC TEST: la préparation automatique de session est absente de $coordinator"; exit 1;
+  }
+  grep -q "doctor.sh" "$coordinator" || {
+    echo "ECHEC TEST: l'inventaire automatique des outils est absent de $coordinator"; exit 1;
+  }
+  grep -q "TOOL-DISCOVERY-POLICY.md" "$coordinator" || {
+    echo "ECHEC TEST: la règle de recherche multi-emplacements est absente de $coordinator"; exit 1;
+  }
+done
+
 for parallel in \
   "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \
   "$root/starter-kit-codex/.codex/skills/trello-planning/SKILL.md" \
@@ -29,9 +63,86 @@ for parallel in \
   }
 done
 
+for scope in \
+  "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \
+  "$root/starter-kit-codex/.codex/skills/trello-planning/SKILL.md" \
+  "$root/starter-kit-claude/.claude/skills/coordination/SKILL.md" \
+  "$root/starter-kit-claude/.claude/skills/trello-planning/SKILL.md"; do
+  grep -q "classer.*hors périmètre" "$scope" || {
+    echo "ECHEC TEST: le contrôle de périmètre est absent de $scope"; exit 1;
+  }
+  grep -Eq "ne doit pas être ajouté|ne pas l'ajouter" "$scope" || {
+    echo "ECHEC TEST: le refus des checks hors périmètre est absent de $scope"; exit 1;
+  }
+done
+
+for autonomy in \
+  "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-RECOVERY.md" \
+  "$root/starter-kit-codex/.codex/skills/trello-planning/SKILL.md" \
+  "$root/starter-kit-claude/.claude/policies/AUTONOMY-AND-RECOVERY.md" \
+  "$root/starter-kit-claude/.claude/skills/trello-planning/SKILL.md"; do
+  grep -q "Ne pas demander.*seconde confirmation\|Ne pas demander.*confirmation équivalente" "$autonomy" || {
+    echo "ECHEC TEST: la règle d'autorisation explicite Trello est absente de $autonomy"; exit 1;
+  }
+done
+
+for recovery in \
+  "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-RECOVERY.md" \
+  "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \
+  "$root/starter-kit-claude/.claude/policies/AUTONOMY-AND-RECOVERY.md" \
+  "$root/starter-kit-claude/.claude/skills/coordination/SKILL.md"; do
+  grep -q "preuve négative" "$recovery" || {
+    echo "ECHEC TEST: la reprise automatique après preuve négative est absente de $recovery"; exit 1;
+  }
+  grep -q "404" "$recovery" || {
+    echo "ECHEC TEST: le cas 404 n'est pas couvert dans $recovery"; exit 1;
+  }
+done
+
+for continuity in \
+  "$root/starter-kit-codex/.codex/policies/SESSION-CONTINUITY-POLICY.md" \
+  "$root/starter-kit-codex/.codex/ORCHESTRATION.md" \
+  "$root/starter-kit-claude/.claude/policies/SESSION-CONTINUITY-POLICY.md" \
+  "$root/starter-kit-claude/.claude/ORCHESTRATION.md"; do
+  grep -q "La clôture de l'onboarding ne clôture que l'onboarding\|dernier work item était un onboarding" "$continuity" || {
+    echo "ECHEC TEST: la séparation onboarding et nouvelle demande est absente de $continuity"; exit 1;
+  }
+  grep -q "nouveau Goal" "$continuity" || {
+    echo "ECHEC TEST: le nouveau Goal après onboarding est absent de $continuity"; exit 1;
+  }
+done
+
+for kit in codex claude; do
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/ensure-tools.sh" ] || { echo "ECHEC TEST: ensure-tools.sh absent ou non executable pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/ensure-tools.sh"
+done
+
+for kit in codex claude; do
+  update_script="$root/starter-kit-$kit/.$kit/scripts/check-kit-update.sh"
+  [ -x "$update_script" ] || { echo "ECHEC TEST: check-kit-update.sh absent ou non executable pour $kit"; exit 1; }
+  bash -n "$update_script"
+done
+
+for deploy in \
+  "$root/starter-kit-codex/.codex/policies/GIT-FLOW.md" \
+  "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \
+  "$root/starter-kit-claude/.claude/policies/GIT-FLOW.md" \
+  "$root/starter-kit-claude/.claude/skills/coordination/SKILL.md"; do
+  grep -q "Exception de déploiement explicite\|demande explicitement de déployer" "$deploy" || {
+    echo "ECHEC TEST: l'exception de déploiement explicite est absente de $deploy"; exit 1;
+  }
+  grep -Eq "ne clôture ni la carte ni le Goal|PR de déploiement comme la PR finale" "$deploy" || {
+    echo "ECHEC TEST: la non-clôture après PR de déploiement est absente de $deploy"; exit 1;
+  }
+done
+
 for kit in codex claude; do
   hidden=".$kit"
   source_config="$root/starter-kit-$kit/$hidden"
+  [ -x "$source_config/scripts/start-goal.sh" ] || {
+    echo "ECHEC TEST: start-goal.sh absent ou non executable pour $kit"
+    exit 1
+  }
   test_root="$(mktemp -d)"
   trap 'rm -rf "$test_root"' EXIT
   config="$test_root/$hidden"
@@ -73,13 +184,19 @@ for kit in codex claude; do
   bash "$config/scripts/validate-obligations.sh" --require-active >/dev/null
   bash "$config/scripts/guard-before-response.sh" >/dev/null
 
+
   perl -0pi -e 's/goal_status: .*/goal_status: active/; s/goal_delivery_status: .*/goal_delivery_status: pending/; s/integration_branch: .*/integration_branch: dev/; s/pushed_integration_commit: .*/pushed_integration_commit: none/; s/pull_request_status: .*/pull_request_status: not-required/' "$config/RUNTIME-STATE.md"
   if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
     echo "ECHEC TEST: un goal sans livraison vers dev aurait dû bloquer complete $kit"
     exit 1
   fi
 
-  perl -0pi -e 's/goal_status: .*/goal_status: complete/; s/goal_delivery_status: .*/goal_delivery_status: verified/; s/pushed_integration_commit: .*/pushed_integration_commit: abc123/; s/pull_request_status: .*/pull_request_status: open/' "$config/RUNTIME-STATE.md"
+  perl -0pi -e 's/goal_status: .*/goal_status: complete/; s/goal_delivery_status: .*/goal_delivery_status: verified/; s/pushed_integration_commit: .*/pushed_integration_commit: abc123/; s/integration_remote_evidence: .*/integration_remote_evidence: none/; s/pull_request_status: .*/pull_request_status: open/' "$config/RUNTIME-STATE.md"
+  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+    echo "ECHEC TEST: une PR ouverte aurait dû bloquer complete $kit"
+    exit 1
+  fi
+  perl -0pi -e 's/integration_remote_evidence: .*/integration_remote_evidence: origin\/dev contient abc123/; s/pull_request_status: .*/pull_request_status: verified/' "$config/RUNTIME-STATE.md"
   bash "$config/scripts/guard-before-response.sh" >/dev/null
 
   perl -0pi -e 's/\tverified\ttest-evidence\t/\tverified\tnot-collected\t/' "$config/work-items/demo/obligations.tsv"
@@ -90,6 +207,35 @@ for kit in codex claude; do
 
   rm -rf "$test_root"
   trap - EXIT
+done
+
+for kit in codex claude; do
+  hidden=".$kit"
+  source_config="$root/starter-kit-$kit/$hidden"
+  goal_root="$(mktemp -d)"
+  mkdir -p "$goal_root/$hidden/scripts"
+  cp "$source_config/RUNTIME-STATE.md" "$goal_root/$hidden/"
+  cp "$source_config/scripts/start-goal.sh" "$goal_root/$hidden/scripts/"
+  : > "$goal_root/$hidden/runtime-events.log"
+  (cd "$goal_root" && bash "$hidden/scripts/start-goal.sh" \
+    "Livrer la carte de test" "preuve CI et PR" "branche dev et outils gratuits" \
+    "decision humaine ou blocage externe prouve" "P01" "dev" "qa,frontend" \
+    "agent-qa,agent-frontend" "qa->tests,frontend->ui") >/dev/null
+  grep -q '^- execution_status: running$' "$goal_root/$hidden/RUNTIME-STATE.md"
+  grep -q '^- goal_status: active$' "$goal_root/$hidden/RUNTIME-STATE.md"
+  grep -q '^- active_card: P01$' "$goal_root/$hidden/RUNTIME-STATE.md"
+  grep -q 'delegation=qa,frontend' "$goal_root/$hidden/runtime-events.log"
+  grep -q '^- goal_agents_created: agent-qa,agent-frontend$' "$goal_root/$hidden/RUNTIME-STATE.md"
+  grep -q '^- goal_agent_assignments: qa->tests,frontend->ui$' "$goal_root/$hidden/RUNTIME-STATE.md"
+  if (cd "$goal_root" && bash "$hidden/scripts/start-goal.sh" "bad" "proof" "constraints" "block" "P02" "dev" "qa,frontend") >/dev/null 2>&1; then
+    echo "ECHEC TEST: une délégation sans agents ni affectations aurait dû être bloquée"
+    exit 1
+  fi
+  if (cd "$goal_root" && bash "$hidden/scripts/start-goal.sh" "bad" "proof" "constraints" "block" "none" "dev") >/dev/null 2>&1; then
+    echo "ECHEC TEST: un travail sans analyse de délégation aurait dû être bloqué"
+    exit 1
+  fi
+  rm -rf "$goal_root"
 done
 
 boundary_root="$(mktemp -d)"

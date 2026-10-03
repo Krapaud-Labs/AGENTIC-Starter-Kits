@@ -2,9 +2,9 @@ name: Validate starter kits
 
 on:
   pull_request:
-    branches: [develop, main]
+    branches: [dev, develop, main]
   push:
-    branches: [develop, main]
+    branches: [dev, develop, main]
 
 permissions:
   contents: read
@@ -41,6 +41,12 @@ jobs:
 
       - name: Validate executable governance gates
         run: bash scripts/test-executable-gates.sh
+
+      - name: Run isolated sandbox scenarios
+        run: bash scripts/test-sandbox-scenarios.sh
+
+      - name: Run isolated adapter simulations
+        run: bash scripts/test-sandbox-adapters.sh
 
       - name: Require all public READMEs for starter kit changes
         shell: bash

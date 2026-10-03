@@ -8,6 +8,9 @@ Une carte ne doit jamais rester globalement `En cours` uniquement parce qu’une
 
 - `complete` : Toutes les actions prévues et autorisées sont terminées avec preuves.
 - `needs-review` : Le travail est prêt, mais une décision humaine est requise avant une action sensible.
+
+Une carte en `Review` déclenche d’abord l’agent `auditeur` et, si nécessaire, les spécialistes requis. `Review` ne signifie pas « validation humaine en attente ». Le Coordinateur ne demande une validation humaine que si les critères, le cahier ou une décision enregistrée identifient explicitement cette décision ; sinon il active l’audit et poursuit automatiquement.
+
 - `blocked` : Une dépendance externe ou technique empêche réellement de poursuivre.
 - `in-progress` : Au moins une action autonome reste à exécuter.
 
@@ -29,7 +32,8 @@ Avant de clôturer ou de suspendre une carte, le Coordinateur doit :
 4. Poursuivre les actions autonomes restantes.
 5. Mettre à jour le work item, le journal qualité, la roadmap et Trello.
 6. Relire la carte et sa checklist directement depuis Trello.
-7. Utiliser `needs-review` pour une décision humaine et `blocked` uniquement pour une impossibilité réelle.
+7. Exécuter la revue de cycle de vie navigateur et fermer les sessions devenues inutiles.
+8. Utiliser `needs-review` pour une décision humaine et `blocked` uniquement pour une impossibilité réelle.
 
 Une carte ne peut être annoncée comme terminée si une action nécessaire reste non préparée. Elle peut être livrée avec une sous-tâche en attente uniquement si cette sous-tâche exige explicitement une décision humaine ou une action irréversible.
 

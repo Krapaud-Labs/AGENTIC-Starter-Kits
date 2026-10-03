@@ -14,6 +14,10 @@ Une permission d'exécution affichée par l'environnement n'est pas une décisio
 
 Une demande explicite d'action vaut autorisation pour cette action et ses étapes réversibles nécessaires. Par exemple, « ajoute une carte », « crée le work item », « synchronise Trello » ou « prépare cette amélioration » autorise la création ou la mise à jour correspondante. Ne jamais demander ensuite « confirmes-tu ? », « puis-je la créer ? » ou afficher un bouton de confirmation pour la même action. Une question supplémentaire n'est permise que si elle porte sur une décision métier, une action irréversible, une dépense, un accès externe ou une information réellement manquante.
 
+Dans un flux de livraison explicitement autorisé, la fusion d'une PR déjà créée vers la branche d'intégration (`dev` ou `develop`) est une étape réversible prévue et doit être exécutée automatiquement dès que la PR est ouverte, propre et fusionnable. L'absence de contrôle CI ou de revue humaine configurée doit être enregistrée comme preuve manquante, mais ne constitue pas à elle seule une demande de confirmation. Ne demander une intervention que si une protection de branche l'exige, si un contrôle échoue, si une revue obligatoire manque, ou si une décision métier, une dépense, un secret ou une action irréversible est nécessaire.
+
+Lorsqu'une intégration Trello déjà autorisée est disponible, une demande explicite de publier, corriger ou synchroniser un commentaire vaut autorisation d'écriture externe réversible. Ne pas demander une seconde confirmation juste avant l'envoi. Demander uniquement l'activation d'un accès absent, un secret, une dépense, une action irréversible ou une décision réellement manquante, puis vérifier visuellement le commentaire après publication.
+
 Après chaque action, l'agent choisit immédiatement l'étape suivante selon cet ordre :
 
 1. Corriger l'échec observé.
@@ -37,6 +41,8 @@ Après chaque action, l'agent choisit immédiatement l'étape suivante selon cet
 ## CI et dette historique
 
 Une CI en cours n’est jamais une conclusion. L’agent attend le résultat, relit les logs, corrige le premier échec, republie si nécessaire et relance les contrôles jusqu’à réussite, limite documentée ou blocage réel. Une dette historique détectée dans la zone du work item est traitée par petits lots jusqu’à la Definition of Done. Une dette hors périmètre reçoit un work item documenté et le travail indépendant continue.
+
+Une preuve négative ou un résultat observable non conforme, notamment `404`, déploiement absent, endpoint indisponible, test échoué ou revalidation externe négative, ne constitue jamais une conclusion ni une simple information à transmettre. Le Coordinateur doit identifier la cause, corriger le problème, déployer ou appliquer l'alternative autorisée, puis revalider le résultat et poursuivre la boucle. Il ne demande pas à l'utilisateur de lui dire de continuer. Si l'action exige un accès, un secret, une dépense, une décision métier ou une autorisation de production absente, il prépare toutes les étapes réversibles et passe en `needs-review` avec la demande précise ; sinon il continue jusqu'à réussite ou blocage réel prouvé.
 
 ## Corrections réversibles
 

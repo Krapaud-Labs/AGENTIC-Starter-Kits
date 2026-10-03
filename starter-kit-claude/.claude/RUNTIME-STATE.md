@@ -26,8 +26,12 @@
 - goal_blocked_condition: [[A_COMPLETER]]
 - goal_session_id: none
 - goal_delivery_status: not-required
+- goal_delegation_plan: [[A_COMPLETER]]
+- goal_agents_created: none
+- goal_agent_assignments: none
 - integration_branch: none
 - pushed_integration_commit: none
+- integration_remote_evidence: none
 - pull_request_status: not-required
 - required_action_type: none
 - required_action_id: none
@@ -39,6 +43,11 @@
 - pending_turn_id: none
 - environment_status: not-required
 - environment_shutdown_status: not-required
+- browser_session_status: not-required
+- browser_session_id: none
+- browser_open_tabs: none
+- browser_last_action: none
+- browser_shutdown_evidence: none
 - budget_status: not-applicable
 - trace_id: none
 - artifact_manifest: none

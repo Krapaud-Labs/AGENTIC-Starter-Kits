@@ -1,5 +1,287 @@
 ## Unreleased
 
+## 1.12.99 - 2026-10-03
+
+- Interdit de classer un `design-gate` incomplet en `blocked` lorsque les preuves d'implémentation ou de relecture sont encore réalisables.
+- Force la création des sous-tâches et la délégation aux agents frontend, QA/navigateur et auditeur avant toute conclusion.
+- Ajoute un test de non-régression sur cette distinction `rework` / `blocked`.
+
+## 1.12.98 - 2026-10-03
+
+- Répare l'initialisation et la synchronisation des fichiers obligatoires du runtime, du brief et du profil projet.
+- Corrige les URLs de synchronisation et de workflow vers le dépôt canonique `Krapaud-Labs/AGENTIC-Starter-Kits`.
+- Empêche la perte silencieuse des fichiers locaux exclus par la synchronisation.
+
+## 1.12.97 - 2026-10-03
+
+- Rend obligatoire le refus de toute tâche hors rôle, hors fichiers autorisés ou relevant d’un autre agent.
+- Exige que chaque preuve identifie l’agent ayant réellement produit le livrable.
+
+## 1.12.96 - 2026-10-03
+
+- Interdit au Coordinateur de remplacer un agent spécialisé disponible.
+- Exige une affectation réelle par tâche avec livrable et preuve attendue.
+
+## 1.12.95 - 2026-10-03
+
+- Interdit de clôturer un Goal avec une PR seulement ouverte ou une branche d’intégration non relue.
+- Exige la fusion effective et la preuve que `origin/dev` ou `origin/develop` contient le commit livré.
+- Ajoute un test de non-régression pour une PR verte mais non fusionnée.
+
+## 1.12.94 - 2026-10-03
+
+- Interdit techniquement les push directs vers `dev`, `develop`, `main` et `master`, même avec un profil mal configuré.
+- Vérifie que le hook `pre-push` est réellement configuré avant toute validation GitFlow.
+
+## 1.12.93 - 2026-10-03
+
+- Configure l’identité du bot GitHub Actions avant la création automatique des tags de Release.
+
+## 1.12.92 - 2026-10-03
+
+- Déclenche automatiquement la publication d’une Release après une mise à jour de `main` qui modifie la version ou les documents de release.
+- Crée le tag SemVer manquant de manière idempotente et rend le lancement manuel compatible avec une version explicite.
+- Évite que la section Releases reste vide lorsque personne ne crée le tag à la main.
+
+## 1.12.91 - 2026-10-03
+
+- Rend l’analyse de délégation obligatoire pour tout travail, même sans carte Trello.
+- Interdit `none` dans un Goal de modification, audit, test, livraison ou action externe.
+
+## 1.12.90 - 2026-10-03
+
+- Route explicitement les cartes `Review` vers l’auditeur avant toute demande humaine.
+- Réserve `needs-review` aux décisions humaines réellement exigées par le cahier ou les critères.
+- Ajoute un test de non-régression sur ce routage.
+
+## 1.12.89 - 2026-10-03
+
+- Corrige le seuil contradictoire de délégation entre deux et trois lots indépendants.
+- Ajoute un contrôle de gouvernance qui détecte les seuils divergents entre agents, Goals et Trello.
+
+## 1.12.88 - 2026-10-03
+
+- Corrige les incohérences historiques de version et les doublons du changelog détectés par l’audit.
+- Rend le contrôle automatique de cohérence des versions obligatoire avant livraison.
+
+## 1.12.87 - 2026-10-03
+
+- Rend la création des agents et leurs affectations obligatoires avant le démarrage d’un Goal multi-lots.
+- Supprime l’état permissif `pending-assessment` du démarrage des Goals délégués.
+- Ajoute une porte exécutable et un test d’échec lorsqu’une délégation est annoncée sans agents réels.
+
+## 1.12.86 - 2026-10-03
+
+- Empêche la clôture d’un Goal après une seule carte lorsqu’une demande exige d’enchaîner les cartes.
+- Maintient le Goal actif entre `Review` et la prochaine carte autonome éligible.
+- Ajoute un test de non-régression sur cette clôture prématurée.
+
+## 1.12.85 - 2026-10-03
+
+- Ajoute une porte de clôture stricte pour l’initialisation et la reprise de projet.
+- Interdit les déclarations de fin fondées sur un Trello local, une PR non vérifiée ou une action autonome restante.
+- Renforce la preuve du Goal, de la relecture Trello et de la livraison vers `dev`.
+
+## 1.12.84 - 2026-10-03
+
+- Ajoute un scénario sandbox dynamique d’initialisation d’un projet existant.
+- Vérifie audit, cartes ordonnées, labels, descriptions, checklists, Goal, délégation et relecture Trello simulée.
+
+## 1.12.83 - 2026-10-03
+
+- Ajoute un contrat détaillé de responsabilités, activation, livrables, preuves et sorties pour tous les agents.
+- Renforce le Coordinateur afin qu’il lise et applique ce contrat avant toute délégation.
+
+## 1.12.82 - 2026-10-02
+
+- Renforce le contrôle frontend item par item des menus et navigations.
+- Interdit de déclarer une correction visuelle sans preuve du rendu réellement observé.
+
+## 1.12.81 - 2026-10-02
+
+- Bloque techniquement le suivi accidentel de `.codex/` et `.claude/` dans les projets consommateurs.
+- Ajoute une correction sûre avec `git rm --cached`, sans suppression des fichiers locaux.
+- Renforce les règles de frontière entre dépôt source du kit et projets utilisant le kit.
+
+## 1.12.80 - 2026-10-02
+
+- Ajoute des simulations d'adaptateurs Trello, navigateur, GitFlow et délégation dans la CI sandbox.
+## 1.12.79 - 2026-10-02
+
+- Étend les scénarios sandbox aux dépôts Git temporaires et aux parcours d'initialisation Codex et Claude.
+
+## 1.12.78 - 2026-10-02
+
+- Corrige les séparations Markdown détectées par la CI sandbox.
+
+## 1.12.77 - 2026-10-02
+
+- Active la CI du kit sur les PR vers `dev` et ajoute ce scénario à la matrice sandbox.
+
+## 1.12.76 - 2026-10-02
+
+- Ajoute une matrice versionnée de scénarios nominaux et une porte CI de couverture minimale.
+
+## 1.12.75 - 2026-10-02
+
+- Ajoute des scénarios sandbox isolés pour tester les Goals, labels, délégations, séquencement et sessions navigateur avant promotion.
+
+## 1.12.74 - 2026-10-02
+
+- Interdit de créer une carte Trello avant la préparation et la vérification de ses étiquettes obligatoires.
+
+## 1.12.73 - 2026-10-02
+
+- Interdit explicitement de demander une confirmation pour une carte Trello déjà demandée par l'utilisateur.
+
+## 1.12.72 - 2026-10-01
+
+- Rend obligatoire l'inscription et l'activation des agents parallèles dans le Goal avant le premier check.
+
+## 1.12.71 - 2026-10-01
+
+- Vérifie l'ordre numérique et les dépendances des cartes avant chaque démarrage.
+
+## 1.12.70 - 2026-10-01
+
+- Ajoute le cycle de vie obligatoire des sessions navigateur et leur fermeture après chaque feature ou lot externe terminé.
+
+## 1.12.69 - 2026-09-30
+
+- Fusionne automatiquement les PR prévues vers `dev` ou `develop` dans un flux déjà autorisé, sans confirmation redondante.
+
+## 1.12.68 - 2026-09-30
+
+- Interdit de déclarer l'onboarding terminé avant la PR vérifiée vers `dev`.
+
+## 1.12.67 - 2026-09-30
+
+- Ajoute un audit final carte par carte obligatoire avant la fin de l'initialisation Trello.
+
+## 1.12.66 - 2026-09-30
+
+- Précise que le connecteur Trello reste en lecture-écriture prioritaire et que le navigateur complète seulement ses manques après vérification.
+
+## 1.12.65 - 2026-09-30
+
+- Implique une stratégie connecteur-premier puis navigateur pour les compléments Trello et la validation visuelle.
+
+## 1.12.64 - 2026-09-30
+
+- Vérifie chaque carte créée avant d'autoriser le passage à la suivante.
+
+## 1.12.63 - 2026-09-30
+
+- Interdit de considérer des cartes macro seules comme une décomposition complète de conception.
+
+## 1.12.62 - 2026-09-30
+
+- Définit le navigateur existant comme navigateur généraliste du projet, et non comme navigateur dédié à Trello.
+
+## 1.12.61 - 2026-09-30
+
+- Réutilise toujours le navigateur Trello déjà ouvert et connecté avant toute nouvelle session.
+
+## 1.12.60 - 2026-09-30
+
+- Rend obligatoire la création et la relecture des étiquettes Trello avant toute carte et toute synchronisation vérifiée.
+
+## 1.12.59 - 2026-09-30
+
+- Utilise automatiquement le navigateur Trello quand l'écriture native n'est pas exposée.
+- Initialise les fichiers de contexte manquants et recherche réellement Python 3.11 ou plus récent avant de bloquer.
+
+## 1.12.58 - 2026-09-30
+
+- Met à jour `.gitignore` avant toute autre mutation lors de l'initialisation.
+
+## 1.12.57 - 2026-09-30
+
+- Impose la relecture complète des instructions et la création du Goal dès le démarrage de toute initialisation.
+
+## 1.12.56 - 2026-09-29
+
+- Utilise l API GitHub comme repli contre les réponses Raw obsolètes.
+
+## 1.12.55 - 2026-09-29
+
+- Ajoute un paramètre anti-cache à la vérification distante pour éviter les faux retours de version GitHub Raw.
+
+## 1.12.54 - 2026-09-29
+
+- Utilise la source officielle par défaut lorsque le projet ne possède pas de manifeste `.workspace.toml`.
+- Évite les fausses indisponibilités lors de la vérification de session.
+
+## 1.12.53 - 2026-09-29
+
+- Vérifie la version distante du kit au démarrage de chaque session manuelle.
+- Impose la prise en compte des nouvelles politiques et scripts avant toute action projet.
+
+## 1.12.52 - 2026-09-29
+
+- Sépare explicitement l'onboarding terminé des audits et développements demandés ensuite.
+- Impose un nouveau Goal, un work item et les contrôles complets avant toute PR vers `dev`.
+
+## 1.12.51 - 2026-09-29
+
+- Ajoute une boucle d'amélioration continue après chaque erreur confirmée.
+- Impose incident, cause, correction, règle préventive, test de non-régression et preuve.
+
+## 1.12.50 - 2026-09-29
+
+- Ajoute la vérification et l'installation gratuite réutilisable des outils de test et de validation.
+- Journalise les chemins et versions dans un état partagé entre projets.
+
+## 1.12.49 - 2026-09-29
+
+- Ajoute `VERSION-HISTORY.md`, l’historique chronologique des versions et améliorations depuis l’origine.
+- Ajoute un contrôle CI exigeant la présence de la version courante dans cet historique.
+
+## 1.12.48 - 2026-09-28
+
+- Autorise une PR de déploiement vers `dev` ou `develop` lorsqu'elle est explicitement demandée pour débloquer une revalidation d'environnement.
+- Impose le retour sur la branche de travail et la reprise du Goal après ce checkpoint.
+
+## 1.12.47 - 2026-09-28
+
+- Interdit de conclure après une preuve négative comme un `404`, un échec de test ou un déploiement absent.
+- Impose diagnostic, correction, déploiement ou alternative, puis revalidation automatique jusqu'à réussite ou blocage réel.
+
+## 1.12.46 - 2026-09-28
+
+- Interdit de redemander une confirmation pour publier un commentaire Trello explicitement demandé lorsque l'intégration est déjà autorisée.
+- Maintient la relecture visuelle obligatoire après publication.
+
+## 1.12.45 - 2026-09-28
+
+- Empêche de transformer une suggestion ou un blocage hors périmètre en check Trello ou exigence de Goal.
+- Impose la vérification du cahier des charges, des critères, de la conception et des décisions avant toute extension du périmètre.
+
+## 1.12.44 - 2026-09-28
+
+- Ajoute à l'onboarding le choix entre CI sur chaque push et CI uniquement sur les Pull Requests et les branches protégées.
+- Configure par défaut le mode `pull-request-only` afin de limiter les exécutions et le coût CI.
+- Génère le workflow selon le choix enregistré dans `[delivery].ci_trigger_mode`.
+
+## 1.12.43 - 2026-09-28
+
+- Interdit les Pull Requests tant qu'un check de carte reste ouvert.
+- Impose les commits poussés sur la branche dédiée jusqu'à la clôture complète de la carte.
+
+## 1.12.42 - 2026-09-28
+
+- Rend obligatoire la préparation automatique de chaque session avant toute action.
+- Impose le chargement du cahier, du profil, des politiques, de l'état runtime et de l'inventaire des outils déjà installés.
+- Ajoute un contrôle de non-régression dans les deux kits pour empêcher l'oubli de ces prérequis.
+
+## 1.12.41 - 2026-09-28
+
+### Initialisation executable des Goals
+
+- Ajoute `start-goal.sh` aux kits Codex et Claude pour initialiser l état persistant avant toute action.
+- Enregistre l objectif, les preuves attendues, les contraintes, le blocage, la carte, la branche d intégration et la délégation parallèle.
+- Ajoute un test de régression couvrant le lancement du Goal et sa traçabilité.
+
 ## 1.12.40 - 2026-09-28
 
 ### Parallélisation obligatoire des lots indépendants
@@ -539,20 +821,18 @@
 - Protège le cahier des charges, l état projet, les décisions et les work items lors des mises à jour.
 - Crée une sauvegarde avant chaque remplacement du moteur du kit.
 
-# Changelog
-
-## 1.12.31
+### Historique 1.12.31
 
 - Réduit la cadence des commentaires Trello pour éviter les cartes qui stagnent sous des micro-mises à jour.
 - Impose des synthèses uniquement lors d'événements significatifs, avec une synthèse finale probante.
-## 1.1.2 - 2026-09-23
+### Historique 1.1.2 - 2026-09-23
 
 ### Corrections
 
 - Ajoute le mode initialisation utilisable dans une conversation déjà ouverte.
 - Rend la porte du cahier des charges explicitement relançable sans redémarrer la session.
 
-## 1.1.2 - 2026-09-23
+### Historique 1.1.2 - 2026-09-23 (complément 1)
 
 ### Corrections
 
@@ -560,7 +840,7 @@
 - Corrige les exemples manuels d’installation Codex et Claude.
 - Clarifie les parcours native et external dans les README.
 
-## 1.1.2 - 2026-09-23
+### Historique 1.1.2 - 2026-09-23 (complément 2)
 
 ### Ajouts
 
@@ -568,14 +848,14 @@
 - Ajoute le manifeste `.workspace.toml` et le workflow de mise à jour externe.
 - Conserve les fichiers d’orchestration localement sans les publier dans le dépôt projet en mode external.
 
-## 1.1.2 - 2026-09-23
+### Historique 1.1.2 - 2026-09-23 (complément 3)
 
 ### Corrections
 
 - Corrige le workflow de mise à jour pour récupérer son script officiel malgré l’ignorance de `.codex/` et `.claude/`.
 - Rend la détection et la mise à jour automatique utilisables dans les projets importateurs.
 
-## 1.1.2 - 2026-09-23
+### Historique 1.1.2 - 2026-09-23 (complément 4)
 
 ### Corrections
 
@@ -584,11 +864,11 @@
 - Rend la validation navigateur obligatoire pour les changements frontend.
 - Ajoute le routage universel des demandes hors cahier des charges initial.
 
-## 1.1.2 - 2026-09-22
+### Historique 1.1.2 - 2026-09-22 (complément 5)
 
 - Corrige la condition de secret du workflow de publication GitHub.
 
-## 1.1.2 - 2026-09-22
+### Historique 1.1.2 - 2026-09-22 (complément 6)
 
 - Fixe le déclenchement et la publication idempotente des Releases GitHub.
 - Maintient la synchronisation documentaire et le contrôle de version.
@@ -633,7 +913,7 @@ Ce projet suit le versionnement sémantique. Les changements publiés sont regro
 - Ajout ou correction : inscrire ici chaque changement visible avant la release.
 - Ajout du synchroniseur non destructif et du workflow de Pull Request automatique pour propager les mises à jour du kit dans les projets utilisateurs.
 
-## 1.1.2 - 2026-09-21
+### Historique 1.1.2 - 2026-09-21
 
 ### Corrections
 
