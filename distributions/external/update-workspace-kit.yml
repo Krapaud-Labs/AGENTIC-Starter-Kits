@@ -24,7 +24,7 @@ jobs:
       - name: Detect latest kit version
         id: version
         run: |
-          latest="$(curl -fsSL https://raw.githubusercontent.com/krapaud/AGENTIC-Starter-Kits/main/VERSION)"
+          latest="$(curl -fsSL https://raw.githubusercontent.com/Krapaud-Labs/AGENTIC-Starter-Kits/main/VERSION)"
           current="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' .workspace.toml)"
           echo "current=$current" >> "$GITHUB_OUTPUT"
           echo "latest=$latest" >> "$GITHUB_OUTPUT"
