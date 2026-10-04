@@ -12,6 +12,22 @@ state="$config/RUNTIME-STATE.md"
 events="$config/runtime-events.log"
 [ -f "$state" ] || { echo "GOAL: RUNTIME-STATE.md absent" >&2; exit 1; }
 
+native_status="${NATIVE_GOAL_STATUS:-}"
+native_id="${NATIVE_GOAL_ID:-none}"
+native_evidence="${NATIVE_GOAL_EVIDENCE:-}"
+case "$native_status" in
+  active)
+    [ "$native_id" != "none" ] && [ -n "$native_evidence" ] || { echo "GOAL: preuve, identifiant et état actif du Goal natif requis" >&2; exit 4; }
+    ;;
+  unavailable)
+    [ -n "$native_evidence" ] || { echo "GOAL: preuve d'indisponibilité de l'API native requise" >&2; exit 4; }
+    ;;
+  *)
+    echo "GOAL: NATIVE_GOAL_STATUS doit valoir active ou unavailable avant start-goal.sh" >&2
+    exit 4
+    ;;
+esac
+
 export GOAL_OBJECTIVE="$1" GOAL_VERIFICATION="$2" GOAL_CONSTRAINTS="$3" GOAL_BLOCKED="$4"
 export GOAL_CARD="${5:-none}" GOAL_BRANCH="${6:-none}" GOAL_DELEGATION="${7:-none}"
 export GOAL_AGENTS_CREATED="${8:-${GOAL_AGENTS_CREATED:-}}" GOAL_AGENT_ASSIGNMENTS="${9:-${GOAL_AGENT_ASSIGNMENTS:-}}"
@@ -57,6 +73,9 @@ values = {
     "goal_budget": "within-limit",
     "goal_blocked_condition": os.environ["GOAL_BLOCKED"],
     "goal_session_id": os.environ["GOAL_SESSION_ID"],
+    "native_goal_status": os.environ["NATIVE_GOAL_STATUS"],
+    "native_goal_id": os.environ.get("NATIVE_GOAL_ID", "none"),
+    "native_goal_evidence": os.environ["NATIVE_GOAL_EVIDENCE"],
     "goal_delivery_status": "pending",
     "goal_delegation_plan": os.environ["GOAL_DELEGATION"],
     "goal_agents_created": os.environ.get("GOAL_AGENTS_CREATED") or ("none" if os.environ["GOAL_DELEGATION"] in ("none", "séquentiel justifié") else "missing"),
