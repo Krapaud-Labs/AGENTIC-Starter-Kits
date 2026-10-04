@@ -10,6 +10,10 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.3 | 2026-10-04 | Sélection multi-version de Python 3.11+ pour rendre les outils TOML réellement réutilisables. |
+
+| 1.14.2 | 2026-10-04 | Preuve observable obligatoire de délégation et validation exécutable des champs native Goal dans l'état de session. |
+
 | 1.14.1 | 2026-10-04 | Enforcement exécutable de l'état du Goal natif dans le runtime et dans start-goal.sh, avec tests de refus et fallback prouvé. |
 
 | 1.14.0 | 2026-10-04 | Contrat native-first des Goals, refus d'exécution sans Goal natif actif lorsque l'API est disponible, et test de non-régression associé. |
