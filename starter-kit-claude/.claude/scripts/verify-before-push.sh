@@ -62,8 +62,8 @@ if [ "$protected_branch" = "true" ] || { [ "$require_feature_branch" = "true" ] 
   exit 1
 fi
 if [ "$require_feature_branch" = "true" ]; then
-  case "$branch" in feature/*|fix/*|hotfix/*|chore/*|docs/*|refactor/*|test/*) ;; *)
-    echo "ECHEC GITFLOW: branche invalide $branch. Utiliser feature/, fix/, hotfix/, chore/, docs/, refactor/ ou test/"
+  case "$branch" in feat/*|feature/*|fix/*|hotfix/*|chore/*|docs/*|refactor/*|test/*) ;; *)
+    echo "ECHEC GITFLOW: branche invalide $branch. Utiliser feat/, feature/, fix/, hotfix/, chore/, docs/, refactor/ ou test/"
     exit 1 ;;
   esac
 fi
