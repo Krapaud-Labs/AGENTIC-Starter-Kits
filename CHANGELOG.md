@@ -1,5 +1,17 @@
 ## Unreleased
 
+## 1.14.3 - 2026-10-04
+
+- sélectionne automatiquement le premier Python compatible 3.11 ou supérieur
+- évite l'échec de `tomllib` quand `python3` pointe vers Python 3.9
+- ajoute une vérification réelle du lint avec l'interpréteur compatible
+
+## 1.14.2 - 2026-10-04
+
+- rend la preuve observable des agents obligatoire pour une délégation active
+- valide les champs du Goal natif dans `validate-session-state.sh`
+- ajoute les scénarios de refus d'un état runtime incomplet
+
 ## 1.14.1 - 2026-10-04
 
 - rend l'état, l'identifiant et la preuve du Goal natif obligatoires dans l'état runtime

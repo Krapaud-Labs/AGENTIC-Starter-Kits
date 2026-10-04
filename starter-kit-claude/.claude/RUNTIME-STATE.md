@@ -32,6 +32,7 @@
 - goal_delegation_plan: [[A_COMPLETER]]
 - goal_agents_created: none
 - goal_agent_assignments: none
+- goal_agent_evidence: none
 - integration_branch: none
 - pushed_integration_commit: none
 - integration_remote_evidence: none

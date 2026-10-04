@@ -32,7 +32,7 @@ for kit in codex claude; do
   : > "$scenario/$hidden/runtime-events.log"
 
   # Scenario 1: démarrer une carte multi-lots crée le Goal et son plan d'agents.
-  (cd "$scenario" && NATIVE_GOAL_STATUS=unavailable NATIVE_GOAL_EVIDENCE='sandbox API native non exposée' bash "$hidden/scripts/start-goal.sh" \
+  (cd "$scenario" && NATIVE_GOAL_STATUS=unavailable NATIVE_GOAL_EVIDENCE='sandbox API native non exposée' GOAL_AGENT_EVIDENCE='sandbox agents déclarés par scénario isolé' bash "$hidden/scripts/start-goal.sh" \
     "Livrer une carte multi-lots" "preuves de tests et livraison" \
     "branche dev, aucune dépense" "accès externe manquant" \
     "P23" "dev" "création de 2 agents; agent intégrateur; lots indépendants" \
