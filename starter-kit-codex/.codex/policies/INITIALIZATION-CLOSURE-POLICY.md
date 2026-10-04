@@ -11,6 +11,7 @@ L’initialisation est un flux livré, pas un simple état de cadrage. Le Coordi
 5. Si Trello est activé, créer ou remettre en conformité les listes, labels nommés, cartes, numéros, dépendances, descriptions et checklists.
 6. Relire réellement chaque carte et enregistrer le nombre, l’ordre, la liste, les labels, la description et les checks observés. Un fichier local décrivant Trello ne constitue pas une preuve Trello.
 7. Pour un projet existant, auditer code, architecture, données, sécurité, UX, accessibilité, tests, documentation, CI, exploitation et risques. Chaque écart applicable devient une carte ; un contrôle hors cahier ou hors périmètre est abandonné et documenté comme non applicable.
+7 bis. Construire une matrice de couverture cahier → conception → carte locale → carte distante. Vérifier le nombre, les identifiants, les phases MVP/Post-MVP, les dépendances, les étiquettes, les descriptions, les checklists et les preuves de relecture pour chaque carte. Un fichier local ou un tableau partiellement synchronisé ne constitue jamais une preuve de création complète ; tant que la comparaison distante n'est pas vérifiée, `trello_sync_status` reste `syncing` ou `needs-review` et l'initialisation ne peut pas être déclarée terminée.
 8. Inscrire dans le Goal le plan d’agents, les lots, les fichiers autorisés, les preuves et l’agent intégrateur avant tout travail parallèle.
 9. Créer la branche d’onboarding, committer seulement les artefacts autorisés, pousser, ouvrir la PR vers `dev`, vérifier son état et ses contrôles, puis relire la branche distante.
 
