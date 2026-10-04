@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.13.4 - 2026-10-04
+
+- Ajoute un mode de refonte par phases pour terminer le design global avant l'implémentation et l'audit final.
+
 ## 1.13.3 - 2026-10-03
 
 - Renforce le rôle frontend artistique avec une validation comparative obligatoire avant/après.

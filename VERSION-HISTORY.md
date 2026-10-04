@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.13.4 | 2026-10-04 | Refonte multi-écrans organisée en phases design, implémentation et audit final. |
+
 | 1.13.3 | 2026-10-03 | Validation artistique comparative et refus des refontes visuellement négligeables. |
 
 | 1.13.2 | 2026-10-03 | Vérification technique de la création et de l'affectation des agents parallèles. |
