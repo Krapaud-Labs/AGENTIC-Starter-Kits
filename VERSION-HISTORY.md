@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.13.9 | 2026-10-04 | Installation réelle de AGENTS.md et test de non-régression de l'initialisation Codex. |
+
 | 1.13.8 | 2026-10-04 | Preflight réel worktrees/verrou Git et distinction stricte des intégrations externes non exécutées. |
 
 | 1.13.7 | 2026-10-04 | Contrôle complet de couverture et de synchronisation Trello avant clôture d'initialisation. |

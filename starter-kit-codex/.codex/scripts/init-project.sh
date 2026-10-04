@@ -48,6 +48,9 @@ for context_file in PROJECT-CONTEXT.md PROJECT-DATA-BOUNDARY.md; do
     cp "$config_root/templates/$context_file" "$config_root/$context_file"
   fi
 done
+if [ ! -f "$project_root/AGENTS.md" ] && [ -f "$config_root/templates/AGENTS.md" ]; then
+  cp "$config_root/templates/AGENTS.md" "$project_root/AGENTS.md"
+fi
 
 # Les fichiers d'état et d'onboarding sont obligatoires dès l'installation.
 # Ils restent locaux au projet et ne sont jamais écrasés s'ils existent déjà.
