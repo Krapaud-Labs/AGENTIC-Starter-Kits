@@ -16,6 +16,10 @@ Les limites par défaut sont `75` fichiers et `1200` lignes modifiées par commi
 
 Une branche ne passe vers l intégration qu avec work item, conception à jour, tests proportionnés, preflight vert, preuves, audit indépendant et rapport sécurité lorsque la matrice l exige. `main` reçoit seulement des livraisons validées. Ne pas réécrire l historique des branches protégées.
 
+## Verrouillage et agents parallèles
+
+Un seul agent intégrateur manipule l'index Git du checkout principal. Les agents parallèles utilisent des worktrees ou des répertoires de travail isolés et ne lancent jamais `checkout`, `add`, `commit`, `merge` ou `push` dans le checkout partagé. Toute opération Git de livraison est sérialisée par l'intégrateur. En cas de `.git/index.lock`, vérifier d'abord les processus Git actifs, attendre puis réessayer ; ne supprimer un verrou que s'il est prouvé comme orphelin et après journalisation. Une suppression automatique ou concurrente du verrou est interdite.
+
 ## Contrôle de périmètre avant livraison
 
 Avant tout commit final ou toute Pull Request, le Coordinateur compare le diff complet depuis la branche d intégration au résultat attendu, au hors périmètre et aux fichiers autorisés du work item. Il exécute au minimum `git diff --name-status <branche-intégration>...HEAD`, relit chaque commit et classe chaque fichier : `autorisé`, `preuve nécessaire`, `hors périmètre` ou `généré`. Un fichier hors périmètre bloque la livraison. Il ne doit pas être supprimé ou masqué pour obtenir un diff vert.

@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.13.6 | 2026-10-04 | Isolation Git des agents parallèles et traitement sûr de `.git/index.lock`. |
+
 | 1.13.5 | 2026-10-04 | Pool d'agents persistant, réutilisation des threads et fermeture différée jusqu'à la livraison. |
 
 | 1.13.4 | 2026-10-04 | Refonte multi-écrans organisée en phases design, implémentation et audit final. |

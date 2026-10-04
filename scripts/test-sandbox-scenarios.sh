@@ -154,6 +154,8 @@ assert_contains "$source/policies/PROJECT-BOUNDARY-POLICY.md" 'ne doivent jamais
 assert_contains "$source/policies/DESIGN-FIRST-GATE.md" 'Transition de phase atomique'
 assert_contains "$source/policies/DESIGN-FIRST-GATE.md" 'Mode refonte par phases'
 assert_contains "$source/policies/SESSION-CONTINUITY-POLICY.md" 'Pool d.agents et limite de threads'
+assert_contains "$source/policies/GIT-FLOW.md" 'Verrouillage et agents parallèles'
+assert_contains "$source/policies/GIT-FLOW.md" 'ne supprimer un verrou que s.il est prouvé comme orphelin'
 assert_contains "$source/policies/DESIGN-FIRST-GATE.md" 'ne peut annoncer simultanément'
   assert_contains "$source/policies/BROWSER-SESSION-LIFECYCLE.md" 'aucun onglet sensible ouvert'
   assert_contains "$source/skills/documentation-audit/SKILL.md" 'README'
