@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.13.9-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.14.0-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 

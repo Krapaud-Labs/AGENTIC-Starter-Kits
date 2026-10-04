@@ -49,7 +49,7 @@ Lorsque l’utilisateur demande de tout faire ou de poursuivre jusqu’à la liv
 
 Lorsqu'une demande cible une carte Trello à terminer, reprendre, corriger ou livrer, activer ou reprendre le Goal persistant décrit dans `policies/SESSION-CONTINUITY-POLICY.md` avant toute analyse et avant la première case, quel que soit le nombre de cases ouvertes, puis rattacher toutes les preuves au même objectif.
 
-Le Coordinateur initialise ce Goal avec `scripts/start-goal.sh` avant toute commande, délégation ou commentaire externe. Il fournit l'objectif, les preuves attendues, les contraintes, la condition de blocage, la carte, la branche d'intégration et le plan de délégation. Si l'API native du Goal est disponible, il l'active immédiatement après cette écriture et vérifie son état. Sinon, l'état local reste la source de reprise et la limite est consignée.
+Le Coordinateur crée ou active d'abord le Goal natif de l'environnement avant toute commande, lecture, délégation, modification, test ou commentaire externe. Il capture son identifiant et son état actif, puis seulement après exécute `scripts/start-goal.sh` pour réconcilier l'état local avec ce Goal. `start-goal.sh` n'est jamais une création de Goal natif. Si l'API native est indisponible, le Coordinateur doit consigner explicitement `native_goal_status=unavailable` et la preuve de cette indisponibilité ; il peut alors utiliser le mode local de secours, sans le présenter comme un Goal natif. Si l'API est disponible mais que le Goal n'est pas actif, tout travail est interdit jusqu'à sa création ou activation effective.
 
 ## Reprise automatique
 
