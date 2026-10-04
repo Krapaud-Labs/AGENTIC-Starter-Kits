@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.5 | 2026-10-04 | Porte de readiness produit, distinction baseline/MVP, audit des parcours visibles et interdiction d'implémenter lors d'une simple demande d'aperçu. |
+
 | 1.14.4 | 2026-10-04 | Porte Git Flow avant modification, couverture des branches feat/feature et blocage précoce de index.lock. |
 
 | 1.14.3 | 2026-10-04 | Sélection multi-version de Python 3.11+ pour rendre les outils TOML réellement réutilisables. |
