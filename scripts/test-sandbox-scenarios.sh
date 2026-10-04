@@ -16,6 +16,11 @@ for kit in codex claude; do
   assert_contains "$source/scripts/sync-workspace-kit.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md'
   assert_contains "$source/scripts/init-project.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml'
   assert_contains "$source/scripts/start-goal.sh" 'lots parallèles détectés sans au moins deux agents'
+  assert_contains "$source/ORCHESTRATION.md" 'crée ou active d.abord le Goal natif'
+  assert_contains "$source/ORCHESTRATION.md" 'start-goal.sh.*n.est jamais une création de Goal natif'
+  assert_contains "$source/policies/SESSION-CONTINUITY-POLICY.md" 'Garde native-first'
+  assert_contains "$source/policies/SESSION-CONTINUITY-POLICY.md" 'avant la première lecture'
+  assert_contains "$source/policies/SESSION-CONTINUITY-POLICY.md" 'native_goal_status=unavailable'
   if rg -n 'github\.com/krapaud/AGENTIC-Starter-Kits|raw\.githubusercontent\.com/krapaud/AGENTIC-Starter-Kits' "$source" "$root/distributions" >/dev/null; then
     echo "ECHEC SANDBOX: ancienne URL du kit détectée pour $kit" >&2
     exit 1

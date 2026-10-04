@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.14.0 - 2026-10-04
+
+- impose la création ou l'activation du Goal natif avant toute action
+- interdit de présenter `start-goal.sh` comme une création native
+- consigne explicitement le secours local lorsque l'API native est indisponible
+- ajoute un test de non-régression du contrat native-first pour Codex et Claude
+
 ## 1.13.9 - 2026-10-04
 
 - Corrige l'installation de `AGENTS.md` à la racine des projets Codex.

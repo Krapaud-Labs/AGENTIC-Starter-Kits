@@ -32,6 +32,10 @@ Un même blocage ne peut pas être répété plus de deux tours de Goal. Au deux
 
 Quand elles existent, utiliser les commandes natives de l'environnement : `/goal`, `/goal pause`, `/goal resume`, `/goal clear`. Ne pas inventer une commande équivalente et ne pas traiter un mode Agent ou Work locally comme une garantie de persistance.
 
+### Garde native-first
+
+Pour toute demande qui implique une action, le Goal natif doit être créé ou activé avant la première lecture, commande, délégation, modification, test ou interaction externe. Le Coordinateur conserve alors son identifiant et son état dans `RUNTIME-STATE.md`, puis initialise l'état local. `start-goal.sh` ne crée pas le Goal natif et ne peut jamais justifier à lui seul une exécution persistante. Si l'API native n'est pas exposée, le Coordinateur enregistre `native_goal_status=unavailable` avec une preuve observable avant d'utiliser le secours local. Si l'API est exposée mais que l'état natif n'est pas `active`, le travail est refusé et aucune conclusion n'est autorisée.
+
 ## Activation automatique depuis Trello
 
 Lorsqu’une demande contient « enchaîner les cartes », « poursuivre les cartes », « traiter la suite » ou une formulation équivalente, le Goal porte sur toute la séquence autorisée et non sur la première carte. Le Coordinateur doit inscrire la file ordonnée des cartes, leurs dépendances et la condition finale de livraison dans `RUNTIME-STATE.md` avant la première action.
