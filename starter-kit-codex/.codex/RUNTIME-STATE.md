@@ -25,6 +25,9 @@
 - goal_budget: [[A_COMPLETER]]
 - goal_blocked_condition: [[A_COMPLETER]]
 - goal_session_id: none
+- native_goal_status: required | active | unavailable
+- native_goal_id: none
+- native_goal_evidence: [[A_COMPLETER]]
 - goal_delivery_status: not-required
 - goal_delegation_plan: [[A_COMPLETER]]
 - goal_agents_created: none

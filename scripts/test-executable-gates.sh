@@ -217,7 +217,7 @@ for kit in codex claude; do
   cp "$source_config/RUNTIME-STATE.md" "$goal_root/$hidden/"
   cp "$source_config/scripts/start-goal.sh" "$goal_root/$hidden/scripts/"
   : > "$goal_root/$hidden/runtime-events.log"
-  (cd "$goal_root" && bash "$hidden/scripts/start-goal.sh" \
+  (cd "$goal_root" && NATIVE_GOAL_STATUS=unavailable NATIVE_GOAL_EVIDENCE='sandbox API native non exposée' bash "$hidden/scripts/start-goal.sh" \
     "Livrer la carte de test" "preuve CI et PR" "branche dev et outils gratuits" \
     "decision humaine ou blocage externe prouve" "P01" "dev" "qa,frontend" \
     "agent-qa,agent-frontend" "qa->tests,frontend->ui") >/dev/null

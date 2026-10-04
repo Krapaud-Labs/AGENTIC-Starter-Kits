@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.14.1 - 2026-10-04
+
+- rend l'état, l'identifiant et la preuve du Goal natif obligatoires dans l'état runtime
+- bloque `start-goal.sh` sans Goal natif actif ou preuve explicite d'indisponibilité
+- ajoute les scénarios de régression du garde-fou native-first
+
 ## 1.14.0 - 2026-10-04
 
 - impose la création ou l'activation du Goal natif avant toute action
