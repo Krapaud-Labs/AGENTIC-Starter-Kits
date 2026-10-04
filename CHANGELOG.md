@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.13.8 - 2026-10-04
+
+- Ajoute un preflight d'intégration réel et non destructif pour les worktrees et `.git/index.lock`.
+- Rend explicites les tests externes non exécutés faute de connecteur de test autorisé.
+
 ## 1.13.7 - 2026-10-04
 
 - Rend obligatoire la matrice de couverture cahier, conception, cartes locales et cartes Trello distantes avant clôture de l'initialisation.
