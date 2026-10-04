@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.14.6 - 2026-10-04
+
+- impose un identifiant réel d'agent et un rapport produit par l'agent spécialisé
+- interdit au Coordinateur de présenter ses propres contrôles comme une délégation Frontend, QA ou Auditeur
+- renforce le parcours obligatoire Frontend, QA responsive et Auditeur pour les refontes visuelles
+
 ## 1.14.5 - 2026-10-04
 
 - ajoute une porte de readiness produit pour distinguer baseline, prototype et MVP
