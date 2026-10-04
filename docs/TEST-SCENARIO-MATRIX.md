@@ -36,6 +36,10 @@ Cette matrice définit les parcours à rejouer dans un projet temporaire avant t
 | Périmètre | Besoin non prévu | hors périmètre, aucun check ajouté | sandbox |
 | Livraison | Goal complet | garde avant réponse acceptée | sandbox |
 
+## Tests d'intégration réels
+
+`scripts/test-integration-preflight.sh` exécute un test non destructif de worktrees et de détection de `.git/index.lock`. Il affiche séparément `not-executed` pour Trello, l'orchestrateur et le navigateur tant que les connecteurs de test ne sont pas explicitement activés. Une valeur `not-executed` ne constitue jamais une réussite d'intégration.
+
 ## Règle de promotion
 
 Une ligne non exécutée, non prouvée ou en échec interdit la promotion. Les scénarios statiques vérifient la présence des règles ; les scénarios dynamiques doivent exécuter les scripts dans un projet temporaire isolé. Les intégrations externes sont testées avec des adaptateurs simulés et ne doivent jamais utiliser un tableau ou un dépôt de production.
