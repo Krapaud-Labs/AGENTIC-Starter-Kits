@@ -75,7 +75,7 @@ for kit in codex claude; do
   git -C "$project" config user.email sandbox@example.invalid
   git -C "$project" config user.name sandbox
   cp -R "$source/." "$project/$hidden/"
-  if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$project/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$project/CLAUDE.md"; fi
+  if [ "$kit" = claude ]; then cp "$root/starter-kit-claude/CLAUDE.md" "$project/CLAUDE.md"; fi
   if python3 -c 'import tomllib' >/dev/null 2>&1; then
     bash "$project/$hidden/scripts/lint-kit.sh"
   else
@@ -84,6 +84,7 @@ for kit in codex claude; do
     echo "SCENARIO SANDBOX: lint dynamique reporté à la CI Python 3.11 pour $kit"
   fi
   bash "$project/$hidden/scripts/init-project.sh"
+  if [ "$kit" = codex ]; then test -f "$project/AGENTS.md"; else test -f "$project/CLAUDE.md"; fi
   if bash "$project/$hidden/scripts/preflight.sh" >/dev/null 2>&1; then
     echo "ECHEC SANDBOX: preflight accepté sans cahier pour $kit" >&2
     exit 1

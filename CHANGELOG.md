@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.13.9 - 2026-10-04
+
+- Corrige l'installation de `AGENTS.md` à la racine des projets Codex.
+- Ajoute un test d'initialisation qui vérifie réellement la génération du fichier racine.
+
 ## 1.13.8 - 2026-10-04
 
 - Ajoute un preflight d'intégration réel et non destructif pour les worktrees et `.git/index.lock`.
