@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.4 | 2026-10-04 | Porte Git Flow avant modification, couverture des branches feat/feature et blocage précoce de index.lock. |
+
 | 1.14.3 | 2026-10-04 | Sélection multi-version de Python 3.11+ pour rendre les outils TOML réellement réutilisables. |
 
 | 1.14.2 | 2026-10-04 | Preuve observable obligatoire de délégation et validation exécutable des champs native Goal dans l'état de session. |
