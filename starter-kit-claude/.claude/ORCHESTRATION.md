@@ -9,6 +9,7 @@ Ce répertoire s'importe dans tout nouveau projet. Il adapte les contrôles à p
 Lire et appliquer obligatoirement `policies/WEB-RESEARCH-POLICY.md`, `policies/SESSION-CONTINUITY-POLICY.md`, `policies/EXCEPTIONAL-REQUESTS.md`, `policies/TRELLO-VISUAL-SYSTEM.md`, `policies/TRELLO-START-STATE.md` et `policies/DOCUMENTATION-LANGUAGE-POLICY.md`. Le Coordinateur déclenche une recherche externe dès qu'une information peut avoir changé ou engage une décision technique, légale, de sécurité, de coût ou de compatibilité. Les agents concernés consignent les sources et la date de consultation dans les preuves.
 Lire également `policies/CONTINUOUS-IMPROVEMENT-POLICY.md` et consulter les incidents connus avant toute action comparable.
 Lire également `policies/PRODUCT-READINESS-POLICY.md` avant tout aperçu, audit de MVP ou déclaration de produit terminé.
+Lire également `policies/PRIMARY-AGENT-POLICY.md` : l'agent principal est le Coordinateur et n'a aucun rôle spécialisé implicite.
 
 ## Cycle obligatoire
 
