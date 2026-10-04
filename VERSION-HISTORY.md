@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.1 | 2026-10-04 | Enforcement exécutable de l'état du Goal natif dans le runtime et dans start-goal.sh, avec tests de refus et fallback prouvé. |
+
 | 1.14.0 | 2026-10-04 | Contrat native-first des Goals, refus d'exécution sans Goal natif actif lorsque l'API est disponible, et test de non-régression associé. |
 
 | 1.13.9 | 2026-10-04 | Installation réelle de AGENTS.md et test de non-régression de l'initialisation Codex. |
