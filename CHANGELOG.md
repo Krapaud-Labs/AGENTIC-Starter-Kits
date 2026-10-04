@@ -1,5 +1,18 @@
 ## Unreleased
 
+## 1.14.7 - 2026-10-04
+
+- définit explicitement l agent principal comme Coordinateur
+- interdit au Coordinateur de devenir implicitement Frontend, Backend, QA ou Auditeur
+- bloque un lot spécialisé si aucun agent réel ne peut être créé
+- ajoute les tests de contrat du rôle principal
+
+## 1.14.6 - 2026-10-04
+
+- impose un identifiant réel d'agent et un rapport produit par l'agent spécialisé
+- interdit au Coordinateur de présenter ses propres contrôles comme une délégation Frontend, QA ou Auditeur
+- renforce le parcours obligatoire Frontend, QA responsive et Auditeur pour les refontes visuelles
+
 ## 1.14.5 - 2026-10-04
 
 - ajoute une porte de readiness produit pour distinguer baseline, prototype et MVP

@@ -142,6 +142,10 @@ for kit in codex claude; do
   grep -q 'ne constitue jamais un MVP fonctionnel' "$source_config/policies/PRODUCT-READINESS-POLICY.md"
   grep -q 'baseline.*prototype.*MVP partiel.*MVP complet' "$source_config/policies/PRODUCT-READINESS-POLICY.md"
   grep -q 'création de fonctionnalités produit' "$source_config/policies/PRODUCT-READINESS-POLICY.md"
+  grep -q 'identifiant réel du thread ou de l.agent' "$source_config/policies/TASK-ROUTING-POLICY.md"
+  grep -q 'ne constitue pas la preuve d.exécution du Frontend' "$source_config/policies/TASK-ROUTING-POLICY.md"
+  grep -q 'agent principal.*obligatoirement le Coordinateur' "$source_config/policies/PRIMARY-AGENT-POLICY.md"
+  grep -q 'ne peut pas se comporter comme un agent frontend' "$source_config/policies/PRIMARY-AGENT-POLICY.md"
   [ -x "$source_config/scripts/start-goal.sh" ] || {
     echo "ECHEC TEST: start-goal.sh absent ou non executable pour $kit"
     exit 1
