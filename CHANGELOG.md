@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.14.5 - 2026-10-04
+
+- ajoute une porte de readiness produit pour distinguer baseline, prototype et MVP
+- interdit de déclarer un MVP complet avec une simple page de titre ou une API seule
+- interdit l'implémentation produit lorsqu'un aperçu est demandé sans autorisation de développement
+- exige la couverture des parcours MVP et de leurs états avant clôture
+
 ## 1.14.4 - 2026-10-04
 
 - ajoute une porte Git Flow avant la première modification

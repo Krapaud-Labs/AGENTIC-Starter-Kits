@@ -139,6 +139,9 @@ done
 for kit in codex claude; do
   hidden=".$kit"
   source_config="$root/starter-kit-$kit/$hidden"
+  grep -q 'ne constitue jamais un MVP fonctionnel' "$source_config/policies/PRODUCT-READINESS-POLICY.md"
+  grep -q 'baseline.*prototype.*MVP partiel.*MVP complet' "$source_config/policies/PRODUCT-READINESS-POLICY.md"
+  grep -q 'création de fonctionnalités produit' "$source_config/policies/PRODUCT-READINESS-POLICY.md"
   [ -x "$source_config/scripts/start-goal.sh" ] || {
     echo "ECHEC TEST: start-goal.sh absent ou non executable pour $kit"
     exit 1
