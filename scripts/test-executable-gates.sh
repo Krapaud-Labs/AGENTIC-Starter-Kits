@@ -143,6 +143,10 @@ for kit in codex claude; do
     echo "ECHEC TEST: start-goal.sh absent ou non executable pour $kit"
     exit 1
   }
+  [ -x "$source_config/scripts/verify-before-work.sh" ] || {
+    echo "ECHEC TEST: verify-before-work.sh absent ou non executable pour $kit"
+    exit 1
+  }
   test_root="$(mktemp -d)"
   trap 'rm -rf "$test_root"' EXIT
   config="$test_root/$hidden"
@@ -154,6 +158,23 @@ for kit in codex claude; do
   cp "$source_config/scripts/validate-obligations.sh" "$config/scripts/"
   cp "$source_config/templates/obligation-register.tsv" "$config/work-items/demo/obligations.tsv"
   cp "$source_config/templates/work-item.md" "$config/work-items/demo/brief.md"
+  git init --quiet "$test_root/project"
+  git -C "$test_root/project" config user.email sandbox@example.invalid
+  git -C "$test_root/project" config user.name sandbox
+  mkdir -p "$test_root/project/$hidden/scripts"
+  cp "$source_config/scripts/verify-before-work.sh" "$test_root/project/$hidden/scripts/"
+  if (cd "$test_root/project" && bash "$hidden/scripts/verify-before-work.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: branche par défaut protégée acceptée pour $kit"
+    exit 1
+  fi
+  git -C "$test_root/project" switch --quiet -c feat/mvp-002-data-model
+  (cd "$test_root/project" && bash "$hidden/scripts/verify-before-work.sh") >/dev/null
+  touch "$test_root/project/.git/index.lock"
+  if (cd "$test_root/project" && bash "$hidden/scripts/verify-before-work.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: index.lock accepté avant travail pour $kit"
+    exit 1
+  fi
+  rm -f "$test_root/project/.git/index.lock"
   perl -0pi -e 's/\| Statut \| proposed \|/| Statut | in-progress |/' "$config/work-items/demo/brief.md"
 
   if bash "$config/scripts/validate-obligations.sh" --if-present >/dev/null 2>&1; then

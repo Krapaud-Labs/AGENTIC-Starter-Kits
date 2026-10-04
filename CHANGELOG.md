@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.14.4 - 2026-10-04
+
+- ajoute une porte Git Flow avant la première modification
+- bloque les branches protégées, les noms invalides et `index.lock`
+- accepte explicitement les préfixes `feat/` et `feature/`
+- ajoute les scénarios de branche et de verrou Git
+
 ## 1.14.3 - 2026-10-04
 
 - sélectionne automatiquement le premier Python compatible 3.11 ou supérieur
