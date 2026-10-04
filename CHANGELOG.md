@@ -1,5 +1,17 @@
 ## Unreleased
 
+## 1.13.6 - 2026-10-04
+
+- Sécurise l'index Git lors du travail parallèle des agents.
+- Réserve les opérations Git du checkout partagé à l'agent intégrateur.
+- Interdit la suppression aveugle de `.git/index.lock`.
+
+## 1.13.5 - 2026-10-04
+
+- Renforce le pool d'agents et la réutilisation des threads jusqu'à la livraison complète du Goal.
+- Interdit de fermer prématurément un agent ou d'annoncer une création sans identifiant réel.
+- Gère explicitement la limite de threads avec une alternative séquentielle vérifiée.
+
 ## 1.13.4 - 2026-10-04
 
 - Ajoute un mode de refonte par phases pour terminer le design global avant l'implémentation et l'audit final.
