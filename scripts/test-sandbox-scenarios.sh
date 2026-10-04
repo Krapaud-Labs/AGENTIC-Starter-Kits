@@ -61,6 +61,10 @@ for kit in codex claude; do
   bash "$scenario/$hidden/scripts/guard-before-response.sh" >/dev/null
 done
 
+integration_output="$(bash "$root/scripts/test-integration-preflight.sh")"
+grep -q '^git_worktrees=passed$' <<< "$integration_output"
+grep -q '^git_index_lock_detection=passed$' <<< "$integration_output"
+
 # Parcours d'initialisation réel dans deux projets temporaires indépendants.
 for kit in codex claude; do
   hidden=".$kit"
