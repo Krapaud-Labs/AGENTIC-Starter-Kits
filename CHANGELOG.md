@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.13.7 - 2026-10-04
+
+- Rend obligatoire la matrice de couverture cahier, conception, cartes locales et cartes Trello distantes avant clôture de l'initialisation.
+- Interdit de considérer un plan local ou une synchronisation partielle comme une création Trello complète.
+
 ## 1.13.6 - 2026-10-04
 
 - Sécurise l'index Git lors du travail parallèle des agents.
