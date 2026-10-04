@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.6 | 2026-10-04 | Preuve d'exécution réelle des agents spécialisés et interdiction de substituer le Coordinateur au Frontend, QA ou Auditeur. |
+
 | 1.14.5 | 2026-10-04 | Porte de readiness produit, distinction baseline/MVP, audit des parcours visibles et interdiction d'implémenter lors d'une simple demande d'aperçu. |
 
 | 1.14.4 | 2026-10-04 | Porte Git Flow avant modification, couverture des branches feat/feature et blocage précoce de index.lock. |
