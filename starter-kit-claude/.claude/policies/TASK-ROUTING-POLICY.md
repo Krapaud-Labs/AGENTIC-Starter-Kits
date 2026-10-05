@@ -43,6 +43,7 @@ Une demande hors cahier des charges devient une évolution tracée du périmètr
 Pour chaque tâche spécialisée, le Coordinateur doit enregistrer avant le démarrage le rôle, l'identifiant réel du thread ou de l'agent, le périmètre, le livrable et le fichier de rapport attendu. Après exécution, le rapport doit provenir de cet agent et contenir la tâche, les fichiers ou parcours observés, les commandes ou captures, le résultat et les limites. Une action effectuée par le Coordinateur, même dans un navigateur, ne constitue pas la preuve d'exécution du Frontend, de QA, de l'Auditeur ou d'un autre spécialiste. Si l'agent spécialisé n'a pas été réellement créé ou si son rapport n'est pas lisible, le lot reste `blocked` et aucune validation spécialisée ne peut être annoncée.
 
 Pour une interface ou une refonte visuelle, le Frontend produit les changements et la preuve comparative, QA exécute les parcours responsive et l'Auditeur relit indépendamment. Le Coordinateur assemble les rapports mais ne remplace aucun de ces trois rôles lorsqu'ils sont requis.
+Pour toute tâche visuelle, responsive ou de redesign, exécuter `scripts/verify-specialist-plan.sh` avant la première modification. Le minimum obligatoire est `frontend`, `qa` et `auditeur`. Une phrase comme « je vais lancer les agents » ne constitue pas une création ; seul le résultat réel de l'orchestrateur avec identifiants et preuve autorise le démarrage.
 
 ## Règles de continuité
 
