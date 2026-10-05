@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.14.12 - 2026-10-05
+
+- exclut les sauvegardes locales lors de la synchronisation du kit
+- empêche `rsync --delete` d'inspecter ou modifier l'historique local des projets
+
 ## 1.14.11 - 2026-10-05
 
 - ajoute un validateur global du contrat agentic pour Codex et Claude
