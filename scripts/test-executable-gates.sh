@@ -115,6 +115,8 @@ done
 for kit in codex claude; do
   [ -x "$root/starter-kit-$kit/.$kit/scripts/ensure-tools.sh" ] || { echo "ECHEC TEST: ensure-tools.sh absent ou non executable pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/ensure-tools.sh"
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh" ] || { echo "ECHEC TEST: validate-agentic-contract.sh absent pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh"
 done
 
 for kit in codex claude; do

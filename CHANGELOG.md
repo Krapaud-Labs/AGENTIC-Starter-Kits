@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.14.11 - 2026-10-05
+
+- ajoute un validateur global du contrat agentic pour Codex et Claude
+- bloque l'initialisation si les politiques, l'état runtime ou les garde-fous exécutables manquent
+- vérifie la preuve du rôle Coordinateur et de la délégation réelle avant le démarrage
+- ajoute le contrôle de contrat aux scénarios de validation du kit
+
 ## 1.14.10 - 2026-10-05
 
 - vérifie le point d'entrée racine pendant l'initialisation
