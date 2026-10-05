@@ -31,7 +31,7 @@ curl -fsSL -L "${source_url%/}/archive/refs/tags/v${latest}.tar.gz" -o "$archive
 tar -xzf "$archive" -C "$tmp_dir"
 source_kit="$(find "$tmp_dir" -mindepth 2 -maxdepth 2 -type d -name starter-kit-claude | head -n 1)"
 [ -n "$source_kit" ] || { echo "Kit Claude absent de l'archive." >&2; exit 1; }
-rsync -a --delete --exclude 'PROJECT-BRIEF.md' --exclude 'project-profile.toml' --exclude 'project-inventory.md' --exclude 'RUNTIME-STATE.md' --exclude 'decisions/' --exclude 'work-items/' --exclude 'reports/' --exclude 'metrics/' --exclude 'evaluations/' "$source_kit/.claude/" "$kit_root/.claude/"
+rsync -a --delete --exclude 'backups/' --exclude 'PROJECT-BRIEF.md' --exclude 'project-profile.toml' --exclude 'project-inventory.md' --exclude 'RUNTIME-STATE.md' --exclude 'decisions/' --exclude 'work-items/' --exclude 'reports/' --exclude 'metrics/' --exclude 'evaluations/' "$source_kit/.claude/" "$kit_root/.claude/"
 cp "$source_kit/CLAUDE.md" "$kit_root/CLAUDE.md"
 for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
   if [ ! -f "$kit_root/$local_file" ]; then
