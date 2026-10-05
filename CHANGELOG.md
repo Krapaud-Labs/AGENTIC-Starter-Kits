@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.14.10 - 2026-10-05
+
+- vérifie le point d'entrée racine pendant l'initialisation
+- bloque l'installation si AGENTS.md ou CLAUDE.md ne contient pas le contrat versionné
+- empêche un chat VS Code de démarrer avec un point d'entrée incomplet
+- ajoute les marqueurs et contrôles d'intégrité du bootstrap
+
 ## 1.14.9 - 2026-10-05
 
 - renforce le point d'entrée racine pour les chats VS Code

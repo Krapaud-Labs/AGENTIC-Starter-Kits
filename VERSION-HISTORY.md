@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.10 | 2026-10-05 | Validation du point d'entrée racine pendant l'initialisation et blocage des fichiers AGENTS/CLAUDE incomplets. |
+
 | 1.14.9 | 2026-10-05 | Contrat de démarrage autonome dans AGENTS.md et CLAUDE.md pour les chats VS Code, avec Goal et agents spécialisés obligatoires dès le premier tour. |
 
 | 1.14.8 | 2026-10-05 | Porte spécialisée visuelle avec frontend, QA et auditeur obligatoires avant modification. |
