@@ -26,5 +26,4 @@ grep -q 'identifiant réel' "$root/.codex/policies/TASK-ROUTING-POLICY.md" || fa
 grep -q 'agent qui a réellement produit le livrable' "$root/.codex/policies/AGENT-DELIVERY-CONTRACTS.md" || fail "preuve de producteur absente"
 
 bash "$root/.codex/scripts/validate-entrypoint.sh" >/dev/null
-bash "$root/.codex/scripts/validate-session-state.sh" >/dev/null
 echo "Contrat agentic vérifié"

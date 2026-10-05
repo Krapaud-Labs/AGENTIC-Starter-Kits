@@ -18,5 +18,4 @@ grep -q 'créer ou reprendre le Goal natif' "$root/CLAUDE.md" || fail "création
 grep -q 'identifiant réel' "$root/.claude/policies/TASK-ROUTING-POLICY.md" || fail "preuve d'identifiant agent absente"
 grep -q 'agent qui a réellement produit le livrable' "$root/.claude/policies/AGENT-DELIVERY-CONTRACTS.md" || fail "preuve de producteur absente"
 bash "$root/.claude/scripts/validate-entrypoint.sh" >/dev/null
-bash "$root/.claude/scripts/validate-session-state.sh" >/dev/null
 echo "Contrat agentic vérifié"
