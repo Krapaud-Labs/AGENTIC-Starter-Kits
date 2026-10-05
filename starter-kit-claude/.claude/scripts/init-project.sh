@@ -48,6 +48,7 @@ for context_file in PROJECT-CONTEXT.md PROJECT-DATA-BOUNDARY.md; do
     cp "$config_root/templates/$context_file" "$config_root/$context_file"
   fi
 done
+bash "$config_root/scripts/validate-entrypoint.sh"
 
 # Les fichiers d'état et d'onboarding sont obligatoires dès l'installation.
 # Ils restent locaux au projet et ne sont jamais écrasés s'ils existent déjà.
