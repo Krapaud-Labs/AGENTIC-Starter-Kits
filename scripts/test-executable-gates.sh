@@ -146,6 +146,9 @@ for kit in codex claude; do
   grep -q 'ne constitue pas la preuve d.exécution du Frontend' "$source_config/policies/TASK-ROUTING-POLICY.md"
   grep -q 'agent principal.*obligatoirement le Coordinateur' "$source_config/policies/PRIMARY-AGENT-POLICY.md"
   grep -q 'ne peut pas se comporter comme un agent frontend' "$source_config/policies/PRIMARY-AGENT-POLICY.md"
+  root_entry="$root/starter-kit-$kit/$([ "$kit" = codex ] && echo AGENTS.md || echo CLAUDE.md)"
+  grep -q 'Contrat obligatoire de chaque nouveau chat' "$root_entry"
+  grep -q 'Pour une tâche visuelle, `frontend`, `qa` et `auditeur` sont obligatoires' "$root_entry"
   [ -x "$source_config/scripts/start-goal.sh" ] || {
     echo "ECHEC TEST: start-goal.sh absent ou non executable pour $kit"
     exit 1
