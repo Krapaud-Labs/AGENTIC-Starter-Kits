@@ -1,6 +1,6 @@
 # Kit d'orchestration Codex portable
 
-![Version du kit](https://img.shields.io/badge/version-1.14.10-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.14.11-blue.svg)
 
 Ce kit installe une gouvernance projet pour Codex. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
@@ -34,6 +34,8 @@ bash .codex/scripts/init-project.sh
 ```
 
 Cette commande crée `project-profile.toml` s'il est absent et génère un inventaire des fichiers détectés. Elle ne modifie pas le code du produit.
+
+L'initialisation valide aussi le contrat agentic complet avec `validate-agentic-contract.sh`. Elle bloque si le point d'entrée, l'état runtime, les politiques de coordination, les garde-fous de continuité ou les preuves de délégation sont absents ou incomplets. Ce contrôle est rejouable avant chaque Goal.
 
 5. Ouvrir Codex à la racine du projet. Envoyer une demande projet normale, par exemple :
 
