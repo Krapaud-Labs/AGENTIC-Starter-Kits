@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.14.8 - 2026-10-05
+
+- ajoute une porte exécutable de plan spécialisé avant toute tâche visuelle
+- exige frontend, QA et auditeur pour un redesign ou audit responsive
+- interdit de remplacer la création réelle d'agents par une simple annonce
+
 ## 1.14.7 - 2026-10-04
 
 - définit explicitement l agent principal comme Coordinateur

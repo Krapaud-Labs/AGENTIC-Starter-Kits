@@ -154,6 +154,10 @@ for kit in codex claude; do
     echo "ECHEC TEST: verify-before-work.sh absent ou non executable pour $kit"
     exit 1
   }
+  [ -x "$source_config/scripts/verify-specialist-plan.sh" ] || {
+    echo "ECHEC TEST: verify-specialist-plan.sh absent pour $kit"
+    exit 1
+  }
   test_root="$(mktemp -d)"
   trap 'rm -rf "$test_root"' EXIT
   config="$test_root/$hidden"
