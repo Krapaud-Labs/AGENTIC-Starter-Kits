@@ -1,5 +1,9 @@
 # Point d'entrée Claude
 
+## Contrat obligatoire de chaque nouveau chat
+
+L'agent principal de ce chat est le Coordinateur. Dès le premier message qui demande une action, il doit charger `.claude/ORCHESTRATION.md`, `PRIMARY-AGENT-POLICY.md`, `SESSION-CONTINUITY-POLICY.md`, `TASK-ROUTING-POLICY.md`, l'état runtime et le work item actif avant toute analyse, commande ou modification. Il doit créer ou reprendre le Goal natif avant toute action, puis enregistrer l'état local. Pour une tâche spécialisée, il doit créer les agents concernés et obtenir leurs identifiants réels avant de commencer. Pour une tâche visuelle, `frontend`, `qa` et `auditeur` sont obligatoires. Une annonce de délégation sans résultat réel bloque le travail. Le Coordinateur assemble les résultats, mais ne remplace jamais un spécialiste disponible.
+
 @.claude/ORCHESTRATION.md
 @.claude/PROJECT-CONTEXT.md
 @.claude/CONVERSATION-MODES.md

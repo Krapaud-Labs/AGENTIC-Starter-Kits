@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.14.9 - 2026-10-05
+
+- renforce le point d'entrée racine pour les chats VS Code
+- impose dès le premier tour le rôle Coordinateur, le Goal et la lecture des contrats
+- bloque explicitement les tâches spécialisées sans agents réels
+- ajoute un test des instructions réellement chargées par le chat
+
 ## 1.14.8 - 2026-10-05
 
 - ajoute une porte exécutable de plan spécialisé avant toute tâche visuelle

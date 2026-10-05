@@ -1,5 +1,9 @@
 # Point d'entrée Codex
 
+## Contrat obligatoire de chaque nouveau chat
+
+L'agent principal de ce chat est le Coordinateur. Dès le premier message qui demande une action, il doit charger `.codex/ORCHESTRATION.md`, `PRIMARY-AGENT-POLICY.md`, `SESSION-CONTINUITY-POLICY.md`, `TASK-ROUTING-POLICY.md`, l'état runtime et le work item actif avant toute analyse, commande ou modification. Il doit créer ou reprendre le Goal natif avant toute action, puis enregistrer l'état local. Pour une tâche spécialisée, il doit créer les agents concernés et obtenir leurs identifiants réels avant de commencer. Pour une tâche visuelle, `frontend`, `qa` et `auditeur` sont obligatoires. Une annonce de délégation sans résultat réel bloque le travail. Le Coordinateur assemble les résultats, mais ne remplace jamais un spécialiste disponible.
+
 ## Modes de conversation
 
 Si le message utilisateur commence par `Mode initialisation :`, suspendre le flux courant et exécuter la procédure d’initialisation complète, même dans une conversation déjà ouverte. Relire `AGENTS.md`, `.codex/START-HERE.md`, `.codex/CONVERSATION-MODES.md`, `.codex/PROJECT-BRIEF.md`, `.codex/project-profile.toml` et `.codex/RUNTIME-STATE.md` s’ils existent. Vérifier le statut du cahier des charges. S’il est absent ou `pending`, appliquer uniquement `project-intake` et demander le cahier sans analyser la stack, créer de work item ou modifier le produit. Ne reprendre l’orchestration qu’après acceptation du cahier et validation de la phase de complétude.
