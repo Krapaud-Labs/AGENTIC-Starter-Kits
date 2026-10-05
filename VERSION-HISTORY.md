@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.8 | 2026-10-05 | Porte spécialisée visuelle avec frontend, QA et auditeur obligatoires avant modification. |
+
 | 1.14.7 | 2026-10-04 | Contrat explicite de l'agent principal comme Coordinateur et blocage des substitutions silencieuses de rôles spécialisés. |
 
 | 1.14.6 | 2026-10-04 | Preuve d'exécution réelle des agents spécialisés et interdiction de substituer le Coordinateur au Frontend, QA ou Auditeur. |
