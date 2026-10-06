@@ -17,6 +17,7 @@ Cette matrice définit les parcours à rejouer dans un projet temporaire avant t
 | Goal | Carte à un check | Goal actif avant le premier check | sandbox |
 | Goal | Carte multi-lots | plan d’agents inscrit avant action | sandbox |
 | Hooks | Première initialisation | message de revue et approbation requise avant développement | sandbox |
+| Hooks | Rapport initial sans approbation | la réponse demande explicitement `/hooks` et interdit l action produit avant preuve | sandbox |
 | Hooks | Hook non approuvé ou modifié | avertissement et nouvelle revue obligatoire | documentation officielle |
 | Hooks | Outil d’écriture sans Goal | refus `PreToolUse` observable | sandbox |
 | Hooks | Permission API, branche protégée ou commande destructive | refus `PermissionRequest` observable | sandbox |
