@@ -68,4 +68,5 @@ for item in decisions evaluations metrics reports work-items; do
 done
 
 echo "Kit Codex synchronisé depuis $remote/$ref."
+echo "Les hooks peuvent avoir changé. Ouvrez /hooks, relisez et réapprouvez les hooks avant toute action."
 echo "Vérifiez les changements, lancez verify-before-push.sh, puis ouvrez une PR."

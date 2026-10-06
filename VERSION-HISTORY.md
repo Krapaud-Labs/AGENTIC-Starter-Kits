@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.1 | 2026-10-06 | Revue obligatoire des hooks à l'installation et après mise à jour. |
+
 | 1.16.0 | 2026-10-06 | Ajout des hooks PermissionRequest et PostToolUse pour bloquer les actions sensibles et journaliser les preuves. |
 
 | 1.15.1 | 2026-10-06 | Correction du hook SessionStart pour les projets avant création du runtime. |

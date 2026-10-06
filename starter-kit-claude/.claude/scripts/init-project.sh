@@ -51,6 +51,7 @@ done
 bash "$config_root/scripts/validate-entrypoint.sh"
 bash "$config_root/scripts/validate-agentic-contract.sh"
 bash "$config_root/scripts/verify-billing-mode.sh"
+echo "Hooks Claude installés. Relire et approuver les hooks dans l'interface Claude Code avant toute action projet."
 
 # Les fichiers d'état et d'onboarding sont obligatoires dès l'installation.
 # Ils restent locaux au projet et ne sont jamais écrasés s'ils existent déjà.
@@ -82,3 +83,4 @@ if git -C "$project_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 fi
 
 echo "Initialisation terminée: compléter $config_root/project-profile.toml avec le Skill project-onboarding."
+echo "Revue obligatoire: approuver les hooks avant de commencer le développement."
