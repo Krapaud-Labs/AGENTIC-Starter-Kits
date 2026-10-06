@@ -119,7 +119,7 @@ for kit in codex claude; do
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh"
   [ -f "$root/starter-kit-$kit/.$kit/hooks.json" ] || { echo "ECHEC TEST: hooks.json absent pour $kit"; exit 1; }
   jq empty "$root/starter-kit-$kit/.$kit/hooks.json" || { echo "ECHEC TEST: hooks.json invalide pour $kit"; exit 1; }
-  for hook in session-start.sh pre-tool-use.sh subagent-start.sh subagent-stop.sh stop.sh; do
+  for hook in session-start.sh pre-tool-use.sh permission-request.sh post-tool-use.sh subagent-start.sh subagent-stop.sh stop.sh; do
     [ -x "$root/starter-kit-$kit/.$kit/hooks/$hook" ] || { echo "ECHEC TEST: hook $hook absent pour $kit"; exit 1; }
     bash -n "$root/starter-kit-$kit/.$kit/hooks/$hook"
   done

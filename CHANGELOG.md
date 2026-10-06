@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.0 - 2026-10-06
+
+- ajoute PermissionRequest pour bloquer API payantes, branches protégées et commandes destructives
+- ajoute PostToolUse pour journaliser les preuves d'outils
+- renforce la couverture des tests de cycle de vie et de non-régression
+
 ## 1.15.1 - 2026-10-06
 
 - corrige le hook SessionStart lorsque le runtime n'est pas encore initialisé
