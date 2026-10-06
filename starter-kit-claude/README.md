@@ -269,3 +269,4 @@ Le diagnostic local vérifie la version, le manifeste, le cahier des charges, l 
 ```bash
 bash .claude/scripts/doctor.sh
 ```
+La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
