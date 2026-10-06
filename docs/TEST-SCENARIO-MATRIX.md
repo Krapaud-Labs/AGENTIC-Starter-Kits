@@ -16,6 +16,13 @@ Cette matrice définit les parcours à rejouer dans un projet temporaire avant t
 | Trello | Séquence `01`, `02`, `03` | aucune carte suivante lancée hors ordre | sandbox |
 | Goal | Carte à un check | Goal actif avant le premier check | sandbox |
 | Goal | Carte multi-lots | plan d’agents inscrit avant action | sandbox |
+| Hooks | Première initialisation | message de revue et approbation requise avant développement | sandbox |
+| Hooks | Hook non approuvé ou modifié | avertissement et nouvelle revue obligatoire | documentation officielle |
+| Hooks | Outil d’écriture sans Goal | refus `PreToolUse` observable | sandbox |
+| Hooks | Permission API, branche protégée ou commande destructive | refus `PermissionRequest` observable | sandbox |
+| Hooks | Résultat d’outil | événement `PostToolUse` journalisé | sandbox |
+| Hooks | Sous-agent démarré puis arrêté | identifiant et livrable enregistrés | sandbox |
+| Hooks | Réponse prématurée | continuation par `Stop` | sandbox |
 | Délégation | Lots sans chevauchement | agents, fichiers et preuves attribués | sandbox |
 | Délégation | Lots avec fichier partagé | mode séquentiel justifié | sandbox |
 | Reprise | Goal en attente CI | état waiting et reprise automatique | sandbox |
