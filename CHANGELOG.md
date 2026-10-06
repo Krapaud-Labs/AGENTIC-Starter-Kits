@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.1 - 2026-10-06
+
+- rend obligatoire l'information et la revue des hooks à la première initialisation
+- rappelle la réapprobation après chaque mise à jour du kit
+- ajoute les contrôles de non-régression sur ces messages de confiance
+
 ## 1.16.0 - 2026-10-06
 
 - ajoute PermissionRequest pour bloquer API payantes, branches protégées et commandes destructives
