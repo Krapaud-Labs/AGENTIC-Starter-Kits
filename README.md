@@ -353,3 +353,4 @@ La commande doit être envoyée seule depuis la conversation qui travaille déj�
 La procédure complète se trouve dans [INSTALLATION.md](INSTALLATION.md), section « Initialiser une conversation déjà ouverte ».
 
 Le synchroniseur external met à jour directement le répertoire du kit et conserve les données projet protégées.
+La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
