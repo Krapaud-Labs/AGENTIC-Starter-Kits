@@ -19,6 +19,7 @@ for script in \
   verify-before-push.sh verify-specialist-plan.sh ensure-tools.sh; do
   [ -x "$root/.codex/scripts/$script" ] || fail "garde-fou absent ou non exécutable: $script"
 done
+[ -x "$root/.codex/scripts/verify-billing-mode.sh" ] || fail "garde-facturation absent ou non exécutable"
 
 grep -q 'agent principal de ce chat est le Coordinateur' "$root/AGENTS.md" || fail "rôle du Coordinateur absent"
 grep -q 'créer ou reprendre le Goal natif' "$root/AGENTS.md" || fail "création du Goal natif absente"

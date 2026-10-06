@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.14.13 - 2026-10-06
+
+- ajoute un garde-fou de mode de facturation sans clé API par défaut
+- distingue explicitement l'abonnement Codex ou Claude des API Agents et SDK facturées
+- bloque l'initialisation si une clé API est détectée sans autorisation explicite
+
 ## 1.14.12 - 2026-10-05
 
 - exclut les sauvegardes locales lors de la synchronisation du kit

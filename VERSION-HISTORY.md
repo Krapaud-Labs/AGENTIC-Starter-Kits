@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.14.13 | 2026-10-06 | Garde-fou d'authentification et de facturation pour rester sur l'abonnement utilisateur par défaut. |
+
 | 1.14.12 | 2026-10-05 | Synchronisation sûre excluant les sauvegardes locales des projets. |
 
 | 1.14.11 | 2026-10-05 | Ajout du validateur global du contrat agentic, exécuté à l'initialisation et vérifiant les politiques, l'état runtime, les garde-fous et la preuve de délégation. |
