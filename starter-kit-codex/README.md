@@ -4,6 +4,8 @@
 
 Ce kit installe une gouvernance projet pour Codex. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
+L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).
+
 ## Prérequis
 
 - Codex est installé et ouvert sur le dossier du projet.
