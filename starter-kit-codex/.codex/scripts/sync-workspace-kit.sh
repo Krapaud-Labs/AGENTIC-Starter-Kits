@@ -10,6 +10,7 @@ source_url="$(sed -n 's/^source = "\(.*\)"/\1/p' "$manifest")"
 raw_base="${source_url/github.com/raw.githubusercontent.com}"
 latest="$(curl -fsSL "$raw_base/main/VERSION")"
 installed="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$manifest")"
+[ -n "$installed" ] || { echo "Version installée absente du manifeste." >&2; exit 1; }
 [ "$installed" = "$latest" ] && { echo "Kit Codex déjà à jour : $installed"; exit 0; }
 backup_root="$project_root/.codex/backups/kit-$installed-$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$backup_root"
@@ -33,6 +34,12 @@ source_kit="$(find "$tmp_dir" -mindepth 2 -maxdepth 2 -type d -name starter-kit-
 [ -n "$source_kit" ] || { echo "Kit Codex absent de l'archive." >&2; exit 1; }
 rsync -a --delete --exclude 'backups/' --exclude 'PROJECT-BRIEF.md' --exclude 'project-profile.toml' --exclude 'project-inventory.md' --exclude 'RUNTIME-STATE.md' --exclude 'decisions/' --exclude 'work-items/' --exclude 'reports/' --exclude 'metrics/' --exclude 'evaluations/' "$source_kit/.codex/" "$kit_root/"
 cp "$source_kit/AGENTS.md" "$kit_root/AGENTS.md"
+[ -x "$kit_root/.codex/scripts/validate-entrypoint.sh" ] || chmod +x "$kit_root/.codex/scripts/validate-entrypoint.sh"
+for required_file in KIT.toml hooks.json scripts/validate-entrypoint.sh scripts/validate-agentic-contract.sh scripts/verify-billing-mode.sh scripts/validate-documentation.sh; do
+  [ -e "$kit_root/.codex/$required_file" ] || { echo "Fichier obligatoire absent après synchronisation: .codex/$required_file" >&2; exit 1; }
+done
+sed -i.bak "s/^kit_version = .*/kit_version = \"$latest\"/" "$kit_root/.codex/KIT.toml"
+rm -f "$kit_root/.codex/KIT.toml.bak"
 for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
   if [ ! -f "$kit_root/$local_file" ]; then
     cp "$source_kit/.codex/$local_file" "$kit_root/$local_file"
@@ -40,4 +47,10 @@ for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
 done
 sed -i.bak "s/^kit_version = .*/kit_version = \"$latest\"/" "$manifest"
 rm -f "$manifest.bak"
+installed_manifest="$(sed -n 's/^kit_version = \"\(.*\)\"/\1/p' "$manifest")"
+installed_kit="$(sed -n 's/^kit_version = \"\(.*\)\"/\1/p' "$kit_root/.codex/KIT.toml")"
+[ "$installed_manifest" = "$latest" ] && [ "$installed_kit" = "$latest" ] || {
+  echo "Échec de cohérence de version après synchronisation." >&2
+  exit 1
+}
 printf 'Kit Codex mis à jour : %s -> %s\nSauvegarde : %s\n' "$installed" "$latest" "$backup_root"
