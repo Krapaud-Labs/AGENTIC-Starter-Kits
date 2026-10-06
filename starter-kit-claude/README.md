@@ -1,6 +1,6 @@
 # Kit d'orchestration Claude Code portable
 
-![Version du kit](https://img.shields.io/badge/version-1.14.13-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.15.0-blue.svg)
 
 Ce kit installe une gouvernance projet native pour Claude Code. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
@@ -41,7 +41,7 @@ Cette commande crée `project-profile.toml` s'il est absent et génère un inven
 claude
 ```
 
-Une nouvelle session est importante car les sous-agents de `.claude/agents/` sont chargés à son démarrage.
+Une nouvelle session est importante car les sous-agents de `.claude/agents/` sont chargés à son démarrage. Le fichier `.claude/hooks.json` recharge aussi le contexte, contrôle les outils, suit les sous-agents et bloque une clôture non prouvée lorsque l'environnement Claude Code prend en charge ces hooks.
 
 6. Envoyer une demande projet normale, par exemple :
 
