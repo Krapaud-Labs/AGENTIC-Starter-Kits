@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.15.1 - 2026-10-06
+
+- corrige le hook SessionStart lorsque le runtime n'est pas encore initialisé
+- conserve un contexte exploitable pendant l'initialisation au lieu d'échouer silencieusement
+
 ## 1.15.0 - 2026-10-06
 
 - ajoute les hooks de cycle de vie pour Codex et Claude
