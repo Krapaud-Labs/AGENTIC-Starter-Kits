@@ -53,6 +53,7 @@ if [ ! -f "$project_root/AGENTS.md" ] && [ -f "$config_root/templates/AGENTS.md"
 fi
 bash "$config_root/scripts/validate-entrypoint.sh"
 bash "$config_root/scripts/validate-agentic-contract.sh"
+bash "$config_root/scripts/verify-billing-mode.sh"
 
 # Les fichiers d'état et d'onboarding sont obligatoires dès l'installation.
 # Ils restent locaux au projet et ne sont jamais écrasés s'ils existent déjà.

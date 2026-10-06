@@ -2,6 +2,8 @@
 
 Le kit fonctionne en mode gratuit par défaut.
 
+Pour Codex VS Code, l'authentification attendue est la connexion au compte ChatGPT et non une clé API. Pour Claude Code, l'authentification attendue est le compte Claude Pro ou Max lorsque l'utilisateur veut rester dans son abonnement. Les Agents API, Agents SDK, clés OpenAI, clés Anthropic, gateways et fournisseurs cloud sont hors mode abonnement et sont interdits par défaut.
+
 - Ne jamais activer, acheter, essayer ou configurer un service payant, une API facturée, un runner supérieur, une extension payante, un quota supplémentaire ou un moyen de paiement sans accord explicite de l'utilisateur.
 - Utiliser en priorité les outils locaux, open source, gratuits et les runners GitHub Actions standards inclus dans le quota applicable.
 - Les workflows générés utilisent uniquement `ubuntu-latest` et ne configurent aucun budget, paiement ou dépense automatique.

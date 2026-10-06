@@ -50,6 +50,7 @@ for context_file in PROJECT-CONTEXT.md PROJECT-DATA-BOUNDARY.md; do
 done
 bash "$config_root/scripts/validate-entrypoint.sh"
 bash "$config_root/scripts/validate-agentic-contract.sh"
+bash "$config_root/scripts/verify-billing-mode.sh"
 
 # Les fichiers d'état et d'onboarding sont obligatoires dès l'installation.
 # Ils restent locaux au projet et ne sont jamais écrasés s'ils existent déjà.
