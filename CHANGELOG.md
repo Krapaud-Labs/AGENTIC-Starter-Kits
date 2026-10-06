@@ -1,5 +1,13 @@
 ## Unreleased
 
+## 1.15.0 - 2026-10-06
+
+- ajoute les hooks de cycle de vie pour Codex et Claude
+- recharge automatiquement le contrat, le runtime et le Goal à chaque session
+- bloque les outils d'écriture si le Goal ou la prochaine action ne sont pas initialisés
+- enregistre les démarrages et fins de sous-agents
+- empêche la clôture avant validation du garde de réponse
+
 ## 1.14.13 - 2026-10-06
 
 - ajoute un garde-fou de mode de facturation sans clé API par défaut

@@ -1,0 +1,10 @@
+{
+  "description": "Garde-fous agentic du projet",
+  "hooks": {
+    "SessionStart": [{"matcher":"startup|resume|clear|compact","hooks":[{"type":"command","command":"bash \"$PWD/.claude/hooks/session-start.sh\"","statusMessage":"Chargement du contrat agentic","additionalContextLimit":5000}]}],
+    "PreToolUse": [{"matcher":"Bash|apply_patch|Edit|Write|Agent","hooks":[{"type":"command","command":"bash \"$PWD/.claude/hooks/pre-tool-use.sh\"","statusMessage":"Vérification du contrat agentic"}]}],
+    "SubagentStart": [{"hooks":[{"type":"command","command":"bash \"$PWD/.claude/hooks/subagent-start.sh\"","statusMessage":"Enregistrement du sous-agent"}]}],
+    "SubagentStop": [{"hooks":[{"type":"command","command":"bash \"$PWD/.claude/hooks/subagent-stop.sh\"","statusMessage":"Vérification du livrable du sous-agent"}]}],
+    "Stop": [{"hooks":[{"type":"command","command":"bash \"$PWD/.claude/hooks/stop.sh\"","statusMessage":"Vérification de clôture"}]}]
+  }
+}

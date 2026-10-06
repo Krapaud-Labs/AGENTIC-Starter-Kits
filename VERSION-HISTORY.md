@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.15.0 | 2026-10-06 | Hooks de cycle de vie pour automatiser le chargement de session, le contrôle avant outil, le suivi des sous-agents et la clôture. |
+
 | 1.14.13 | 2026-10-06 | Garde-fou d'authentification et de facturation pour rester sur l'abonnement utilisateur par défaut. |
 
 | 1.14.12 | 2026-10-05 | Synchronisation sûre excluant les sauvegardes locales des projets. |
