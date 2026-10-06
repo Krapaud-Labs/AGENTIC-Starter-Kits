@@ -271,3 +271,4 @@ bash .claude/scripts/doctor.sh
 ```
 
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
+L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.

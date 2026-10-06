@@ -354,3 +354,4 @@ La procédure complète se trouve dans [INSTALLATION.md](INSTALLATION.md), secti
 
 Le synchroniseur external met à jour directement le répertoire du kit et conserve les données projet protégées.
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
+L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.
