@@ -258,3 +258,4 @@ Dans une conversation existante, utiliser `Mode initialisation :` pour relancer 
 
 Envoyer cette commande seule depuis la racine du projet. Codex recharge alors les instructions et l'état du kit, vérifie le cahier des charges et n'autorise aucune analyse technique, aucun work item ni aucune modification produit avant sa réception et son acceptation. La procédure détaillée est documentée dans le guide d'installation du dépôt principal.
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
+L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.

@@ -23,6 +23,7 @@ done
 
 grep -q 'agent principal de ce chat est le Coordinateur' "$root/AGENTS.md" || fail "rôle du Coordinateur absent"
 grep -q 'créer ou reprendre le Goal natif' "$root/AGENTS.md" || fail "création du Goal natif absente"
+grep -q 'Ouvre /hooks' "$root/AGENTS.md" || fail "demande explicite d approbation des hooks absente"
 grep -q 'identifiant réel' "$root/.codex/policies/TASK-ROUTING-POLICY.md" || fail "preuve d'identifiant agent absente"
 grep -q 'agent qui a réellement produit le livrable' "$root/.codex/policies/AGENT-DELIVERY-CONTRACTS.md" || fail "preuve de producteur absente"
 

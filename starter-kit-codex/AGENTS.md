@@ -78,6 +78,8 @@ Pour le message `Mode initialisation :`, le premier message de réponse doit êt
 7. La décision : demander le cahier, poser les questions manquantes ou réutiliser le contexte accepté.
 8. L action suivante et ce qui reste interdit.
 
+Le rapport doit également demander explicitement l approbation des hooks avant toute action produit : `Ouvre /hooks, relis les hooks du projet et approuve-les. Réponds ensuite lorsque la revue est terminée.` Si les hooks sont déjà approuvés, l agent doit l indiquer avec une preuve observable ; sinon il ne doit pas prétendre que la protection de cycle de vie est active.
+
 Il est interdit de commencer par un résumé d installation, une liste d outils, une analyse technique ou une annonce de projet configuré. Tant que ce rapport n est pas affiché, aucune autre action ne doit être annoncée.
 
 Si le statut est absent ou pending, répondre uniquement en demandant le cahier des charges. Si le statut est accepted, ne pas redemander le cahier, mais annoncer explicitement sa réutilisation et lancer la phase de complétude si elle n est pas prouvée comme terminée.
