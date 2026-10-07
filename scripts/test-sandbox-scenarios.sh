@@ -56,6 +56,7 @@ for kit in codex claude; do
   # Scenario 4: le parcours Trello prépare les labels avant création de carte.
   assert_contains "$source/skills/trello-planning/SKILL.md" 'Avant toute création de carte.*étiquettes obligatoires'
   assert_contains "$source/skills/trello-planning/SKILL.md" 'Ne jamais demander.*confirmation'
+  assert_contains "$source/skills/trello-planning/SKILL.md" 'lecture dédiée.*checklist'
 
   # Scenario 5: le parcours de sélection respecte l'ordre et ferme le navigateur.
   assert_contains "$source/skills/coordination/SKILL.md" 'refuse de démarrer.*03.*02'

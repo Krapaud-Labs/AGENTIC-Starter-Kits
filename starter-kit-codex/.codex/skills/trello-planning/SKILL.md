@@ -110,6 +110,8 @@ Avant chaque nouvelle mise à jour d'une carte, relire également les commentair
 
 Après création ou modification, relire le champ description depuis Trello et contrôler l’absence de `\n` littéraux, de doublons, de titres collés ou de listes mal rendues. Si le rendu est incorrect, corriger immédiatement avant de déclarer la synchronisation vérifiée.
 
+La réponse de lecture d’une carte ne constitue pas toujours une preuve suffisante de sa checklist. Après chaque création ou modification de checklist, le Coordinateur doit relire chaque checklist avec l’opération de lecture dédiée, vérifier son nom, son ordre, tous ses items et leurs états, puis comparer cette lecture à la carte. Une carte ne peut pas être déclarée synchronisée si la carte indique une checklist vide alors que la lecture dédiée n’a pas été effectuée.
+
 La fusion d’une PR ne clôture jamais une carte. Après chaque fusion, relire la checklist, reprendre immédiatement la prochaine étape ouverte et poursuivre jusqu’à la Definition of Done réelle.
 
 ## Exécution continue obligatoire

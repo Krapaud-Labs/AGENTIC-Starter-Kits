@@ -56,6 +56,7 @@ done
 for skill in "$codex/skills/trello-planning/SKILL.md" "$claude/skills/trello-planning/SKILL.md"; do
   require_text "$skill" "connecteurs Trello déjà disponibles"
   require_text "$skill" "checkpoint local"
+  require_text "$skill" "lecture dédiée"
   if grep -Fq "demander à l’utilisateur d’activer le plugin" "$skill"; then
     fail "$skill contient encore une activation Trello inconditionnelle"
   fi
