@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.3-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.4-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -272,6 +272,8 @@ Le dépôt utilise aussi `markdownlint-cli2` avec `.markdownlint.json`. Les conv
 Le cycle de travail prend également en charge les cartes Trello `time-gated`. Une carte dépendante d’une date peut être suspendue avec sa raison, sa date ISO et son checkpoint, tandis que les travaux indépendants continuent. Les règles de versionnement, de README obligatoire et de publication sont définies dans `VERSIONING.md`.
 
 ## Synchronisation d’un fork d’organisation
+
+Pour exiger la preuve des intégrations externes, lancer `bash scripts/test-integration-preflight.sh --require-real`. Sans cette option, le préflight local indique explicitement les scénarios Trello, agents et navigateur non exécutés.
 
 Le dépôt personnel constitue la source de référence du starter kit. Un fork placé dans une organisation ne reçoit pas automatiquement les nouvelles versions. Depuis le clone du fork, ajouter le dépôt personnel comme remote `upstream`, puis synchroniser après chaque version validée :
 

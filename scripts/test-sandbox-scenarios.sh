@@ -69,6 +69,14 @@ done
 integration_output="$(bash "$root/scripts/test-integration-preflight.sh")"
 grep -q '^git_worktrees=passed$' <<< "$integration_output"
 grep -q '^git_index_lock_detection=passed$' <<< "$integration_output"
+grep -q '^trello=not-executed$' <<< "$integration_output"
+grep -q '^agents=not-executed$' <<< "$integration_output"
+grep -q '^browser=not-executed$' <<< "$integration_output"
+grep -q '^status=completed-with-explicit-external-limits$' <<< "$integration_output"
+if bash "$root/scripts/test-integration-preflight.sh" --require-real >/dev/null 2>&1; then
+  echo "ECHEC SANDBOX: --require-real a accepté des parcours externes absents" >&2
+  exit 1
+fi
 
 # Parcours d'initialisation réel dans deux projets temporaires indépendants.
 for kit in codex claude; do
