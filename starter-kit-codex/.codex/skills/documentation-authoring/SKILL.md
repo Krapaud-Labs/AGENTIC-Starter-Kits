@@ -38,4 +38,4 @@ Nombre de documents contrôlés, anomalies trouvées, corrections et limites res
 
 ## Arrêt
 
-S’arrêter si une preuve manque, si une décision métier est nécessaire ou si le document reste incohérent avec le code.
+Si une preuve manque, la produire ou la déléguer et poursuivre les tâches indépendantes. Si une décision métier est nécessaire, préparer les options et conserver une `next_action` explicite. Si le document reste incohérent avec le code, corriger le document dans le même work item puis relancer le validateur. N'arrêter que lorsqu'une décision humaine indispensable ou une dépendance externe inaccessible est le seul obstacle restant.
