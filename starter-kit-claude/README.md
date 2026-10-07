@@ -12,6 +12,8 @@ Un audit indépendant en `REWORK` déclenche la correction attribuée et sa nouv
 
 Les blocages locaux, outils, tests, preuves ou synchronisations récupérables sont traités automatiquement avant toute réponse.
 
+Un échec de contrôle ou un écart documentaire corrigeable déclenche correction, nouvelle validation et nouvelle relecture.
+
 ## Prérequis
 
 - Claude Code est installé.

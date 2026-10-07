@@ -16,6 +16,8 @@ Un audit indépendant en `REWORK` déclenche automatiquement la correction traç
 
 La même récupération autonome s’applique à tout blocage local ou réessayable ; `blocked` exige une dépendance externe inaccessible ou une décision humaine indispensable.
 
+Les contrôles et écarts corrigeables sont réparés puis relancés automatiquement avant toute interruption.
+
 ## Démarrage rapide
 
 Vous n’avez pas besoin de déplacer manuellement les dossiers du dépôt. L’installateur choisit une seule variante, la copie au bon emplacement et installe le workflow de mises à jour.
