@@ -28,4 +28,6 @@ Si `docs/design/design-readiness.md` est encore en `draft`, `review` ou `rework`
 
 Un état `blocked` pendant l'initialisation n'est autorisé que si une dépendance externe ou une décision explicitement humaine empêche réellement toute action autonome. Dans ce cas, `next_action` doit identifier l'événement attendu et les tâches indépendantes doivent être terminées ou attribuées. Une conception encore modifiable, un audit non lancé, une carte non créée, une PR non ouverte ou un outil gratuit installable ne sont jamais des blocages.
 
+L'absence de validation indépendante des stories P0, une conception en `review`, une branche d'onboarding non publiée, une PR d'onboarding non ouverte ou non relue, ainsi que des `audit-gate` ou `delivery-gate` ouverts sont des obligations de travail, pas des blocages externes. Le Coordinateur crée ou réactive l'Auditeur, termine la conception, publie la branche, ouvre la PR, attend ses contrôles et relit les gates dans le même Goal. Il ne passe à `blocked` que si l'une de ces actions est techniquement impossible après alternatives vérifiées.
+
 La fin d’onboarding ne demande le démarrage du développement qu’après cette porte complète. Toute autre conclusion est un échec de validation.

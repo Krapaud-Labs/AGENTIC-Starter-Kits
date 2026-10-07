@@ -140,6 +140,8 @@ DATA
   assert_contains "$project/$hidden/existing-audit-state.log" '^trello_readback=verified$'
   assert_contains "$source/skills/project-onboarding/SKILL.md" 'audit complet et minutieux'
   assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'draft.*review.*rework.*conception est incomplète'
+  assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'stories P0.*branche d.onboarding non publiée.*audit-gate.*delivery-gate'
+  assert_contains "$source/skills/coordination/SKILL.md" 'audit-gate.*delivery-gate.*stories P0 non relues'
   assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'dire « continue »'
 done
 

@@ -22,6 +22,8 @@ Les Skills de documentation produisent ou délèguent les preuves manquantes ava
 
 L'installation crée les fichiers d'état obligatoires avant de lancer les validateurs, afin d'éviter un blocage initial artificiel.
 
+Pendant l'onboarding, les gates ouverts, la conception en revue, l'audit P0 absent, la branche non publiée ou la PR non relue déclenchent la poursuite autonome au lieu d'un blocage.
+
 ## Démarrage rapide
 
 Vous n’avez pas besoin de déplacer manuellement les dossiers du dépôt. L’installateur choisit une seule variante, la copie au bon emplacement et installe le workflow de mises à jour.
