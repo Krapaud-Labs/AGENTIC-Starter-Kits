@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.3 | 2026-10-07 | Correction de la cohérence de version lors de l'initialisation et validation dynamique des points d'entrée. |
+
 | 1.16.2 | 2026-10-07 | Ouverture autonome de la PR d'onboarding lorsque la branche et les contrôles sont prêts, sans confirmation redondante, avec suivi obligatoire dans le même Goal. |
 
 | 1.16.1 | 2026-10-06 | Revue obligatoire des hooks à l'installation et après mise à jour. |
