@@ -10,6 +10,8 @@ Une conception incomplète ou un blocage récupérable déclenche automatiquemen
 
 Un audit indépendant en `REWORK` déclenche la correction attribuée et sa nouvelle relecture dans le même Goal.
 
+Les blocages locaux, outils, tests, preuves ou synchronisations récupérables sont traités automatiquement avant toute réponse.
+
 ## Prérequis
 
 - Claude Code est installé.
