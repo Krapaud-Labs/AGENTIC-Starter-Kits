@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.2 - 2026-10-07
+
+- interdit de demander une confirmation pour ouvrir la PR d'onboarding lorsque la livraison est autorisée et que les prérequis sont vérifiés
+- impose l'ouverture, la relecture et le suivi de la PR dans le même Goal jusqu'à la fusion ou un blocage réel
+- ajoute un scénario de non-régression couvrant une branche publiée avec `audit-gate` et `delivery-gate` ouverts
+
 ## 1.16.1 - 2026-10-06
 
 - rend obligatoire l'information et la revue des hooks à la première initialisation

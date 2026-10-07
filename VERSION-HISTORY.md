@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.2 | 2026-10-07 | Ouverture autonome de la PR d'onboarding lorsque la branche et les contrôles sont prêts, sans confirmation redondante, avec suivi obligatoire dans le même Goal. |
+
 | 1.16.1 | 2026-10-06 | Revue obligatoire des hooks à l'installation et après mise à jour. |
 
 | 1.16.0 | 2026-10-06 | Ajout des hooks PermissionRequest et PostToolUse pour bloquer les actions sensibles et journaliser les preuves. |

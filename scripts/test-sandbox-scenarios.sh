@@ -187,6 +187,9 @@ assert_contains "$source/policies/DESIGN-FIRST-GATE.md" 'ne peut annoncer simult
 assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'PR vers `dev`'
 assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'cahier.*conception.*carte locale.*carte distante'
   assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'needs-review.*action autonome'
+  assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'doit créer immédiatement la PR'
+  assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'sans demander.*confirmation.*PR'
+  assert_contains "$source/policies/AUTONOMY-AND-RECOVERY.md" 'branche publiée.*déclenche automatiquement la création de la PR'
   assert_contains "$source/policies/SESSION-CONTINUITY-POLICY.md" 'enchaîner les cartes'
   assert_contains "$source/policies/SESSION-CONTINUITY-POLICY.md" 'Review.*ne termine jamais'
 done

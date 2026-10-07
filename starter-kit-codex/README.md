@@ -1,6 +1,6 @@
 # Kit d'orchestration Codex portable
 
-![Version du kit](https://img.shields.io/badge/version-1.16.1-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.16.2-blue.svg)
 
 Ce kit installe une gouvernance projet pour Codex. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
@@ -214,6 +214,8 @@ Le contrat central `.codex/policies/CORE-EXECUTION-CONTRACT.md` impose un regist
 Chaque nouveau work item reçoit `obligations.tsv`. `bash .codex/scripts/validate-obligations.sh --require-active` vérifie les huit portes et `verify-before-push.sh` bloque automatiquement une livraison incomplète.
 
 ## Gouvernance complète disponible
+
+Le flux d'initialisation ouvre automatiquement la PR vers `dev` ou `develop` dès que la branche et les contrôles sont prêts. Il ne demande pas une confirmation supplémentaire pour une étape déjà autorisée.
 
 Le fichier `.codex/SPECIALIST-AGENTS.md` définit les conditions d’activation, les livrables et l’ordre de contrôle des dix spécialistes. Le Coordinateur lit ce fichier avant toute délégation, consulte `[agents]` dans le profil et justifie chaque activation dans le work item.
 
