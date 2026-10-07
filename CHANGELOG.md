@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.6 - 2026-10-07
+
+- impose une relecture dédiée des checklists Trello après chaque écriture
+- corrige le cas réel où la lecture d’une carte ne restituait pas les checklists pourtant créées
+- ajoute le contrôle de gouvernance et le scénario de non-régression correspondants
+
 ## 1.16.5 - 2026-10-07
 
 - aligne la transparence d'initialisation Claude sur Codex avec la porte d'approbation des hooks
