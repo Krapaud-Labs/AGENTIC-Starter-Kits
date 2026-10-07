@@ -42,6 +42,12 @@ Une CI, une PR, une fusion, un audit partiel, une documentation partielle ou un 
 
 Si aucune action autonome n'est exécutée, le message de statut est invalide et doit être remplacé par l'action réelle. Si une action n'est pas possible, consigner la preuve, essayer l'alternative sûre, continuer les tâches indépendantes et utiliser `blocked` ou `needs-review` uniquement avec une raison vérifiable.
 
+## Blocage récupérable interdit de fin de tour
+
+Un blocage qui peut être corrigé dans le périmètre autorisé ne doit jamais interrompre le chat ni rendre la main. Le Coordinateur conserve le Goal actif, met à jour `current_action` et `next_action`, puis tente immédiatement les alternatives gratuites et réversibles disponibles : recherche complète des outils et de leur PATH, installation provisoire, réutilisation d'une session existante, délégation ou réactivation d'un agent, voie locale de validation, correction du fichier fautif et poursuite des tâches indépendantes. Il fournit un checkpoint intermédiaire uniquement après avoir lancé une de ces actions.
+
+`blocked` est réservé à une dépendance externe réellement inaccessible ou à une décision humaine indispensable et non substituable. Dans tous les autres cas, l'état reste `running`, `waiting-ci` ou `needs-review` avec une action observable en cours. Une réponse qui dit seulement « je suis bloqué », « il faut continuer » ou « reviens plus tard » sans action lancée est non conforme et doit être refusée par le Coordinateur.
+
 ## Récupération universelle avant arrêt
 
 Cette règle s'applique à toute action, pas seulement au code ou à Trello. Un échec, une preuve incomplète, un outil absent, une incohérence, une branche non livrée, une session interrompue, une délégation non confirmée ou un résultat visuel non vérifié déclenche immédiatement une boucle diagnostic, attribution à l'agent compétent, correction, test, relecture et nouvelle action. Le Coordinateur ne peut pas remplacer un agent spécialisé disponible.
