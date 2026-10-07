@@ -198,6 +198,7 @@ assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'cahier.*con
   assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'doit créer immédiatement la PR'
   assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'sans demander.*confirmation.*PR'
   assert_contains "$source/policies/AUTONOMY-AND-RECOVERY.md" 'branche publiée.*déclenche automatiquement la création de la PR'
+  assert_contains "$source/policies/INITIALIZATION-TRANSPARENCY.md" '## Approbation des hooks'
   kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$source/KIT.toml")"
   assert_contains "$source/../$( [ "$kit" = codex ] && echo AGENTS.md || echo CLAUDE.md )" "ENTRYPOINT-CONTRACT: $kit_version"
   assert_contains "$source/policies/SESSION-CONTINUITY-POLICY.md" 'enchaîner les cartes'

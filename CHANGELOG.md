@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.5 - 2026-10-07
+
+- aligne la transparence d'initialisation Claude sur Codex avec la porte d'approbation des hooks
+- ajoute un contrôle de parité qui échoue si une variante omet cette porte
+
 ## 1.16.4 - 2026-10-07
 
 - distingue explicitement les parcours externes simulés des preuves réelles dans le préflight d'intégration

@@ -36,6 +36,11 @@ for entry in "$root/starter-kit-codex/AGENTS.md" "$root/starter-kit-claude/CLAUD
   require_text "$entry" "interdire toute clôture"
 done
 
+for transparency in "$codex/policies/INITIALIZATION-TRANSPARENCY.md" "$claude/policies/INITIALIZATION-TRANSPARENCY.md"; do
+  require_text "$transparency" "## Approbation des hooks"
+  require_text "$transparency" "relecture et l approbation des hooks"
+done
+
 for runtime in "$codex/RUNTIME-STATE.md" "$claude/RUNTIME-STATE.md"; do
   require_text "$runtime" "Obligations ouvertes"
   require_text "$runtime" "Portes non vérifiées"
