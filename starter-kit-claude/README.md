@@ -18,6 +18,8 @@ Une preuve documentaire manquante est recherchée ou déléguée avant toute esc
 
 Les fichiers locaux d'onboarding sont créés avant la validation structurelle de première installation.
 
+Les gates d'audit et de livraison ouverts déclenchent la suite des actions autonomes jusqu'à leur preuve, sans blocage prématuré.
+
 ## Prérequis
 
 - Claude Code est installé.
