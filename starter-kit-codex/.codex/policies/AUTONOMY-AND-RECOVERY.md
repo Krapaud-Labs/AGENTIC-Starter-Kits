@@ -1,5 +1,11 @@
 # Politique d autonomie et de récupération
 
+## Règle générale
+
+Tout blocage que le Coordinateur ou un agent peut résoudre dans le périmètre autorisé doit être traité immédiatement, sans interrompre le Goal ni rendre la main. Cela inclut les outils absents mais installables provisoirement, les commandes absentes du `PATH` mais trouvables ailleurs, les tests relançables, les erreurs locales, les preuves productibles, les audits en `REWORK`, les agents disponibles ou réactivables, les conflits récupérables et les synchronisations pouvant passer par une alternative autorisée. L'agent enregistre la cause, lance la récupération, vérifie le résultat et poursuit dans le même cycle.
+
+`blocked` n'est permis qu'après vérification de toutes ces voies et preuve qu'une dépendance externe inaccessible ou une décision humaine indispensable est le seul événement restant. Un blocage récupérable conserve `execution_status: running`, `waiting-ci` ou `needs-review`, avec une `next_action` active et un propriétaire.
+
 ## Principe
 
 Après acceptation du cahier et du questionnaire de complétude, l agent travaille en autonomie continue. Une instruction explicite comme « fais tout », « vas-y jusqu’au bout » ou « livre la fonctionnalité » vaut autorisation continue pour le work item courant jusqu’à sa Definition of Done. Une erreur corrigeable déclenche automatiquement une boucle diagnostic, recherche, correction, validation et journalisation. L agent ne clôt pas la conversation avec une simple description d échec.

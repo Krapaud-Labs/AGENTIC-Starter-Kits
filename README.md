@@ -14,6 +14,8 @@ Les blocages récupérables ne terminent pas un tour : le Coordinateur conserve 
 
 Un audit indépendant en `REWORK` déclenche automatiquement la correction traçable puis une nouvelle relecture par l’auditeur ; il ne devient pas un blocage lorsque ces actions restent réalisables.
 
+La même récupération autonome s’applique à tout blocage local ou réessayable ; `blocked` exige une dépendance externe inaccessible ou une décision humaine indispensable.
+
 ## Démarrage rapide
 
 Vous n’avez pas besoin de déplacer manuellement les dossiers du dépôt. L’installateur choisit une seule variante, la copie au bon emplacement et installe le workflow de mises à jour.

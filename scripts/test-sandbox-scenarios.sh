@@ -154,6 +154,8 @@ assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Récupérat
   assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Un même symptôme ne peut pas être répété deux fois'
   assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Blocage récupérable interdit de fin de tour'
   assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'ne doit jamais interrompre le chat'
+  assert_contains "$source/policies/AUTONOMY-AND-RECOVERY.md" 'Tout blocage que le Coordinateur ou un agent peut résoudre'
+  assert_contains "$source/skills/quality-audit/SKILL.md" 'Retourner `rework` et produire ou déléguer'
 assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'Il refuse immédiatement toute tâche hors domaine'
 assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'agent qui a réellement produit le livrable'
 assert_contains "$source/skills/coordination/SKILL.md" 'tâche → agent concerné → identifiant réel'

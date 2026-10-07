@@ -39,4 +39,4 @@ Taux d'acceptation au premier passage, défauts après livraison, critères sans
 
 ## Arrêt
 
-Arrêter en `blocked` si une preuve essentielle manque ou si l'environnement ne permet pas de vérifier un critère critique.
+Retourner `rework` et produire ou déléguer la preuve manquante si elle peut encore être obtenue dans le périmètre autorisé. Réserver `blocked` au cas où une dépendance externe ou une décision humaine indispensable empêche réellement toute obtention de preuve après alternatives vérifiées.
