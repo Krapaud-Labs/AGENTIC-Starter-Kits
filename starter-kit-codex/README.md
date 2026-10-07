@@ -14,6 +14,10 @@ Les blocages locaux, outils, tests, preuves ou synchronisations récupérables s
 
 Un échec de contrôle ou un écart documentaire corrigeable déclenche correction, nouvelle validation et nouvelle relecture.
 
+Une preuve documentaire manquante est recherchée ou déléguée avant toute escalade.
+
+Les fichiers locaux d'onboarding sont créés avant la validation structurelle de première installation.
+
 ## Prérequis
 
 - Codex est installé et ouvert sur le dossier du projet.

@@ -18,6 +18,10 @@ La même récupération autonome s’applique à tout blocage local ou réessaya
 
 Les contrôles et écarts corrigeables sont réparés puis relancés automatiquement avant toute interruption.
 
+Les Skills de documentation produisent ou délèguent les preuves manquantes avant d'escalader un blocage réel.
+
+L'installation crée les fichiers d'état obligatoires avant de lancer les validateurs, afin d'éviter un blocage initial artificiel.
+
 ## Démarrage rapide
 
 Vous n’avez pas besoin de déplacer manuellement les dossiers du dépôt. L’installateur choisit une seule variante, la copie au bon emplacement et installe le workflow de mises à jour.
