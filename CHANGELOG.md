@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.4 - 2026-10-07
+
+- distingue explicitement les parcours externes simulés des preuves réelles dans le préflight d'intégration
+- ajoute l'option `--require-real` qui échoue si Trello, les agents ou le navigateur n'ont pas fourni de preuve
+- interdit de considérer une simple autorisation comme une exécution réelle
+
 ## 1.16.3 - 2026-10-07
 
 - rend le validateur de point d'entrée dynamique selon la version du kit

@@ -1,6 +1,6 @@
 # Kit d'orchestration Claude Code portable
 
-![Version du kit](https://img.shields.io/badge/version-1.16.3-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.16.4-blue.svg)
 
 Ce kit installe une gouvernance projet native pour Claude Code. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
@@ -246,6 +246,8 @@ Le Coordinateur utilise ces données pour réduire le contexte, supprimer les re
 Après une instruction « fais tout », le Coordinateur poursuit jusqu’à la Definition of Done sans demander « Continue ». Il corrige les erreurs récupérables, vérifie les résultats et ne sollicite l’utilisateur que pour une décision sensible ou irréversible.
 
 ## Synchronisation automatique
+
+Le préflight distingue les simulations des preuves externes. Utiliser `bash scripts/test-integration-preflight.sh --require-real` pour refuser toute campagne où Trello, les agents ou le navigateur n'ont pas fourni de preuve réelle.
 
 L’initialisation installe un workflow GitHub Actions hebdomadaire qui ouvre une Pull Request pour chaque évolution du kit officiel. Le script `.claude/scripts/update-starter-kit.sh` permet aussi une mise à jour manuelle avec un remote, une référence et une branche.
 
