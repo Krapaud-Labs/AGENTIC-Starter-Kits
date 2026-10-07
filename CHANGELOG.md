@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.7 - 2026-10-07
+
+- ajoute un garde-fou exécutable contre les PR de progression et les doublons
+- conserve l'exception explicite de PR de déploiement
+- ajoute les scénarios automatisés de cadence
+
 ## 1.16.6 - 2026-10-07
 
 - impose une relecture dédiée des checklists Trello après chaque écriture

@@ -34,6 +34,9 @@ for flow in \
   grep -q "dernière checklist" "$flow" || {
     echo "ECHEC TEST: la condition de PR finale est absente de $flow"; exit 1;
   }
+  grep -q "Garde exécutable de cadence" "$flow" || {
+    echo "ECHEC TEST: le garde-fou de cadence PR est absent de $flow"; exit 1;
+  }
 done
 
 for coordinator in \
@@ -170,6 +173,18 @@ for kit in codex claude; do
     echo "ECHEC TEST: verify-specialist-plan.sh absent pour $kit"
     exit 1
   }
+  cadence="$source_config/scripts/verify-pr-cadence.sh"
+  [ -x "$cadence" ] || { echo "ECHEC TEST: verify-pr-cadence.sh absent pour $kit"; exit 1; }
+  bash -n "$cadence"
+  bash "$cadence" complete 0 >/dev/null
+  bash "$cadence" complete 1 >/dev/null
+  if bash "$cadence" in-progress 0 >/dev/null 2>&1; then
+    echo "ECHEC TEST: une PR de progression a été autorisée pour $kit"; exit 1
+  fi
+  bash "$cadence" in-progress 0 deployment-checkpoint >/dev/null
+  if bash "$cadence" complete 2 >/dev/null 2>&1; then
+    echo "ECHEC TEST: plusieurs PR ont été autorisées pour $kit"; exit 1
+  fi
   test_root="$(mktemp -d)"
   trap 'rm -rf "$test_root"' EXIT
   config="$test_root/$hidden"

@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.7 | 2026-10-07 | Garde exécutable contre les PR intermédiaires et doublons, avec tests de cadence et exception de déploiement explicite. |
+
 | 1.16.6 | 2026-10-07 | Relecture directe obligatoire des checklists Trello après écriture, validée par un test réel du connecteur. |
 
 | 1.16.5 | 2026-10-07 | Parité des hooks d'initialisation Codex et Claude renforcée par un contrôle de gouvernance commun. |
