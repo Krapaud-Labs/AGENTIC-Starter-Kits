@@ -8,6 +8,8 @@ L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scéna
 
 Une conception incomplète ou un blocage récupérable déclenche automatiquement la reprise du Goal avec les agents requis et une prochaine action observable. Le Coordinateur ne demande pas un nouveau message « continue » lorsqu'une action autonome reste possible.
 
+Un audit indépendant en `REWORK` déclenche la correction attribuée et sa nouvelle relecture dans le même Goal.
+
 ## Prérequis
 
 - Claude Code est installé.
