@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.3 - 2026-10-07
+
+- rend le validateur de point d'entrée dynamique selon la version du kit
+- corrige les templates Codex et Claude qui conservaient une version obsolète après une mise à jour
+- ajoute la non-régression de cohérence entre template, point d'entrée et manifeste
+
 ## 1.16.2 - 2026-10-07
 
 - interdit de demander une confirmation pour ouvrir la PR d'onboarding lorsque la livraison est autorisée et que les prérequis sont vérifiés
