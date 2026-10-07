@@ -6,6 +6,8 @@ Ce kit installe une gouvernance projet native pour Claude Code. Il ne construit 
 
 L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).
 
+Une conception incomplète ou un blocage récupérable déclenche automatiquement la reprise du Goal avec les agents requis et une prochaine action observable. Le Coordinateur ne demande pas un nouveau message « continue » lorsqu'une action autonome reste possible.
+
 ## Prérequis
 
 - Claude Code est installé.

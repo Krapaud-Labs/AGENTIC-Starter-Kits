@@ -139,6 +139,8 @@ DATA
   assert_contains "$project/$hidden/existing-audit-state.log" 'goal_delegation_plan=frontend->02,qa->03'
   assert_contains "$project/$hidden/existing-audit-state.log" '^trello_readback=verified$'
   assert_contains "$source/skills/project-onboarding/SKILL.md" 'audit complet et minutieux'
+  assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'draft.*review.*rework.*conception est incomplète'
+  assert_contains "$source/policies/INITIALIZATION-CLOSURE-POLICY.md" 'dire « continue »'
 done
 
 # Contrats statiques des domaines qui nécessitent une intégration externe réelle.
@@ -149,7 +151,9 @@ for kit in codex claude; do
   assert_contains "$source/policies/GIT-FLOW.md" 'une seule Pull Request finale'
 assert_contains "$source/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" 'test de non-régression'
 assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Récupération universelle avant arrêt'
-assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Un même symptôme ne peut pas être répété deux fois'
+  assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Un même symptôme ne peut pas être répété deux fois'
+  assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Blocage récupérable interdit de fin de tour'
+  assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'ne doit jamais interrompre le chat'
 assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'Il refuse immédiatement toute tâche hors domaine'
 assert_contains "$source/policies/AGENT-DELIVERY-CONTRACTS.md" 'agent qui a réellement produit le livrable'
 assert_contains "$source/skills/coordination/SKILL.md" 'tâche → agent concerné → identifiant réel'

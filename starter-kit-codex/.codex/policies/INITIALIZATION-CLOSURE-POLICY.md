@@ -22,4 +22,10 @@ L’initialisation est un flux livré, pas un simple état de cadrage. Le Coordi
 - `blocked` sans preuve du blocage réel, alternatives essayées et tâches indépendantes terminées.
 - « synchronisation indisponible » sans avoir vérifié connecteur, navigateur existant, CLI, PATH, extensions et alternative documentée.
 
+## Reprise obligatoire avant toute conclusion
+
+Si `docs/design/design-readiness.md` est encore en `draft`, `review` ou `rework`, cela signifie que la conception est incomplète, pas que l'initialisation est bloquée. Le Coordinateur conserve le Goal actif, passe l'étape en `conception`, crée ou active les agents Concepteur et Auditeur requis, puis exécute immédiatement la prochaine action de conception inscrite dans `next_action`. Il ne rend pas la main avec un simple constat « conception à terminer » et ne demande pas à l'utilisateur de dire « continue ».
+
+Un état `blocked` pendant l'initialisation n'est autorisé que si une dépendance externe ou une décision explicitement humaine empêche réellement toute action autonome. Dans ce cas, `next_action` doit identifier l'événement attendu et les tâches indépendantes doivent être terminées ou attribuées. Une conception encore modifiable, un audit non lancé, une carte non créée, une PR non ouverte ou un outil gratuit installable ne sont jamais des blocages.
+
 La fin d’onboarding ne demande le démarrage du développement qu’après cette porte complète. Toute autre conclusion est un échec de validation.

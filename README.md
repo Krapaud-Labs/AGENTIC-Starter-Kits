@@ -10,6 +10,8 @@ Agentic Starter Kits est une base portable de gouvernance, de conception, d’or
 
 Le kit ne fournit pas une simple collection de prompts. Il fournit une méthode de travail complète : règles, agents spécialisés, Skills réutilisables, configuration technologique, documents de conception, journal qualité, contrôles de sécurité, GitFlow, CI et optimisation continue du coût.
 
+Les blocages récupérables ne terminent pas un tour : le Coordinateur conserve le Goal actif, tente les alternatives autorisées et exécute la prochaine action observable. Cette règle est couverte par les scénarios sandbox des deux variantes.
+
 ## Démarrage rapide
 
 Vous n’avez pas besoin de déplacer manuellement les dossiers du dépôt. L’installateur choisit une seule variante, la copie au bon emplacement et installe le workflow de mises à jour.
