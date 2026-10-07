@@ -46,6 +46,10 @@ Un push sur une branche de travail ne crée pas automatiquement une nouvelle PR.
 
 La promotion vers `main` est une seule PR depuis `dev` ou `develop` par lot cohérent et version. Elle ne doit pas créer de PR intermédiaire par commit, check, agent, résultat CI ou correction.
 
+### Garde exécutable de cadence
+
+Avant tout appel `gh pr create`, toute action équivalente du connecteur ou toute création via navigateur, le Coordinateur doit recenser les PR ouvertes pour la branche et la carte concernées. Il exécute `scripts/verify-pr-cadence.sh <statut-carte> <nombre-de-PR-existantes>` et bloque l'opération si la carte n'est pas `complete`, si plusieurs PR existent ou si la PR existante doit être mise à jour. Un commit, une preuve, un commentaire Trello, une correction documentaire, un résultat CI ou une délégation ne justifie jamais une PR de progression. La demande utilisateur de déploiement reste la seule exception et doit utiliser le troisième argument `deployment-checkpoint`.
+
 ## Pull Request par carte
 
 Une carte Trello correspond par défaut à une branche de travail et à une seule Pull Request finale. Tant qu'un seul check, une seule preuve ou une seule action de la carte reste ouvert, l'agent ne crée aucune Pull Request : il ne fait que des commits atomiques et les pousse sur la branche dédiée. La PR vers `dev` ou `develop` est créée uniquement après la dernière checklist, la mise à jour documentaire, la validation de la Definition of Done et la relecture Trello. Si une PR existe par erreur avant cette étape, le Coordinateur la ferme sans supprimer la branche, puis reprend les commits sur cette branche. Une PR intermédiaire exige une demande explicite de l'utilisateur ou une justification critique documentée.
