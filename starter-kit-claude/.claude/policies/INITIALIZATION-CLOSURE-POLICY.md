@@ -15,6 +15,12 @@ L’initialisation est un flux livré, pas un simple état de cadrage. Le Coordi
 8. Inscrire dans le Goal le plan d’agents, les lots, les fichiers autorisés, les preuves et l’agent intégrateur avant tout travail parallèle.
 9. Créer la branche d’onboarding, committer seulement les artefacts autorisés, pousser, ouvrir la PR vers `dev`, vérifier son état et ses contrôles, puis relire la branche distante.
 
+## Ouverture autonome de la PR d'onboarding
+
+Quand l'utilisateur a demandé l'initialisation, la livraison ou l'exécution jusqu'au bout, cette demande autorise déjà les étapes réversibles de livraison. Dès que la branche d'onboarding est publiée, que le diff est conforme, que les contrôles locaux sont verts et que les gates sont suffisamment documentés pour ouvrir la PR, le Coordinateur doit créer immédiatement la PR vers `dev` ou `develop`, sans demander « confirme la création de la PR » ni une confirmation équivalente. Il doit ensuite relire la PR, attendre les contrôles, corriger les échecs et poursuivre le Goal jusqu'à fusion ou blocage réel.
+
+Une page GitHub ouverte, un formulaire prérempli ou une PR seulement préparée ne constitue pas une PR créée. L'état `delivery-gate: pending` ne justifie pas une demande de confirmation lorsque l'ouverture est techniquement disponible. Une intervention humaine n'est permise que pour une protection de branche, une revue obligatoire, un conflit, une décision métier, un secret, une dépense ou une action explicitement sensible.
+
 ## États interdits
 
 - `complete` ou « onboarding terminé » si Trello est seulement préparé localement, si une carte, un label ou une checklist reste non relu, si la PR vers `dev` n’est pas créée et vérifiée, ou si une action autonome reste ouverte.

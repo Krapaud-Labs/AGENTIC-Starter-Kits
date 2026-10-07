@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.1-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.2-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -324,6 +324,8 @@ L’installateur met également à jour ou crée `.gitignore` sans doublons. Il 
 Le workflow de mise à jour utilise la branche `develop` si elle existe, sinon `dev`. Il refuse `main` et ne dépend d’aucune variable GitHub Actions non déclarée.
 
 ## Qualité documentaire premium
+
+Le flux d'initialisation ouvre automatiquement la PR vers `dev` ou `develop` dès que la branche et les contrôles sont prêts. Il ne demande pas une confirmation supplémentaire pour une étape déjà autorisée.
 
 Le kit impose désormais un contrat documentaire : chaque document indique son statut, sa version, sa date, son responsable, son audience, son périmètre, ses faits vérifiés, ses hypothèses, ses inconnues, ses décisions, ses risques et ses critères de validation. Le Skill de rédaction adapte le contenu au lecteur et ajoute les exemples, diagrammes, commandes et références nécessaires. Le Skill d’audit refuse les documents incomplets, vagues ou incohérents avec le code.
 
