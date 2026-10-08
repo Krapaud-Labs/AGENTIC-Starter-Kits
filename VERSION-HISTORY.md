@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.21 | 2026-10-08 | Routage QA renforcé avec alternatives locales et fixtures lorsqu’aucune cible authentifiée n’est disponible. |
+
 | 1.16.20 | 2026-10-08 | Correction de la détection des limitations sandbox dans le diagnostic GitHub. |
 
 | 1.16.19 | 2026-10-08 | Diagnostic GitHub renforcé avec distinction sandbox, accès renforcé et indisponibilité externe réelle. |

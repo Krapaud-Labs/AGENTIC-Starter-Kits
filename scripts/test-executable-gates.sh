@@ -66,6 +66,15 @@ for parallel in \
   }
 done
 
+for qa in \
+  "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \
+  "$root/starter-kit-claude/.claude/skills/coordination/SKILL.md" \
+  "$root/starter-kit-codex/.codex/policies/TASK-ROUTING-POLICY.md" \
+  "$root/starter-kit-claude/.claude/policies/TASK-ROUTING-POLICY.md"; do
+  grep -q "credentials" "$qa" || { echo "ECHEC TEST: fallback QA sans credentials absent de $qa"; exit 1; }
+  grep -q "fixture" "$qa" || { echo "ECHEC TEST: fixture QA absente de $qa"; exit 1; }
+done
+
 for scope in \
   "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \
   "$root/starter-kit-codex/.codex/skills/trello-planning/SKILL.md" \
