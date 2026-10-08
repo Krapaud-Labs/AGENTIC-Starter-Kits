@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.21 - 2026-10-08
+
+- oblige l'activation de l'agent QA sans credentials externes
+- impose la cible locale, les fixtures isolées et la séparation des preuves locales et préproduction
+
 ## 1.16.20 - 2026-10-08
 
 - corrige la détection portable des erreurs réseau de la sandbox
