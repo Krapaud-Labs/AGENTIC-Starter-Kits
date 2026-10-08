@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+[ "${CI:-false}" = "true" ] && export BASH_XTRACEFD=2 && set -x
 
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 
