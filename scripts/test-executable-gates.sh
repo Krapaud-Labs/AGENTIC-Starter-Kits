@@ -102,6 +102,17 @@ for recovery in \
   }
 done
 
+for contract in \
+  "$root/starter-kit-codex/.codex/policies/PERSISTENT-EXECUTION-CONTRACT.md" \
+  "$root/starter-kit-claude/.claude/policies/PERSISTENT-EXECUTION-CONTRACT.md"; do
+  grep -q "ne doit jamais être présenté comme une reprise automatique garantie" "$contract" || {
+    echo "ECHEC TEST: promesse de reprise automatique non prouvée encore autorisée"; exit 1;
+  }
+  grep -q "nouvelle requête ou une réactivation native manuelle" "$contract" || {
+    echo "ECHEC TEST: déclencheur manuel de reprise absent"; exit 1;
+  }
+done
+
 for continuity in \
   "$root/starter-kit-codex/.codex/policies/SESSION-CONTINUITY-POLICY.md" \
   "$root/starter-kit-codex/.codex/ORCHESTRATION.md" \
