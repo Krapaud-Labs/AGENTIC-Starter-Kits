@@ -8,4 +8,6 @@ Le Coordinateur doit aussi inspecter les variables d environnement non sensibles
 
 Si l outil est trouvé hors `PATH`, utiliser son chemin absolu ou enrichir uniquement le `PATH` de la session, puis relancer la vérification. Ne jamais installer, activer, payer ou transmettre une donnée à un service sans l autorisation applicable. Si aucune instance utilisable n est trouvée après cette procédure, enregistrer les recherches, les erreurs et les alternatives tentées avant de déclarer le blocage.
 
+Pour un daemon local connu, une commande qui échoue ne suffit jamais à déclarer `blocked`. Après avoir vérifié le binaire, le Coordinateur exécute le garde-fou de démarrage correspondant, notamment `.claude/scripts/ensure-docker-ready.sh` pour Docker, attend un état prêt et relance le contrôle. Le démarrage reste limité aux services locaux, gratuits et autorisés. Un blocage n est recevable qu après échec observable du démarrage, permission manquante ou décision externe réellement indispensable.
+
 Une conclusion d indisponibilité doit mentionner les emplacements vérifiés, la commande de version ou d identité, l état d authentification, les alternatives disponibles et la prochaine action. Une simple sortie `command not found` est insuffisante.

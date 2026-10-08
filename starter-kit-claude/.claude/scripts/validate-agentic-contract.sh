@@ -14,6 +14,7 @@ for script in guard-before-response.sh validate-session-state.sh verify-before-w
   [ -x "$root/.claude/scripts/$script" ] || fail "garde-fou absent ou non exécutable: $script"
 done
 [ -x "$root/.claude/scripts/verify-billing-mode.sh" ] || fail "garde-facturation absent ou non exécutable"
+[ -x "$root/.claude/scripts/ensure-docker-ready.sh" ] || fail "garde de démarrage Docker absent ou non exécutable"
 grep -q 'agent principal de ce chat est le Coordinateur' "$root/CLAUDE.md" || fail "rôle du Coordinateur absent"
 grep -q 'créer ou reprendre le Goal natif' "$root/CLAUDE.md" || fail "création du Goal natif absente"
 grep -q 'identifiant réel' "$root/.claude/policies/TASK-ROUTING-POLICY.md" || fail "preuve d'identifiant agent absente"

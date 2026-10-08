@@ -1,5 +1,5 @@
 kit_name = "claude-premium-starter"
-kit_version = "1.16.7"
+kit_version = "1.16.8"
 schema_version = 1
 minimum_python = "3.11"
 

@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.8 | 2026-10-08 | Démarrage automatique et vérification du daemon Docker local avant tout blocage, avec garde-fou et tests par variante. |
+
 | 1.16.7 | 2026-10-07 | Garde exécutable contre les PR intermédiaires et doublons, avec tests de cadence et exception de déploiement explicite. |
 
 | 1.16.6 | 2026-10-07 | Relecture directe obligatoire des checklists Trello après écriture, validée par un test réel du connecteur. |

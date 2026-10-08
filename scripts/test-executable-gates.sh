@@ -185,6 +185,12 @@ for kit in codex claude; do
   if bash "$cadence" complete 2 >/dev/null 2>&1; then
     echo "ECHEC TEST: plusieurs PR ont été autorisées pour $kit"; exit 1
   fi
+  runtime="$source_config/scripts/ensure-docker-ready.sh"
+  [ -x "$runtime" ] || { echo "ECHEC TEST: ensure-docker-ready.sh absent pour $kit"; exit 1; }
+  bash -n "$runtime"
+  grep -q "ensure-docker-ready.sh" "$source_config/policies/TOOL-DISCOVERY-POLICY.md" || {
+    echo "ECHEC TEST: tentative de démarrage du daemon absente pour $kit"; exit 1;
+  }
   test_root="$(mktemp -d)"
   trap 'rm -rf "$test_root"' EXIT
   config="$test_root/$hidden"
