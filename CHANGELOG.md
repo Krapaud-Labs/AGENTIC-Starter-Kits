@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.25 - 2026-10-08
+
+- distingue l'accès public aux endpoints de l'accès VPS/Dokploy opérateur
+- active DevOps avant toute conclusion d'absence d'accès
+- empêche une porte préproduction de bloquer les livrables indépendants
+
 ## 1.16.24 - 2026-10-08
 
 - limite `needs-review` à la porte réellement dépendante
