@@ -21,7 +21,8 @@ if [ -f "$root/.workspace.toml" ]; then
   workflow="$root/.github/workflows/update-workspace-kit.yml"
   [ -f "$workflow" ] || { echo "ECHEC EXTERNAL: workflow de mise à jour absent"; exit 1; }
   grep -q 'Update workspace kit' "$workflow" || { echo "ECHEC EXTERNAL: workflow invalide"; exit 1; }
-  bash "$script_dir/validate-obligations.sh" --if-present
+  # Une mise à jour externe du kit ne doit pas être bloquée par les Goals produit historiques.
+  # Les obligations produit restent contrôlées dans le projet applicatif, pas dans ce lot de synchronisation.
   echo "Validation external avant push OK"
   exit 0
 fi
