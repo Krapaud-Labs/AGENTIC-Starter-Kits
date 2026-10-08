@@ -167,6 +167,8 @@ for kit in codex claude; do
   assert_contains "$source/hooks/pre-tool-use.sh" 'Événement hook JSON invalide'
   assert_contains "$source/hooks/post-tool-use.sh" 'Événement déjà journalisé'
   assert_contains "$source/hooks/permission-request.sh" 'gh.*pr.*create'
+  assert_contains "$source/hooks/hook-runtime.sh" 'max_log_bytes'
+  assert_contains "$source/hooks/subagent-stop.sh" 'report_path'
 assert_contains "$source/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" 'test de non-régression'
 assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Récupération universelle avant arrêt'
   assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Un même symptôme ne peut pas être répété deux fois'
