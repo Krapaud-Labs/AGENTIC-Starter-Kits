@@ -28,7 +28,7 @@ cleanup() {
 }
 trap cleanup EXIT
 archive="$tmp_dir/kit.tar.gz"
-curl -fsSL -L "${source_url%/}/archive/refs/tags/v${latest}.tar.gz" -o "$archive"
+curl -fsSL -L "${source_url%/}/archive/refs/heads/main.tar.gz" -o "$archive"
 tar -xzf "$archive" -C "$tmp_dir"
 source_kit="$(find "$tmp_dir" -mindepth 2 -maxdepth 2 -type d -name starter-kit-codex | head -n 1)"
 [ -n "$source_kit" ] || { echo "Kit Codex absent de l'archive." >&2; exit 1; }
