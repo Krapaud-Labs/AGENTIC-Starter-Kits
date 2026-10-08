@@ -1,5 +1,17 @@
 ## Unreleased
 
+## 1.16.24 - 2026-10-08
+
+- limite `needs-review` à la porte réellement dépendante
+- applique les décisions readiness réversibles après délégation explicite
+- poursuit les tâches indépendantes sans blocage global
+
+## 1.16.23 - 2026-10-08
+
+- évite les blocages globaux pour les décisions readiness réversibles
+- applique les défauts documentés après une délégation explicite de l'utilisateur
+- poursuit les portes indépendantes pendant un `needs-review` ciblé
+
 ## 1.16.22 - 2026-10-08
 
 - régénère automatiquement les fixtures QA locales et leur storage state périmé

@@ -122,6 +122,15 @@ for contract in \
   }
 done
 
+for autonomy in \
+  "$root/starter-kit-codex/.codex/policies/DELIVERY-CLOSURE-POLICY.md" \
+  "$root/starter-kit-claude/.claude/policies/DELIVERY-CLOSURE-POLICY.md" \
+  "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-RECOVERY.md" \
+  "$root/starter-kit-claude/.claude/policies/AUTONOMY-AND-RECOVERY.md"; do
+  grep -q "occupe-toi-en" "$autonomy" || { echo "ECHEC TEST: délégation des décisions réversibles absente de $autonomy"; exit 1; }
+  grep -q "blocage global" "$autonomy" || { echo "ECHEC TEST: interdiction du blocage global absente de $autonomy"; exit 1; }
+done
+
 for continuity in \
   "$root/starter-kit-codex/.codex/policies/SESSION-CONTINUITY-POLICY.md" \
   "$root/starter-kit-codex/.codex/ORCHESTRATION.md" \

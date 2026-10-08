@@ -64,6 +64,8 @@ L agent peut choisir seul une dépendance compatible, une commande de test, une 
 
 Une demande humaine reste nécessaire uniquement pour une décision métier, une action irréversible ou destructive, un accès externe, un secret, une dépense, une obligation réglementaire, un risque critique ou une ambiguïté qui change le produit. Dans ce cas, regrouper les questions et proposer un choix recommandé.
 
+Pour une readiness, une conformité ou une décision d'exploitation réversible, l'instruction utilisateur « occupe-toi-en », « fais le nécessaire » ou équivalente autorise l'adoption d'un défaut prudent, local et réversible. Le Coordinateur le documente, marque seulement la porte réellement dépendante en `needs-review` et poursuit toutes les tâches indépendantes ; il ne transforme pas cette décision en blocage global.
+
 Avant de déclarer un blocage, l'agent doit :
 
 1. Vérifier le dépôt, le profil, le cahier, les logs et la documentation officielle.

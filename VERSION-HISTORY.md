@@ -10,6 +10,10 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.24 | 2026-10-08 | Limitation des blocages humains aux décisions réellement irréversibles ou critiques. |
+
+| 1.16.23 | 2026-10-08 | Réduction des blocages humains abusifs et poursuite des portes indépendantes après délégation explicite. |
+
 | 1.16.22 | 2026-10-08 | Régénération autonome des fixtures QA locales et du storage state après recréation de base. |
 
 | 1.16.21 | 2026-10-08 | Routage QA renforcé avec alternatives locales et fixtures lorsqu’aucune cible authentifiée n’est disponible. |
