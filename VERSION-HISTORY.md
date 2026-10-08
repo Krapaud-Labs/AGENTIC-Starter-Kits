@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.18 | 2026-10-08 | Correction des promesses de reprise automatique sans mécanisme de surveillance prouvé. |
+
 | 1.16.17 | 2026-10-08 | Normalisation et validation stricte du statut natif `blocked`, avec preuve et cause séparées. |
 
 | 1.16.16 | 2026-10-08 | Refus des faux blocages lorsque les portes audit ou livraison sont récupérables, avec exécution obligatoire de la prochaine action. |

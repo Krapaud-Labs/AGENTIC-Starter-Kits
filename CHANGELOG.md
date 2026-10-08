@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.18 - 2026-10-08
+
+- interdit de promettre une reprise automatique sans moniteur réellement actif
+- distingue le blocage externe d’une attente surveillable et exige le déclencheur de reprise
+
 ## 1.16.17 - 2026-10-08
 
 - accepte un Goal natif `blocked` uniquement avec identifiant, preuve et cause séparés

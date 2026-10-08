@@ -11,6 +11,7 @@
 - active_card: [[A_COMPLETER]]
 - current_action: [[A_COMPLETER]]
 - next_action: [[A_COMPLETER]]
+- recovery_trigger: none
 - open_checklist_items: [[A_COMPLETER]]
 - last_observable_evidence: [[A_COMPLETER]]
 - ci_status: not-applicable
