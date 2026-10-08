@@ -163,6 +163,12 @@ for kit in codex claude; do
   bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-github-access.sh" ] || { echo "ECHEC TEST: verify-github-access.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-github-access.sh"
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh" ] || { echo "ECHEC TEST: prepare-qa-fixture.sh absent pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh"
+  qa_fixture="$(mktemp -d)"
+  (cd "$qa_fixture" && QA_FIXTURE_RESET_COMMAND='mkdir -p .qa && printf fixture > .qa/storage-state.json' QA_STORAGE_STATE=.qa/storage-state.json bash "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh") >/dev/null || { echo "ECHEC TEST: fixture QA locale non régénérée pour $kit"; exit 1; }
+  [ -s "$qa_fixture/.qa/storage-state.json" ] || { echo "ECHEC TEST: storage state QA absent pour $kit"; exit 1; }
+  rm -rf "$qa_fixture"
   grep -q "approuv" "$root/starter-kit-$kit/.$kit/scripts/init-project.sh" || { echo "ECHEC TEST: demande d'approbation des hooks absente pour $kit"; exit 1; }
   [ -f "$root/starter-kit-$kit/.$kit/hooks.json" ] || { echo "ECHEC TEST: hooks.json absent pour $kit"; exit 1; }
   jq empty "$root/starter-kit-$kit/.$kit/hooks.json" || { echo "ECHEC TEST: hooks.json invalide pour $kit"; exit 1; }

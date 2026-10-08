@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.22 | 2026-10-08 | Régénération autonome des fixtures QA locales et du storage state après recréation de base. |
+
 | 1.16.21 | 2026-10-08 | Routage QA renforcé avec alternatives locales et fixtures lorsqu’aucune cible authentifiée n’est disponible. |
 
 | 1.16.20 | 2026-10-08 | Correction de la détection des limitations sandbox dans le diagnostic GitHub. |

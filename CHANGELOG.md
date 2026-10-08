@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.22 - 2026-10-08
+
+- régénère automatiquement les fixtures QA locales et leur storage state périmé
+- interdit de bloquer lorsque seul le mot de passe d’un compte fixture local manque
+
 ## 1.16.21 - 2026-10-08
 
 - oblige l'activation de l'agent QA sans credentials externes
