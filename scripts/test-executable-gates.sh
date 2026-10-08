@@ -152,6 +152,8 @@ for kit in codex claude; do
   rm -rf "$session_fixture"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh" ] || { echo "ECHEC TEST: verify-recovery-state.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh"
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-github-access.sh" ] || { echo "ECHEC TEST: verify-github-access.sh absent pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-github-access.sh"
   grep -q "approuv" "$root/starter-kit-$kit/.$kit/scripts/init-project.sh" || { echo "ECHEC TEST: demande d'approbation des hooks absente pour $kit"; exit 1; }
   [ -f "$root/starter-kit-$kit/.$kit/hooks.json" ] || { echo "ECHEC TEST: hooks.json absent pour $kit"; exit 1; }
   jq empty "$root/starter-kit-$kit/.$kit/hooks.json" || { echo "ECHEC TEST: hooks.json invalide pour $kit"; exit 1; }

@@ -10,6 +10,10 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.20 | 2026-10-08 | Correction de la détection des limitations sandbox dans le diagnostic GitHub. |
+
+| 1.16.19 | 2026-10-08 | Diagnostic GitHub renforcé avec distinction sandbox, accès renforcé et indisponibilité externe réelle. |
+
 | 1.16.18 | 2026-10-08 | Correction des promesses de reprise automatique sans mécanisme de surveillance prouvé. |
 
 | 1.16.17 | 2026-10-08 | Normalisation et validation stricte du statut natif `blocked`, avec preuve et cause séparées. |

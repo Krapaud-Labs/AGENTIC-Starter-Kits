@@ -1,5 +1,15 @@
 ## Unreleased
 
+## 1.16.20 - 2026-10-08
+
+- corrige la détection portable des erreurs réseau de la sandbox
+- valide le diagnostic GitHub sur macOS et Linux
+
+## 1.16.19 - 2026-10-08
+
+- distingue un blocage réseau de la sandbox d’une indisponibilité réelle de GitHub
+- ajoute un diagnostic `gh`, authentification, curl et alternatives IDE/navigateur
+
 ## 1.16.18 - 2026-10-08
 
 - interdit de promettre une reprise automatique sans moniteur réellement actif
