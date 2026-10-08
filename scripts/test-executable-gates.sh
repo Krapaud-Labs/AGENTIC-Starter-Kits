@@ -120,6 +120,25 @@ for kit in codex claude; do
   bash -n "$root/starter-kit-$kit/.$kit/scripts/ensure-tools.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh" ] || { echo "ECHEC TEST: validate-agentic-contract.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh"
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh" ] || { echo "ECHEC TEST: validate-session-state.sh absent pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh"
+  session_fixture="$(mktemp -d)"
+  mkdir -p "$session_fixture/.$kit/scripts"
+  cp "$root/starter-kit-$kit/.$kit/RUNTIME-STATE.md" "$session_fixture/.$kit/RUNTIME-STATE.md"
+  sed -i.bak \
+    -e 's/\[\[A_COMPLETER\]\]/fixture/g' \
+    -e 's/native_goal_status: required | active | unavailable/native_goal_status: blocked/' \
+    -e 's/native_goal_id: none/native_goal_id: goal-fixture/' \
+    -e 's/native_goal_evidence: fixture/native_goal_evidence: preuve-fixture/' \
+    -e 's/native_goal_blocked_condition: none/native_goal_blocked_condition: décision humaine indispensable/' \
+    "$session_fixture/.$kit/RUNTIME-STATE.md"
+  cp "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh" "$session_fixture/.$kit/scripts/validate-session-state.sh"
+  (cd "$session_fixture" && bash ".${kit}/scripts/validate-session-state.sh") >/dev/null || { echo "ECHEC TEST: Goal natif blocked prouvé refusé pour $kit"; exit 1; }
+  sed -i.bak 's/native_goal_status: blocked.*/native_goal_status: blocked (preuve)/' "$session_fixture/.$kit/RUNTIME-STATE.md"
+  if (cd "$session_fixture" && bash ".${kit}/scripts/validate-session-state.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: statut natif mélangé accepté pour $kit"; exit 1
+  fi
+  rm -rf "$session_fixture"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh" ] || { echo "ECHEC TEST: verify-recovery-state.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh"
   grep -q "approuv" "$root/starter-kit-$kit/.$kit/scripts/init-project.sh" || { echo "ECHEC TEST: demande d'approbation des hooks absente pour $kit"; exit 1; }

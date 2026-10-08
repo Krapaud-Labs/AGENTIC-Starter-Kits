@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.17 - 2026-10-08
+
+- accepte un Goal natif `blocked` uniquement avec identifiant, preuve et cause séparés
+- rejette les statuts mélangés comme `blocked (preuve)`
+- ajoute les scénarios de validation Codex et Claude
+
 ## 1.16.16 - 2026-10-08
 
 - refuse un état `blocked` lorsque `audit-gate` ou `delivery-gate` reste récupérable
