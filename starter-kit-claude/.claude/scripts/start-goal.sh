@@ -81,6 +81,7 @@ values = {
     "native_goal_status": os.environ["NATIVE_GOAL_STATUS"],
     "native_goal_id": os.environ.get("NATIVE_GOAL_ID", "none"),
     "native_goal_evidence": os.environ["NATIVE_GOAL_EVIDENCE"],
+    "native_goal_blocked_condition": os.environ.get("NATIVE_GOAL_BLOCKED_CONDITION", "none"),
     "goal_delivery_status": "pending",
     "goal_delegation_plan": os.environ["GOAL_DELEGATION"],
     "goal_agents_created": os.environ.get("GOAL_AGENTS_CREATED") or ("none" if os.environ["GOAL_DELEGATION"] in ("none", "séquentiel justifié") else "missing"),

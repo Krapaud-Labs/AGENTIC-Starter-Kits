@@ -11,9 +11,11 @@ done
 native_status="$(value native_goal_status)"
 native_id="$(value native_goal_id)"
 native_evidence="$(value native_goal_evidence)"
+native_blocked_condition="$(value native_goal_blocked_condition)"
 case "$native_status" in
   active) [ "$native_id" != "none" ] && [ -n "$native_evidence" ] || { echo "SESSION: Goal natif actif sans identifiant ou preuve" >&2; exit 1; } ;;
   unavailable) [ -n "$native_evidence" ] || { echo "SESSION: indisponibilité native sans preuve" >&2; exit 1; } ;;
+  blocked) [ "$native_id" != "none" ] && [ -n "$native_evidence" ] && [ -n "$native_blocked_condition" ] || { echo "SESSION: Goal natif bloqué sans identifiant, preuve ou cause séparée" >&2; exit 1; } ;;
   *) echo "SESSION: native_goal_status invalide: $native_status" >&2; exit 1 ;;
 esac
 echo "État de session lisible et complet"

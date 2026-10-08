@@ -28,6 +28,7 @@
 - native_goal_status: required | active | unavailable
 - native_goal_id: none
 - native_goal_evidence: [[A_COMPLETER]]
+- native_goal_blocked_condition: none
 - goal_delivery_status: not-required
 - goal_delegation_plan: [[A_COMPLETER]]
 - goal_agents_created: none
