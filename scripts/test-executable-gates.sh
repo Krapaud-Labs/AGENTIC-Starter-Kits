@@ -107,6 +107,10 @@ for ops in \
   grep -q "DevOps" "$ops" || { echo "ECHEC TEST: activation DevOps absente de $ops"; exit 1; }
 done
 
+for sync in "$root/starter-kit-codex/.codex/scripts/sync-workspace-kit.sh" "$root/starter-kit-claude/.claude/scripts/sync-workspace-kit.sh"; do
+  grep -q "gh api.*contents/VERSION" "$sync" || { echo "ECHEC TEST: synchronisation API GitHub absente de $sync"; exit 1; }
+done
+
 for recovery in \
   "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-RECOVERY.md" \
   "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \

@@ -9,6 +9,9 @@ source_url="$(sed -n 's/^source = "\(.*\)"/\1/p' "$manifest")"
 [ -n "$source_url" ] || { echo "Source du kit absente du manifeste." >&2; exit 1; }
 raw_base="${source_url/github.com/raw.githubusercontent.com}"
 latest="$(curl -fsSL "$raw_base/main/VERSION")"
+if command -v gh >/dev/null 2>&1; then
+  latest="$(gh api 'repos/Krapaud-Labs/AGENTIC-Starter-Kits/contents/VERSION?ref=main' --jq .content | tr -d '\n' | base64 --decode | tr -d '[:space:]')"
+fi
 installed="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$manifest")"
 [ "$installed" = "$latest" ] && { echo "Kit Claude déjà à jour : $installed"; exit 0; }
 backup_root="$project_root/.claude/backups/kit-$installed-$(date +%Y%m%d-%H%M%S)"

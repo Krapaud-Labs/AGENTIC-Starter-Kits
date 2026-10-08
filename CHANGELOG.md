@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.26 - 2026-10-08
+
+- privilégie l’API GitHub authentifiée pour détecter la version du kit
+- évite les mises à jour manquées dues au cache de `raw.githubusercontent.com`
+
 ## 1.16.25 - 2026-10-08
 
 - distingue l'accès public aux endpoints de l'accès VPS/Dokploy opérateur
