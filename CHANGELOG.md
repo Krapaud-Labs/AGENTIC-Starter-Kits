@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.12 - 2026-10-08
+
+- corrige le script de synchronisation Codex pour utiliser les chemins réels du kit
+- copie `AGENTS.md` à la racine du projet importateur
+- vérifie correctement les fichiers obligatoires après mise à jour
+
 ## 1.16.11 - 2026-10-08
 
 - ajoute des timeouts de clôture, rotation et verrouillage des journaux de hooks
