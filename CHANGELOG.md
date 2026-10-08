@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.13 - 2026-10-08
+
+- autorise les actions de récupération lorsque le runtime est `blocked` ou `needs-review`
+- empêche le hook de bloquer sa propre réparation
+- ajoute les tests de reprise du runtime incohérent
+
 ## 1.16.12 - 2026-10-08
 
 - corrige le script de synchronisation Codex pour utiliser les chemins réels du kit

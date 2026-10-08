@@ -165,6 +165,7 @@ for kit in codex claude; do
   assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'exécute le garde-fou de démarrage'
   assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'ensure-docker-ready.sh'
   assert_contains "$source/hooks/pre-tool-use.sh" 'Événement hook JSON invalide'
+  assert_contains "$source/hooks/pre-tool-use.sh" 'le runtime et reprendre'
   assert_contains "$source/hooks/post-tool-use.sh" 'Événement déjà journalisé'
   assert_contains "$source/hooks/permission-request.sh" 'gh.*pr.*create'
   assert_contains "$source/hooks/hook-runtime.sh" 'max_log_bytes'
