@@ -1,5 +1,17 @@
 ## Unreleased
 
+## 1.16.10 - 2026-10-08
+
+- audite et renforce les hooks avant outil, permission, post-outil et arrêt
+- bloque les états runtime incohérents et les clôtures sans preuves d’agents
+- refuse les événements invalides, déduplique les preuves et étend la détection des actions sensibles
+
+## 1.16.9 - 2026-10-08
+
+- renforce les hooks avant outil et permission avec validation d’état runtime et détection des actions sensibles
+- refuse les événements JSON invalides et déduplique les preuves PostToolUse
+- ajoute les scénarios de non-régression des hooks Codex et Claude
+
 ## 1.16.8 - 2026-10-08
 
 - ajoute le démarrage automatique et vérifié du daemon Docker local avant classement en blocage

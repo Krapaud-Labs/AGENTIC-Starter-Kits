@@ -10,6 +10,10 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.10 | 2026-10-08 | Renforcement complet des hooks et des clôtures, avec validation runtime, preuves agents, déduplication et contrôles sensibles. |
+
+| 1.16.9 | 2026-10-08 | Audit et renforcement des hooks, validation runtime avant outil, déduplication des événements et détection sensible étendue. |
+
 | 1.16.8 | 2026-10-08 | Démarrage automatique et vérification du daemon Docker local avant tout blocage, avec garde-fou et tests par variante. |
 
 | 1.16.7 | 2026-10-07 | Garde exécutable contre les PR intermédiaires et doublons, avec tests de cadence et exception de déploiement explicite. |
