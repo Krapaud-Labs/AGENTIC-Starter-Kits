@@ -164,6 +164,12 @@ for kit in codex claude; do
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh" ] || { echo "ECHEC TEST: validate-session-state.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh"
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh" ] || { echo "ECHEC TEST: ensure-native-goal.sh absent pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh"
+  NATIVE_GOAL_STATUS=active NATIVE_GOAL_ID=test-goal bash "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh" >/dev/null
+  if NATIVE_GOAL_STATUS=blocked bash "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh" >/dev/null 2>&1; then
+    echo "ECHEC TEST: Goal bloqué accepté comme actif pour $kit"; exit 1
+  fi
   session_fixture="$(mktemp -d)"
   mkdir -p "$session_fixture/.$kit/scripts"
   cp "$root/starter-kit-$kit/.$kit/RUNTIME-STATE.md" "$session_fixture/.$kit/RUNTIME-STATE.md"

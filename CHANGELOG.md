@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.16.28 - 2026-10-08
+
+- ajoute un garde de reprise native des Goals
+- refuse de présenter un Goal `blocked` ou `paused` comme actif
+- affiche l'action exacte `/goal resume` quand l'interface doit réactiver le Goal
+- teste les états actif, bloqué et indisponible dans Codex et Claude
+
 ## 1.16.27 - 2026-10-08
 
 - corrige la résolution de racine des hooks de clôture

@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.28 | 2026-10-08 | Garde de reprise native des Goals et refus des fausses reprises locales. |
+
 | 1.16.27 | 2026-10-08 | Stabilisation des hooks de cycle de vie, résolution de racine fiable et test de régression. |
 
 | 1.16.26 | 2026-10-08 | Synchronisation basée sur l’API GitHub authentifiée pour éviter les versions distantes périmées. |

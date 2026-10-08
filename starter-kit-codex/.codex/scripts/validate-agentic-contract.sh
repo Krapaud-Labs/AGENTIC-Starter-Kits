@@ -16,7 +16,7 @@ done
 
 for script in \
   guard-before-response.sh validate-session-state.sh verify-before-work.sh \
-  verify-before-push.sh verify-specialist-plan.sh verify-pr-cadence.sh ensure-tools.sh; do
+  verify-before-push.sh verify-specialist-plan.sh verify-pr-cadence.sh ensure-tools.sh ensure-native-goal.sh; do
   [ -x "$root/.codex/scripts/$script" ] || fail "garde-fou absent ou non exécutable: $script"
 done
 [ -x "$root/.codex/scripts/verify-billing-mode.sh" ] || fail "garde-facturation absent ou non exécutable"

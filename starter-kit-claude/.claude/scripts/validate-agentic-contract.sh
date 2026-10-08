@@ -10,7 +10,7 @@ fail() { echo "CONTRAT AGENTIC: $*" >&2; exit 1; }
 for policy in PRIMARY-AGENT-POLICY.md TASK-ROUTING-POLICY.md AGENT-DELIVERY-CONTRACTS.md CORE-EXECUTION-CONTRACT.md DELIVERY-CLOSURE-POLICY.md SESSION-CONTINUITY-POLICY.md; do
   [ -f "$root/.claude/policies/$policy" ] || fail "politique absente: $policy"
 done
-for script in guard-before-response.sh validate-session-state.sh verify-before-work.sh verify-before-push.sh verify-specialist-plan.sh verify-pr-cadence.sh ensure-tools.sh; do
+for script in guard-before-response.sh validate-session-state.sh verify-before-work.sh verify-before-push.sh verify-specialist-plan.sh verify-pr-cadence.sh ensure-tools.sh ensure-native-goal.sh; do
   [ -x "$root/.claude/scripts/$script" ] || fail "garde-fou absent ou non exécutable: $script"
 done
 [ -x "$root/.claude/scripts/verify-billing-mode.sh" ] || fail "garde-facturation absent ou non exécutable"
