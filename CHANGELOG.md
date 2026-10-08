@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.30 - 2026-10-08
+
+- exige la réactivation des agents spécialisés à chaque reprise de Goal
+- interdit de réutiliser une preuve historique comme preuve de la passe courante
+- exige une affectation et un rapport daté pour chaque spécialiste requis
+
 ## 1.16.29 - 2026-10-08
 
 - considère la conception, l'audit et la qualité comme des étapes internes jusqu'à `dev`
