@@ -127,6 +127,10 @@ for kit in codex claude; do
     [ -x "$root/starter-kit-$kit/.$kit/hooks/$hook" ] || { echo "ECHEC TEST: hook $hook absent pour $kit"; exit 1; }
     bash -n "$root/starter-kit-$kit/.$kit/hooks/$hook"
   done
+  jq empty "$root/starter-kit-$kit/.$kit/hooks.json"
+  grep -q 'Événement hook JSON invalide' "$root/starter-kit-$kit/.$kit/hooks/pre-tool-use.sh"
+  grep -q 'tool_use_id' "$root/starter-kit-$kit/.$kit/hooks/post-tool-use.sh"
+  grep -q 'gh.*pr.*create' "$root/starter-kit-$kit/.$kit/hooks/permission-request.sh"
 done
 
 for kit in codex claude; do
@@ -239,7 +243,7 @@ for kit in codex claude; do
     exit 1
   fi
 
-  perl -0pi -e 's/execution_status: .*/execution_status: complete/; s/next_action: .*/next_action: none/; s/open_checklist_items: .*/open_checklist_items: 0/; s/last_observable_evidence: .*/last_observable_evidence: test-evidence/; s/ci_status: .*/ci_status: success/; s/trello_sync_status: .*/trello_sync_status: disabled/' "$config/RUNTIME-STATE.md"
+  perl -0pi -e 's/execution_status: .*/execution_status: complete/; s/next_action: .*/next_action: none/; s/open_checklist_items: .*/open_checklist_items: 0/; s/last_observable_evidence: .*/last_observable_evidence: test-evidence/; s/ci_status: .*/ci_status: success/; s/trello_sync_status: .*/trello_sync_status: disabled/; s/goal_agents_created: .*/goal_agents_created: agent-test/; s/goal_agent_evidence: .*/goal_agent_evidence: test-agent-evidence/' "$config/RUNTIME-STATE.md"
   if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
     echo "ECHEC TEST: une obligation pending aurait dû bloquer complete $kit"
     exit 1

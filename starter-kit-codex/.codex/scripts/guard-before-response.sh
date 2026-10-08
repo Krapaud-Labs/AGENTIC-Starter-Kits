@@ -16,6 +16,7 @@ ci="$(value ci_status)"; trello="$(value trello_sync_status)"
 attempts="$(value attempt_count)"; max_attempts="$(value max_attempts)"; redundant="$(value redundant_confirmation_requested)"
 required="$(value required_action_status)"; budget="$(value budget_status)"; environment="$(value environment_status)"; shutdown="$(value environment_shutdown_status)"; pending_request="$(value pending_request_id)"; pending_turn="$(value pending_turn_id)"
 goal_status="$(value goal_status)"; goal_delivery="$(value goal_delivery_status)"; integration_branch="$(value integration_branch)"; pushed_commit="$(value pushed_integration_commit)"; remote_evidence="$(value integration_remote_evidence)"; pr_status="$(value pull_request_status)"
+agents_created="$(value goal_agents_created)"; agent_evidence="$(value goal_agent_evidence)"
 turn_status="$(value last_turn_status)"; tool_failures="$(value tool_failures)"; session_status="$(value session_status)"
 
 case "$status" in
@@ -27,6 +28,8 @@ case "$status" in
       [[ -n "$pushed_commit" && "$pushed_commit" != "none" && "$pushed_commit" != *"A_COMPLETER"* ]] || fail "commit poussé vers l'intégration absent"
       [[ "$pr_status" == "verified" ]] || fail "PR d'intégration non fusionnée ou branche distante non relue: $pr_status"
       [[ -n "$remote_evidence" && "$remote_evidence" != "none" && "$remote_evidence" != *"A_COMPLETER"* ]] || fail "preuve de mise à jour de la branche distante absente"
+      [[ -n "$agents_created" && "$agents_created" != "none" && "$agents_created" != *"A_COMPLETER"* ]] || fail "agents du Goal non enregistrés"
+      [[ -n "$agent_evidence" && "$agent_evidence" != "none" && "$agent_evidence" != *"A_COMPLETER"* ]] || fail "preuves des livrables agents absentes"
     fi
     [[ "$next" =~ ^(none|aucune|aucun)$ ]] || fail "next_action reste ouverte: $next"
     [[ "$open" =~ ^(0|none|aucune|aucun)$ ]] || fail "open_checklist_items non nul: $open"
