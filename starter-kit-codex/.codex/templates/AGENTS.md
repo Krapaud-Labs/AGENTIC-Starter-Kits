@@ -1,5 +1,5 @@
 # Instructions du projet
-<!-- ENTRYPOINT-CONTRACT: 1.16.26 -->
+<!-- ENTRYPOINT-CONTRACT: 1.16.27 -->
 
 À chaque nouveau chat, l'agent principal devient le Coordinateur. Il doit lire les contrats du kit, créer ou reprendre le Goal natif avant toute action, puis créer les agents spécialisés réels avant toute tâche de leur domaine. Une simple annonce de délégation ne vaut pas preuve. Pour une tâche visuelle, frontend, qa et auditeur sont obligatoires.
 

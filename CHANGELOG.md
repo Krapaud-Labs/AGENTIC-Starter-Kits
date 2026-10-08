@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.27 - 2026-10-08
+
+- corrige la résolution de racine des hooks de clôture
+- élimine l'utilisation d'une variable `root` non initialisée
+- ajoute une régression automatisée pour le runtime et le hook Stop
+
 ## 1.16.26 - 2026-10-08
 
 - privilégie l’API GitHub authentifiée pour détecter la version du kit
