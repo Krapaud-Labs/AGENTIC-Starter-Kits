@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.16 - 2026-10-08
+
+- refuse un état `blocked` lorsque `audit-gate` ou `delivery-gate` reste récupérable
+- force l’exécution de `next_action` avant toute conclusion de reprise
+- ajoute le contrôle exécutable et les tests de scénario des reprises incomplètes
+
 ## 1.16.15 - 2026-10-08
 
 - empêche les Goals produit historiques de bloquer une mise à jour externe du kit

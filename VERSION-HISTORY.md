@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.16 | 2026-10-08 | Refus des faux blocages lorsque les portes audit ou livraison sont récupérables, avec exécution obligatoire de la prochaine action. |
+
 | 1.16.15 | 2026-10-08 | Le mode external ne bloque plus une synchronisation du kit avec des gates produit historiques. |
 
 | 1.16.14 | 2026-10-08 | Synchronisation basée sur l’archive de la branche main lorsque les tags de release ne sont pas disponibles. |
