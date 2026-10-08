@@ -1,5 +1,5 @@
 # Point d'entrée Codex
-<!-- ENTRYPOINT-CONTRACT: 1.16.28 -->
+<!-- ENTRYPOINT-CONTRACT: 1.16.29 -->
 
 ## Contrat obligatoire de chaque nouveau chat
 

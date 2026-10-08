@@ -98,6 +98,12 @@ for autonomy in \
   }
 done
 
+for autonomy_policy in "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-RECOVERY.md" "$root/starter-kit-claude/.claude/policies/AUTONOMY-AND-RECOVERY.md"; do
+  grep -q "jusqu'à la livraison sur.*dev.*sans demander une approbation intermédiaire" "$autonomy_policy" || {
+    echo "ECHEC TEST: l'autonomie des gates internes jusqu'à dev est absente de $autonomy_policy"; exit 1;
+  }
+done
+
 for ops in \
   "$root/starter-kit-codex/.codex/policies/TOOL-DISCOVERY-POLICY.md" \
   "$root/starter-kit-claude/.claude/policies/TOOL-DISCOVERY-POLICY.md" \
