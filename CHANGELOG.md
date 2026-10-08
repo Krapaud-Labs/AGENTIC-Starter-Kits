@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.29 - 2026-10-08
+
+- considère la conception, l'audit et la qualité comme des étapes internes jusqu'à `dev`
+- interdit les demandes d'approbation intermédiaires dans un flux déjà autorisé
+- réserve `needs-review` aux décisions réellement sensibles ou hors périmètre
+
 ## 1.16.28 - 2026-10-08
 
 - ajoute un garde de reprise native des Goals
