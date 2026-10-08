@@ -162,6 +162,8 @@ for kit in codex claude; do
   assert_contains "$source/policies/GIT-FLOW.md" 'une seule Pull Request finale'
   assert_contains "$source/policies/GIT-FLOW.md" 'Garde exécutable de cadence'
   assert_contains "$source/skills/trello-planning/SKILL.md" "Une PR n'est pas un journal de progression"
+  assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'exécute le garde-fou de démarrage'
+  assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'ensure-docker-ready.sh'
 assert_contains "$source/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" 'test de non-régression'
 assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Récupération universelle avant arrêt'
   assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Un même symptôme ne peut pas être répété deux fois'

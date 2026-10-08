@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.8 - 2026-10-08
+
+- ajoute le démarrage automatique et vérifié du daemon Docker local avant classement en blocage
+- interdit de transformer une commande réessayable ou un service local arrêté en blocage immédiat
+- couvre la découverte, le démarrage et la preuve de disponibilité dans les deux variantes du kit
+
 ## 1.16.7 - 2026-10-07
 
 - ajoute un garde-fou exécutable contre les PR de progression et les doublons
