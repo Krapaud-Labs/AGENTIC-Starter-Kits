@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.11 - 2026-10-08
+
+- ajoute des timeouts de clôture, rotation et verrouillage des journaux de hooks
+- vérifie le chemin de rapport d’un sous-agent avant sa clôture
+- ajoute les contrôles de parité et les tests de concurrence de journalisation
+
 ## 1.16.10 - 2026-10-08
 
 - audite et renforce les hooks avant outil, permission, post-outil et arrêt

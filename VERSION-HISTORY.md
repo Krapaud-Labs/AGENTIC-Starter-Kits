@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.11 | 2026-10-08 | Finalisation du durcissement des hooks avec journaux bornés, verrous, timeout de clôture, rapports agents et tests de parité. |
+
 | 1.16.10 | 2026-10-08 | Renforcement complet des hooks et des clôtures, avec validation runtime, preuves agents, déduplication et contrôles sensibles. |
 
 | 1.16.9 | 2026-10-08 | Audit et renforcement des hooks, validation runtime avant outil, déduplication des événements et détection sensible étendue. |

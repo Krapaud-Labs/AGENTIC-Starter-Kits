@@ -127,6 +127,11 @@ for kit in codex claude; do
     [ -x "$root/starter-kit-$kit/.$kit/hooks/$hook" ] || { echo "ECHEC TEST: hook $hook absent pour $kit"; exit 1; }
     bash -n "$root/starter-kit-$kit/.$kit/hooks/$hook"
   done
+  [ -x "$root/starter-kit-$kit/.$kit/hooks/hook-runtime.sh" ] || { echo "ECHEC TEST: hook-runtime.sh absent pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/hooks/hook-runtime.sh"
+  grep -q 'max_log_bytes' "$root/starter-kit-$kit/.$kit/hooks/hook-runtime.sh"
+  grep -q 'run_with_timeout' "$root/starter-kit-$kit/.$kit/hooks/stop.sh"
+  grep -q 'report_path' "$root/starter-kit-$kit/.$kit/hooks/subagent-stop.sh"
   jq empty "$root/starter-kit-$kit/.$kit/hooks.json"
   grep -q 'Événement hook JSON invalide' "$root/starter-kit-$kit/.$kit/hooks/pre-tool-use.sh"
   grep -q 'tool_use_id' "$root/starter-kit-$kit/.$kit/hooks/post-tool-use.sh"
