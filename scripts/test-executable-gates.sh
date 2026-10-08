@@ -130,6 +130,11 @@ for recovery in \
   }
 done
 
+for continuity in "$root/starter-kit-codex/.codex/policies/SESSION-CONTINUITY-POLICY.md" "$root/starter-kit-claude/.claude/policies/SESSION-CONTINUITY-POLICY.md"; do
+  grep -q "présence historique d'un agent ne vaut jamais activation" "$continuity" || { echo "ECHEC TEST: activation actuelle des agents absente de $continuity"; exit 1; }
+  grep -q "rapport daté" "$continuity" || { echo "ECHEC TEST: rapport par passe absent de $continuity"; exit 1; }
+done
+
 for contract in \
   "$root/starter-kit-codex/.codex/policies/PERSISTENT-EXECUTION-CONTRACT.md" \
   "$root/starter-kit-claude/.claude/policies/PERSISTENT-EXECUTION-CONTRACT.md"; do
