@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.13 | 2026-10-08 | Correction du deadlock des hooks : les actions de récupération restent autorisées en état `blocked` ou `needs-review`. |
+
 | 1.16.12 | 2026-10-08 | Correction du synchroniseur Codex, des chemins `.codex` et de l’installation de `AGENTS.md` à la racine du projet. |
 
 | 1.16.11 | 2026-10-08 | Finalisation du durcissement des hooks avec journaux bornés, verrous, timeout de clôture, rapports agents et tests de parité. |
