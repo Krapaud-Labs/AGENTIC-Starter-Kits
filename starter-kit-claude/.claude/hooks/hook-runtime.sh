@@ -2,7 +2,7 @@
 set -euo pipefail
 
 hook_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-project_root="$(git -C "$hook_root/../.." rev-parse --show-toplevel 2>/dev/null || cd "$hook_root/../.." && pwd)"
+project_root="$(git -C "$hook_root/../.." rev-parse --show-toplevel 2>/dev/null || (cd "$hook_root/../.." && pwd))"
 event_log="$project_root/.claude/runtime-events.log"
 max_log_bytes=1048576
 

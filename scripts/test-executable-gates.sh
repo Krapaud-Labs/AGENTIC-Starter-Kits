@@ -200,6 +200,9 @@ for kit in codex claude; do
   done
   [ -x "$root/starter-kit-$kit/.$kit/hooks/hook-runtime.sh" ] || { echo "ECHEC TEST: hook-runtime.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/hooks/hook-runtime.sh"
+  grep -q 'project_root=' "$root/starter-kit-$kit/.$kit/hooks/hook-runtime.sh" || { echo "ECHEC TEST: project_root absent du runtime pour $kit"; exit 1; }
+  ! grep -q '\$root/' "$root/starter-kit-$kit/.$kit/hooks/stop.sh" || { echo "ECHEC TEST: variable root non initialisée dans stop.sh pour $kit"; exit 1; }
+  grep -q '\$project_root/' "$root/starter-kit-$kit/.$kit/hooks/stop.sh" || { echo "ECHEC TEST: stop.sh n'utilise pas project_root pour $kit"; exit 1; }
   grep -q 'max_log_bytes' "$root/starter-kit-$kit/.$kit/hooks/hook-runtime.sh"
   grep -q 'run_with_timeout' "$root/starter-kit-$kit/.$kit/hooks/stop.sh"
   grep -q 'report_path' "$root/starter-kit-$kit/.$kit/hooks/subagent-stop.sh"
