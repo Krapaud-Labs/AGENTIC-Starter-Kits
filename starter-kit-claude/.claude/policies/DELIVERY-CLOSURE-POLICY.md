@@ -37,6 +37,8 @@ Avant de clôturer ou de suspendre une carte, le Coordinateur doit :
 
 Une carte ne peut être annoncée comme terminée si une action nécessaire reste non préparée. Elle peut être livrée avec une sous-tâche en attente uniquement si cette sous-tâche exige explicitement une décision humaine ou une action irréversible.
 
+Une demande de décision de readiness ne bloque jamais toute la livraison. Lorsque l'utilisateur délègue explicitement la décision par une instruction comme « occupe-toi-en », le Coordinateur applique un défaut réversible documenté dans un ADR, marque la proposition comme `needs-review` uniquement sur la porte dépendante et poursuit les tests, la documentation, l'audit et les autres portes indépendantes, sans blocage global. Il ne peut demander une validation que pour une obligation légale, une décision métier irréversible, une dépense, un secret, une suppression ou une acceptation de risque critique.
+
 ## Boucle de continuation d'une carte
 
 Après chaque incrément, commit, Pull Request, fusion, résultat de CI ou synchronisation Trello, le Coordinateur doit exécuter cette boucle avant de terminer son intervention :
