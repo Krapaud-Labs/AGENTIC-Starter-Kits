@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.14 - 2026-10-08
+
+- corrige le synchroniseur pour utiliser l’archive réelle de `main` au lieu d’un tag de release potentiellement absent
+
 ## 1.16.13 - 2026-10-08
 
 - autorise les actions de récupération lorsque le runtime est `blocked` ou `needs-review`
