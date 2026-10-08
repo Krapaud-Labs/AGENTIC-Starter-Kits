@@ -98,6 +98,15 @@ for autonomy in \
   }
 done
 
+for ops in \
+  "$root/starter-kit-codex/.codex/policies/TOOL-DISCOVERY-POLICY.md" \
+  "$root/starter-kit-claude/.claude/policies/TOOL-DISCOVERY-POLICY.md" \
+  "$root/starter-kit-codex/.codex/policies/CI-CD-POLICY.md" \
+  "$root/starter-kit-claude/.claude/policies/CI-CD-POLICY.md"; do
+  grep -q "production publique, la préproduction et l'administration opérateur" "$ops" || grep -q "endpoint public en HTTP 200" "$ops" || { echo "ECHEC TEST: distinction accès public et opérateur absente de $ops"; exit 1; }
+  grep -q "DevOps" "$ops" || { echo "ECHEC TEST: activation DevOps absente de $ops"; exit 1; }
+done
+
 for recovery in \
   "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-RECOVERY.md" \
   "$root/starter-kit-codex/.codex/skills/coordination/SKILL.md" \

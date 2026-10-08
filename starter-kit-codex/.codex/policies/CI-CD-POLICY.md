@@ -25,3 +25,5 @@ Aucun déploiement n'est généré automatiquement. Avant toute automatisation C
 ## Promotion
 
 Une promotion exige CI verte observable, audit requis par la matrice de risque, rapport de livraison et approbation humaine lorsque le déploiement, des données sensibles ou une action irréversible sont concernés.
+
+La production publique, la préproduction et l'administration opérateur sont trois preuves distinctes. Une production saine ne remplace jamais une préproduction, mais l'absence de cible préproduction ou de rollback opérateur ne bloque pas les tests locaux, la conception, l'audit de code ou la livraison vers `dev`. Le Coordinateur active DevOps pour inventorier les accès et prépare une cible locale ou documente uniquement la porte opérateur dépendante en `needs-review`, sans marquer le Goal global `blocked` lorsque les autres portes sont livrables.

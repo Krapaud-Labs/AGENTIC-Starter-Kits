@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.25 | 2026-10-08 | Distinction des preuves publique, préproduction et opérateur, avec routage DevOps obligatoire. |
+
 | 1.16.24 | 2026-10-08 | Limitation des blocages humains aux décisions réellement irréversibles ou critiques. |
 
 | 1.16.23 | 2026-10-08 | Réduction des blocages humains abusifs et poursuite des portes indépendantes après délégation explicite. |
