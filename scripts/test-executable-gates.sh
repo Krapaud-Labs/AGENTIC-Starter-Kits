@@ -120,6 +120,8 @@ for kit in codex claude; do
   bash -n "$root/starter-kit-$kit/.$kit/scripts/ensure-tools.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh" ] || { echo "ECHEC TEST: validate-agentic-contract.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh"
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh" ] || { echo "ECHEC TEST: verify-recovery-state.sh absent pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh"
   grep -q "approuv" "$root/starter-kit-$kit/.$kit/scripts/init-project.sh" || { echo "ECHEC TEST: demande d'approbation des hooks absente pour $kit"; exit 1; }
   [ -f "$root/starter-kit-$kit/.$kit/hooks.json" ] || { echo "ECHEC TEST: hooks.json absent pour $kit"; exit 1; }
   jq empty "$root/starter-kit-$kit/.$kit/hooks.json" || { echo "ECHEC TEST: hooks.json invalide pour $kit"; exit 1; }
@@ -337,5 +339,22 @@ printf '%s\n' 'Documentation produit neutre' > "$boundary_root/README.md"
 git -C "$boundary_root" add README.md
 git -C "$boundary_root" commit --quiet -m neutralize
 (cd "$boundary_root" && BOUNDARY_BASE_REF=main bash .codex/scripts/verify-project-boundary.sh >/dev/null)
+
+recovery_root="$(mktemp -d)"
+trap 'rm -rf "$recovery_root"' EXIT
+for kit in codex claude; do
+  kit_root="$root/starter-kit-$kit/.${kit}"
+  mkdir -p "$recovery_root/$kit/.${kit}/scripts" "$recovery_root/$kit/.${kit}/work-items/demo"
+  cp "$kit_root/scripts/verify-recovery-state.sh" "$recovery_root/$kit/.${kit}/scripts/verify-recovery-state.sh"
+  printf '%s\n' '# Runtime' '- execution_status: blocked' '- goal_blocked_condition: audit interne' '- next_action: relancer auditeur' > "$recovery_root/$kit/.${kit}/RUNTIME-STATE.md"
+  printf '%s\n' '| Statut | in-progress |' > "$recovery_root/$kit/.${kit}/work-items/demo/brief.md"
+  printf '%s\n' $'gate\towner\ttrigger\tstatus\tevidence\tnext_check' $'audit-gate\tauditeur\tgate\tneeds-review\tnone\trelecture' $'delivery-gate\tcoordinateur\tgate\tpending\tnone\tpublication' > "$recovery_root/$kit/.${kit}/work-items/demo/obligations.tsv"
+  if (cd "$recovery_root/$kit" && bash .${kit}/scripts/verify-recovery-state.sh) >/dev/null 2>&1; then
+    echo "ECHEC TEST: blocked récupérable accepté pour $kit"; exit 1
+  fi
+  sed -i.bak 's/execution_status: blocked/execution_status: needs-review/' "$recovery_root/$kit/.${kit}/RUNTIME-STATE.md"
+  (cd "$recovery_root/$kit" && bash .${kit}/scripts/verify-recovery-state.sh) >/dev/null || { echo "ECHEC TEST: needs-review récupérable refusé pour $kit"; exit 1; }
+done
+echo "Test reprise récupérable OK"
 
 echo "Tests des portes exécutables OK"

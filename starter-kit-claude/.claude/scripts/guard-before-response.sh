@@ -48,6 +48,8 @@ case "$status" in
   needs-review|blocked)
     [[ -n "$evidence" && "$evidence" != *"A_COMPLETER"* ]] || fail "preuve obligatoire absente pour $status"
     [[ -n "$next" && ! "$next" =~ ^(none|aucune|aucun)$ ]] || fail "next_action absente pour $status"
+    recovery="$script_dir/verify-recovery-state.sh"
+    [ -x "$recovery" ] && bash "$recovery" || fail "blocage récupérable ou état de reprise invalide"
     ;;
   running|waiting-ci) fail "état non terminal: $status" ;;
   *) fail "execution_status absent ou invalide: ${status:-absent}" ;;
