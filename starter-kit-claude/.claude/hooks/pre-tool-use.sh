@@ -20,9 +20,12 @@ goal="$(sed -n 's/^- goal_status: //p' "$state" | head -1)"
 session="$(sed -n 's/^- session_status: //p' "$state" | head -1)"
 case "$tool" in
   Bash|apply_patch|Edit|Write|Agent)
-    if [[ "$native" == "required" || "$native" == "none" || "$next" == *A_COMPLETER* || -z "$next" || "$execution" == "blocked" || "$execution" == "needs-review" || "$goal" == "none" && "$session" != "not-required" ]]; then
+    if [[ "$native" == "required" || "$native" == "none" || "$next" == *A_COMPLETER* || -z "$next" || "$goal" == "none" && "$session" != "not-required" ]]; then
       printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Action bloquée : état runtime, Goal ou prochaine action incohérents."}}\n'
       exit 0
+    fi
+    if [[ "$execution" == "blocked" || "$execution" == "needs-review" ]]; then
+      printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"Mode récupération autorisé : réconcilier le runtime et reprendre le Goal avant toute livraison."}}\n'
     fi
     ;;
 esac
