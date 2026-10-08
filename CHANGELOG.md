@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.15 - 2026-10-08
+
+- empêche les Goals produit historiques de bloquer une mise à jour externe du kit
+- sépare la validation du kit importé de la validation des obligations produit
+
 ## 1.16.14 - 2026-10-08
 
 - corrige le synchroniseur pour utiliser l’archive réelle de `main` au lieu d’un tag de release potentiellement absent
