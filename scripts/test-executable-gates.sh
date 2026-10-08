@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-[ "${CI:-false}" = "true" ] && export BASH_XTRACEFD=2 && set -x
 
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 
@@ -135,7 +134,7 @@ for kit in codex claude; do
   grep -q 'report_path' "$root/starter-kit-$kit/.$kit/hooks/subagent-stop.sh"
   jq empty "$root/starter-kit-$kit/.$kit/hooks.json"
   grep -q 'Événement hook JSON invalide' "$root/starter-kit-$kit/.$kit/hooks/pre-tool-use.sh"
-  grep -q 'Mode récupération autorisé' "$root/starter-kit-$kit/.$kit/hooks/pre-tool-use.sh"
+  grep -q 'reconcilier le runtime' "$root/starter-kit-$kit/.$kit/hooks/pre-tool-use.sh"
   grep -q 'tool_use_id' "$root/starter-kit-$kit/.$kit/hooks/post-tool-use.sh"
   grep -q 'gh.*pr.*create' "$root/starter-kit-$kit/.$kit/hooks/permission-request.sh"
 done
