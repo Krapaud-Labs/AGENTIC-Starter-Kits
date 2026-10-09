@@ -177,6 +177,8 @@ for kit in codex claude; do
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh" ] || { echo "ECHEC TEST: ensure-native-goal.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh"
+  [ -x "$root/starter-kit-$kit/.$kit/scripts/guard-repeated-blocker.sh" ] || { echo "ECHEC TEST: garde anti-boucle absente pour $kit"; exit 1; }
+  bash -n "$root/starter-kit-$kit/.$kit/scripts/guard-repeated-blocker.sh"
   NATIVE_GOAL_STATUS=active NATIVE_GOAL_ID=test-goal bash "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh" >/dev/null
   if NATIVE_GOAL_STATUS=blocked bash "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh" >/dev/null 2>&1; then
     echo "ECHEC TEST: Goal bloqué accepté comme actif pour $kit"; exit 1
@@ -297,6 +299,7 @@ for kit in codex claude; do
   config="$test_root/$hidden"
   mkdir -p "$config/scripts" "$config/work-items/demo"
   cp "$source_config/scripts/guard-before-response.sh" "$config/scripts/"
+  cp "$source_config/scripts/guard-repeated-blocker.sh" "$config/scripts/"
   cp "$source_config/scripts/checkpoint.sh" "$config/scripts/"
   cp "$source_config/RUNTIME-STATE.md" "$config/"
   : > "$config/runtime-events.log"

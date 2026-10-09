@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.31 - 2026-10-09
+
+- ajoute un garde exécutable contre la répétition d'un même blocage
+- exige un changement d'approche après deux tours identiques
+
 ## 1.16.30 - 2026-10-08
 
 - exige la réactivation des agents spécialisés à chaque reprise de Goal

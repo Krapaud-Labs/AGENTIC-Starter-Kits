@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.31 | 2026-10-09 | Garde anti-boucle exécutable après deux blocages identiques. |
+
 | 1.16.30 | 2026-10-08 | Activation réelle des agents spécialisés à chaque Goal et chaque reprise. |
 
 | 1.16.29 | 2026-10-08 | Exécution autonome des gates internes jusqu'à la PR vers dev. |
