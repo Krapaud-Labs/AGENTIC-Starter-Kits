@@ -48,6 +48,7 @@ for kit in codex claude; do
 
   # Scenario 3: une réponse ne peut pas être émise pendant l'exécution.
   cp "$source/scripts/guard-before-response.sh" "$scenario/$hidden/scripts/"
+  cp "$source/scripts/guard-repeated-blocker.sh" "$scenario/$hidden/scripts/"
   if bash "$scenario/$hidden/scripts/guard-before-response.sh" >/dev/null 2>&1; then
     echo "ECHEC SANDBOX: l'état running a autorisé une réponse pour $kit" >&2
     exit 1
