@@ -6,6 +6,7 @@ state="$(cd "$script_dir/.." && pwd)/RUNTIME-STATE.md"
 
 fail() { echo "GARDE REPONSE: $*" >&2; exit 1; }
 [ -f "$state" ] || fail "RUNTIME-STATE.md absent"
+"$script_dir/guard-repeated-blocker.sh" || fail "même blocage répété sans changement d'approche"
 
 value() { sed -n "s/^-[[:space:]]*$1:[[:space:]]*//p; s/^$1:[[:space:]]*//p" "$state" | head -n 1; }
 status="$(value execution_status)"
