@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.33 - 2026-10-10
+
+- détecte le conflit entre Goal natif actif et runtime local bloqué
+- interdit une reprise aveugle sans réévaluation ni nouvelle action
+
 ## 1.16.32 - 2026-10-10
 
 - interdit les blocages globaux lorsqu'une action autonome ou déléguable reste possible

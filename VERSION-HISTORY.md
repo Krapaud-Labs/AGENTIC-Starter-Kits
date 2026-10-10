@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.33 | 2026-10-10 | Réconciliation sûre entre Goal natif actif et runtime bloqué. |
+
 | 1.16.32 | 2026-10-10 | Refus des blocages globaux pour les actions encore réalisables. |
 
 | 1.16.31 | 2026-10-09 | Garde anti-boucle exécutable après deux blocages identiques. |

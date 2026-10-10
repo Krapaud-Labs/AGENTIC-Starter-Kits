@@ -9,6 +9,12 @@ value() { sed -n "s/^-[[:space:]]*$1:[[:space:]]*//p; s/^$1:[[:space:]]*//p" "$s
 [ -f "$state" ] || { echo "RECOVERY CHECK: état runtime absent" >&2; exit 1; }
 status="$(value execution_status)"
 condition="$(value goal_blocked_condition)"
+native_status="$(value native_goal_status)"
+
+if [ "$status" = "blocked" ] && [ "$native_status" = "active" ]; then
+  echo "RECOVERY REQUIRED: Goal natif actif avec runtime bloqué; réévaluer la cause, changer d'approche et exécuter une action avant toute reprise." >&2
+  exit 1
+fi
 active=""
 while IFS= read -r brief; do
   if grep -Fq '| Statut | in-progress |' "$brief"; then active="$(dirname "$brief")"; break; fi
