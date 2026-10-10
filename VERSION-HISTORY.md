@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.34 | 2026-10-10 | Structure standardisée et vérifiée des commentaires Trello. |
+
 | 1.16.33 | 2026-10-10 | Réconciliation sûre entre Goal natif actif et runtime bloqué. |
 
 | 1.16.32 | 2026-10-10 | Refus des blocages globaux pour les actions encore réalisables. |

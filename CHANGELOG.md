@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.34 - 2026-10-10
+
+- normalise la structure des commentaires Trello avec six informations ordonnées
+- impose les puces natives et la relecture visuelle après publication
+
 ## 1.16.33 - 2026-10-10
 
 - détecte le conflit entre Goal natif actif et runtime local bloqué
