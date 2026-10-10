@@ -204,6 +204,7 @@ for kit in codex claude; do
   rm -rf "$session_fixture"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh" ] || { echo "ECHEC TEST: verify-recovery-state.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh"
+  grep -q "Goal natif actif avec runtime bloqué" "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh" || { echo "ECHEC TEST: conflit Goal/runtime non détecté pour $kit"; exit 1; }
   [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-github-access.sh" ] || { echo "ECHEC TEST: verify-github-access.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-github-access.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh" ] || { echo "ECHEC TEST: prepare-qa-fixture.sh absent pour $kit"; exit 1; }
