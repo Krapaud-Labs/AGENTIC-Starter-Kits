@@ -6,6 +6,8 @@ Tout blocage que le Coordinateur ou un agent peut résoudre dans le périmètre 
 
 `blocked` n'est permis qu'après vérification de toutes ces voies et preuve qu'une dépendance externe inaccessible ou une décision humaine indispensable est le seul événement restant. Un blocage récupérable conserve `execution_status: running`, `waiting-ci` ou `needs-review`, avec une `next_action` active et un propriétaire.
 
+Un Goal ne peut jamais être `blocked` si une action reste réalisable par le Coordinateur, un agent spécialisé, une installation gratuite, un service local, une fixture, une simulation, une alternative navigateur/connecteur ou une PR autorisée vers `dev`. Le Coordinateur doit exécuter ou déléguer cette action immédiatement. Les portes design, QA, audit, alerting, rollback et restauration non prouvées sont des travaux à réaliser ou des portes `needs-review` ciblées, jamais un blocage global.
+
 ## Principe
 
 Après acceptation du cahier et du questionnaire de complétude, l agent travaille en autonomie continue. Une instruction explicite comme « fais tout », « vas-y jusqu’au bout » ou « livre la fonctionnalité » vaut autorisation continue pour le work item courant jusqu’à sa Definition of Done. Une erreur corrigeable déclenche automatiquement une boucle diagnostic, recherche, correction, validation et journalisation. L agent ne clôt pas la conversation avec une simple description d échec.

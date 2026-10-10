@@ -102,6 +102,8 @@ for autonomy_policy in "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-REC
   grep -q "jusqu'à la livraison sur.*dev.*sans demander une approbation intermédiaire" "$autonomy_policy" || {
     echo "ECHEC TEST: l'autonomie des gates internes jusqu'à dev est absente de $autonomy_policy"; exit 1;
   }
+  grep -q "ne peut jamais être.*blocked.*action reste réalisable" "$autonomy_policy" || { echo "ECHEC TEST: refus du blocage récupérable absent de $autonomy_policy"; exit 1; }
+  grep -q "jamais un blocage global" "$autonomy_policy" || { echo "ECHEC TEST: refus du blocage global absent de $autonomy_policy"; exit 1; }
 done
 
 for ops in \

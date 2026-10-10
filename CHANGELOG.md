@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.32 - 2026-10-10
+
+- interdit les blocages globaux lorsqu'une action autonome ou déléguable reste possible
+- transforme les portes récupérables en travail actif ou `needs-review` ciblé
+
 ## 1.16.31 - 2026-10-09
 
 - ajoute un garde exécutable contre la répétition d'un même blocage
