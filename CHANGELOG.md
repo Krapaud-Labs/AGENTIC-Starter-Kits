@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.36 - 2026-10-11
+
+- ajoute un manifeste obligatoire avant chaque carte Trello
+- bloque la carte suivante tant que la carte créée n'est pas relue et conforme
+
 ## 1.16.35 - 2026-10-11
 
 - consolide les audits visuels, fonctionnels et responsive en une passe globale

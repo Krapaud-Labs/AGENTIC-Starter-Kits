@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.36 | 2026-10-11 | Validation stricte des cartes Trello avant et après création. |
+
 | 1.16.35 | 2026-10-11 | Consolidation des audits et revalidation finale unique. |
 
 | 1.16.34 | 2026-10-10 | Structure standardisée et vérifiée des commentaires Trello. |

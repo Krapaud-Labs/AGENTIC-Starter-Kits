@@ -115,6 +115,11 @@ for ops in \
   grep -q "DevOps" "$ops" || { echo "ECHEC TEST: activation DevOps absente de $ops"; exit 1; }
 done
 
+for trello_policy in "$root/starter-kit-codex/.codex/skills/trello-planning/SKILL.md" "$root/starter-kit-claude/.claude/skills/trello-planning/SKILL.md"; do
+  grep -q "manifeste de carte" "$trello_policy" || { echo "ECHEC TEST: manifeste de carte obligatoire absent de $trello_policy"; exit 1; }
+  grep -q "interdire toute carte suivante" "$trello_policy" || { echo "ECHEC TEST: arrêt après carte non conforme absent de $trello_policy"; exit 1; }
+done
+
 for sync in "$root/starter-kit-codex/.codex/scripts/sync-workspace-kit.sh" "$root/starter-kit-claude/.claude/scripts/sync-workspace-kit.sh"; do
   grep -q "gh api.*contents/VERSION" "$sync" || { echo "ECHEC TEST: synchronisation API GitHub absente de $sync"; exit 1; }
 done
