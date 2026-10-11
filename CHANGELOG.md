@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.35 - 2026-10-11
+
+- consolide les audits visuels, fonctionnels et responsive en une passe globale
+- interdit les micro-audits répétés sans nouvelle preuve
+- impose une matrice partagée et une revalidation finale unique
+
 ## 1.16.34 - 2026-10-10
 
 - normalise la structure des commentaires Trello avec six informations ordonnées

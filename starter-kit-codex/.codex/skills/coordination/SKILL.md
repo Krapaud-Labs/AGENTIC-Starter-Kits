@@ -57,6 +57,8 @@ Si la fixture locale ou `QA_STORAGE_STATE` est périmée, l'agent QA doit recré
 
 Le Coordinateur ne parallélise jamais une tâche dépendante, une migration partagée, une décision d'architecture, une modification du même fichier ou une validation qui exige le résultat d'un autre agent. Après chaque lot, il relit la preuve, Trello et le work item, résout les conflits, intègre les résultats sur la branche unique de la carte, puis lance l'audit et les contrôles finaux. La carte reste ouverte tant que tous les lots, la revue et la Definition of Done ne sont pas prouvés.
 
+Pour les audits visuels, fonctionnels, responsive ou de régression, planifier une passe de consolidation unique couvrant tout le périmètre applicable avant de corriger ou de cocher les checks. Construire une matrice partagée critères, écrans, états, dimensions, interactions, preuves et résultat. Les agents peuvent auditer en parallèle des domaines non recouvrants, mais aucun agent ne répète le même contrôle ; le Coordinateur regroupe les rapports, corrige le lot complet, puis lance une seule revalidation finale. Les micro-audits successifs sans nouvelle preuve sont interdits.
+
 Plusieurs agents du même rôle peuvent être activés pour accélérer une famille de tâches homogènes, à condition de partitionner explicitement le travail : cartes différentes, fichiers différents, parcours différents, lignes de données distinctes ou lots de checklist non recouvrants. Un agent intégrateur unique est désigné avant le démarrage ; il vérifie l'absence de doublons, assemble les résultats, résout les conflits et porte la preuve finale. Deux agents ne doivent jamais implémenter le même périmètre sans partition, ni écraser le résultat de l'autre.
 
 ## Sélection de la prochaine carte
