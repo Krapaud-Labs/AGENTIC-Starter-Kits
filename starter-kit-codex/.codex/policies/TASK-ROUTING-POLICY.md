@@ -31,6 +31,10 @@ Une demande hors cahier des charges devient une évolution tracée du périmètr
 1. Lire l’état persistant, le cahier accepté, le profil, les décisions et les work items.
 2. Qualifier la demande et détecter si elle est nouvelle, corrective, urgente ou hors périmètre initial.
 3. Créer ou mettre à jour un work item avant toute modification.
+
+Toute formulation qui demande de terminer, corriger, améliorer, construire, brancher, tester, auditer ou livrer une feature, un écran, un parcours, une extension, une API, un rapport ou un bouton déclenche obligatoirement le Goal et le routage spécialisé avant la première lecture technique ou modification. Les formulations « termine cette feature », « corrige ce problème », « rends-le fonctionnel », « branche ce bouton » et leurs équivalents ne sont jamais des tâches directes du Coordinateur.
+
+La porte de démarrage exige une preuve de Goal actif, une matrice de rôles requis et l'identifiant réel de chaque agent spécialisé. Pour une extension ou un frontend, activer au minimum `frontend` et `qa`, puis `auditeur` avant la validation finale ; ajouter `backend`, `devops`, `accessibilite` ou `securite` selon le périmètre. Sans cette preuve, aucune modification produit, test spécialisé ou validation ne peut commencer.
 4. Sélectionner l’agent responsable et les agents associés nécessaires.
 5. Justifier chaque activation et choisir le modèle selon le risque et la complexité.
 6. Exécuter les travaux indépendants en parallèle uniquement si les contrats et fichiers ne se chevauchent pas.

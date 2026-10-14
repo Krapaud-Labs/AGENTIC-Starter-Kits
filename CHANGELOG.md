@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.37 - 2026-10-14
+
+- renforce le déclenchement Goal et le routage pour toute demande de feature ou correction
+- interdit au Coordinateur de modifier avant la preuve des agents spécialisés requis
+
 ## 1.16.36 - 2026-10-11
 
 - ajoute un manifeste obligatoire avant chaque carte Trello

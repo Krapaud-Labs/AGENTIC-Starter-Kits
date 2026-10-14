@@ -120,6 +120,11 @@ for trello_policy in "$root/starter-kit-codex/.codex/skills/trello-planning/SKIL
   grep -q "interdire toute carte suivante" "$trello_policy" || { echo "ECHEC TEST: arrêt après carte non conforme absent de $trello_policy"; exit 1; }
 done
 
+for routing in "$root/starter-kit-codex/.codex/policies/TASK-ROUTING-POLICY.md" "$root/starter-kit-claude/.claude/policies/TASK-ROUTING-POLICY.md"; do
+  grep -q "terminer, corriger, améliorer, construire" "$routing" || { echo "ECHEC TEST: déclencheurs de feature absents de $routing"; exit 1; }
+  grep -q "aucune modification produit" "$routing" || { echo "ECHEC TEST: porte de démarrage spécialisée absente de $routing"; exit 1; }
+done
+
 for sync in "$root/starter-kit-codex/.codex/scripts/sync-workspace-kit.sh" "$root/starter-kit-claude/.claude/scripts/sync-workspace-kit.sh"; do
   grep -q "gh api.*contents/VERSION" "$sync" || { echo "ECHEC TEST: synchronisation API GitHub absente de $sync"; exit 1; }
 done
