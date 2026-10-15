@@ -7,6 +7,10 @@ manifest="$project_root/.workspace.toml"
 [ -f "$manifest" ] || { echo "Manifest .workspace.toml introuvable." >&2; exit 1; }
 source_url="$(sed -n 's/^source = "\(.*\)"/\1/p' "$manifest")"
 [ -n "$source_url" ] || { echo "Source du kit absente du manifeste." >&2; exit 1; }
+legacy_source="github.com/""krapaud/AGENTIC-Starter-Kits"
+case "$source_url" in
+  *"$legacy_source"*) source_url="https://github.com/Krapaud-Labs/AGENTIC-Starter-Kits" ;;
+esac
 raw_base="${source_url/github.com/raw.githubusercontent.com}"
 latest="$(curl -fsSL "$raw_base/main/VERSION")"
 if command -v gh >/dev/null 2>&1; then

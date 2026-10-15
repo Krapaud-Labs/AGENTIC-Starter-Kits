@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.40 - 2026-10-15
+
+- normalise l’ancienne URL du dépôt vers `Krapaud-Labs/AGENTIC-Starter-Kits`
+- évite qu’une synchronisation récupère une archive obsolète
+
 ## 1.16.39 - 2026-10-15
 
 - rend la synchronisation tolérante aux fichiers locaux exclus des archives

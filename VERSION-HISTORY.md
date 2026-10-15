@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.40 | 2026-10-15 | Normalisation de la source officielle du kit. |
+
 | 1.16.39 | 2026-10-15 | Synchronisation robuste des fichiers protégés et marqueurs alignés. |
 
 | 1.16.38 | 2026-10-15 | Bootstrap automatique de RUNTIME-STATE et test de projet vierge. |
