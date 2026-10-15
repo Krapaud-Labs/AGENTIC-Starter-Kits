@@ -38,7 +38,9 @@ rsync -a --delete --exclude 'backups/' --exclude 'PROJECT-BRIEF.md' --exclude 'p
 cp "$source_kit/CLAUDE.md" "$kit_root/CLAUDE.md"
 for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
   if [ ! -f "$kit_root/$local_file" ]; then
-    cp "$source_kit/.claude/$local_file" "$kit_root/.claude/$local_file"
+    candidate="$source_kit/.claude/$local_file"
+    [ -f "$candidate" ] || candidate="$source_kit/.claude/templates/$local_file"
+    [ -f "$candidate" ] && cp "$candidate" "$kit_root/.claude/$local_file"
   fi
 done
 sed -i.bak "s/^kit_version = .*/kit_version = \"\$latest\"/" "$manifest"

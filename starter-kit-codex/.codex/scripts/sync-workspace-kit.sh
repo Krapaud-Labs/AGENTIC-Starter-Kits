@@ -45,7 +45,9 @@ sed -i.bak "s/^kit_version = .*/kit_version = \"$latest\"/" "$kit_root/KIT.toml"
 rm -f "$kit_root/KIT.toml.bak"
 for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
   if [ ! -f "$kit_root/$local_file" ]; then
-    cp "$source_kit/.codex/$local_file" "$kit_root/$local_file"
+    candidate="$source_kit/.codex/$local_file"
+    [ -f "$candidate" ] || candidate="$source_kit/.codex/templates/$local_file"
+    [ -f "$candidate" ] && cp "$candidate" "$kit_root/$local_file"
   fi
 done
 sed -i.bak "s/^kit_version = .*/kit_version = \"$latest\"/" "$manifest"

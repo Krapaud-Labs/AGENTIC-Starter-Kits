@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.39 - 2026-10-15
+
+- rend la synchronisation tolérante aux fichiers locaux exclus des archives
+- aligne les marqueurs de version des points d’entrée Codex et Claude
+
 ## 1.16.38 - 2026-10-15
 
 - initialise automatiquement `RUNTIME-STATE.md` lors du démarrage et de l'initialisation
