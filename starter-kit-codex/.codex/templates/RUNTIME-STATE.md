@@ -25,9 +25,9 @@
 - goal_budget: [[A_COMPLETER]]
 - goal_blocked_condition: none
 - goal_session_id: none
-- native_goal_status: required
+- native_goal_status: unavailable
 - native_goal_id: none
-- native_goal_evidence: [[A_COMPLETER]]
+- native_goal_evidence: Goal natif à créer par l'orchestrateur au démarrage
 - native_goal_blocked_condition: none
 - goal_delivery_status: not-required
 - goal_delegation_plan: [[A_COMPLETER]]

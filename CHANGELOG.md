@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.41 - 2026-10-15
+
+- rend l’état runtime initial immédiatement valide pour le validateur de session
+- marque explicitement le Goal natif comme indisponible avant sa création orchestrée
+
 ## 1.16.40 - 2026-10-15
 
 - normalise l’ancienne URL du dépôt vers `Krapaud-Labs/AGENTIC-Starter-Kits`
