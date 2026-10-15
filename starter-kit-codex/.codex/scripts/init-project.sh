@@ -54,7 +54,7 @@ fi
 bash "$config_root/scripts/validate-entrypoint.sh"
 # Initialiser les fichiers locaux obligatoires avant de valider le contrat.
 # La validation doit pouvoir lire le cahier et le profil dès la première installation.
-for local_file in PROJECT-BRIEF.md project-profile.toml; do
+for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
   if [ ! -f "$config_root/$local_file" ] && [ -f "$config_root/templates/$local_file" ]; then
     cp "$config_root/templates/$local_file" "$config_root/$local_file"
   fi
@@ -65,7 +65,7 @@ echo "Hooks Codex installés. Avant toute action projet, ouvrir /hooks, relire l
 
 # Les fichiers d'état et d'onboarding sont obligatoires dès l'installation.
 # Ils restent locaux au projet et ne sont jamais écrasés s'ils existent déjà.
-for local_file in PROJECT-BRIEF.md project-profile.toml; do
+for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
   if [ ! -f "$config_root/$local_file" ] && [ -f "$config_root/templates/$local_file" ]; then
     cp "$config_root/templates/$local_file" "$config_root/$local_file"
   fi

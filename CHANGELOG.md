@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.38 - 2026-10-15
+
+- initialise automatiquement `RUNTIME-STATE.md` lors du démarrage et de l'initialisation
+- ajoute un scénario de projet vierge pour empêcher les blocages de bootstrap
+
 ## 1.16.37 - 2026-10-14
 
 - renforce le déclenchement Goal et le routage pour toute demande de feature ou correction

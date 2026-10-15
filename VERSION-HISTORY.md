@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.38 | 2026-10-15 | Bootstrap automatique de RUNTIME-STATE et test de projet vierge. |
+
 | 1.16.37 | 2026-10-14 | Routage spécialisé obligatoire avant toute feature, correction ou livraison. |
 
 | 1.16.36 | 2026-10-11 | Validation stricte des cartes Trello avant et après création. |
