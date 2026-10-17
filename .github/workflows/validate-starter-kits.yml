@@ -104,7 +104,7 @@ jobs:
             perl -0pi -e 's/## Statut\n\npending/## Statut\n\naccepted/' "$project_root/$config_dir/PROJECT-BRIEF.md"
             perl -0pi -e 's/project_name = "à compléter"/project_name = "ci-validation"/' "$project_root/$config_dir/project-profile.toml"
             perl -0pi -e 's/project_type = "unknown"/project_type = "service"/' "$project_root/$config_dir/project-profile.toml"
-            sed -i "s/trello_choice = \"pending\"/trello_choice = \"disabled\"/" "$project_root/$config_dir/project-profile.toml"
+            sed -i "s/github_projects_choice = \"pending\"/github_projects_choice = \"disabled\"/" "$project_root/$config_dir/project-profile.toml"
             bash "$project_root/$config_dir/scripts/initialize-project-design.sh"
             find "$project_root/docs" -type f -name '*.md' -exec sed -i 's/\[\[A_COMPLETER[^]]*\]\]/Conception validée par le scénario CI/g' {} +
             sed -i 's/^Status: draft$/Status: approved/; s/^- \[ \]/- [x]/g' "$project_root/docs/design/design-readiness.md"

@@ -107,7 +107,7 @@ for kit in codex claude; do
   cp "$project/$hidden/templates/project-brief.md" "$project/$hidden/PROJECT-BRIEF.md"
   cp "$project/$hidden/templates/project-profile.toml" "$project/$hidden/project-profile.toml"
   perl -0pi -e 's/\bpending\b/accepted/ if /## Statut/' "$project/$hidden/PROJECT-BRIEF.md"
-  KIT_NAME="$kit" perl -0pi -e 's/project_name = "à compléter"/project_name = "sandbox-$ENV{KIT_NAME}"/; s/trello_choice = "pending"/trello_choice = "disabled"/' "$project/$hidden/project-profile.toml"
+  KIT_NAME="$kit" perl -0pi -e 's/project_name = "à compléter"/project_name = "sandbox-$ENV{KIT_NAME}"/; s/github_projects_choice = "pending"/github_projects_choice = "disabled"/' "$project/$hidden/project-profile.toml"
   if python3 -c 'import tomllib' >/dev/null 2>&1; then
     bash "$project/$hidden/scripts/initialize-project-design.sh" >/dev/null
     test -f "$project/docs/design/design-readiness.md"
