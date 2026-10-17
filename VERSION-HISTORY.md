@@ -10,6 +10,8 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
+| 1.16.42 | 2026-10-17 | GitHub Projects devient le système de suivi principal. |
+
 | 1.16.41 | 2026-10-15 | Modèle runtime initial valide et statut Goal natif explicite. |
 
 | 1.16.40 | 2026-10-15 | Normalisation de la source officielle du kit. |

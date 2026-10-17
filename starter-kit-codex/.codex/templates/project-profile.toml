@@ -71,16 +71,22 @@ conformite = false
 [tracking]
 mode = "local"
 provider = ""
-trello_choice = "pending"
+github_projects_choice = "pending"
+github_project_name = ""
+github_members = []
+trello_choice = "disabled"
 trello_execution = "always-build"
 trello_board_name = ""
 trello_workspace = ""
 # Format : [{ name = "Prénom Nom", role = "Rôle projet", trello_id = "" }]
 trello_members = []
 # pending_activation, syncing, verified ou blocked
-trello_sync_status = "pending_activation"
+github_projects_sync_status = "pending_activation"
+trello_sync_status = "disabled"
 trello_board_id = ""
 trello_board_url = ""
+github_project_number = ""
+github_project_url = ""
 
 [delivery]
 uses_pull_requests = true

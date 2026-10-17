@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.42 - 2026-10-17
+
+- ajoute GitHub Projects comme suivi principal des projets
+- transfère cartes, labels, checklists, statuts et preuves vers Issues et Projects
+- conserve Trello comme compatibilité optionnelle uniquement
+
 ## 1.16.41 - 2026-10-15
 
 - rend l’état runtime initial immédiatement valide pour le validateur de session
