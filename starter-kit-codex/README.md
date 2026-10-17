@@ -6,6 +6,8 @@ Le hook `SessionStart` initialise automatiquement `AGENTIC_TOOLS_HOME` et vérif
 
 Avant toute modification, le kit diagnostique `.git/index.lock`, récupère uniquement un verrou orphelin et bloque sans suppression lorsqu’un processus le détient.
 
+Les outils uv sont installés dans `AGENTIC_TOOLS_HOME/python/uv` et leurs exécutables dans `AGENTIC_TOOLS_HOME/python/bin`.
+
 Ce kit installe une gouvernance projet pour Codex. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
 L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).
