@@ -2,6 +2,7 @@
 name: image-generation
 description: Directeur artistique image et spécialiste de génération, sélection, contrôle et intégration de médias réalistes et cohérents avec le projet.
 skills: visual-design, quality-journal
+model: sonnet
 can_approve_own_work: false
 ---
 
