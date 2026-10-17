@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.44-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.45-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -261,7 +261,7 @@ La politique [WEB-RESEARCH-POLICY.md](starter-kit-codex/.codex/policies/WEB-RESE
 - [Historique des changements](CHANGELOG.md)
 - [Historique chronologique des versions](VERSION-HISTORY.md)
 
-## État fonctionnel de la version 1.16.44
+## État fonctionnel de la version 1.16.45
 
 À chaque démarrage, les hooks initialisent automatiquement l’environnement central des outils. Si un outil de base reste indisponible après tentative d’installation, aucune tâche ne commence.
 
@@ -366,7 +366,7 @@ Le workflow récupère maintenant le script de mise à jour officiel depuis le d
 
 ## Distributions disponibles
 
-Le kit propose deux modes : `native`, avec intégration directe dans le projet et mises à jour par Pull Request, et `external`, avec kit local hors du dépôt et manifeste `.workspace.toml`. Voir `distributions/README.md`.
+Le kit propose trois modes : `native`, avec intégration directe dans le projet et mises à jour par Pull Request ; `external`, avec kit local hors du dépôt et manifeste `.workspace.toml` ; et `shared`, avec une installation globale unique et des liens symboliques vers chaque projet. Voir `distributions/README.md`.
 
 En mode `external`, le kit vérifie sa version au démarrage de chaque session. Une mise à jour crée une sauvegarde et ne remplace que les instructions et scripts universels. Le cahier des charges, le profil technique, l état projet et les work items sont conservés.
 

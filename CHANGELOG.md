@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.45 - 2026-10-17
+
+- ajoute le mode `shared` avec une installation globale unique du kit
+- conserve le contexte et l’état propres à chaque projet via des liens ciblés
+
 ## 1.16.44 - 2026-10-17
 
 - centralise les outils CLI, npm et Python dans un emplacement utilisateur unique

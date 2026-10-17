@@ -50,7 +50,7 @@ verify_update_workflow() {
     fail "Le workflow de mise à jour est ignoré par Git. Retirez cette règle avant de continuer."
   fi
 }
-usage() { printf "%b\n" "Usage : ./install.sh [--kit codex|claude] [--mode native|external] [--target CHEMIN] [--force]"; }
+usage() { printf "%b\n" "Usage : ./install.sh [--kit codex|claude] [--mode native|external|shared] [--target CHEMIN] [--force]"; }
 kit=""; mode="native"; target=""; force=false
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -62,7 +62,7 @@ while [ "$#" -gt 0 ]; do
     *) fail "Option inconnue : $1" ;;
   esac
 done
-case "$mode" in native|external) ;; *) fail "Le mode doit être native ou external." ;; esac
+case "$mode" in native|external|shared) ;; *) fail "Le mode doit être native, external ou shared." ;; esac
 title
 if [ -z "$kit" ] && [ -t 0 ]; then
   printf "%b\n" "${bold}Quel orchestrateur souhaitez-vous installer ?${reset}"
@@ -73,12 +73,14 @@ fi
 if [ -t 0 ] && [ "$mode" = "native" ] && [ -z "${AGENTIC_MODE_SELECTED:-}" ]; then
   printf "\n%b\n" "${bold}Comment souhaitez-vous installer le kit ?${reset}"
   printf "  ${cyan}1${reset}) Mode natif : fichiers du kit disponibles directement dans le projet\n"
-  printf "  ${cyan}2${reset}) Mode externe : fichiers du kit ignorés par Git, manifeste discret uniquement\n\n"
+  printf "  ${cyan}2${reset}) Mode externe : fichiers du kit ignorés par Git, manifeste discret uniquement\n"
+  printf "  ${cyan}3${reset}) Mode partagé : kit global unique et liens symboliques dans le projet\n\n"
   printf "Votre choix [1] : "
   read -r mode_choice
   case "${mode_choice:-1}" in
     1) mode=native ;;
     2) mode=external ;;
+    3) mode=shared ;;
     *) fail "Choix de distribution invalide." ;;
   esac
 fi
@@ -155,10 +157,41 @@ if [ -t 0 ]; then
   case "${confirm:-o}" in n|N|non|Non) info "Installation annulée."; exit 0 ;; esac
 fi
 info "Installation de la configuration $label..."
-cp -R "$repo_root/$source_dir/$entry" "$target/$entry"
-sync_kit_directory "$repo_root/$source_dir/$hidden" "$target/$hidden"
+if [ "$mode" = "shared" ]; then
+  shared_root="${AGENTIC_KIT_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/agentic-starter-kits/kits}"
+  kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$repo_root/$source_dir/$hidden/KIT.toml")"
+  shared_dir="$shared_root/$kit/$kit_version"
+  mkdir -p "$shared_dir"
+  cp -R "$repo_root/$source_dir/$entry" "$shared_dir/$entry"
+  mkdir -p "$shared_dir/$hidden"
+  cp -R "$repo_root/$source_dir/$hidden/." "$shared_dir/$hidden/"
+  mkdir -p "$target/$hidden"
+  for item in "$repo_root/$source_dir/$hidden"/*; do
+    name="$(basename "$item")"
+    case "$name" in PROJECT-BRIEF.md|project-profile.toml|project-inventory.md|RUNTIME-STATE.md|decisions|work-items|reports|metrics|evaluations) continue ;; esac
+    rm -rf "$target/$hidden/$name"
+    ln -s "$shared_dir/$hidden/$name" "$target/$hidden/$name"
+  done
+  for local_dir in decisions work-items reports metrics evaluations; do mkdir -p "$target/$hidden/$local_dir"; done
+  rm -f "$target/$entry"
+  ln -s "$shared_dir/$entry" "$target/$entry"
+else
+  cp -R "$repo_root/$source_dir/$entry" "$target/$entry"
+  sync_kit_directory "$repo_root/$source_dir/$hidden" "$target/$hidden"
+fi
 mkdir -p "$target/.github/workflows"
-if [ "$mode" = "external" ]; then
+if [ "$mode" = "shared" ]; then
+  workflow_path="$target/.github/workflows/update-workspace-kit.yml"
+  cp "$repo_root/distributions/external/update-workspace-kit.yml" "$workflow_path"
+  cat > "$target/.workspace.toml" <<EOF
+orchestrator = "$kit"
+kit_version = "$kit_version"
+source = "https://github.com/Krapaud-Labs/AGENTIC-Starter-Kits"
+kit_mode = "shared"
+kit_home = "$shared_root"
+update_channel = "stable"
+EOF
+elif [ "$mode" = "external" ]; then
   workflow_path="$target/.github/workflows/update-workspace-kit.yml"
   cp "$repo_root/distributions/external/update-workspace-kit.yml" "$workflow_path"
   kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$target/$hidden/KIT.toml")"
@@ -186,7 +219,7 @@ printf "%s\n" "Les futures mises à jour arriveront par Pull Request vers dev ou
 if git -C "$target" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   printf "\n%b\n" "${yellow}Avant le premier push${reset}"
   printf "%s\n" "Ajoutez le workflow au premier commit :"
-  if [ "$mode" = "external" ]; then
+  if [ "$mode" = "external" ] || [ "$mode" = "shared" ]; then
     printf "  git add .github/workflows/update-workspace-kit.yml .workspace.toml .gitignore\n"
   else
     printf "  git add .github/workflows/update-agentic-starter-kit.yml .gitignore %s\n" "$entry"
