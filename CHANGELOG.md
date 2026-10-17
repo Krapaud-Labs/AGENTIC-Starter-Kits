@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.49 - 2026-10-17
+
+- rend les identifiants réels et les affectations de spécialistes obligatoires avant tout lot
+- refuse les délégations annoncées sans threads et preuves d'affectation vérifiables
+
 ## 1.16.48 - 2026-10-17
 
 - centralise les cahiers des charges hors des dépôts dans `Projets/Cahier-des-Charges/<nom-du-projet>`

@@ -51,6 +51,7 @@ Pour une interface ou une refonte visuelle, le Frontend produit les changements 
 
 Pour un audit QA sans credentials, l'agent QA reste obligatoire. Il utilise d'abord la cible locale, les fixtures isolées et les comptes de test non sensibles disponibles dans le projet. Le rapport doit séparer les parcours validés localement de ceux qui nécessitent encore une préproduction authentifiée ; l'absence de cette dernière ne bloque pas les vérifications réalisables.
 Pour toute tâche visuelle, responsive ou de redesign, exécuter `scripts/verify-specialist-plan.sh` avant la première modification. Le minimum obligatoire est `frontend`, `qa` et `auditeur`. Une phrase comme « je vais lancer les agents » ne constitue pas une création ; seul le résultat réel de l'orchestrateur avec identifiants et preuve autorise le démarrage.
+Le garde-fou reçoit les identifiants réels sous la forme `frontend@id,qa@id,auditeur@id` et un dossier de preuve contenant `frontend.assignment`, `qa.assignment` et `auditeur.assignment`. Les noms de rôle seuls, les identifiants `pending` ou une annonce textuelle sont refusés. Chaque fichier d'affectation indique le thread, le périmètre, le livrable et le propriétaire ; les rapports finaux sont vérifiés séparément après exécution.
 
 ## Règles de continuité
 

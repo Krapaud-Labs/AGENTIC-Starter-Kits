@@ -10,13 +10,15 @@ Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont é
 
 ## Historique chronologique
 
-| 1.16.48 | 2026-10-17 | Cahiers des charges centralisés hors des dépôts dans le dossier Projets. |
+| 1.16.49 | 2026-10-17 | Garde universelle des délégations avec identifiants réels et preuves d'affectation. |
 
-| 1.16.48 | 2026-10-17 | Archive automatique des cahiers des charges par projet lors de l'installation. |
+| 1.16.49 | 2026-10-17 | Cahiers des charges centralisés hors des dépôts dans le dossier Projets. |
 
-| 1.16.48 | 2026-10-17 | Agent image-generation, routage obligatoire, réalisme, cohérence de thème, provenance, accessibilité et contrôle des artefacts. |
+| 1.16.49 | 2026-10-17 | Archive automatique des cahiers des charges par projet lors de l'installation. |
 
-| 1.16.48 | 2026-10-17 | Mode shared avec kit global unique et contexte local par projet. |
+| 1.16.49 | 2026-10-17 | Agent image-generation, routage obligatoire, réalisme, cohérence de thème, provenance, accessibilité et contrôle des artefacts. |
+
+| 1.16.49 | 2026-10-17 | Mode shared avec kit global unique et contexte local par projet. |
 
 | 1.16.44 | 2026-10-17 | Registre central des outils CLI, npm et Python, installation idempotente et environnement partagé. |
 

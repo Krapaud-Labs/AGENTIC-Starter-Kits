@@ -13,6 +13,16 @@ assert_contains() {
 for kit in codex claude; do
   hidden=".$kit"
   source="$root/starter-kit-$kit/$hidden"
+  assert_contains "$source/scripts/verify-specialist-plan.sh" 'identifiant réel au format role@id'
+  assert_contains "$source/policies/TASK-ROUTING-POLICY.md" 'frontend@id,qa@id,auditeur@id'
+  delegation="$tmp/delegation-$kit"
+  mkdir -p "$delegation"
+  for role in frontend qa auditeur; do printf 'thread=real-%s\nscope=sandbox\n' "$role" > "$delegation/$role.assignment"; done
+  if bash "$source/scripts/verify-specialist-plan.sh" visual 'frontend,qa,auditeur' "$delegation" >/dev/null 2>&1; then
+    echo "ECHEC SANDBOX: délégation sans identifiants acceptée pour $kit" >&2
+    exit 1
+  fi
+  bash "$source/scripts/verify-specialist-plan.sh" visual 'frontend@real-f,qa@real-q,auditeur@real-a' "$delegation" >/dev/null
   assert_contains "$source/scripts/sync-workspace-kit.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md'
   assert_contains "$source/scripts/init-project.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml'
   assert_contains "$source/scripts/start-goal.sh" 'lots parallèles détectés sans au moins deux agents'
