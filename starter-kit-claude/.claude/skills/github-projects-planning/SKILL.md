@@ -1,3 +1,8 @@
+---
+name: github-projects-planning
+description: Planifie et synchronise les Issues et Projects GitHub avec les exigences et le Git Flow.
+---
+
 # Skill github-projects-planning
 
 ## Objectif
