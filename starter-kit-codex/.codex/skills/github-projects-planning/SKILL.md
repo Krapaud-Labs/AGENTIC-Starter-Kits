@@ -4,6 +4,10 @@
 
 Utiliser GitHub Projects comme système de suivi principal du projet, relié aux Issues, aux Pull Requests et au Git Flow.
 
+## Entrées
+
+Cahier des charges accepté, conception validée, profil projet, work items et accès GitHub disponibles.
+
 ## Règle de démarrage
 
 Après acceptation du cahier des charges, créer ou reprendre un Project GitHub au niveau de l’organisation ou du dépôt. Ne jamais créer un doublon sans rechercher d’abord un Project portant le même nom. Si l’intégration GitHub n’est pas disponible, produire le manifeste local et enregistrer `pending_activation` sans annoncer une synchronisation distante.
@@ -35,3 +39,11 @@ Synchroniser et relire le Project après chaque changement significatif : créat
 ## Sortie
 
 Project GitHub réellement créé ou repris, Issues détaillées et relues, labels et champs vérifiés, couverture du cahier complète, et statut local `verified` uniquement avec preuve distante.
+
+## Mesures
+
+Mesurer la couverture des exigences, le nombre d’Issues relues, les tâches ouvertes, les labels manquants et les preuves distantes confirmées.
+
+## Arrêt
+
+Arrêter et signaler précisément l’écart si l’accès GitHub, le cahier accepté, la conception ou une preuve distante manque. Ne jamais déclarer `verified` sans relecture réelle.
