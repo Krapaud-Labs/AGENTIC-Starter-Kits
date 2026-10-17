@@ -32,6 +32,7 @@ Les portes suivantes sont évaluées à chaque transition :
 - `design-gate` : conception et contrats concernés à jour.
 - `scope-gate` : branche, commits, fichiers autorisés et work item cohérents.
 - `validation-gate` : lint, tests, build, sécurité, accessibilité et preuves proportionnés au risque.
+- Chaque fichier ouvert pour une modification doit recevoir un contrôle lint adapté avant de poursuivre ; une erreur doit être corrigée et recontrôlée, ou l'absence d'outil doit être explicitement prouvée comme `not-applicable`.
 - `documentation-gate` : documentation, décisions, journal et changelog cohérents.
 - `integration-gate` : intégrations activées synchronisées et relues, ou checkpoint local prouvé.
 - `audit-gate` : revue indépendante sans auto-approbation.

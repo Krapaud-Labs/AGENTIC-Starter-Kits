@@ -106,6 +106,12 @@ for autonomy_policy in "$root/starter-kit-codex/.codex/policies/AUTONOMY-AND-REC
   grep -q "jamais un blocage global" "$autonomy_policy" || { echo "ECHEC TEST: refus du blocage global absent de $autonomy_policy"; exit 1; }
 done
 
+for lint_policy in "$root/starter-kit-codex/.codex/policies/PUSH-VALIDATION.md" "$root/starter-kit-claude/.claude/policies/PUSH-VALIDATION.md"; do
+  grep -q "Contrôle après ouverture ou modification" "$lint_policy" || { echo "ECHEC TEST: contrôle lint après ouverture absent de $lint_policy"; exit 1; }
+  grep -q "lint_status: passed" "$lint_policy" || { echo "ECHEC TEST: preuve lint passée absente de $lint_policy"; exit 1; }
+  grep -q "not-applicable" "$lint_policy" || { echo "ECHEC TEST: traitement lint non applicable absent de $lint_policy"; exit 1; }
+done
+
 for ops in \
   "$root/starter-kit-codex/.codex/policies/TOOL-DISCOVERY-POLICY.md" \
   "$root/starter-kit-claude/.claude/policies/TOOL-DISCOVERY-POLICY.md" \

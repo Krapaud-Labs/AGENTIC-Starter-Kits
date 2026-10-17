@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.43 - 2026-10-17
+
+- impose le contrôle lint après ouverture ou modification d’un fichier
+- oblige la correction et la revalidation des erreurs lint avant toute poursuite
+
 ## 1.16.42 - 2026-10-17
 
 - ajoute GitHub Projects comme suivi principal des projets
