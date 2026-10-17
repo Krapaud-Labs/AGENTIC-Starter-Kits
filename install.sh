@@ -146,6 +146,16 @@ target="${target:-.}"
 [ -d "$target" ] || fail "Le dossier cible n’existe pas : $target"
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 target="$(cd "$target" && pwd)"
+project_name="$(basename "$target")"
+if [ -t 0 ]; then
+  printf "\n%b\n" "${bold}Nom du projet pour l’archive des cahiers des charges${reset}"
+  printf "  Nom [%s] : " "$project_name"
+  read -r requested_project_name
+  project_name="${requested_project_name:-$project_name}"
+fi
+case "$project_name" in
+  ""|.|..|*/*) fail "Le nom du projet doit être un nom de dossier simple, sans slash." ;;
+esac
 if [ "$force" != true ] && { [ -e "$target/$entry" ] || [ -e "$target/$hidden" ]; }; then
   fail "Un kit existe déjà dans $target. Utilisez --force après vérification."
 fi
@@ -207,6 +217,28 @@ else
 fi
 ensure_gitignore
 verify_update_workflow "${workflow_path#$target/}"
+brief_archive="$target/Cahier-des-Charges/$project_name/cahier-des-charges.md"
+mkdir -p "$(dirname "$brief_archive")"
+if [ ! -e "$brief_archive" ]; then
+  cat > "$brief_archive" <<EOF
+# Cahier des charges - $project_name
+
+## Statut
+
+À compléter
+
+## Objectif
+
+Décrire ici le besoin, le périmètre et les critères de réussite du projet.
+
+## Périmètre
+
+À compléter lors de l'initialisation.
+EOF
+  success "Archive du cahier des charges créée : $brief_archive"
+else
+  info "Archive du cahier des charges conservée : $brief_archive"
+fi
 info "Gitignore mis à jour pour le kit $label."
 printf "\n"
 success "Kit $label installé avec succès."

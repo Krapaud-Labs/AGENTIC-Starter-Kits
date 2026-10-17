@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.47 - 2026-10-17
+
+- crée à l'installation une archive `Cahier-des-Charges/<nom-du-projet>/cahier-des-charges.md`
+- demande le nom du projet en mode interactif et utilise le dossier cible en mode automatisé
+
 ## 1.16.46 - 2026-10-17
 
 - ajoute l'agent spécialisé `image-generation` pour les médias réalistes et cohérents avec le projet
