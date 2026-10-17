@@ -31,3 +31,7 @@ L'agent ne doit jamais déclarer qu'un projet est configuré sans afficher ces i
 Le rapport de transparence est le premier et unique contenu du premier message du mode initialisation. Aucun résumé de configuration, aucune analyse et aucune annonce de tâche ne peut le précéder.
 
 Le statut accepted ne dispense pas du rapport. Il remplace uniquement la demande d un nouveau cahier par une confirmation de réutilisation.
+
+## Approbation des hooks
+
+Le rapport initial doit demander explicitement l ouverture de `/hooks`, la relecture et l approbation des hooks du projet. Cette demande est une porte d environnement et non une confirmation métier. Tant que l approbation n est pas prouvée, l agent ne doit pas déclarer les garde-fous de cycle de vie actifs ni commencer une action produit irréversible.

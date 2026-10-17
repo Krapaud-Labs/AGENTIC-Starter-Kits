@@ -63,4 +63,5 @@ for item in decisions evaluations metrics reports work-items; do
 done
 
 echo "Kit Claude synchronisé depuis $remote/$ref."
+echo "Les hooks peuvent avoir changé. Relisez et réapprouvez les hooks dans l'interface Claude Code avant toute action."
 echo "Vérifiez les changements, lancez verify-before-push.sh, puis ouvrez une PR."

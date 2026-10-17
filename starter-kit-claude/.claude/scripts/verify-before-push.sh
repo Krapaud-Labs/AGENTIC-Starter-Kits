@@ -5,6 +5,8 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config="$(cd "$script_dir/.." && pwd)"
 root="$(git -C "$config/.." rev-parse --show-toplevel 2>/dev/null || { echo "Git requis pour valider un push"; exit 1; })"
 
+bash "$script_dir/verify-consumer-index.sh"
+
 if [ -f "$root/.workspace.toml" ]; then
   echo "Mode external détecté: validation du kit et des fichiers publiables uniquement"
   if git -C "$root" ls-files --error-unmatch .codex AGENTS.md >/dev/null 2>&1; then
@@ -19,6 +21,7 @@ if [ -f "$root/.workspace.toml" ]; then
   workflow="$root/.github/workflows/update-workspace-kit.yml"
   [ -f "$workflow" ] || { echo "ECHEC EXTERNAL: workflow de mise à jour absent"; exit 1; }
   grep -q 'Update workspace kit' "$workflow" || { echo "ECHEC EXTERNAL: workflow invalide"; exit 1; }
+  bash "$script_dir/validate-obligations.sh" --if-present
   echo "Validation external avant push OK"
   exit 0
 fi
@@ -50,13 +53,17 @@ PY
 )
 
 branch="$(git -C "$root" branch --show-current)"
+protected_branch=false
+case "$branch" in
+  dev|develop|main|master) protected_branch=true ;;
+esac
+if [ "$protected_branch" = "true" ] || { [ "$require_feature_branch" = "true" ] && [ -z "$branch" ]; }; then
+  echo "ECHEC GITFLOW: créer une branche de travail avant le push, aucun push direct vers dev, develop, main ou master"
+  exit 1
+fi
 if [ "$require_feature_branch" = "true" ]; then
-  if [ -z "$branch" ] || [ "$branch" = "$integration_branch" ] || [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
-    echo "ECHEC GITFLOW: créer une branche de travail avant le push, jamais pousser directement vers $integration_branch ou main"
-    exit 1
-  fi
-  case "$branch" in feature/*|fix/*|hotfix/*|chore/*|docs/*|refactor/*|test/*) ;; *)
-    echo "ECHEC GITFLOW: branche invalide $branch. Utiliser feature/, fix/, hotfix/, chore/, docs/, refactor/ ou test/"
+  case "$branch" in feat/*|feature/*|fix/*|hotfix/*|chore/*|docs/*|refactor/*|test/*) ;; *)
+    echo "ECHEC GITFLOW: branche invalide $branch. Utiliser feat/, feature/, fix/, hotfix/, chore/, docs/, refactor/ ou test/"
     exit 1 ;;
   esac
 fi
@@ -86,6 +93,8 @@ if [ -n "$base" ]; then
 fi
 
 git -C "$root" diff --check
+bash "$script_dir/validate-obligations.sh" --if-present
 bash "$script_dir/preflight.sh"
+bash "$script_dir/verify-project-boundary.sh"
 bash "$script_dir/run-project-checks.sh" --execute
 echo "Validation avant push OK"

@@ -2,9 +2,9 @@ name: Validate starter kits
 
 on:
   pull_request:
-    branches: [develop, main]
+    branches: [dev, develop, main]
   push:
-    branches: [develop, main]
+    branches: [dev, develop, main]
 
 permissions:
   contents: read
@@ -38,6 +38,15 @@ jobs:
 
       - name: Validate documentation and version consistency
         run: bash scripts/check-documentation-consistency.sh
+
+      - name: Validate executable governance gates
+        run: bash scripts/test-executable-gates.sh
+
+      - name: Run isolated sandbox scenarios
+        run: bash scripts/test-sandbox-scenarios.sh
+
+      - name: Run isolated adapter simulations
+        run: bash scripts/test-sandbox-adapters.sh
 
       - name: Require all public READMEs for starter kit changes
         shell: bash
@@ -98,6 +107,7 @@ jobs:
             sed -i "s/trello_choice = \"pending\"/trello_choice = \"disabled\"/" "$project_root/$config_dir/project-profile.toml"
             bash "$project_root/$config_dir/scripts/initialize-project-design.sh"
             find "$project_root/docs" -type f -name '*.md' -exec sed -i 's/\[\[A_COMPLETER[^]]*\]\]/Conception validée par le scénario CI/g' {} +
+            sed -i 's/^Status: draft$/Status: approved/; s/^- \[ \]/- [x]/g' "$project_root/docs/design/design-readiness.md"
 
             bash "$project_root/$config_dir/scripts/preflight.sh"
             bash "$project_root/$config_dir/scripts/verify-before-push.sh"
@@ -105,7 +115,8 @@ jobs:
 
   validate-windows-wrapper:
     name: Validate PowerShell wrappers
-    runs-on: windows-latest
+    # PowerShell Core is cross-platform; avoid a Windows runner for a syntax-only check.
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683

@@ -282,7 +282,28 @@ Conserver ici les sources Mermaid ou éditables. Chaque diagramme est référenc
 | [[A_COMPLETER]] | [[A_COMPLETER]] | [[A_COMPLETER]] | [[A_COMPLETER]] | [[A_COMPLETER]] |
 DOC
 
-echo "Documentation de conception initialisée dans $docs. Remplacer tous les marqueurs [[A_COMPLETER]] par une conception issue du cahier des charges avant le preflight."
+write_if_missing "$docs/design/design-readiness.md" <<'DOC'
+# Design readiness
+
+Status: draft
+
+## Validation
+
+- [ ] Cahier des charges accepté et périmètre MVP/Post-MVP arrêté
+- [ ] Vision, stories et parcours cohérents
+- [ ] Architecture, données, contrats et sécurité relus
+- [ ] Direction visuelle et médias définis si applicable
+- [ ] Diagrammes, roadmap et décisions à jour
+- [ ] Audit de conception effectué
+- [ ] Aucun marqueur `[[A_COMPLETER]]`, TODO ou FIXME non traité
+
+## Preuves et approbation
+
+- Auditeur : [[A_COMPLETER]]
+- Date : [[A_COMPLETER]]
+- Décision : [[A_COMPLETER]]
+DOC
+echo "Documentation de conception initialisée dans $docs. Remplacer tous les marqueurs [[A_COMPLETER]] par une conception issue du cahier des charges, obtenir Status: approved dans design-readiness.md, puis seulement lancer le développement."
 
 write_if_missing "$docs/design/visual-direction.md" <<'DOC'
 # Direction artistique et expérience visuelle
@@ -409,7 +430,7 @@ Ce document est la source versionnée du tableau. Chaque carte possède un ident
 
 ## Listes du tableau
 
-1. Backlog validé
+1. À trier
 2. Prêt à concevoir
 3. Conception en cours
 4. Prêt à développer
@@ -418,6 +439,7 @@ Ce document est la source versionnée du tableau. Chaque carte possède un ident
 7. En validation
 8. Bloqué
 9. Terminé
+10. Archivé
 
 ## Cartes détaillées
 

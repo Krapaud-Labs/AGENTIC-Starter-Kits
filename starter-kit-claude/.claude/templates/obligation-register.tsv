@@ -1,0 +1,9 @@
+gate	owner	trigger	status	evidence	next_check
+intake-gate	coordinateur	work-item-start	pending	not-collected	before-design
+design-gate	concepteur	before-implementation	pending	not-collected	before-implementation
+scope-gate	coordinateur	before-commit	pending	not-collected	before-push
+validation-gate	qa	before-delivery	pending	not-collected	before-push
+documentation-gate	documentation	before-delivery	pending	not-collected	before-push
+integration-gate	coordinateur	after-checkpoint	pending	not-collected	before-close
+audit-gate	auditeur	before-close	pending	not-collected	before-close
+delivery-gate	release	before-close	pending	not-collected	before-close

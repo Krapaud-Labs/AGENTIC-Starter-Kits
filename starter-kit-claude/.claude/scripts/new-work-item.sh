@@ -18,4 +18,5 @@ target="$config/work-items/$identifier"
 [ ! -e "$target" ] || { echo "Work item existant: $target"; exit 1; }
 mkdir "$target"
 sed "s/<identifiant>/$identifier/" "$config/templates/work-item.md" > "$target/brief.md"
+cp "$config/templates/obligation-register.tsv" "$target/obligations.tsv"
 echo "Work item créé: $target/brief.md"

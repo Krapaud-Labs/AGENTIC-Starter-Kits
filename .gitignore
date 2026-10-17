@@ -23,3 +23,7 @@ htmlcov/
 .ruff_cache/
 .cache/
 *.log
+
+# Configuration du kit installée uniquement dans les projets consommateurs
+.codex/
+AGENTS.md

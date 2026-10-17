@@ -1,29 +1,29 @@
-# Trello card start-state policy
+# État initial obligatoire d'une carte Trello
 
-Before any coding, file modification, delegation or technical implementation for a Trello card, the Coordinator must move the active card to the exact `In Progress` list and reread the card from Trello.
+Avant tout code, modification de fichier, délégation ou implémentation technique liée à une carte Trello, le Coordinateur doit déplacer la carte active dans la liste exacte `En cours` et relire la carte depuis Trello.
 
-The start checkpoint must verify:
+Le contrôle de démarrage doit vérifier :
 
-- The card exists and has a stable ID and URL.
-- The card is in `In Progress`.
-- The card has an owner, scope, dependencies and Definition of Done.
-- The active work item and `RUNTIME-STATE.md` reference the same card ID.
-- The card labels and checklist are present and readable.
+- La carte existe et possède un identifiant et une URL stables.
+- La carte se trouve dans `En cours`.
+- La carte possède un responsable, un périmètre, des dépendances et une Definition of Done.
+- Le work item actif et `RUNTIME-STATE.md` référencent le même identifiant de carte.
+- Les étiquettes et la checklist de la carte sont présentes et lisibles.
 
-The Coordinator must record the transition timestamp, card ID, previous list, new list and reread evidence in the work item and the quality journal. If the card is already in `Done`, `Review` or `Blocked`, the Coordinator must not code against it until the state is reconciled according to the Trello visual system.
+Le Coordinateur doit enregistrer l'horodatage, l'identifiant, la liste précédente, la nouvelle liste et la preuve de relecture dans le work item et le journal qualité. Si la carte est déjà dans `Terminé`, `Revue` ou `Bloqué`, le Coordinateur ne doit pas coder dessus avant d'avoir réconcilié son état selon le système visuel Trello.
 
-If Trello is unavailable, record the attempted transition as a local blocker and use the local work item state. Never claim that the card was moved or synchronized without a successful reread.
+Si Trello est indisponible, enregistrer la transition tentée comme un blocage local et utiliser l'état du work item. Ne jamais prétendre que la carte a été déplacée ou synchronisée sans relecture réussie.
 
-## Real-time checklist synchronization
+## Synchronisation en temps réel de la checklist
 
-Complete checklist items strictly in dependency order. After each item:
+Réaliser les éléments de checklist strictement dans l'ordre des dépendances. Après chaque élément :
 
-1. Perform the work.
-2. Run the required validation.
-3. Record the evidence locally.
-4. Check only that completed item in Trello.
-5. Update the card description or comment with the evidence.
-6. Reread the card and confirm the checked item, current list and next open item.
-7. Start the next item only after that reread succeeds.
+1. Réaliser le travail.
+2. Exécuter la validation requise.
+3. Enregistrer la preuve localement.
+4. Cocher uniquement l'élément terminé dans Trello.
+5. Mettre à jour la description ou le commentaire avec la preuve.
+6. Relire la carte et confirmer l'élément coché, la liste actuelle et le prochain élément ouvert.
+7. Commencer l'élément suivant uniquement après cette relecture réussie.
 
-Never check several items retrospectively, check an item before its evidence exists or continue to the next item while Trello is stale or contradictory.
+Ne jamais cocher plusieurs éléments rétrospectivement, cocher un élément avant l'existence de sa preuve ou poursuivre avec Trello obsolète ou contradictoire.

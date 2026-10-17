@@ -11,7 +11,9 @@ Concevoir une expérience frontend comme un travail de direction artistique, pui
 
 ## Quand l’utiliser
 
-Pour toute création, refonte ou correction d’interface, de composant, de parcours visuel ou de média frontend.
+Pour toute création, refonte ou correction d'interface, de composant, de parcours visuel ou de média frontend.
+
+Pour les menus et navigations, effectuer une revue item par item contre le système de composants et l’élément voisin de référence. Contrôler la parité de structure, dimensions, alignement, espacement, états interactifs, icônes, libellés, focus clavier et responsive. Toute rupture non intentionnelle doit être corrigée avant la validation.
 
 ## Entrées requises
 
@@ -24,6 +26,10 @@ Cahier des charges accepté, dossier de conception, profil technologique, contra
 3. Concevoir le système visuel et les états.
 4. Implémenter par petits changements cohérents.
 5. Tester, capturer et faire auditer le rendu.
+
+Une phrase indiquant qu’un composant a été corrigé ne constitue pas une preuve. La preuve doit provenir du rendu réellement observé après correction, avec viewport, parcours, interaction testée et écart résiduel explicite.
+
+Pour une refonte, la preuve compare obligatoirement l'avant et l'après sur les mêmes écrans, données, viewports et états. Le rapport liste les différences perceptibles, les composants réellement transformés et les écarts résiduels. Si la différence est négligeable, le livrable est `rework` et l'agent frontend poursuit la direction artistique au lieu de clôturer la carte.
 
 ## Direction artistique
 
@@ -47,9 +53,15 @@ Priorité : ressource fournie ou créée spécifiquement, image réaliste géné
 
 Pour une image générée, documenter le brief visuel, le réalisme recherché, les retouches et les artefacts contrôlés. Éviter mains déformées, textes illisibles, logos inventés et faux témoignages. Toute retouche doit rester compatible avec la licence et ne pas tromper l'utilisateur.
 
+Ne pas hésiter à générer une image lorsque le produit a besoin d'un visuel absent, mais rechercher un résultat proche du réel, premium et spécifique au contexte plutôt qu'une illustration générique. Définir avant génération le sujet, le point focal, la lumière, la palette, le cadrage, le ratio, les variantes mobile et desktop, le niveau de réalisme et les éléments à exclure. Après génération, contrôler les artefacts, le recadrage, la lisibilité, la cohérence de marque, le poids, la provenance et l'usage prévu avant intégration.
+
 ## Contrôles
 
 Aucune ressource sans provenance, aucune animation sans stratégie de réduction du mouvement et aucune validation visuelle non vérifiée.
+
+## Cible Framer-like
+
+Pour les expériences frontend qui le permettent, viser un rendu Framer-like à 99 % sur la perception visuelle, sans copier une marque ou un site précis. Évaluer la cible sur la composition, la hiérarchie, le rythme, la typographie, la profondeur, la lumière, les textures, les transitions, les interactions, les états, le responsive et les micro-détails. Réaliser une comparaison réelle dans le navigateur aux viewports prévus, consigner les écarts observés et corriger les écarts majeurs avant livraison. La cible ne permet jamais de sacrifier accessibilité, performance, contenu réel, provenance ou maintenabilité.
 
 ## Validation obligatoire
 

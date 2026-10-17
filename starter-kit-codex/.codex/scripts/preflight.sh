@@ -15,7 +15,7 @@ if rg -n --hidden --glob '!.git/**' --glob '!node_modules/**' -- '-----BEGIN (RS
 fi
 
 if "$script_dir/python.sh" - "$root" <<'PY'
-import pathlib, sys, tomllib
+import pathlib, re, sys, tomllib
 root = pathlib.Path(sys.argv[1])
 config = root / '.codex'
 found = []
@@ -56,21 +56,21 @@ except Exception as exc:
     print(f'PROFIL INVALIDE: {exc}')
     raise SystemExit(1)
 tracking_data = data.get("tracking", {})
-trello_choice = tracking_data.get("trello_choice", "pending")
-if trello_choice not in ("enabled", "disabled"):
-    print("CHOIX TRELLO MANQUANT: répondre oui ou non dans le profil")
+github_projects_choice = tracking_data.get("github_projects_choice", "pending")
+if github_projects_choice not in ("enabled", "disabled"):
+    print("CHOIX GITHUB PROJECTS MANQUANT: répondre oui ou non dans le profil")
     raise SystemExit(1)
-if trello_choice == "enabled" and not str(tracking_data.get("trello_board_name", "")).strip():
-    print("PROFIL INCOMPLET: trello_board_name requis si Trello est activé")
+if github_projects_choice == "enabled" and not str(tracking_data.get("github_project_name", "")).strip():
+    print("PROFIL INCOMPLET: github_project_name requis si GitHub Projects est activé")
     raise SystemExit(1)
-if trello_choice == "enabled":
-    members = tracking_data.get("trello_members", [])
+if github_projects_choice == "enabled":
+    members = tracking_data.get("github_members", [])
     if not isinstance(members, list) or not members:
-        print("PROFIL INCOMPLET: trello_members requis si Trello est activé")
+        print("PROFIL INCOMPLET: github_members requis si GitHub Projects est activé")
         raise SystemExit(1)
     for index, member in enumerate(members, 1):
         if not isinstance(member, dict) or not str(member.get("name", "")).strip() or not str(member.get("role", "")).strip():
-            print(f"PROFIL INCOMPLET: membre Trello {index} doit avoir name et role")
+            print(f"PROFIL INCOMPLET: membre GitHub {index} doit avoir name et role")
             raise SystemExit(1)
 design_files = (
     "docs/README.md", "docs/product/vision-and-scope.md", "docs/product/user-stories.md",
@@ -78,8 +78,10 @@ design_files = (
     "docs/design/api-contracts.md", "docs/design/security-design.md", "docs/delivery/roadmap.md",
     "docs/delivery/decision-log.md", "docs/diagrams/README.md", "docs/quality/quality-journal.md",
 )
-if data.get("tracking", {}).get("trello_choice") == "enabled":
-    design_files = design_files + ("docs/project-management/trello-board.md",)
+design_readiness = root / "docs/design/design-readiness.md"
+design_files = design_files + ("docs/design/design-readiness.md",)
+if data.get("tracking", {}).get("github_projects_choice") == "enabled":
+    design_files = design_files + ("docs/project-management/github-project.md",)
 missing_design = [path for path in design_files if not (root / path).is_file()]
 if missing_design:
     print(f"CONCEPTION INCOMPLETE: initialiser et compléter docs/: {chr(44).join(missing_design)}")
@@ -87,6 +89,13 @@ if missing_design:
 incomplete_design = [path for path in design_files if "[[A_COMPLETER" in (root / path).read_text(errors="ignore")]
 if incomplete_design:
     print(f"CONCEPTION INCOMPLETE: remplacer les marqueurs de modèle dans : {chr(44).join(incomplete_design)}")
+    raise SystemExit(1)
+readiness = design_readiness.read_text(errors="ignore")
+if "Status: approved" not in readiness:
+    print("CONCEPTION INCOMPLETE: docs/design/design-readiness.md doit avoir Status: approved")
+    raise SystemExit(1)
+if "- [ ]" in readiness or re.search(r"(?m)^\s*(TODO|FIXME)(?:[:\s]|$)", readiness):
+    print("CONCEPTION INCOMPLETE: design-readiness contient une case ouverte ou une dette non traitée")
     raise SystemExit(1)
 models = tomllib.loads((config / 'models.toml').read_text())
 allowed_models = {'gpt-5.6-sol', 'gpt-5.6-terra', 'gpt-5.6-luna'}

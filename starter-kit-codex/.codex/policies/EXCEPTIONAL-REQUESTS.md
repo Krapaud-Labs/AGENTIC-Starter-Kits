@@ -11,6 +11,8 @@ Toute demande hors cahier des charges ou à impact durable doit être classée a
 
 En cas de doute, la classe supérieure est retenue sans demander une confirmation inutile.
 
+La classification d'une demande ne constitue pas une demande d'autorisation supplémentaire. Lorsque l'utilisateur demande lui-même une évolution nécessitant une carte, l'agent crée immédiatement la carte et le work item, puis poursuit les étapes réversibles prévues. Il ne demande pas à l'utilisateur de confirmer la création de la carte déjà demandée.
+
 ## Déclenchement
 
 Une carte Trello est obligatoire si la demande ajoute une fonctionnalité, modifie le périmètre, touche plusieurs domaines, implique plusieurs commits ou tests, modifie l'architecture, la sécurité, les données, les coûts ou la production, ou doit être reprise dans une autre conversation.

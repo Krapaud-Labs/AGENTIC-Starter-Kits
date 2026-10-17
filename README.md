@@ -1,12 +1,28 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.6.3-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.43-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
+
+L'inventaire détaillé des fonctionnalités réellement implémentées, des hooks, des preuves, des limites d'intégration et de la couverture de tests se trouve dans [docs/IMPLEMENTED-FEATURES.md](docs/IMPLEMENTED-FEATURES.md).
 
 Agentic Starter Kits est une base portable de gouvernance, de conception, d’orchestration et de contrôle qualité pour construire des projets logiciels avec un agent IA. Le dépôt transforme une conversation en processus de livraison traçable, depuis le cahier des charges jusqu’à la Pull Request et à la maintenance.
 
 Le kit ne fournit pas une simple collection de prompts. Il fournit une méthode de travail complète : règles, agents spécialisés, Skills réutilisables, configuration technologique, documents de conception, journal qualité, contrôles de sécurité, GitFlow, CI et optimisation continue du coût.
+
+Les blocages récupérables ne terminent pas un tour : le Coordinateur conserve le Goal actif, tente les alternatives autorisées et exécute la prochaine action observable. Cette règle est couverte par les scénarios sandbox des deux variantes.
+
+Un audit indépendant en `REWORK` déclenche automatiquement la correction traçable puis une nouvelle relecture par l’auditeur ; il ne devient pas un blocage lorsque ces actions restent réalisables.
+
+La même récupération autonome s’applique à tout blocage local ou réessayable ; `blocked` exige une dépendance externe inaccessible ou une décision humaine indispensable.
+
+Les contrôles et écarts corrigeables sont réparés puis relancés automatiquement avant toute interruption.
+
+Les Skills de documentation produisent ou délèguent les preuves manquantes avant d'escalader un blocage réel.
+
+L'installation crée les fichiers d'état obligatoires avant de lancer les validateurs, afin d'éviter un blocage initial artificiel.
+
+Pendant l'onboarding, les gates ouverts, la conception en revue, l'audit P0 absent, la branche non publiée ou la PR non relue déclenchent la poursuite autonome au lieu d'un blocage.
 
 ## Démarrage rapide
 
@@ -178,6 +194,12 @@ Le kit impose :
 - CI GitHub pour les imports Codex, Claude et PowerShell.
 - Distinction claire entre vérifié, non vérifié, inconnu et risque résiduel.
 
+## Contrat central et mémoire d exécution
+
+Les kits Codex et Claude appliquent un contrat central commun. Chaque work item produit un registre d obligations avec responsable, déclencheur, preuve, état et prochaine vérification. Huit portes contrôlent l intake, la conception, le périmètre Git, les validations, la documentation, les intégrations, l audit et la livraison. Une porte non prouvée interdit la clôture sans interrompre les tâches indépendantes.
+
+`RUNTIME-STATE.md` conserve les obligations ouvertes, la prochaine action, la dernière preuve, l état CI et les intégrations. Une nouvelle conversation reprend cette action avant tout résumé. Chaque work item possède aussi un registre `obligations.tsv` vérifié automatiquement avant push et livraison. Les scripts `scripts/audit-governance-consistency.sh`, `scripts/test-executable-gates.sh` et `guard-before-response.sh` bloquent les divergences, les portes sans preuve et les réponses finales prématurées.
+
 ## Sécurité et confiance
 
 Le kit est conçu avec une politique de sécurité explicite. Il protège le processus par des contrôles avant push, une analyse dédiée Cybersécurité, un audit indépendant, une CI bloquante et une traçabilité des risques. Il ne collecte pas automatiquement les secrets et ne prétend pas garantir la sécurité de production.
@@ -237,8 +259,9 @@ La politique [WEB-RESEARCH-POLICY.md](starter-kit-codex/.codex/policies/WEB-RESE
 - [Sécurité](SECURITY.md)
 - [Versionnement](VERSIONING.md)
 - [Historique des changements](CHANGELOG.md)
+- [Historique chronologique des versions](VERSION-HISTORY.md)
 
-## État fonctionnel de la version 1.6.3
+## État fonctionnel de la version 1.13.0
 
 La version actuelle inclut 16 agents au total : six agents du noyau et dix spécialistes optionnels. Elle inclut leurs politiques de modèles, la gouvernance d’activation, les Skills d’orchestration, les scripts d’initialisation, les checkpoints, le suivi des coûts et les contrôles CI. Les détails contractuels des spécialistes sont dans `SPECIALIST-AGENTS.md` dans chaque kit.
 
@@ -249,6 +272,8 @@ Le dépôt utilise aussi `markdownlint-cli2` avec `.markdownlint.json`. Les conv
 Le cycle de travail prend également en charge les cartes Trello `time-gated`. Une carte dépendante d’une date peut être suspendue avec sa raison, sa date ISO et son checkpoint, tandis que les travaux indépendants continuent. Les règles de versionnement, de README obligatoire et de publication sont définies dans `VERSIONING.md`.
 
 ## Synchronisation d’un fork d’organisation
+
+Pour exiger la preuve des intégrations externes, lancer `bash scripts/test-integration-preflight.sh --require-real`. Sans cette option, le préflight local indique explicitement les scénarios Trello, agents et navigateur non exécutés.
 
 Le dépôt personnel constitue la source de référence du starter kit. Un fork placé dans une organisation ne reçoit pas automatiquement les nouvelles versions. Depuis le clone du fork, ajouter le dépôt personnel comme remote `upstream`, puis synchroniser après chaque version validée :
 
@@ -302,11 +327,13 @@ Le workflow de mise à jour utilise la branche `develop` si elle existe, sinon `
 
 ## Qualité documentaire premium
 
+Le flux d'initialisation ouvre automatiquement la PR vers `dev` ou `develop` dès que la branche et les contrôles sont prêts. Il ne demande pas une confirmation supplémentaire pour une étape déjà autorisée.
+
 Le kit impose désormais un contrat documentaire : chaque document indique son statut, sa version, sa date, son responsable, son audience, son périmètre, ses faits vérifiés, ses hypothèses, ses inconnues, ses décisions, ses risques et ses critères de validation. Le Skill de rédaction adapte le contenu au lecteur et ajoute les exemples, diagrammes, commandes et références nécessaires. Le Skill d’audit refuse les documents incomplets, vagues ou incohérents avec le code.
 
 ## Release et section About GitHub
 
-Après la promotion humaine vers `main`, la publication d’un tag SemVer `vX.Y.Z` déclenche le workflow `publish-release-and-about.yml`. Il vérifie que le tag correspond à `VERSION`, publie la GitHub Release avec les notes générées, puis met à jour la description et les topics de la section About du dépôt. Le workflow n’est pas déclenché par les branches `dev` ou `develop`.
+Après la promotion vers `main`, une modification de `VERSION`, `CHANGELOG.md` ou `VERSION-HISTORY.md` déclenche le workflow `publish-release-and-about.yml`. Il lit `VERSION`, crée le tag SemVer manquant, publie la GitHub Release avec les notes générées, puis met à jour la description et les topics de la section About du dépôt. Le workflow n’est pas déclenché par les branches `dev` ou `develop` et peut aussi être lancé manuellement avec une version explicite.
 
 ### Autoriser la mise à jour de la section About
 
@@ -342,3 +369,7 @@ Pour initialiser un projet dans une conversation déjà ouverte, envoyer `Mode i
 La commande doit être envoyée seule depuis la conversation qui travaille déjà sur le projet. Elle force l'agent à relire son état, à vérifier le cahier des charges et à suspendre toute modification tant que le cahier n'est pas reçu et accepté. Après cette étape, les questions manquantes sont posées avec une recommandation, puis les documents de conception et le plan de travail sont créés.
 
 La procédure complète se trouve dans [INSTALLATION.md](INSTALLATION.md), section « Initialiser une conversation déjà ouverte ».
+
+Le synchroniseur external met à jour directement le répertoire du kit et conserve les données projet protégées.
+La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
+L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.

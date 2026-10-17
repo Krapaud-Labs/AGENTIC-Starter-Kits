@@ -40,4 +40,4 @@ Temps de revue, échecs CI, retours de Pull Request, retours arrière et défaut
 
 ## Arrêt
 
-Arrêter si les contrôles échouent, si un rapport requis est absent, si la branche est incorrecte ou si une décision humaine de livraison est nécessaire.
+Si un contrôle échoue, si un rapport requis manque ou si la branche est incorrecte, diagnostiquer, corriger ou déléguer la correction, puis relancer le contrôle dans le même Goal. N'arrêter qu'après preuve d'une dépendance externe inaccessible ou d'une décision humaine indispensable ; préparer alors les alternatives et conserver une `next_action` explicite.

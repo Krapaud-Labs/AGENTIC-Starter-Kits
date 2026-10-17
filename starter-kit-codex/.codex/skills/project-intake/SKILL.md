@@ -17,14 +17,14 @@ Un cahier des charges fourni par l'utilisateur dans le chat. Il peut être struc
 1. Demander le cahier des charges si aucun contenu suffisant n'a été fourni.
 2. Ne pas analyser le dépôt, choisir de technologies, créer de code, créer de work item ou lancer de contrôle avant réception.
 3. À réception, reformuler seulement les éléments nécessaires dans `.codex/PROJECT-BRIEF.md`.
-4. Analyser systématiquement les informations manquantes : utilisateurs, objectifs mesurables, périmètre, parcours, règles métier, stack, données, sécurité, design, exploitation, équipe, budget, délai, CI et Trello.
+4. Analyser systématiquement les informations manquantes : utilisateurs, objectifs mesurables, périmètre, parcours, règles métier, stack, données, sécurité, design, exploitation, équipe, budget, délai, CI et GitHub Projects.
 5. Présenter une seule série de questions structurées. Pour chaque question, proposer deux ou trois choix concrets, marquer le meilleur choix recommandé par l’agent, expliquer brièvement le compromis et permettre une réponse personnalisée.
-6. Attendre les réponses à cette série avant toute implémentation. Les hypothèses restantes doivent être listées et validées explicitement comme hypothèses réversibles.
+6. Attendre les réponses à cette série avant toute implémentation. Si la réponse est partielle, enregistrer les éléments reçus et demander uniquement les réponses encore manquantes, sans demander à l’utilisateur de dire « continue ». Dès que les décisions bloquantes sont résolues, transmettre automatiquement au Skill `project-onboarding` et poursuivre le flux prévu. Les hypothèses restantes doivent être listées et validées explicitement comme hypothèses réversibles.
 7. Marquer le statut `accepted` uniquement si vision, utilisateurs, objectifs, périmètre, contraintes et critères de réussite sont présents.
-8. Demander explicitement : `Veux-tu que je prépare un Trello complet avec toutes les tâches détaillées du projet ? Réponds oui ou non.` Ne jamais déduire la réponse.
-9. Enregistrer `tracking.trello_choice = "enabled"` si la réponse est oui, ou `tracking.trello_choice = "disabled"` si la réponse est non. Si oui, demander immédiatement le nom du tableau et la liste complète des membres avec pour chacun nom, rôle projet et identifiant Trello si connu. Ne plus proposer `plan-only` ou un choix de mode : le tableau complet est toujours généré localement, puis créé ou synchronisé dans Trello si une intégration autorisée est disponible. Ne jamais attribuer une carte à un membre dont le rôle n est pas confirmé.
+8. Demander explicitement : `Veux-tu que je prépare un GitHub Project complet avec toutes les Issues détaillées du projet ? Réponds oui ou non.` Ne jamais déduire la réponse.
+9. Enregistrer `tracking.github_projects_choice = "enabled"` si la réponse est oui, ou `tracking.github_projects_choice = "disabled"` si la réponse est non. Si oui, demander le dépôt cible et les membres avec leur rôle GitHub si nécessaire. Le Skill `github-projects-planning` est alors obligatoire.
 10. Lister les inconnues qui demandent une décision humaine, sans bloquer les détails secondaires.
-11. Passer ensuite au Skill `project-onboarding` pour adapter le profil technique.
+11. Passer automatiquement au Skill `project-onboarding` pour adapter le profil technique dès que la série de décisions bloquantes est complète. L’absence d’une formule explicite comme « continue » ou « fais tout » ne constitue pas un motif d’arrêt.
 
 ## Contrôles
 

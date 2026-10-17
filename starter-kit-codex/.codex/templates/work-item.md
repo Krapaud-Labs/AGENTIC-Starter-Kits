@@ -28,3 +28,7 @@
 ## Risques résiduels
 
 ## Décision
+
+## Registre exécutable
+
+Le fichier `obligations.tsv` associé doit contenir les huit portes du contrat central. Chaque état `verified` ou `not-applicable` exige une preuve. `validate-obligations.sh` bloque la livraison si une porte reste ouverte.

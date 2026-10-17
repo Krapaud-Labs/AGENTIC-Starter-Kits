@@ -6,9 +6,18 @@ Ce répertoire s'importe dans tout nouveau projet. Il adapte les contrôles à p
 
 ## Recherche actualisée
 
-Lire et appliquer obligatoirement `policies/WEB-RESEARCH-POLICY.md` et `policies/EXCEPTIONAL-REQUESTS.md` et `policies/TRELLO-VISUAL-SYSTEM.md` et `policies/TRELLO-START-STATE.md` et `policies/DOCUMENTATION-LANGUAGE-POLICY.md`. Le Coordinateur déclenche une recherche externe dès qu'une information peut avoir changé ou engage une décision technique, légale, de sécurité, de coût ou de compatibilité. Les agents concernés consignent les sources et la date de consultation dans les preuves.
+Lire et appliquer obligatoirement `policies/WEB-RESEARCH-POLICY.md`, `policies/SESSION-CONTINUITY-POLICY.md`, `policies/EXCEPTIONAL-REQUESTS.md`, `policies/TRELLO-VISUAL-SYSTEM.md`, `policies/TRELLO-START-STATE.md` et `policies/DOCUMENTATION-LANGUAGE-POLICY.md`. Le Coordinateur déclenche une recherche externe dès qu'une information peut avoir changé ou engage une décision technique, légale, de sécurité, de coût ou de compatibilité. Les agents concernés consignent les sources et la date de consultation dans les preuves.
+Lire également `policies/CONTINUOUS-IMPROVEMENT-POLICY.md` et consulter les incidents connus avant toute action comparable.
+Lire également `policies/PRODUCT-READINESS-POLICY.md` avant tout aperçu, audit de MVP ou déclaration de produit terminé.
+Lire également `policies/PRIMARY-AGENT-POLICY.md` : l'agent principal est le Coordinateur et n'a aucun rôle spécialisé implicite.
 
 ## Cycle obligatoire
+
+### Porte de démarrage d'initialisation
+
+Lorsqu'une session lance ou reprend une initialisation de projet, le Coordinateur charge intégralement les instructions applicables avant toute création de fichier, tableau Trello, carte, délégation ou modification produit. Il relit `AGENTS.md`, `ORCHESTRATION.md`, `START-HERE.md`, `CONVERSATION-MODES.md`, `GOVERNANCE.md`, `FILE-MANIFEST.md`, `PROJECT-DATA-BOUNDARY.md`, `SPECIALIST-AGENTS.md`, `models.toml`, `MODEL-POLICY.md`, `RISK-MATRIX.md`, `COST-AND-EVALUATION.md`, `ADAPTERS.md`, les policies référencées et les Skills `project-intake`, `project-onboarding`, `trello-planning` et `coordination`. Il consigne la liste et la version des documents relus dans le work item ou l'état runtime. Tant que cette relecture n'est pas prouvée, aucune action d'initialisation n'est autorisée.
+
+Après cette relecture, il crée immédiatement le Goal persistant couvrant toute l'initialisation jusqu'à sa livraison vérifiée. Le Goal est obligatoire même si aucun code n'est présent et même si Trello sert d'abord de checkpoint ; il ne devient `complete` qu'après les documents, le tableau, les cartes, les étiquettes, les checklists, le push prévu et la relecture finale.
 
 1. Recevoir et accepter le cahier des charges.
 2. Poser une seule série de questions de complétude avec choix recommandés.
@@ -20,6 +29,10 @@ Lire et appliquer obligatoirement `policies/WEB-RESEARCH-POLICY.md` et `policies
 8. Implémenter dans le périmètre déclaré.
 9. Auditer, vérifier et enregistrer les preuves.
 10. Livrer, évaluer et archiver.
+
+Avant l'étape 1, le Coordinateur exécute une préparation de session obligatoire. Il charge le cahier des charges, le profil projet, le contrat central, les politiques applicables, le work item ou la carte active, l'état runtime, les décisions et les outils déjà installés. Il exécute `scripts/doctor.sh`, vérifie les commandes déclarées et disponibles avec leur chemin absolu et leur version, puis enregistre l'inventaire dans les preuves. Une nouvelle conversation ne dispense jamais de cette préparation et l'utilisateur n'a pas à rappeler ces règles. Une commande absente du `PATH` ne peut pas être déclarée indisponible avant la recherche multi-emplacements définie par `TOOL-DISCOVERY-POLICY.md`.
+
+La préparation de session exécute aussi `scripts/ensure-tools.sh` avec les outils réellement requis par le profil et les validations. Le script réutilise l'installation partagée, installe les outils gratuits connus si nécessaire, vérifie leurs versions et journalise le résultat pour les projets suivants.
 
 ## Règles
 
@@ -36,9 +49,17 @@ Lire et appliquer obligatoirement `policies/WEB-RESEARCH-POLICY.md` et `policies
 
 Lorsque l’utilisateur demande de tout faire ou de poursuivre jusqu’à la livraison, exécuter la chaîne complète du work item sans interruption volontaire. Produire des checkpoints et rapports intermédiaires sans demander d’approbation. Arrêter uniquement pour un blocage sensible défini par la politique d’autonomie.
 
+Lorsqu'une demande cible une carte Trello à terminer, reprendre, corriger ou livrer, activer ou reprendre le Goal persistant décrit dans `policies/SESSION-CONTINUITY-POLICY.md` avant toute analyse et avant la première case, quel que soit le nombre de cases ouvertes, puis rattacher toutes les preuves au même objectif.
+
+Le Coordinateur crée ou active d'abord le Goal natif de l'environnement avant toute commande, lecture, délégation, modification, test ou commentaire externe. Il capture son identifiant et son état actif, puis seulement après exécute `start-goal.sh` pour réconcilier l'état local avec ce Goal. `start-goal.sh` n'est jamais une création de Goal natif. Si l'API native est indisponible, le Coordinateur doit consigner explicitement `native_goal_status=unavailable` et la preuve de cette indisponibilité ; il peut alors utiliser le mode local de secours, sans le présenter comme un Goal natif. Si l'API est disponible mais que le Goal n'est pas actif, tout travail est interdit jusqu'à sa création ou activation effective.
+
 ## Reprise automatique
 
 À chaque nouvelle session, lire `RUNTIME-STATE.md`, le dernier work item, le dernier commit et les rapports avant de demander quoi que ce soit. Reprendre directement l’action autorisée.
+
+Au démarrage de chaque session manuelle, exécuter d'abord `scripts/check-kit-update.sh`. Si une version distante est plus récente, appliquer la mise à jour du kit et relire les politiques, scripts et manifestes modifiés avant toute action projet. Si la vérification est indisponible, enregistrer ce résultat et ne jamais présenter le kit comme à jour.
+
+Si le dernier work item était un onboarding terminé et que la nouvelle demande concerne le code, l'audit, le lint, les tests, TypeScript, la sécurité ou la livraison, créer immédiatement un nouveau Goal et un nouveau work item. L'agent doit inventorier les outils, exécuter les contrôles disponibles, corriger les écarts et conserver la PR fermée jusqu'à la preuve complète.
 
 ## Rapport exigé
 

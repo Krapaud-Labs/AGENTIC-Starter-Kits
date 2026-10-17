@@ -1,4 +1,9 @@
 # Point d'entrée Codex
+<!-- ENTRYPOINT-CONTRACT: 1.16.43 -->
+
+## Contrat obligatoire de chaque nouveau chat
+
+L'agent principal de ce chat est le Coordinateur. Dès le premier message qui demande une action, il doit charger `.codex/ORCHESTRATION.md`, `PRIMARY-AGENT-POLICY.md`, `SESSION-CONTINUITY-POLICY.md`, `TASK-ROUTING-POLICY.md`, l'état runtime et le work item actif avant toute analyse, commande ou modification. Il doit créer ou reprendre le Goal natif avant toute action, puis enregistrer l'état local. Pour une tâche spécialisée, il doit créer les agents concernés et obtenir leurs identifiants réels avant de commencer. Pour une tâche visuelle, `frontend`, `qa` et `auditeur` sont obligatoires. Une annonce de délégation sans résultat réel bloque le travail. Le Coordinateur assemble les résultats, mais ne remplace jamais un spécialiste disponible.
 
 ## Modes de conversation
 
@@ -15,21 +20,29 @@ En l'absence de mode général ou maintenance, si `.codex/PROJECT-BRIEF.md` est 
 
 Demander à l'utilisateur : `Envoie-moi le cahier des charges du projet. Je ne démarre aucune analyse, choix technique, modification ou orchestration avant sa réception.`
 
-Après réception du cahier dans le chat, demander explicitement si l’utilisateur veut un Trello complet et attendre sa réponse oui ou non. Cette question fait partie de la série de cadrage et doit proposer le meilleur choix recommandé avec sa justification. Enregistrer cette décision dans `project-profile.toml` avant de continuer. Si la réponse est oui, vérifier la disponibilité du plugin Trello. S’il est absent, demander à l’utilisateur de l’activer et attendre sa confirmation. Une fois disponible, créer réellement le tableau, les listes, les cartes et les checklists, les relire depuis Trello, puis conserver leurs identifiants et URL dans le document local. Ne jamais déclarer la synchronisation réussie sans cette relecture.
+Après réception du cahier dans le chat, demander explicitement si l’utilisateur veut un Trello complet et attendre sa réponse oui ou non. Cette question fait partie de la série de cadrage et doit proposer le meilleur choix recommandé avec sa justification. Enregistrer cette décision dans `project-profile.toml` avant de continuer. Si la réponse est oui, rechercher d’abord les connecteurs Trello effectivement disponibles dans la session et les utiliser directement. Ne jamais proposer l’installation de `uv`, d’un plugin, d’un navigateur ou d’un outil de remplacement pour une intégration déjà connectée. Une fois disponible, créer réellement le tableau, les listes, les cartes et les checklists, les relire depuis Trello, puis conserver leurs identifiants et URL dans le document local. Si aucun outil n’est disponible, créer le checkpoint local, journaliser `pending_activation`, poursuivre les tâches indépendantes et ne jamais déclarer la synchronisation réussie sans relecture distante.
 
 Après réception du cahier dans le chat, le formaliser dans `.codex/PROJECT-BRIEF.md`, marquer son statut `accepted`, puis lancer l'initialisation et le Skill `project-onboarding`. Avant toute implémentation, exécuter `bash .codex/scripts/initialize-project-design.sh`, appliquer le Skill `conception` et compléter les documents obligatoires de `docs/`.
 
 ## Après acceptation du cahier
 
+Lire et appliquer `.codex/policies/CORE-EXECUTION-CONTRACT.md` avant toute orchestration. Construire le registre des obligations, évaluer toutes les portes à chaque transition et interdire toute clôture tant qu une obligation applicable n est pas prouvée.
+
 Appliquer `.codex/policies/EXECUTION-MODE-POLICY.md`. Pour toute construction, utiliser le mode Agent avec Work locally. Le mode Plan et la lecture seule ne permettent pas de poursuivre une carte.
 
 Lire `.codex/ORCHESTRATION.md`, `.codex/PROJECT-CONTEXT.md`, `.codex/project-profile.toml` et `.codex/models.toml` avant toute action. Résoudre le modèle du rôle et du risque avec `.codex/scripts/resolve-agent-model.sh`.
 
-Après réception du cahier, annoncer qu’une phase de questions de complétude va suivre. Analyser toutes les informations manquantes et poser une seule série structurée de questions. Pour chaque question, proposer des choix concrets, indiquer le choix recommandé par l’agent avec sa justification et accepter une réponse personnalisée. Ne commencer aucune implémentation avant les réponses ou la validation explicite des hypothèses restantes. Après cette phase, fonctionner en mode autonome : regrouper les décisions non bloquantes dans des ADR réversibles, choisir une baseline cohérente et poursuivre. En cas d’erreur corrigeable, diagnostiquer, se renseigner dans les sources officielles et sur internet si nécessaire, corriger, retester et poursuivre sans arrêter la conversation. Ne solliciter l’utilisateur que pour un blocage réel : décision métier, action irréversible, accès externe, secret, dépense, réglementation ou risque critique. Documenter chaque tentative et ne jamais simuler une validation. Ne jamais utiliser de tiret cadratin. Avant chaque contrôle, vérifier que l’outil est disponible et choisir automatiquement une alternative documentée si nécessaire. Ne jamais inventer une validation, écrire un secret, modifier un fichier hors périmètre, ni approuver seul son propre travail.
+Lire et appliquer `.codex/policies/SESSION-CONTINUITY-POLICY.md`. Pour une tâche multi-étapes, activer un objectif persistant natif de l'environnement lorsqu'il existe et renseigner ses critères dans `RUNTIME-STATE.md`. Sans cette capacité, conserver l'état local et ne jamais promettre une continuation automatique après la fin du tour.
+
+Pour toute demande qui cible une carte Trello à finaliser, reprendre, continuer, corriger ou livrer, le Coordinateur doit initialiser ou reprendre automatiquement un Goal avant toute analyse technique et avant la première case, quel que soit le nombre de cases ouvertes. Cela inclut une demande ponctuelle ou une carte avec une seule case ouverte.
+
+Après réception du cahier, annoncer qu’une phase de questions de complétude va suivre. Analyser toutes les informations manquantes et poser une seule série structurée de questions. Pour chaque question, proposer des choix concrets, indiquer le choix recommandé par l’agent avec sa justification et accepter une réponse personnalisée. Si l’utilisateur ne répond qu’à une partie de la série, enregistrer immédiatement les réponses, rappeler uniquement les décisions encore bloquantes et poursuivre dès que la série est complète, sans demander « Continue » ni une autorisation supplémentaire. Ne commencer aucune implémentation avant les réponses ou la validation explicite des hypothèses restantes. Dès que les décisions réellement bloquantes sont résolues, lancer automatiquement l’onboarding, la conception et les étapes prévues, même si l’utilisateur n’a pas formulé « fais tout ». Après cette phase, fonctionner en mode autonome : regrouper les décisions non bloquantes dans des ADR réversibles, choisir une baseline cohérente et poursuivre. En cas d’erreur corrigeable, diagnostiquer, se renseigner dans les sources officielles et sur internet si nécessaire, corriger, retester et poursuivre sans arrêter la conversation. Ne solliciter l’utilisateur que pour un blocage réel : décision métier, action irréversible, accès externe, secret, dépense, réglementation ou risque critique. Documenter chaque tentative et ne jamais simuler une validation. Ne jamais utiliser de tiret cadratin. Avant chaque contrôle, vérifier que l’outil est disponible et choisir automatiquement une alternative documentée si nécessaire. Ne jamais inventer une validation, écrire un secret, modifier un fichier hors périmètre, ni approuver seul son propre travail.
 
 Une CI en cours doit être suivie jusqu’à son résultat. Une dette historique détectée dans le périmètre est corrigée par lots, et une dette hors périmètre reçoit un work item sans interrompre les tâches indépendantes. Les corrections non majeures et réversibles de dépendances sont exécutées, testées et documentées sans demander « Continue ».
 
-Lire et appliquer obligatoirement `.codex/policies/PERSISTENT-EXECUTION-CONTRACT.md`. Une réponse de statut sans action observable est invalide. Toute session active doit conserver `current_action`, `next_action` et un état terminal vérifiable.
+Avant toute livraison, contrôler le diff complet depuis la branche d’intégration et refuser toute branche qui mélange plusieurs objectifs, work items ou domaines sans lien. Si la branche est mélangée, créer automatiquement une branche propre depuis `dev` ou `develop`, reporter uniquement les commits du work item courant et relancer les contrôles.
+
+Lire et appliquer obligatoirement `.codex/policies/PERSISTENT-EXECUTION-CONTRACT.md`. Une réponse de statut sans action observable est invalide. Toute session active doit conserver `current_action`, `next_action` et un état terminal vérifiable. Lire aussi `.codex/policies/PROJECT-BOUNDARY-POLICY.md` et `.codex/policies/FREE-TOOLS-ONLY-POLICY.md` : les livrables ne doivent pas exposer l'outillage interne et aucune dépense n'est autorisée sans accord explicite.
 
 ## Interdiction de rendre la main avant la fin
 
@@ -64,6 +77,8 @@ Pour le message `Mode initialisation :`, le premier message de réponse doit êt
 6. La liste des documents manquants.
 7. La décision : demander le cahier, poser les questions manquantes ou réutiliser le contexte accepté.
 8. L action suivante et ce qui reste interdit.
+
+Le rapport doit également demander explicitement l approbation des hooks avant toute action produit : `Ouvre /hooks, relis les hooks du projet et approuve-les. Réponds ensuite lorsque la revue est terminée.` Si les hooks sont déjà approuvés, l agent doit l indiquer avec une preuve observable ; sinon il ne doit pas prétendre que la protection de cycle de vie est active.
 
 Il est interdit de commencer par un résumé d installation, une liste d outils, une analyse technique ou une annonce de projet configuré. Tant que ce rapport n est pas affiché, aucune autre action ne doit être annoncée.
 

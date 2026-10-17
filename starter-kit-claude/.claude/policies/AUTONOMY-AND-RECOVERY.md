@@ -1,5 +1,13 @@
 # Politique d autonomie et de récupération
 
+## Règle générale
+
+Tout blocage que le Coordinateur ou un agent peut résoudre dans le périmètre autorisé doit être traité immédiatement, sans interrompre le Goal ni rendre la main. Cela inclut les outils absents mais installables provisoirement, les commandes absentes du `PATH` mais trouvables ailleurs, les tests relançables, les erreurs locales, les preuves productibles, les audits en `REWORK`, les agents disponibles ou réactivables, les conflits récupérables et les synchronisations pouvant passer par une alternative autorisée. L'agent enregistre la cause, lance la récupération, vérifie le résultat et poursuit dans le même cycle.
+
+`blocked` n'est permis qu'après vérification de toutes ces voies et preuve qu'une dépendance externe inaccessible ou une décision humaine indispensable est le seul événement restant. Un blocage récupérable conserve `execution_status: running`, `waiting-ci` ou `needs-review`, avec une `next_action` active et un propriétaire.
+
+Un Goal ne peut jamais être `blocked` si une action reste réalisable par le Coordinateur, un agent spécialisé, une installation gratuite, un service local, une fixture, une simulation, une alternative navigateur/connecteur ou une PR autorisée vers `dev`. Le Coordinateur doit exécuter ou déléguer cette action immédiatement. Les portes design, QA, audit, alerting, rollback et restauration non prouvées sont des travaux à réaliser ou des portes `needs-review` ciblées, jamais un blocage global.
+
 ## Principe
 
 Après acceptation du cahier et du questionnaire de complétude, l agent travaille en autonomie continue. Une instruction explicite comme « fais tout », « vas-y jusqu’au bout » ou « livre la fonctionnalité » vaut autorisation continue pour le work item courant jusqu’à sa Definition of Done. Une erreur corrigeable déclenche automatiquement une boucle diagnostic, recherche, correction, validation et journalisation. L agent ne clôt pas la conversation avec une simple description d échec.
@@ -11,6 +19,18 @@ Tant qu'une autorisation continue est active, l'agent doit toujours avoir une ac
 Sont autorisés sans nouvelle question : analyser, rechercher, concevoir, coder, corriger, formater, tester, lancer le lint, reconstruire, auditer, documenter, mettre à jour les journaux, synchroniser Trello, créer une branche, créer un commit atomique, pousser une branche de travail, ouvrir une PR vers la branche d'intégration autorisée, attendre la CI, lire ses logs, corriger les erreurs et reprendre les contrôles.
 
 Une permission d'exécution affichée par l'environnement n'est pas une décision métier. L'agent décrit brièvement l'action, utilise l'autorisation déjà accordée et reprend automatiquement dès que l'environnement l'autorise.
+
+Une demande explicite d'action vaut autorisation pour cette action et ses étapes réversibles nécessaires. Par exemple, « ajoute une carte », « crée le work item », « synchronise Trello » ou « prépare cette amélioration » autorise la création ou la mise à jour correspondante. Ne jamais demander ensuite « confirmes-tu ? », « puis-je la créer ? » ou afficher un bouton de confirmation pour la même action. Une question supplémentaire n'est permise que si elle porte sur une décision métier, une action irréversible, une dépense, un accès externe ou une information réellement manquante.
+
+Une réponse explicite de l'utilisateur comme « tout est okay », « je valide », « approuvé » ou « fais le nécessaire » vaut approbation des portes `needs-review` expressément visées par le contexte. Le Coordinateur enregistre cette preuve, ferme uniquement les portes visées après relecture de leurs critères, puis poursuit immédiatement la prochaine action. Il ne redemande jamais la même approbation et ne transforme pas une approbation globale en autorisation de dépense, secret, suppression, décision réglementaire ou action de production non mentionnée.
+
+Dans une demande déjà autorisée jusqu'à la livraison sur `dev`, les gates de conception, d'audit et de qualité sont des étapes internes du travail. Le Coordinateur doit lancer les agents concernés, corriger les écarts, revalider les gates et ouvrir la PR vers `dev` sans demander une approbation intermédiaire. `needs-review` ne justifie une question que pour une décision métier, réglementaire, financière, secrète, destructive ou une action de production explicitement hors autorisation.
+
+Dans le flux d'initialisation ou de livraison autorisé, une branche publiée et prête à intégrer déclenche automatiquement la création de la PR vers la branche d'intégration. Une PR seulement préparée dans le navigateur ou un état `delivery-gate: pending` ne doit jamais provoquer une demande « confirme la création de la PR ». Créer la PR, la relire, suivre ses contrôles et corriger les échecs dans le même Goal ; demander l'intervention uniquement si GitHub impose une protection, une revue obligatoire ou une décision réellement humaine.
+
+Dans un flux de livraison explicitement autorisé, la fusion d'une PR déjà créée vers la branche d'intégration (`dev` ou `develop`) est une étape réversible prévue et doit être exécutée automatiquement dès que la PR est ouverte, propre et fusionnable. L'absence de contrôle CI ou de revue humaine configurée doit être enregistrée comme preuve manquante, mais ne constitue pas à elle seule une demande de confirmation. Ne demander une intervention que si une protection de branche l'exige, si un contrôle échoue, si une revue obligatoire manque, ou si une décision métier, une dépense, un secret ou une action irréversible est nécessaire.
+
+Lorsqu'une intégration Trello déjà autorisée est disponible, une demande explicite de publier, corriger ou synchroniser un commentaire vaut autorisation d'écriture externe réversible. Ne pas demander une seconde confirmation juste avant l'envoi. Demander uniquement l'activation d'un accès absent, un secret, une dépense, une action irréversible ou une décision réellement manquante, puis vérifier visuellement le commentaire après publication.
 
 Après chaque action, l'agent choisit immédiatement l'étape suivante selon cet ordre :
 
@@ -36,6 +56,8 @@ Après chaque action, l'agent choisit immédiatement l'étape suivante selon cet
 
 Une CI en cours n’est jamais une conclusion. L’agent attend le résultat, relit les logs, corrige le premier échec, republie si nécessaire et relance les contrôles jusqu’à réussite, limite documentée ou blocage réel. Une dette historique détectée dans la zone du work item est traitée par petits lots jusqu’à la Definition of Done. Une dette hors périmètre reçoit un work item documenté et le travail indépendant continue.
 
+Une preuve négative ou un résultat observable non conforme, notamment `404`, déploiement absent, endpoint indisponible, test échoué ou revalidation externe négative, ne constitue jamais une conclusion ni une simple information à transmettre. Le Coordinateur doit identifier la cause, corriger le problème, déployer ou appliquer l'alternative autorisée, puis revalider le résultat et poursuivre la boucle. Il ne demande pas à l'utilisateur de lui dire de continuer. Si l'action exige un accès, un secret, une dépense, une décision métier ou une autorisation de production absente, il prépare toutes les étapes réversibles et passe en `needs-review` avec la demande précise ; sinon il continue jusqu'à réussite ou blocage réel prouvé.
+
 ## Corrections réversibles
 
 Une correction de dépendance non majeure, un formatage, un lint, un test ou une configuration locale réversible est autorisé dans le work item courant. L’agent sauvegarde le diff, applique la correction, vérifie les changements de lockfile et relance les contrôles. Il ne demande pas « Continue » ni une approbation intermédiaire. Une demande de permission système peut encore être affichée par l’environnement d’exécution, mais elle ne doit pas être présentée comme un blocage métier.
@@ -47,6 +69,8 @@ L agent peut choisir seul une dépendance compatible, une commande de test, une 
 ## Blocages réels
 
 Une demande humaine reste nécessaire uniquement pour une décision métier, une action irréversible ou destructive, un accès externe, un secret, une dépense, une obligation réglementaire, un risque critique ou une ambiguïté qui change le produit. Dans ce cas, regrouper les questions et proposer un choix recommandé.
+
+Pour une readiness, une conformité ou une décision d'exploitation réversible, l'instruction utilisateur « occupe-toi-en », « fais le nécessaire » ou équivalente autorise l'adoption d'un défaut prudent, local et réversible. Le Coordinateur le documente, marque seulement la porte réellement dépendante en `needs-review` et poursuit toutes les tâches indépendantes ; il ne transforme pas cette décision en blocage global.
 
 Avant de déclarer un blocage, l'agent doit :
 

@@ -1,8 +1,24 @@
 # Kit d'orchestration Codex portable
 
-![Version du kit](https://img.shields.io/badge/version-1.6.3-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.16.43-blue.svg)
 
 Ce kit installe une gouvernance projet pour Codex. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
+
+L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).
+
+Une conception incomplète ou un blocage récupérable déclenche automatiquement la reprise du Goal avec les agents requis et une prochaine action observable. Le Coordinateur ne demande pas un nouveau message « continue » lorsqu'une action autonome reste possible.
+
+Un audit indépendant en `REWORK` déclenche la correction attribuée et sa nouvelle relecture dans le même Goal.
+
+Les blocages locaux, outils, tests, preuves ou synchronisations récupérables sont traités automatiquement avant toute réponse.
+
+Un échec de contrôle ou un écart documentaire corrigeable déclenche correction, nouvelle validation et nouvelle relecture.
+
+Une preuve documentaire manquante est recherchée ou déléguée avant toute escalade.
+
+Les fichiers locaux d'onboarding sont créés avant la validation structurelle de première installation.
+
+Les gates d'audit et de livraison ouverts déclenchent la suite des actions autonomes jusqu'à leur preuve, sans blocage prématuré.
 
 ## Prérequis
 
@@ -34,6 +50,10 @@ bash .codex/scripts/init-project.sh
 ```
 
 Cette commande crée `project-profile.toml` s'il est absent et génère un inventaire des fichiers détectés. Elle ne modifie pas le code du produit.
+
+L'initialisation valide aussi le contrat agentic complet avec `validate-agentic-contract.sh`. Elle bloque si le point d'entrée, l'état runtime, les politiques de coordination, les garde-fous de continuité ou les preuves de délégation sont absents ou incomplets. Ce contrôle est rejouable avant chaque Goal.
+
+Le fichier `.codex/hooks.json` active les hooks de cycle de vie Codex. Ils rechargent le contexte à chaque session, bloquent les outils d'écriture avant initialisation du Goal, enregistrent les sous-agents et relancent automatiquement le travail lorsqu'une clôture n'est pas prouvée. Les hooks doivent être approuvés par Codex avant leur première exécution.
 
 5. Ouvrir Codex à la racine du projet. Envoyer une demande projet normale, par exemple :
 
@@ -187,13 +207,19 @@ Le Coordinateur ne les appelle pas tous systématiquement. Il lit `.codex/SPECIA
 
 Une CI en cours ne clôture jamais le work item. Le Coordinateur attend les résultats, traite les erreurs, corrige les lints et les dettes historiques du périmètre par lots, puis relance les contrôles jusqu’à la Definition of Done.
 
-Le kit est actuellement en version `1.6.3`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
+Le kit est actuellement en version `1.13.0`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
+
+Le contrat central `.codex/policies/CORE-EXECUTION-CONTRACT.md` impose un registre d obligations, huit portes de validation et une reprise persistante. Une tâche ne peut être clôturée tant qu une obligation applicable ne possède pas de preuve.
+
+Chaque nouveau work item reçoit `obligations.tsv`. `bash .codex/scripts/validate-obligations.sh --require-active` vérifie les huit portes et `verify-before-push.sh` bloque automatiquement une livraison incomplète.
 
 ## Gouvernance complète disponible
 
+Le flux d'initialisation ouvre automatiquement la PR vers `dev` ou `develop` dès que la branche et les contrôles sont prêts. Il ne demande pas une confirmation supplémentaire pour une étape déjà autorisée.
+
 Le fichier `.codex/SPECIALIST-AGENTS.md` définit les conditions d’activation, les livrables et l’ordre de contrôle des dix spécialistes. Le Coordinateur lit ce fichier avant toute délégation, consulte `[agents]` dans le profil et justifie chaque activation dans le work item.
 
-Le kit comprend aussi `RUNTIME-STATE.md` et `scripts/checkpoint.sh` pour reprendre une session, `scripts/cost-tracker.sh` pour aider le Coordinateur à réduire les coûts, et le mode Trello `time-gated` pour suspendre uniquement une carte dépendante d’une échéance. Les flux indépendants continuent.
+Le kit comprend aussi `RUNTIME-STATE.md`, `scripts/checkpoint.sh` et `scripts/guard-before-response.sh` pour reprendre une session et empêcher une conclusion prématurée, `scripts/cost-tracker.sh` pour aider le Coordinateur à réduire les coûts, et le mode Trello `time-gated` pour suspendre uniquement une carte dépendante d’une échéance. Pour les tâches longues, `policies/SESSION-CONTINUITY-POLICY.md` décrit l'usage d'un objectif persistant natif lorsqu'il existe. Les flux indépendants continuent.
 
 Toute évolution doit mettre à jour ce README, `CHANGELOG.md`, la version SemVer, le titre et la description de la Pull Request. Une livraison sans documentation correspondante est refusée.
 
@@ -217,12 +243,16 @@ Après une instruction « fais tout », le Coordinateur poursuit jusqu’à la D
 
 ## Synchronisation automatique
 
+Le préflight distingue les simulations des preuves externes. Utiliser `bash scripts/test-integration-preflight.sh --require-real` pour refuser toute campagne où Trello, les agents ou le navigateur n'ont pas fourni de preuve réelle.
+
 L’initialisation installe un workflow GitHub Actions hebdomadaire qui ouvre une Pull Request pour chaque évolution du kit officiel. Le script `.codex/scripts/update-starter-kit.sh` permet aussi une mise à jour manuelle avec un remote, une référence et une branche.
 
 ## Qualité documentaire premium
 
+Le synchroniseur external met à jour directement `.codex/` et conserve les données projet protégées.
+
 Utilisez `documentation-authoring` pour rédiger et `documentation-audit` pour relire. Le contrôle `bash .codex/scripts/validate-documentation.sh` vérifie les métadonnées, les dates et les marqueurs incomplets avant la livraison.
-La version du kit évolue uniquement lorsqu’un changement consommé par un projet importateur le justifie.
+La version du kit évolue uniquement lorsqu’un changement consommé par un projet importateur le justifie. Après promotion sur `main`, le workflow de release crée automatiquement le tag SemVer et la GitHub Release correspondante.
 L’installateur vérifie que le workflow de mise à jour est suivi par Git avant la première publication.
 Le Coordinateur applique une politique universelle de routage pour toute demande nouvelle, corrective ou hors cahier des charges.
 
@@ -245,3 +275,5 @@ L’installateur propose désormais les distributions native et external, avec c
 Dans une conversation existante, utiliser `Mode initialisation :` pour relancer de façon fiable la porte obligatoire du cahier des charges.
 
 Envoyer cette commande seule depuis la racine du projet. Codex recharge alors les instructions et l'état du kit, vérifie le cahier des charges et n'autorise aucune analyse technique, aucun work item ni aucune modification produit avant sa réception et son acceptation. La procédure détaillée est documentée dans le guide d'installation du dépôt principal.
+La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
+L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.

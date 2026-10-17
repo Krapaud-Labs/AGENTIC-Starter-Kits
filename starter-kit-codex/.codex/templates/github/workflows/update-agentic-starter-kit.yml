@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Configure starter kit source
-        run: git remote add upstream https://github.com/krapaud/AGENTIC-Starter-Kits.git
+        run: git remote add upstream https://github.com/Krapaud-Labs/AGENTIC-Starter-Kits.git
 
       - name: Select protected integration branch
         id: integration

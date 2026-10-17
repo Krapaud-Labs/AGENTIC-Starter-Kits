@@ -1,20 +1,20 @@
 # Documentation Language and Code Comment Policy
 
-## Mandatory language
+## Langue obligatoire
 
-All repository-facing technical documentation must be written in clear, professional English unless the project profile explicitly declares another language. This applies to README files, architecture documents, API documentation, changelogs, migration notes, runbooks, ADRs, work items, audit reports, release notes, examples and user-facing technical guides.
+Toute la documentation technique du dépôt doit être rédigée en français clair et professionnel, sauf si le profil du projet déclare explicitement une autre langue. Cela s'applique aux README, documents d'architecture, documentations API, changelogs, notes de migration, runbooks, ADR, work items, rapports d'audit, notes de version, exemples et guides techniques destinés aux utilisateurs.
 
-English is also the default language for source-code comments, docstrings, TODO items, FIXME items, deprecation notices, test descriptions, fixture explanations, configuration comments, scripts and CI messages.
+Le français est également la langue par défaut des commentaires de code, docstrings, TODO, FIXME, avis de dépréciation, descriptions de tests, explications de fixtures, commentaires de configuration, scripts et messages CI. Les identifiants techniques, commandes, noms d'API et extraits de logs conservent leur forme originale lorsque leur traduction les rendrait ambigus.
 
-## Required documentation structure
+## Structure documentaire obligatoire
 
 Every README must use a predictable structure when relevant: purpose, scope, prerequisites, installation, configuration, usage, project structure, commands, testing, troubleshooting, security, contribution rules, versioning and license.
 
 Every substantial document must include a title, scope, status, last-updated date, owner or responsible agent, assumptions, verified facts, limitations, validation evidence and references when applicable.
 
-## Section separators
+## Séparateurs de sections
 
-Long source files and scripts must use consistent English section separators. Use the project style consistently, for example:
+Les fichiers source et scripts longs doivent utiliser des séparateurs de section cohérents en français. Utiliser systématiquement le style du projet, par exemple :
 
 ```text
 # -----------------------------------------------------------------------------
@@ -22,18 +22,18 @@ Long source files and scripts must use consistent English section separators. Us
 # -----------------------------------------------------------------------------
 ```
 
-Do not use decorative, ambiguous or language-mixed separators. A separator must describe the section that follows it.
+Ne pas utiliser de séparateurs décoratifs, ambigus ou mélangeant les langues. Un séparateur doit décrire la section qui le suit.
 
-## Comment quality
+## Qualité des commentaires
 
 Comments must explain intent, constraints, security considerations or non-obvious tradeoffs. Do not narrate obvious syntax, leave stale comments, duplicate the code or hide unfinished work. Every TODO or FIXME must include an owner, a reason, a reference to a work item and a clear completion condition.
 
-## Synchronization rule
+## Règle de synchronisation
 
 After every meaningful code, architecture, security, API, CI or deployment change, the Documentation agent must inspect and update every affected README, comment, example, changelog, ADR, work item and release note. A change is not complete while the documentation contradicts the implementation.
 
 ## Validation
 
-Before a commit or pull request, the Documentation agent must verify English consistency, headings, links, code examples, commands, separators, stale references, version references, TODO metadata and generated documentation. The Coordinateur must reject incomplete or contradictory documentation.
+Avant un commit ou une Pull Request, l'agent Documentation doit vérifier la cohérence française, les titres, les liens, les exemples de code, les commandes, les séparateurs, les références obsolètes, les versions, les métadonnées TODO et la documentation générée. Le Coordinateur doit refuser toute documentation incomplète ou contradictoire.
 
-If the product requires another language, keep technical repository documentation in English and create explicitly named localized documents. Never mix languages silently in the same technical document.
+Si le produit exige une autre langue, créer des documents localisés explicitement nommés selon le profil du projet. Ne jamais mélanger silencieusement plusieurs langues dans un même document technique.
