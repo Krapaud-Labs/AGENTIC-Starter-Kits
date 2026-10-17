@@ -4,7 +4,7 @@
 
 - `KIT.toml`, `ORCHESTRATION.md`, `GOVERNANCE.md`, `PROJECT-CONTEXT.md`, `PROJECT-DATA-BOUNDARY.md`
 - `RISK-MATRIX.md`, `RUNTIME-STATE.md`, `MODEL-POLICY.md`, `models.toml`, `COST-AND-EVALUATION.md`, `ADAPTERS.md`
-- Agents optionnels activables dans `agents/` : `produit`, `qa`, `devops`, `performance`, `ux-research`, `accessibilite`, `data`, `documentation`, `release` et `conformite`.
+- Agents optionnels activables dans `agents/` : `produit`, `qa`, `devops`, `performance`, `ux-research`, `accessibilite`, `data`, `documentation`, `release`, `conformite` et `image-generation`.
 - `SPECIALIST-AGENTS.md` définit leur activation, leurs livrables et leur ordre de contrôle.
 - `policies/EXCEPTIONAL-REQUESTS.md` définit la classification des demandes exceptionnelles.
 - `policies/CONTINUOUS-IMPROVEMENT-POLICY.md` impose l'apprentissage documenté et les tests de non-régression.
