@@ -2,6 +2,8 @@
 
 ![Version du kit](https://img.shields.io/badge/version-1.16.44-blue.svg)
 
+Le hook `SessionStart` initialise automatiquement `AGENTIC_TOOLS_HOME` et vérifie les outils de base avant toute tâche. Une session est refusée si une installation automatique ne permet pas de rendre ces outils disponibles.
+
 Ce kit installe une gouvernance projet native pour Claude Code. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
 L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).

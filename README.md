@@ -263,6 +263,8 @@ La politique [WEB-RESEARCH-POLICY.md](starter-kit-codex/.codex/policies/WEB-RESE
 
 ## État fonctionnel de la version 1.16.44
 
+À chaque démarrage, les hooks initialisent automatiquement l’environnement central des outils. Si un outil de base reste indisponible après tentative d’installation, aucune tâche ne commence.
+
 La version actuelle inclut 16 agents au total : six agents du noyau et dix spécialistes optionnels. Elle inclut leurs politiques de modèles, la gouvernance d’activation, les Skills d’orchestration, les scripts d’initialisation, les checkpoints, le suivi des coûts et les contrôles CI. Les détails contractuels des spécialistes sont dans `SPECIALIST-AGENTS.md` dans chaque kit.
 
 Après un ordre « fais tout », l’agent reste actif pendant l’attente de la CI, traite les erreurs suivantes, corrige les lints et les dettes historiques du périmètre par lots, puis relance les contrôles. Il ne clôture pas la conversation avec « CI en cours » ou « erreur détectée ».
