@@ -52,8 +52,10 @@ bash "$config_root/scripts/validate-entrypoint.sh"
 # Initialiser les fichiers locaux obligatoires avant de valider le contrat.
 # La validation doit pouvoir lire le cahier et le profil dès la première installation.
 for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
-  if [ ! -f "$config_root/$local_file" ] && [ -f "$config_root/templates/$local_file" ]; then
-    cp "$config_root/templates/$local_file" "$config_root/$local_file"
+  template_file="$local_file"
+  [ "$local_file" = "PROJECT-BRIEF.md" ] && template_file="project-brief.md"
+  if [ ! -f "$config_root/$local_file" ] && [ -f "$config_root/templates/$template_file" ]; then
+    cp "$config_root/templates/$template_file" "$config_root/$local_file"
   fi
 done
 bash "$config_root/scripts/validate-agentic-contract.sh"

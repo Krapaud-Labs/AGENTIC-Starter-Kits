@@ -8,8 +8,10 @@ fail=0
 
 # Une installation partielle reste récupérable avant le premier contrôle.
 for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
-  if [ ! -f "$config/$local_file" ] && [ -f "$config/templates/$local_file" ]; then
-    cp "$config/templates/$local_file" "$config/$local_file"
+  template_file="$local_file"
+  [ "$local_file" = "PROJECT-BRIEF.md" ] && template_file="project-brief.md"
+  if [ ! -f "$config/$local_file" ] && [ -f "$config/templates/$template_file" ]; then
+    cp "$config/templates/$template_file" "$config/$local_file"
   fi
 done
 
