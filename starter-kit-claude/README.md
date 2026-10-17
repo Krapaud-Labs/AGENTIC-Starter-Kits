@@ -284,6 +284,8 @@ Dans une conversation existante, utiliser `Mode initialisation :` pour relancer 
 
 Envoyer cette commande seule depuis la racine du projet. Claude recharge alors les instructions et l'état du kit, vérifie le cahier des charges et n'autorise aucune analyse technique, aucun work item ni aucune modification produit avant sa réception et son acceptation. La procédure détaillée est documentée dans le guide d'installation du dépôt principal.
 
+Phrase prête à copier dans Claude : `Mode initialisation : relis intégralement toutes les instructions, politiques, procédures, agents, outils, hooks et règles du kit, vérifie leur version et leur état, applique-les effectivement à toute la session, crée ou reprends le Goal natif, puis initialise le projet jusqu'à la livraison sans commencer de travail produit avant l'acceptation du cahier des charges.`
+
 ## Diagnostic
 
 Le synchroniseur external met à jour directement `.claude/` et conserve les données projet protégées.
