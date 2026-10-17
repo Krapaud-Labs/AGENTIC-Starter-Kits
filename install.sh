@@ -221,7 +221,7 @@ brief_archive="$target/Cahier-des-Charges/$project_name/cahier-des-charges.md"
 mkdir -p "$(dirname "$brief_archive")"
 if [ ! -e "$brief_archive" ]; then
   cat > "$brief_archive" <<EOF
-# Cahier des charges — $project_name
+# Cahier des charges - $project_name
 
 ## Statut
 
