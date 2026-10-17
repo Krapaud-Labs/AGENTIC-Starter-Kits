@@ -330,6 +330,7 @@ for kit in codex claude; do
   git -C "$test_root/project" config user.name sandbox
   mkdir -p "$test_root/project/$hidden/scripts"
   cp "$source_config/scripts/verify-before-work.sh" "$test_root/project/$hidden/scripts/"
+  cp "$source_config/scripts/repair-git-index-lock.sh" "$test_root/project/$hidden/scripts/"
   if (cd "$test_root/project" && bash "$hidden/scripts/verify-before-work.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: branche par défaut protégée acceptée pour $kit"
     exit 1
@@ -337,11 +338,8 @@ for kit in codex claude; do
   git -C "$test_root/project" switch --quiet -c feat/mvp-002-data-model
   (cd "$test_root/project" && bash "$hidden/scripts/verify-before-work.sh") >/dev/null
   touch "$test_root/project/.git/index.lock"
-  if (cd "$test_root/project" && bash "$hidden/scripts/verify-before-work.sh") >/dev/null 2>&1; then
-    echo "ECHEC TEST: index.lock accepté avant travail pour $kit"
-    exit 1
-  fi
-  rm -f "$test_root/project/.git/index.lock"
+  (cd "$test_root/project" && bash "$hidden/scripts/verify-before-work.sh") >/dev/null
+  test ! -e "$test_root/project/.git/index.lock"
   perl -0pi -e 's/\| Statut \| proposed \|/| Statut | in-progress |/' "$config/work-items/demo/brief.md"
 
   if bash "$config/scripts/validate-obligations.sh" --if-present >/dev/null 2>&1; then
