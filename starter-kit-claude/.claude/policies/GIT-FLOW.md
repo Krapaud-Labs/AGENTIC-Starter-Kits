@@ -12,6 +12,14 @@ Un commit correspond à une intention vérifiable : une étape de conception, un
 
 Les limites par défaut sont `75` fichiers et `1200` lignes modifiées par commit. Elles sont configurables dans `[delivery]` de `project-profile.toml` seulement après décision explicite et documentée. Un commit massif de code métier est interdit. Un lockfile ou artefact généré incompressible peut dépasser la limite uniquement dans un commit séparé, sans code métier, avec un message conventionnel et une justification dans le work item. L agent isole automatiquement ce commit et ne demande pas une autorisation pour une limite technique connue.
 
+### Consolidation par lot
+
+Le kit minimise le nombre d'objets Git sans sacrifier la traçabilité. Par défaut, une demande cohérente, une carte ou un Goal utilise une seule branche de travail, un seul work item et une seule PR vers la branche d'intégration. Les agents parallèles travaillent dans leurs espaces isolés, puis l'intégrateur regroupe leurs résultats sur cette branche ; ils ne créent ni branche ni PR séparée pour leur sous-tâche.
+
+Les commits restent atomiques et lisibles, mais un commit séparé n'est créé que pour une intention réellement indépendante, une migration ou un lockfile qui doit être isolé, une correction de sécurité, une limite technique documentée ou un besoin de rollback distinct. Les checkpoints, rapports, corrections de lint, mises à jour README, preuves CI et petits ajustements liés restent regroupés dans la branche et la PR du même lot. Le Coordinateur ne crée jamais une branche ou une PR par agent, fichier, test, commentaire, preuve ou erreur corrigée.
+
+Avant la PR, il regroupe les changements cohérents lorsque cela ne détruit pas une preuve ou une possibilité de retour arrière, puis vérifie le diff global depuis la branche d'intégration. Une seule PR de promotion vers `main` est créée par lot cohérent et version.
+
 ## Promotion
 
 Une branche ne passe vers l intégration qu avec work item, conception à jour, tests proportionnés, preflight vert, preuves, audit indépendant et rapport sécurité lorsque la matrice l exige. `main` reçoit seulement des livraisons validées. Ne pas réécrire l historique des branches protégées.

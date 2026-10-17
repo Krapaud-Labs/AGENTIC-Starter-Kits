@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.49-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.50-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -261,7 +261,7 @@ La politique [WEB-RESEARCH-POLICY.md](starter-kit-codex/.codex/policies/WEB-RESE
 - [Historique des changements](CHANGELOG.md)
 - [Historique chronologique des versions](VERSION-HISTORY.md)
 
-## État fonctionnel de la version 1.16.49
+## État fonctionnel de la version 1.16.50
 
 À chaque démarrage, les hooks initialisent automatiquement l’environnement central des outils. Si un outil de base reste indisponible après tentative d’installation, aucune tâche ne commence.
 
@@ -375,6 +375,8 @@ Pour initialiser un projet dans une conversation déjà ouverte, envoyer `Mode i
 La commande doit être envoyée seule depuis la conversation qui travaille déjà sur le projet. Elle force l'agent à relire son état, à vérifier le cahier des charges et à suspendre toute modification tant que le cahier n'est pas reçu et accepté. Après cette étape, les questions manquantes sont posées avec une recommandation, puis les documents de conception et le plan de travail sont créés.
 
 Phrase prête à copier : `Mode initialisation : relis intégralement toutes les instructions, politiques, procédures, agents, outils, hooks et règles du kit, vérifie leur version et leur état, applique-les effectivement à toute la session, crée ou reprends le Goal natif, puis initialise le projet jusqu'à la livraison sans commencer de travail produit avant l'acceptation du cahier des charges.`
+
+Le GitFlow regroupe par défaut chaque demande cohérente, carte ou Goal sur une seule branche et une seule PR par lot. Les agents parallèles ne créent pas de branches ou de PR séparées ; l'intégrateur rassemble leurs résultats. Les commits séparés restent réservés aux intentions réellement indépendantes, aux migrations, aux lockfiles, à la sécurité ou aux besoins de rollback distincts.
 
 La procédure complète se trouve dans [INSTALLATION.md](INSTALLATION.md), section « Initialiser une conversation déjà ouverte ».
 
