@@ -6,6 +6,13 @@ config="$(cd "$script_dir/.." && pwd)"
 root="$(git -C "$config/.." rev-parse --show-toplevel 2>/dev/null || (cd "$config/.." && pwd))"
 fail=0
 
+# Une installation partielle reste récupérable avant le premier contrôle.
+for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
+  if [ ! -f "$config/$local_file" ] && [ -f "$config/templates/$local_file" ]; then
+    cp "$config/templates/$local_file" "$config/$local_file"
+  fi
+done
+
 for file in KIT.toml START-HERE.md ORCHESTRATION.md CONVERSATION-MODES.md PROJECT-CONTEXT.md PROJECT-DATA-BOUNDARY.md FILE-MANIFEST.md GOVERNANCE.md RISK-MATRIX.md COST-AND-EVALUATION.md ADAPTERS.md MODEL-POLICY.md models.toml project-profile.toml PROJECT-BRIEF.md; do
   [ -f "$config/$file" ] || { echo "MANQUANT: .claude/$file"; fail=1; }
 done
