@@ -17,6 +17,7 @@ Une demande hors cahier des charges devient une évolution tracée du périmètr
 | Vision, besoin, priorités ou règles métier | Produit | Concepteur, Coordinateur |
 | Architecture, modèle de données ou choix structurant | Concepteur | Backend, Frontend, Cybersécurité, Auditeur |
 | Interface, parcours, responsive, animation ou accessibilité | Frontend | Concepteur, UX Research, Accessibilité, QA |
+| Image, photo, illustration, texture, icône ou média | Image Generation | Frontend, Concepteur, QA, Auditeur |
 | API, logique métier, données ou intégration | Backend | Concepteur, Cybersécurité, QA, Data |
 | Menace, vulnérabilité, secret, permission ou conformité | Cybersécurité | Backend, Frontend, DevOps, Auditeur, Conformité |
 | Tests, régression ou qualité de livraison | QA | Agent technique concerné, Auditeur |

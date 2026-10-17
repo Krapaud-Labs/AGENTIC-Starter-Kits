@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.46 - 2026-10-17
+
+- ajoute l'agent spécialisé `image-generation` pour les médias réalistes et cohérents avec le projet
+- impose le routage, la provenance, le contrôle des artefacts, l'accessibilité et la validation d'intégration des images
+
 ## 1.16.45 - 2026-10-17
 
 - ajoute le mode `shared` avec une installation globale unique du kit
