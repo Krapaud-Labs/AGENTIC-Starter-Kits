@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.44 - 2026-10-17
+
+- centralise les outils CLI, npm et Python dans un emplacement utilisateur unique
+- ajoute un registre de versions et des installations idempotentes réutilisables par les projets
+- branche les contrôles projet sur l’environnement d’outils partagé
+
 ## 1.16.43 - 2026-10-17
 
 - impose le contrôle lint après ouverture ou modification d’un fichier
