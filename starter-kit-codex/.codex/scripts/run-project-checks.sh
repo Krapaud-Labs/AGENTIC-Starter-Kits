@@ -8,6 +8,7 @@ if [ "${1:-}" != "" ] && [ "${1:-}" != "--execute" ]; then echo "Usage: $0 [--ex
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config="$(cd "$script_dir/.." && pwd)"
 root="$(git -C "$config/.." rev-parse --show-toplevel 2>/dev/null || (cd "$config/.." && pwd))"
+source "$script_dir/tool-env.sh"
 
 if [ "$mode" = "execute" ]; then
   bash "$script_dir/security-baseline.sh" --execute

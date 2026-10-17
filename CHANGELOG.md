@@ -1,3 +1,11 @@
+## 1.6.3 - 2026-10-17
+
+### Registre central des outils
+
+- Centralise les outils et le préfixe npm dans `AGENTIC_TOOLS_HOME`.
+- Ajoute un registre utilisateur réutilisable entre les projets.
+- Ajoute la détection, l’installation centralisée et la réutilisation des outils par les agents.
+
 ## 1.6.2 - 2026-09-24
 
 ### Synchronisation temps réel Trello

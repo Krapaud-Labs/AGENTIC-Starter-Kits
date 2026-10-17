@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.6.2-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.6.3-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -238,7 +238,7 @@ La politique [WEB-RESEARCH-POLICY.md](starter-kit-codex/.codex/policies/WEB-RESE
 - [Versionnement](VERSIONING.md)
 - [Historique des changements](CHANGELOG.md)
 
-## État fonctionnel de la version 1.6.2
+## État fonctionnel de la version 1.6.3
 
 La version actuelle inclut 16 agents au total : six agents du noyau et dix spécialistes optionnels. Elle inclut leurs politiques de modèles, la gouvernance d’activation, les Skills d’orchestration, les scripts d’initialisation, les checkpoints, le suivi des coûts et les contrôles CI. Les détails contractuels des spécialistes sont dans `SPECIALIST-AGENTS.md` dans chaque kit.
 

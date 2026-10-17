@@ -1,0 +1,19 @@
+# category\tname\tcommand\tinstall_hint
+cli\tgit\tgit\tmanaged-system
+cli\trg\trg\tbrew-or-package-manager
+cli\tjq\tjq\tbrew-or-package-manager
+cli\tgh\tgh\tbrew-or-package-manager
+cli\tshellcheck\tshellcheck\tbrew-or-package-manager
+runtime\tnode\tnode\tmanaged-system-or-nvm
+runtime\tnpm\tnpm\tmanaged-with-node
+runtime\tpython3\tpython3\tmanaged-system-or-version-manager
+runtime\tuv\tuv\tbrew-or-installer
+runtime\tdocker\tdocker\tmanaged-desktop
+npm\teslint\teslint\tensure-tools.sh --npm eslint
+npm\tprettier\tprettier\tensure-tools.sh --npm prettier
+npm\ttypescript\ttsc\tensure-tools.sh --npm typescript
+npm\tvitest\tvitest\tensure-tools.sh --npm vitest
+npm\tplaywright\tplaywright\tensure-tools.sh --npm playwright
+python\truff\truff\tensure-tools.sh --python ruff
+python\tpytest\tpytest\tensure-tools.sh --python pytest
+python\tmypy\tmypy\tensure-tools.sh --python mypy

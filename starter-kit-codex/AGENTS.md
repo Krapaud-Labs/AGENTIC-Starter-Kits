@@ -72,3 +72,4 @@ Si le statut est absent ou pending, répondre uniquement en demandant le cahier 
 ## Synchronisation du kit externe
 
 Si le projet contient .workspace.toml et .codex/scripts/sync-workspace-kit.sh, exécuter ce synchroniseur au début d une nouvelle session avant toute analyse. Il vérifie la version distante, sauvegarde le kit local et ne remplace jamais le cahier des charges, le profil projet, l état d exécution, les décisions, les work items ou les journaux. Si la mise à jour échoue, conserver la version actuelle et poursuivre uniquement avec le kit local après signalement.
+Les outils CLI partagés, npm et Python sont centralisés dans AGENTIC_TOOLS_HOME. Exécuter .codex/scripts/ensure-tools.sh avant les contrôles, sourcer .codex/scripts/tool-env.sh et ne jamais réinstaller un outil dans un projet si le registre central le fournit déjà. Les dépendances applicatives verrouillées par le projet restent locales dans leur environnement afin d éviter les conflits.
