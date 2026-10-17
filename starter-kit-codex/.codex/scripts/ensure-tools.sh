@@ -21,6 +21,23 @@ check_command() {
     printf 'Absent     %-16s installer avec --install ou une commande projet\n' "$command_name"
   fi
 }
+install_system_tool() {
+  local command_name="$1"
+  case "$command_name" in
+    rg|jq|gh|shellcheck)
+      if command -v brew >/dev/null 2>&1; then brew install "$command_name"; return 0; fi
+      if command -v apt-get >/dev/null 2>&1; then sudo apt-get update && sudo apt-get install -y "$command_name"; return 0; fi
+      ;;
+  esac
+  return 1
+}
+bootstrap_command() {
+  local command_name="$1"
+  if command -v "$command_name" >/dev/null 2>&1; then check_command "$command_name"; return 0; fi
+  install_system_tool "$command_name" >/dev/null 2>&1 || true
+  check_command "$command_name"
+  command -v "$command_name" >/dev/null 2>&1
+}
 install_npm() {
   local package="$1"
   command -v npm >/dev/null 2>&1 || { echo "npm est requis pour installer $package" >&2; exit 1; }
@@ -43,15 +60,20 @@ install_python() {
 install_mode=false
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    --install) install_mode=true; shift ;;
+    --install|--bootstrap) install_mode=true; shift ;;
     --npm) [ "$#" -ge 2 ] || { echo '--npm exige un paquet' >&2; exit 2; }; install_npm "$2"; shift 2 ;;
     --python) [ "$#" -ge 2 ] || { echo '--python exige un paquet' >&2; exit 2; }; install_python "$2"; shift 2 ;;
     --list) awk -F '\t' 'NR > 1 { print $1 "\t" $2 "\t" $3 "\t" $4 }' "$registry"; exit 0 ;;
-    -h|--help) echo 'Usage: ensure-tools.sh [--install] [--npm paquet] [--python paquet] [--list] [commande ...]'; exit 0 ;;
+    -h|--help) echo 'Usage: ensure-tools.sh [--install|--bootstrap] [--npm paquet] [--python paquet] [--list] [commande ...]'; exit 0 ;;
     *) check_command "$1"; shift ;;
   esac
 done
 if [ "$install_mode" = true ]; then
-  for command_name in git rg jq gh node npm; do check_command "$command_name"; done
+  missing=0
+  for command_name in git rg jq gh node npm; do bootstrap_command "$command_name" || missing=1; done
+  if [ "$missing" -ne 0 ]; then
+    echo 'OUTILS CENTRAUX INDISPONIBLES: installation automatique tentee, aucune tache ne doit commencer.' >&2
+    exit 1
+  fi
 fi
 printf 'Registre central : %s\nPrefix npm central : %s\n' "$registry" "$AGENTIC_NPM_PREFIX"
