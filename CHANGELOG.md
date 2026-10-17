@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.48 - 2026-10-17
+
+- centralise les cahiers des charges hors des dépôts dans `Projets/Cahier-des-Charges/<nom-du-projet>`
+- détecte automatiquement le dossier parent `Projets` pour les projets directs ou imbriqués
+
 ## 1.16.47 - 2026-10-17
 
 - crée à l'installation une archive `Cahier-des-Charges/<nom-du-projet>/cahier-des-charges.md`
