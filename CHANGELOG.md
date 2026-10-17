@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.50 - 2026-10-17
+
+- regroupe les demandes cohérentes sur une seule branche et une seule PR par lot
+- interdit les branches et PR créées par agent, fichier, test, preuve ou micro-correction
+- conserve les commits atomiques uniquement lorsqu'une séparation apporte une vraie valeur
+
 ## 1.16.49 - 2026-10-17
 
 - rend les identifiants réels et les affectations de spécialistes obligatoires avant tout lot

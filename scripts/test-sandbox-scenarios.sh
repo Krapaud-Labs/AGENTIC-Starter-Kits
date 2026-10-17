@@ -171,6 +171,8 @@ for kit in codex claude; do
   source="$root/starter-kit-$kit/$hidden"
   assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'PATH'
   assert_contains "$source/policies/GIT-FLOW.md" 'une seule Pull Request finale'
+  assert_contains "$source/policies/GIT-FLOW.md" 'Le kit minimise le nombre d.objets Git'
+  assert_contains "$source/policies/GIT-FLOW.md" 'ne crée jamais une branche ou une PR par agent'
   assert_contains "$source/policies/GIT-FLOW.md" 'Garde exécutable de cadence'
   assert_contains "$source/skills/trello-planning/SKILL.md" "Une PR n'est pas un journal de progression"
   assert_contains "$source/policies/TOOL-DISCOVERY-POLICY.md" 'exécute le garde-fou de démarrage'
