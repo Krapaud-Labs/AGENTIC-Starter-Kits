@@ -217,7 +217,14 @@ else
 fi
 ensure_gitignore
 verify_update_workflow "${workflow_path#$target/}"
-brief_archive="$target/Cahier-des-Charges/$project_name/cahier-des-charges.md"
+projects_root="$target"
+while [ "$projects_root" != "/" ] && [ "$(basename "$projects_root")" != "Projets" ]; do
+  projects_root="$(dirname "$projects_root")"
+done
+if [ "$(basename "$projects_root")" != "Projets" ]; then
+  projects_root="$(dirname "$target")"
+fi
+brief_archive="$projects_root/Cahier-des-Charges/$project_name/cahier-des-charges.md"
 mkdir -p "$(dirname "$brief_archive")"
 if [ ! -e "$brief_archive" ]; then
   cat > "$brief_archive" <<EOF
