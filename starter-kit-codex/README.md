@@ -281,5 +281,7 @@ L’installateur propose les distributions `native`, `external` et `shared`. Le 
 Dans une conversation existante, utiliser `Mode initialisation :` pour relancer de façon fiable la porte obligatoire du cahier des charges.
 
 Envoyer cette commande seule depuis la racine du projet. Codex recharge alors les instructions et l'état du kit, vérifie le cahier des charges et n'autorise aucune analyse technique, aucun work item ni aucune modification produit avant sa réception et son acceptation. La procédure détaillée est documentée dans le guide d'installation du dépôt principal.
+
+Phrase prête à copier dans Codex : `Mode initialisation : relis intégralement toutes les instructions, politiques, procédures, agents, outils, hooks et règles du kit, vérifie leur version et leur état, applique-les effectivement à toute la session, crée ou reprends le Goal natif, puis initialise le projet jusqu'à la livraison sans commencer de travail produit avant l'acceptation du cahier des charges.`
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
 L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.
