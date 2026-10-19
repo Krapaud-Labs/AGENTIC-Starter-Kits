@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-root="$(cd "$script_dir/../.." && pwd)"
+if root="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$root/CLAUDE.md" ]; then :; else root="$(cd "$script_dir/../.." && pwd)"; fi
 entry="$root/CLAUDE.md"
 [ -f "$entry" ] || { echo "ENTRYPOINT: CLAUDE.md absent" >&2; exit 1; }
 kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$script_dir/../KIT.toml")"

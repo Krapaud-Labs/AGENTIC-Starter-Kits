@@ -18,6 +18,8 @@ Les outils uv sont installés dans `AGENTIC_TOOLS_HOME/python/uv` et leurs exéc
 
 Ce kit installe une gouvernance projet native pour Claude Code. Il ne construit rien tant que le cahier des charges n'a pas été fourni et formalisé.
 
+En mode shared, la porte de session relit la racine Git du projet appelant et répare automatiquement le marqueur de version de `CLAUDE.md` avant la validation.
+
 L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).
 
 Une conception incomplète ou un blocage récupérable déclenche automatiquement la reprise du Goal avec les agents requis et une prochaine action observable. Le Coordinateur ne demande pas un nouveau message « continue » lorsqu'une action autonome reste possible.

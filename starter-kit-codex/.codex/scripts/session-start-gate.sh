@@ -8,6 +8,12 @@ else
   root="$(cd "$config/.." && pwd)"
 fi
 project_config="$root/.codex"
+entry="$root/AGENTS.md"
+kit_version="$(sed -n 's/^kit_version = "\([^\"]*\)"/\1/p' "$config/KIT.toml")"
+if [ -f "$entry" ] && grep -q '^<!-- ENTRYPOINT-CONTRACT:' "$entry"; then
+  sed -i.bak "s/^<!-- ENTRYPOINT-CONTRACT:.*-->$/<!-- ENTRYPOINT-CONTRACT: $kit_version -->/" "$entry"
+  rm -f "$entry.bak"
+fi
 mode="$(sed -n 's/^kit_mode = "\([^"]*\)"/\1/p' "$root/.workspace.toml" 2>/dev/null || echo native)"
 tool_status=0
 bash "$script_dir/ensure-tools.sh" --bootstrap >/dev/null 2>"$project_config/.tool-bootstrap-error" || tool_status=$?
