@@ -1,0 +1,28 @@
+name: Rapport du kit
+description: Signaler un blocage ou un comportement anormal du kit agentique.
+title: "[KIT-REPORT] "
+labels: ["kit-report", "triage-needed"]
+body:
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Gravité
+      options:
+        - normal
+        - bloquant
+    validations:
+      required: true
+  - type: textarea
+    id: symptom
+    attributes:
+      label: Symptôme observé
+      description: Ne jamais inclure de secret, token, chemin personnel ou donnée projet sensible.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Preuve et reproduction
+      description: Version du kit, environnement, étapes reproductibles et message d’erreur anonymisé.
+    validations:
+      required: true
