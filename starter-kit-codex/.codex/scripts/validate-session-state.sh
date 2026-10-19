@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-state="$(cd "$script_dir/.." && pwd)/RUNTIME-STATE.md"
+if root="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$root/.codex/RUNTIME-STATE.md" ]; then state="$root/.codex/RUNTIME-STATE.md"; else state="$(cd "$script_dir/.." && pwd)/RUNTIME-STATE.md"; fi
 [ -f "$state" ] || { echo "SESSION: RUNTIME-STATE.md absent" >&2; exit 1; }
 value() { sed -n "s/^-[[:space:]]*$1:[[:space:]]*//p" "$state" | head -n 1; }
 for key in execution_status next_action last_observable_evidence required_action_status pending_request_id pending_turn_id budget_status environment_status session_status native_goal_status native_goal_id native_goal_evidence; do

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-state="$(cd "$script_dir/.." && pwd)/RUNTIME-STATE.md"
+if root="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$root/.codex/RUNTIME-STATE.md" ]; then state="$root/.codex/RUNTIME-STATE.md"; else state="$(cd "$script_dir/.." && pwd)/RUNTIME-STATE.md"; fi
 
 fail() { echo "GARDE REPONSE: $*" >&2; exit 1; }
 [ -f "$state" ] || fail "RUNTIME-STATE.md absent"

@@ -3,7 +3,7 @@ set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config="$(cd "$script_dir/.." && pwd)"
-state="$config/RUNTIME-STATE.md"
+if root="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$root/.codex/RUNTIME-STATE.md" ]; then state="$root/.codex/RUNTIME-STATE.md"; else state="$config/RUNTIME-STATE.md"; fi
 
 value() { sed -n "s/^-[[:space:]]*$1:[[:space:]]*//p; s/^$1:[[:space:]]*//p" "$state" 2>/dev/null | head -n 1; }
 [ -f "$state" ] || { echo "RECOVERY CHECK: état runtime absent" >&2; exit 1; }

@@ -391,8 +391,8 @@ for kit in codex claude; do
     exit 1
   fi
 
-  rm -rf "$test_root"
-  trap - EXIT
+  rm -rf "$test_root" 2>/dev/null || true
+  trap - EXIT || true
 done
 
 for kit in codex claude; do

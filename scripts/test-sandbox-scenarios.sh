@@ -24,6 +24,8 @@ for kit in codex claude; do
     [ "$count" -eq "$contract_count" ] || { echo "ECHEC SANDBOX: champ $field incomplet pour $kit" >&2; exit 1; }
   done
   assert_contains "$source/scripts/verify-specialist-plan.sh" 'identifiant réel au format role@id'
+  assert_contains "$source/scripts/validate-session-state.sh" 'git rev-parse --show-toplevel'
+  assert_contains "$source/scripts/guard-before-response.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/hooks/pre-tool-use.sh" 'reconcile-runtime.sh'
   assert_contains "$source/policies/TASK-ROUTING-POLICY.md" 'frontend@id,qa@id,auditeur@id'
   delegation="$tmp/delegation-$kit"
@@ -82,7 +84,7 @@ for kit in codex claude; do
   # Scenario 3: une réponse ne peut pas être émise pendant l'exécution.
   cp "$source/scripts/guard-before-response.sh" "$scenario/$hidden/scripts/"
   cp "$source/scripts/guard-repeated-blocker.sh" "$scenario/$hidden/scripts/"
-  if bash "$scenario/$hidden/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+  if (cd "$scenario" && bash "$scenario/$hidden/scripts/guard-before-response.sh") >/dev/null 2>&1; then
     echo "ECHEC SANDBOX: l'état running a autorisé une réponse pour $kit" >&2
     exit 1
   fi
@@ -98,7 +100,7 @@ for kit in codex claude; do
 
   # Scenario 6: fin nominale d'un Goal avec livraison et session navigateur fermée.
   perl -0pi -e 's/execution_status: running/execution_status: complete/; s/goal_status: active/goal_status: complete/; s/goal_delivery_status: pending/goal_delivery_status: verified/; s/next_action: .*/next_action: none/; s/open_checklist_items: .*/open_checklist_items: 0/; s/last_observable_evidence: .*/last_observable_evidence: sandbox-delivery/; s/ci_status: .*/ci_status: not-applicable/; s/trello_sync_status: .*/trello_sync_status: disabled/; s/integration_branch: .*/integration_branch: dev/; s/pushed_integration_commit: .*/pushed_integration_commit: sandbox123/; s/integration_remote_evidence: .*/integration_remote_evidence: origin\/dev contains sandbox123/; s/pull_request_status: .*/pull_request_status: verified/; s/- session_status: .*/- session_status: completed/' "$scenario/$hidden/RUNTIME-STATE.md"
-  bash "$scenario/$hidden/scripts/guard-before-response.sh" >/dev/null
+  (cd "$scenario" && bash "$scenario/$hidden/scripts/guard-before-response.sh") >/dev/null
 done
 
 integration_output="$(bash "$root/scripts/test-integration-preflight.sh")"
