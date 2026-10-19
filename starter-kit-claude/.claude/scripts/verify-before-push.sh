@@ -34,6 +34,15 @@ if [ -f "$root/.workspace.toml" ]; then
   exit 0
 fi
 
+source_repository=false
+if [ -d "$root/starter-kit-codex" ] && [ -d "$root/starter-kit-claude" ]; then
+  source_repository=true
+  echo "Dépôt source du kit détecté: profil consommateur non requis"
+  integration_branch="dev"
+  require_feature_branch=true
+  max_files=75
+  max_lines=1200
+else
 "$script_dir/python.sh" - "$config/project-profile.toml" <<'PY'
 import pathlib, sys, tomllib
 profile = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
@@ -59,6 +68,7 @@ print(
 )
 PY
 )
+fi
 
 branch="$(git -C "$root" branch --show-current)"
 protected_branch=false
@@ -66,7 +76,7 @@ case "$branch" in
   dev|develop|main|master) protected_branch=true ;;
 esac
 if [ "$protected_branch" = "true" ] || { [ "$require_feature_branch" = "true" ] && [ -z "$branch" ]; }; then
-  echo "ECHEC GITFLOW: créer une branche de travail avant le push, aucun push direct vers dev, develop, main ou master"
+  echo "ECHEC GITFLOW: push direct interdit vers dev, develop, main ou master. Conserver le commit local, créer immédiatement une branche dédiée depuis ce commit, relancer ce contrôle, pousser la branche et ouvrir la PR vers dev ou develop. Ne pas demander de confirmation et ne pas marquer le Goal bloqué pour ce refus automatique."
   exit 1
 fi
 if [ "$require_feature_branch" = "true" ]; then
@@ -101,6 +111,10 @@ if [ -n "$base" ]; then
 fi
 
 git -C "$root" diff --check
+if [ "$source_repository" = "true" ]; then
+  echo "Validation avant push du dépôt source du kit OK"
+  exit 0
+fi
 bash "$script_dir/validate-obligations.sh" --if-present
 bash "$script_dir/preflight.sh"
 bash "$script_dir/verify-project-boundary.sh"

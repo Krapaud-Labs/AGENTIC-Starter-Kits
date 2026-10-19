@@ -416,3 +416,4 @@ Le validateur d'entrée effectue cette réparation avant le premier garde d'outi
 Le hook PreToolUse autorise uniquement le résolveur de réponse lorsqu une demande est en attente.
 
 Le message de refus contient la commande exacte à exécuter avec l identifiant de la demande.
+Lorsqu’une demande de livraison cible une branche protégée, le kit conserve le commit et route automatiquement l’opération vers une branche dédiée, puis une PR vers `dev` ou `develop`. Ce refus de push direct ne bloque pas le Goal et ne demande pas de confirmation supplémentaire.
