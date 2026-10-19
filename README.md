@@ -16,6 +16,8 @@ L’audit global couvre désormais le bootstrap shared, la conservation des lien
 
 Les hooks de fin de sous-agent distinguent les événements génériques du Goal des spécialistes réels : une référence de Goal orpheline ne bloque plus la session, tandis qu’un spécialiste identifié sans rapport valide reste bloqué.
 
+Le dépôt central lit automatiquement les issues ouvertes portant le label `kit-report` au démarrage d’une session. Les rapports marqués `bloquant`, `blocker`, `critical` ou `critique` sont prioritaires et doivent être traités avant une nouvelle amélioration ; les autres sont classés `normal`. Cette lecture ne s’active pas dans les projets consommateurs.
+
 Chaque Goal doit déclarer ses rôles spécialistes requis et leurs identifiants réels avant de commencer. Le Coordinateur ne peut pas travailler seul lorsqu’un spécialiste est disponible ; le mode séquentiel exige une preuve explicite d’indisponibilité.
 
 

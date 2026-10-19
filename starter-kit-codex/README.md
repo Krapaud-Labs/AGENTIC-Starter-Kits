@@ -233,6 +233,8 @@ Les spécialistes optionnels sont activés dans `[agents]` de `.codex/project-pr
 
 Le hook de fin distingue un événement générique du Goal d’un spécialiste identifié. Une référence orpheline ne bloque donc pas en boucle, mais un spécialiste réel sans rapport vérifiable reste bloqué.
 
+Dans le dépôt source du kit, `scripts/check-kit-reports.sh` est lu par `SessionStart`. Il classe les issues `kit-report` en `BLOQUANT` ou `NORMAL` et impose le traitement prioritaire des blocages ; ce contrôle ne s’active pas dans les projets consommateurs.
+
 | Identifiant | Fichier | Livrable principal |
 | --- | --- | --- |
 | `produit` | `.codex/agents/produit.toml` | Priorités, valeur métier et critères fonctionnels. |
