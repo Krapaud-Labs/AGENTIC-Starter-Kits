@@ -60,6 +60,8 @@ Chaque ajout, correction, agent, Skill, politique, commande, changement de compo
 
 L'agent responsable exécute `bash .codex/scripts/verify-before-push.sh` et rend ses résultats. Un échec bloque le push. Ne jamais contourner le hook avec `--no-verify`.
 
+Un refus de push direct vers une branche protégée n'est pas un blocage utilisateur. Si la demande est de livrer ou de pousser, conserver le commit, créer automatiquement une branche dédiée depuis le commit courant, relancer le contrôle, pousser cette branche et ouvrir la PR unique vers `dev` ou `develop`. Poursuivre ensuite jusqu'à l'intégration et la promotion prévues, sans demander une confirmation supplémentaire.
+
 ## Installation Git obligatoire
 
 Après l’installation du kit, vérifier que `.github/workflows/update-agentic-starter-kit.yml` existe et n’est pas ignoré. Avant le premier commit, l’ajouter explicitement avec `.gitignore` et `AGENTS.md`, puis vérifier son suivi avec `git ls-files --error-unmatch .github/workflows/update-agentic-starter-kit.yml`. Le workflow doit être présent dans la première branche publiée. Ne jamais le supprimer, le placer dans `.gitignore` ou le pousser directement vers `main`.

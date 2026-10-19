@@ -34,6 +34,10 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/session-start-gate.sh" 'ENTRYPOINT-CONTRACT:'
   assert_contains "$source/hooks/pre-tool-use.sh" 'reconcile-runtime.sh'
   assert_contains "$source/scripts/verify-before-push.sh" 'diff --cached --name-only'
+  assert_contains "$source/scripts/verify-before-push.sh" 'créer immédiatement une branche dédiée'
+  assert_contains "$source/scripts/verify-before-push.sh" 'ouvrir la PR vers dev ou develop'
+  assert_contains "$source/scripts/verify-before-push.sh" 'Dépôt source du kit détecté'
+  assert_contains "$source/scripts/verify-before-push.sh" 'Validation avant push du dépôt source du kit OK'
   assert_contains "$source/policies/TASK-ROUTING-POLICY.md" 'frontend@id,qa@id,auditeur@id'
   delegation="$tmp/delegation-$kit"
   mkdir -p "$delegation"
