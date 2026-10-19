@@ -231,6 +231,8 @@ Le kit Codex comprend 16 agents : six agents du noyau et dix spécialistes optio
 
 Les spécialistes optionnels sont activés dans `[agents]` de `.codex/project-profile.toml` : `produit`, `qa`, `devops`, `performance`, `ux_research`, `accessibilite`, `data`, `documentation`, `release` et `conformite`. Le Coordinateur les active selon les besoins détectés, le risque et le budget.
 
+Le hook de fin distingue un événement générique du Goal d’un spécialiste identifié. Une référence orpheline ne bloque donc pas en boucle, mais un spécialiste réel sans rapport vérifiable reste bloqué.
+
 | Identifiant | Fichier | Livrable principal |
 | --- | --- | --- |
 | `produit` | `.codex/agents/produit.toml` | Priorités, valeur métier et critères fonctionnels. |

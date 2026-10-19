@@ -63,6 +63,23 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
     echo "ECHEC SANDBOX: rapport incomplet accepté pour $kit" >&2
     exit 1
   fi
+  # Un événement générique ou une référence de Goal orpheline ne doit pas
+  # être traité comme un spécialiste sans rapport et boucler indéfiniment.
+  hook_sandbox="$tmp/hook-$kit"
+  mkdir -p "$hook_sandbox/$hidden/hooks"
+  cp "$source/hooks/hook-runtime.sh" "$hook_sandbox/$hidden/hooks/"
+  cp "$source/hooks/subagent-stop.sh" "$hook_sandbox/$hidden/hooks/"
+  : > "$hook_sandbox/$hidden/runtime-events.log"
+  generic_event="$(printf '{\"agent_id\":\"orphan-goal-id\"}' | (cd "$hook_sandbox" && bash "$hidden/hooks/subagent-stop.sh"))"
+  printf '%s' "$generic_event" | grep -q 'Aucun rapport spécialiste attendu' || {
+    echo "ECHEC SANDBOX: événement générique bloqué pour $kit" >&2
+    exit 1
+  }
+  specialist_event="$(printf '{\"agent_id\":\"real-f\",\"agent_role\":\"frontend\"}' | (cd "$hook_sandbox" && bash "$hidden/hooks/subagent-stop.sh"))"
+  printf '%s' "$specialist_event" | grep -q 'Rapport spécialiste absent' || {
+    echo "ECHEC SANDBOX: spécialiste sans rapport accepté pour $kit" >&2
+    exit 1
+  }
   assert_contains "$source/scripts/sync-workspace-kit.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md'
   assert_contains "$source/scripts/init-project.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml'
   assert_contains "$source/scripts/init-project.sh" 'update-workspace-kit.yml'
@@ -225,6 +242,7 @@ for kit in codex claude; do
   assert_contains "$source/hooks/permission-request.sh" 'gh.*pr.*create'
   assert_contains "$source/hooks/hook-runtime.sh" 'max_log_bytes'
   assert_contains "$source/hooks/subagent-stop.sh" 'report_path'
+assert_contains "$source/hooks/subagent-stop.sh" 'non-specialist-event'
 assert_contains "$source/policies/CONTINUOUS-IMPROVEMENT-POLICY.md" 'test de non-régression'
 assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Récupération universelle avant arrêt'
   assert_contains "$source/policies/PERSISTENT-EXECUTION-CONTRACT.md" 'Un même symptôme ne peut pas être répété deux fois'
