@@ -6,6 +6,11 @@ entry="$root/CLAUDE.md"
 [ -f "$entry" ] || { echo "ENTRYPOINT: CLAUDE.md absent" >&2; exit 1; }
 kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$script_dir/../KIT.toml")"
 [ -n "$kit_version" ] || { echo "ENTRYPOINT: version KIT.toml absente" >&2; exit 1; }
+if [ -L "$entry" ]; then
+  shared_entry="$(cd "$script_dir/.." && pwd)/CLAUDE.md"
+  [ -f "$shared_entry" ] || { echo "ENTRYPOINT: CLAUDE.md partagé absent" >&2; exit 1; }
+  ln -sfn "$shared_entry" "$entry"
+fi
 if grep -q '^<!-- ENTRYPOINT-CONTRACT:' "$entry"; then
   sed -i.bak "s/^<!-- ENTRYPOINT-CONTRACT:.*-->$/<!-- ENTRYPOINT-CONTRACT: $kit_version -->/" "$entry"
   rm -f "$entry.bak"
