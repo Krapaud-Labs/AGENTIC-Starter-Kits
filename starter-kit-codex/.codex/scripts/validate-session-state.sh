@@ -8,6 +8,11 @@ for key in execution_status next_action last_observable_evidence required_action
   v="$(value "$key")"
   [ -n "$v" ] && [[ "$v" != *A_COMPLETER* ]] || { echo "SESSION: champ absent ou incomplet: $key" >&2; exit 1; }
 done
+execution="$(value execution_status)"
+if [ "$execution" = "waiting-for-user" ]; then
+  [ "$(value pending_request_id)" != "none" ] || { echo "SESSION: questionnaire sans identifiant" >&2; exit 1; }
+  [ "$(value required_action_status)" = "pending" ] || { echo "SESSION: questionnaire sans réponse attendue" >&2; exit 1; }
+fi
 native_status="$(value native_goal_status)"
 native_id="$(value native_goal_id)"
 native_evidence="$(value native_goal_evidence)"

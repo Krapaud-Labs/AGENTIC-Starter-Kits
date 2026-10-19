@@ -21,6 +21,11 @@ agents_created="$(value goal_agents_created)"; agent_evidence="$(value goal_agen
 turn_status="$(value last_turn_status)"; tool_failures="$(value tool_failures)"; session_status="$(value session_status)"
 
 case "$status" in
+  waiting-for-user)
+    [[ "$(value pending_request_id)" != "none" && "$(value required_action_status)" == "pending" ]] || fail "questionnaire utilisateur incomplet"
+    echo "Garde réponse OK: réponse utilisateur attendue"
+    exit 0
+    ;;
   complete)
     if [[ "$goal_status" != "none" && "$goal_status" != "not-required" ]]; then
       [[ "$goal_status" == "complete" ]] || fail "goal encore actif: $goal_status"

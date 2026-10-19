@@ -10,7 +10,7 @@ Cette politique ne prétend pas transformer une conversation ordinaire en boucle
 
 Avant activation, enregistrer dans `RUNTIME-STATE.md` :
 
-- `goal_status: active | waiting | paused | complete | blocked | none` ;
+- `goal_status: active | waiting | waiting-for-user | paused | complete | blocked | none` ;
 - `goal_objective` : résultat attendu, formulé de façon vérifiable ;
 - `goal_verification` : tests, fichiers, logs ou artefacts qui prouvent le résultat ;
 - `goal_constraints` : limites à préserver ;
@@ -19,6 +19,8 @@ Avant activation, enregistrer dans `RUNTIME-STATE.md` :
 - `goal_session_id` si l'environnement en fournit un.
 
 Un objectif actif n'autorise pas une clôture fondée sur une impression. La clôture exige les preuves du work item, l'état terminal local et la vérification du dernier tour. `idle` ou `turn completed` ne signifie pas que les outils ont tous réussi.
+
+Lorsqu'une décision utilisateur est réellement indispensable, le Coordinateur utilise `waiting-for-user`. Il émet une seule question structurée avec un identifiant de demande et des choix numérotés, renseigne `pending_request_id`, `pending_turn_id` et `required_action_status: pending`, puis interdit toute reprise automatique tant qu'une réponse n'est pas reçue. Il ne répète pas la question à chaque tour et ne transforme pas cette attente en `blocked`.
 
 ## Reprise et limites
 
