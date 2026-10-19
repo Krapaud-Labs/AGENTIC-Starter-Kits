@@ -24,6 +24,8 @@ for kit in codex claude; do
     [ "$count" -eq "$contract_count" ] || { echo "ECHEC SANDBOX: champ $field incomplet pour $kit" >&2; exit 1; }
   done
   assert_contains "$source/scripts/verify-specialist-plan.sh" 'identifiant réel au format role@id'
+  assert_contains "$source/scripts/validate-session-state.sh" 'git rev-parse --show-toplevel'
+  assert_contains "$source/scripts/guard-before-response.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/hooks/pre-tool-use.sh" 'reconcile-runtime.sh'
   assert_contains "$source/policies/TASK-ROUTING-POLICY.md" 'frontend@id,qa@id,auditeur@id'
   delegation="$tmp/delegation-$kit"

@@ -300,3 +300,5 @@ Le script de réconciliation utilise la racine Git du projet pour préserver le 
 Le bootstrap de session écrit ses marqueurs dans le projet appelant.
 
 La racine Git est résolue sans concaténation de sortie shell.
+
+Les gardes de session et de clôture relisent le runtime local du projet en mode shared.

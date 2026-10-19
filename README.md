@@ -396,3 +396,5 @@ Le runtime partagé réconcilie désormais l’état dans le projet appelant, y 
 Le bootstrap de session conserve aussi ses marqueurs dans le projet appelant.
 
 La résolution de racine Git du bootstrap est explicite afin d éviter les chemins multi-lignes.
+
+Les gardes de session et de clôture relisent également le runtime local du projet en mode shared.
