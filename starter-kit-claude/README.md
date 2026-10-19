@@ -22,6 +22,8 @@ En mode shared, la porte de session relit la racine Git du projet appelant et r�
 
 Cette réparation intervient avant le garde pretool, y compris lors d'une reprise bloquée.
 
+Les liens symboliques `CLAUDE.md` obsolètes sont repointés vers le registre partagé courant.
+
 L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).
 
 Une conception incomplète ou un blocage récupérable déclenche automatiquement la reprise du Goal avec les agents requis et une prochaine action observable. Le Coordinateur ne demande pas un nouveau message « continue » lorsqu'une action autonome reste possible.

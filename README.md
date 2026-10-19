@@ -401,4 +401,6 @@ Les gardes shared relisent le runtime local du projet et non le registre du kit.
 
 Les portes d'entrée shared relisent la racine Git du projet appelant et réparent automatiquement le marqueur de version du contrat avant la validation.
 
+Si le point d'entrée du projet est un lien symbolique vers une ancienne version, il est repointé vers la version active du registre partagé avant le contrôle.
+
 Le validateur d'entrée effectue cette réparation avant le premier garde d'outil, afin qu'un ancien marqueur ne bloque pas la reprise.
