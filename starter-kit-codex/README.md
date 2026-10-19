@@ -184,6 +184,10 @@ bash .codex/scripts/initialize-project-design.sh
 
 Le Concepteur complète ensuite `docs/` avec vision, user stories, parcours, architecture, diagrammes, données, contrats, sécurité, roadmap et décisions. Tout document non applicable contient une justification. Chaque work item met à jour les documents touchés et l’Auditeur bloque une livraison si le code diverge de la conception.
 
+## Délégation obligatoire des Goals
+
+Chaque Goal déclare les rôles spécialistes requis et leurs identifiants réels avant la première action. Le Coordinateur ne travaille pas seul lorsqu’un spécialiste est disponible. Le mode séquentiel exige une preuve explicite d’indisponibilité.
+
 ## Gitflow obligatoire
 
 Chaque feature, correctif ou tâche documentaire se fait sur une branche dédiée. Les agents ne committent ni ne poussent directement vers `main`, `master` ou la branche d’intégration. Les commits sont atomiques, limités par défaut à 75 fichiers et 1200 lignes, et ne mélangent jamais plusieurs features. `verify-before-push.sh` bloque les écarts.
