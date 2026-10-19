@@ -2,7 +2,7 @@
 set -euo pipefail
 config="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 local_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$config/KIT.toml")"
-project_root="$(git -C "$config/.." rev-parse --show-toplevel 2>/dev/null || (cd "$config/.." && pwd))"
+project_root="$(git rev-parse --show-toplevel 2>/dev/null || (cd "$config/.." && pwd))"
 manifest="$project_root/.workspace.toml"
 source_url="${AGENTIC_KIT_SOURCE:-}"
 if [ -z "$source_url" ] && [ -f "$manifest" ]; then

@@ -2,7 +2,7 @@
 set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 kit_root="$(cd "$script_dir/.." && pwd)"
-project_root="$(cd "$kit_root/.." && pwd)"
+project_root="$(git rev-parse --show-toplevel 2>/dev/null || cd "$kit_root/.." && pwd)"
 manifest="$project_root/.workspace.toml"
 [ -f "$manifest" ] || { echo "Manifest .workspace.toml introuvable." >&2; exit 1; }
 source_url="$(sed -n 's/^source = "\(.*\)"/\1/p' "$manifest")"

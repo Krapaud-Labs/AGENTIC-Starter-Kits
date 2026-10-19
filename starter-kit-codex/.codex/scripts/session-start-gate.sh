@@ -2,7 +2,7 @@
 set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config="$(cd "$script_dir/.." && pwd)"
-root="$(git -C "$config/.." rev-parse --show-toplevel 2>/dev/null || cd "$config/.." && pwd)"
+root="$(git rev-parse --show-toplevel 2>/dev/null || cd "$config/.." && pwd)"
 mode="$(sed -n 's/^kit_mode = "\([^"]*\)"/\1/p' "$root/.workspace.toml" 2>/dev/null || echo native)"
 bash "$script_dir/ensure-tools.sh" --bootstrap >/dev/null
 status=0
