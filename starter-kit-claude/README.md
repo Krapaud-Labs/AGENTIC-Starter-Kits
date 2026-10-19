@@ -233,6 +233,8 @@ Le kit Claude Code comprend 16 agents : six agents du noyau et dix spécialistes
 
 Les spécialistes optionnels sont activés dans `[agents]` de `.claude/project-profile.toml` : `produit`, `qa`, `devops`, `performance`, `ux_research`, `accessibilite`, `data`, `documentation`, `release` et `conformite`. Le Coordinateur les active selon les besoins détectés, le risque et le budget.
 
+Le hook de fin distingue un événement générique du Goal d’un spécialiste identifié. Une référence orpheline ne bloque donc pas en boucle, mais un spécialiste réel sans rapport vérifiable reste bloqué.
+
 | Identifiant | Fichier | Livrable principal |
 | --- | --- | --- |
 | `produit` | `.claude/agents/produit.md` | Priorités, valeur métier et critères fonctionnels. |
