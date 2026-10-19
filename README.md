@@ -389,6 +389,7 @@ La procédure complète se trouve dans [INSTALLATION.md](INSTALLATION.md), secti
 Le synchroniseur partagé met à jour le registre central et conserve les données projet protégées.
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
 L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.
+
 ## Mise à jour 1.16.66
 
 Le runtime partagé réconcilie désormais l’état dans le projet appelant, y compris lorsque le kit est installé par liens symboliques.

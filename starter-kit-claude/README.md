@@ -306,6 +306,7 @@ La procédure de synchronisation vérifie désormais les fichiers obligatoires e
 L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.
 
 Une mise à jour détectée en cours de work item déclenche la suspension obligatoire. Le Coordinateur sauvegarde l’état, livre la mise à jour par PR vers `dev`, vérifie `dev`, puis exécute `resume-kit-update.sh` et reprend `next_action`.
+
 ## Mise à jour 1.16.66
 
 Le script de réconciliation utilise la racine Git du projet pour préserver le registre shared.
