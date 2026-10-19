@@ -4,6 +4,8 @@
 
 Le hook `SessionStart` initialise automatiquement `AGENTIC_TOOLS_HOME` et vérifie les outils de base avant toute tâche. Une session est refusée si une installation automatique ne permet pas de rendre ces outils disponibles.
 
+Lorsqu'une décision utilisateur est indispensable, le Coordinateur émet un questionnaire unique en état `waiting-for-user` et reprend après la réponse sans répéter le blocage.
+
 Avant toute modification, le kit diagnostique `.git/index.lock`, récupère uniquement un verrou orphelin et bloque sans suppression lorsqu’un processus le détient.
 
 Les outils uv sont installés dans `AGENTIC_TOOLS_HOME/python/uv` et leurs exécutables dans `AGENTIC_TOOLS_HOME/python/bin`.

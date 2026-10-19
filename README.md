@@ -4,6 +4,8 @@
 
 ## Construire avec une IA comme avec une équipe senior
 
+Les blocages nécessitant une décision passent en `waiting-for-user` avec une question unique et des choix numérotés. Le kit suspend les reprises automatiques jusqu'à la réponse.
+
 L'inventaire détaillé des fonctionnalités réellement implémentées, des hooks, des preuves, des limites d'intégration et de la couverture de tests se trouve dans [docs/IMPLEMENTED-FEATURES.md](docs/IMPLEMENTED-FEATURES.md).
 
 Agentic Starter Kits est une base portable de gouvernance, de conception, d’orchestration et de contrôle qualité pour construire des projets logiciels avec un agent IA. Le dépôt transforme une conversation en processus de livraison traçable, depuis le cahier des charges jusqu’à la Pull Request et à la maintenance.
