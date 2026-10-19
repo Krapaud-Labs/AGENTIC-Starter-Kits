@@ -53,7 +53,7 @@ if ! command -v gh >/dev/null 2>&1 || ! gh auth status >/dev/null 2>&1; then
   exit 0
 fi
 
-existing="$(gh issue list --repo "$repository" --state open --label kit-report --limit 100 --json body 2>/dev/null | jq --arg fp "KIT_REPORT_FINGERPRINT:$fingerprint" '[.[] | select((.body // "") | contains($fp))] | length' || echo 0)"
+existing="$(gh issue list --repo "$repository" --state all --label kit-report --limit 100 --json body,state,labels 2>/dev/null | jq --arg fp "KIT_REPORT_FINGERPRINT:$fingerprint" '[.[] | select((.body // "") | contains($fp))] | length' || echo 0)"
 if [ "$existing" -gt 0 ]; then
   echo "KIT-REPORT: doublon ignoré $fingerprint"
   exit 0

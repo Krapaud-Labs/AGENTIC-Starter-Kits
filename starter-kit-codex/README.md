@@ -237,6 +237,10 @@ Dans le dépôt source du kit, `scripts/check-kit-reports.sh` est lu par `Sessio
 
 Dans un projet consommateur, `scripts/report-kit-blocker.sh` est appelé par la garde de réponse pour les états bloqués. Il ne transmet que la gravité, la version du kit, un résumé court et une preuve filtrée, conserve les rapports hors ligne dans `.kit-reports/outbox/` et ignore les doublons grâce à une empreinte stable.
 
+Le correcteur central conserve l’historique dans `docs/audit/kit-report-history.jsonl`. Il doit appeler `scripts/record-kit-report.sh` après chaque traitement pour classer l’empreinte en `bloquant`, `normal`, `resolved` ou `duplicate`. Les blocages prévus par le contrat du kit sont classés `normal` et ne doivent pas interrompre la maintenance.
+
+Un projet consommateur recherche l’empreinte dans toutes les issues `kit-report`, pas uniquement les issues ouvertes. Un problème déjà classé `normal`, `resolved` ou `duplicate` n’est donc plus reporté.
+
 | Identifiant | Fichier | Livrable principal |
 | --- | --- | --- |
 | `produit` | `.codex/agents/produit.toml` | Priorités, valeur métier et critères fonctionnels. |
