@@ -27,6 +27,7 @@ case "$status" in
     exit 0
     ;;
   complete)
+    [[ "$(value pending_request_id)" =~ ^(none|resolved)$ && "$(value required_action_status)" =~ ^(none|resolved|not-required)$ ]] || fail "demande utilisateur encore en attente"
     if [[ "$goal_status" != "none" && "$goal_status" != "not-required" ]]; then
       [[ "$goal_status" == "complete" ]] || fail "goal encore actif: $goal_status"
       [[ "$goal_delivery" == "verified" ]] || fail "livraison du goal non prouvée: $goal_delivery"

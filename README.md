@@ -403,6 +403,8 @@ Les portes d'entrée shared relisent la racine Git du projet appelant et répare
 
 Les fichiers d instructions du projet restent locaux ; seul le kit d exécution est partagé.
 
+Une demande utilisateur maintient le Goal en attente et doit être résolue par le script de réponse avant toute clôture.
+
 Si le point d'entrée du projet est un lien symbolique vers une ancienne version, il est repointé vers le fichier de la version active du registre partagé avant le contrôle.
 
 Le validateur d'entrée effectue cette réparation avant le premier garde d'outil, afin qu'un ancien marqueur ne bloque pas la reprise.
