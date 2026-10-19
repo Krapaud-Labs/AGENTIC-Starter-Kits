@@ -190,6 +190,8 @@ Le Concepteur complète ensuite `docs/` avec vision, user stories, parcours, arc
 
 Chaque Goal déclare les rôles spécialistes requis et leurs identifiants réels avant la première action. Le Coordinateur ne travaille pas seul lorsqu’un spécialiste est disponible. Le mode séquentiel exige une preuve explicite d’indisponibilité.
 
+Le bootstrap shared conserve le lien symbolique `CLAUDE.md` et installe le workflow unique `.github/workflows/update-workspace-kit.yml`.
+
 ## Gitflow obligatoire
 
 Chaque feature, correctif ou tâche documentaire se fait sur une branche dédiée. Les agents ne committent ni ne poussent directement vers `main`, `master` ou la branche d’intégration. Les commits sont atomiques, limités par défaut à 75 fichiers et 1200 lignes, et ne mélangent jamais plusieurs features. `verify-before-push.sh` bloque les écarts.

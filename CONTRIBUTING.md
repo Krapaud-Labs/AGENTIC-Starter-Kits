@@ -32,4 +32,4 @@ L'auteur ne s'auto-approuve pas. Les changements à risque élevé ou critique e
 
 ## Protection de main
 
-Les automatisations du starter kit créent uniquement des Pull Requests vers `develop` ou `dev`. Elles refusent `main` comme branche cible. La Pull Request de promotion vers `main` est créée et fusionnée par un humain, sauf demande explicite de l’utilisateur enregistrée dans le work item et validée par les protections du dépôt.
+Les automatisations du starter kit créent les Pull Requests de travail vers `develop` ou `dev`, puis le Coordinateur crée et fusionne automatiquement la Pull Request unique de promotion vers `main` dans une demande de livraison active. Aucun push direct vers une branche protégée n’est autorisé.
