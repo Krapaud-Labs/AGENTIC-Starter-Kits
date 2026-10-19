@@ -2,6 +2,8 @@
 
 ## Objet
 
+| 1.16.62 | 2026-10-19 | Mise à jour fiable en mode shared depuis le dépôt Git courant. |
+
 Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il complète `CHANGELOG.md`, qui contient le détail opérationnel de chaque entrée. Les versions correspondent aux évolutions consommables du kit Codex ou Claude, et non à chaque commit interne.
 
 ## Origine du projet

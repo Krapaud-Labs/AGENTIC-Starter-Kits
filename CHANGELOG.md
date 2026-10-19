@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.62 - 2026-10-19
+
+- corrige la résolution du projet derrière les liens symboliques du mode shared
+- garantit la synchronisation du bon manifeste et du bon registre local
+
 ## 1.16.61 - 2026-10-18
 
 - livre automatiquement `.workspace.toml` dans un worktree isolé basé sur `dev`
