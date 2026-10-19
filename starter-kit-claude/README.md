@@ -332,4 +332,6 @@ Les gardes shared relisent le runtime local du projet et non le registre du kit.
 
 Le hook autorise le résolveur de réponse même lorsque les autres outils sont suspendus.
 
+La validation avant push refuse tout fichier interne staged dans un projet consommateur.
+
 En cas de commande prématurée, le hook indique l identifiant pending et la commande de réconciliation.
