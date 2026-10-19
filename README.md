@@ -328,7 +328,7 @@ Lors de l’initialisation, l’agent demande si les mises à jour automatiques 
 
 ## Règle de protection de main
 
-Les mises à jour automatiques ouvrent uniquement une Pull Request vers `develop` ou `dev`. Elles ne peuvent jamais ouvrir ni fusionner automatiquement une Pull Request vers `main`. La promotion vers `main` reste une action humaine, ou une action explicitement demandée par l’utilisateur et documentée dans le work item.
+Les mises à jour automatiques ne poussent jamais directement sur `main`. Le Coordinateur peut toutefois créer, valider et fusionner automatiquement la PR de promotion vers `main` dans le cadre d'une demande de livraison active, après la fusion et la vérification de `dev`.
 
 ## Installateur guidé
 

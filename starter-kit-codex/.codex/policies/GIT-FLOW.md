@@ -46,7 +46,7 @@ Si Git est indisponible, le Coordinateur peut préparer le travail et les preuve
 
 ## Pull Requests automatiques
 
-Toute Pull Request créée automatiquement par le starter kit cible exclusivement `develop` ou `dev`. Le workflow refuse toute autre branche cible, notamment `main`. Une promotion vers `main` doit être réalisée par un humain ou demandée explicitement par l’utilisateur dans la conversation, avec une justification et des contrôles verts.
+Une PR de travail cible `develop` ou `dev`. Une fois cette PR fusionnée et vérifiée, le Coordinateur crée automatiquement l'unique PR de promotion vers `main`, attend les contrôles, la fusionne et vérifie le SHA distant lorsque la demande de livraison est active. Aucun push direct vers une branche protégée n'est autorisé.
 
 ## Cadence des Pull Requests
 

@@ -65,7 +65,7 @@ L'agent responsable exécute `bash .claude/scripts/verify-before-push.sh` et ren
 
 Un refus de push direct vers une branche protégée n'est pas un blocage utilisateur. Si la demande est de livrer ou de pousser, conserver le commit, créer automatiquement une branche dédiée depuis le commit courant, relancer le contrôle, pousser cette branche et ouvrir la PR unique vers `dev` ou `develop`. Poursuivre ensuite jusqu'à l'intégration et la promotion prévues, sans demander une confirmation supplémentaire.
 
-La limite d'autonomie est la suivante : tout est exécuté automatiquement jusqu'à la PR prête vers `dev` ou `develop`. La fusion ou la mise à jour effective de `dev` ou `develop` n'est exécutée qu'après une demande explicite de l'utilisateur, sauf si elle est déjà incluse dans la demande courante. Aucun autre accord intermédiaire n'est demandé.
+La limite d'autonomie est la suivante : tout est exécuté automatiquement jusqu'à la fusion dans `dev` ou `develop`, puis jusqu'à la promotion validée vers `main` lorsque la demande de livraison est active. La création, la relecture, la fusion et la vérification des PR sont des étapes internes du GitFlow. Aucun accord intermédiaire n'est demandé.
 
 ## Installation Git obligatoire
 
