@@ -400,3 +400,5 @@ La résolution de racine Git du bootstrap est explicite afin d éviter les chemi
 Les gardes shared relisent le runtime local du projet et non le registre du kit.
 
 Les portes d'entrée shared relisent la racine Git du projet appelant et réparent automatiquement le marqueur de version du contrat avant la validation.
+
+Le validateur d'entrée effectue cette réparation avant le premier garde d'outil, afin qu'un ancien marqueur ne bloque pas la reprise.
