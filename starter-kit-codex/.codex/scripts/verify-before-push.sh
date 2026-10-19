@@ -7,6 +7,14 @@ root="$(git -C "$config/.." rev-parse --show-toplevel 2>/dev/null || { echo "Git
 
 bash "$script_dir/verify-consumer-index.sh"
 
+staged_internal="$(git -C "$root" diff --cached --name-only -- AGENTS.md .codex/ .claude/ | sed '/^$/d')"
+if [ -n "$staged_internal" ]; then
+  echo "ECHEC GIT: fichiers internes staged dans le projet consommateur:"
+  printf '%s\n' "$staged_internal"
+  echo "Retirer ces fichiers de l index sans les supprimer du disque."
+  exit 1
+fi
+
 if [ -f "$root/.workspace.toml" ]; then
   echo "Mode external détecté: validation du kit et des fichiers publiables uniquement"
   if git -C "$root" ls-files --error-unmatch .codex AGENTS.md >/dev/null 2>&1; then

@@ -407,6 +407,8 @@ Une demande utilisateur maintient le Goal en attente et doit être résolue par 
 
 Les résolveurs de réponse sont publiés comme exécutables dans les deux distributions.
 
+Les validations avant push refusent tout `AGENTS.md`, `CLAUDE.md`, `.codex/` ou `.claude/` staged dans un projet consommateur.
+
 Si le point d'entrée du projet est un lien symbolique vers une ancienne version, il est repointé vers le fichier de la version active du registre partagé avant le contrôle.
 
 Le validateur d'entrée effectue cette réparation avant le premier garde d'outil, afin qu'un ancien marqueur ne bloque pas la reprise.

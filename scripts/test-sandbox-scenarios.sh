@@ -33,6 +33,7 @@ assert_contains "$source/scripts/guard-before-response.sh" 'demande utilisateur 
 assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/session-start-gate.sh" 'ENTRYPOINT-CONTRACT:'
   assert_contains "$source/hooks/pre-tool-use.sh" 'reconcile-runtime.sh'
+  assert_contains "$source/scripts/verify-before-push.sh" 'diff --cached --name-only'
   assert_contains "$source/policies/TASK-ROUTING-POLICY.md" 'frontend@id,qa@id,auditeur@id'
   delegation="$tmp/delegation-$kit"
   mkdir -p "$delegation"
