@@ -2,7 +2,11 @@
 set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config="$(cd "$script_dir/.." && pwd)"
-root="$(git rev-parse --show-toplevel 2>/dev/null || cd "$config/.." && pwd)"
+if root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
+  :
+else
+  root="$(cd "$config/.." && pwd)"
+fi
 project_config="$root/.codex"
 mode="$(sed -n 's/^kit_mode = "\([^"]*\)"/\1/p' "$root/.workspace.toml" 2>/dev/null || echo native)"
 tool_status=0
