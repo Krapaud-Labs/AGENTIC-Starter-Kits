@@ -66,7 +66,7 @@ La limite d'autonomie est la suivante : tout est exécuté automatiquement jusqu
 
 ## Installation Git obligatoire
 
-Après l’installation du kit, vérifier que `.github/workflows/update-agentic-starter-kit.yml` existe et n’est pas ignoré. Avant le premier commit, l’ajouter explicitement avec `.gitignore` et `AGENTS.md`, puis vérifier son suivi avec `git ls-files --error-unmatch .github/workflows/update-agentic-starter-kit.yml`. Le workflow doit être présent dans la première branche publiée. Ne jamais le supprimer, le placer dans `.gitignore` ou le pousser directement vers `main`.
+Après l’installation du kit, vérifier que `.github/workflows/update-workspace-kit.yml` existe et n’est pas ignoré. Avant le premier commit, l’ajouter explicitement avec `.gitignore` et `.workspace.toml`, puis vérifier son suivi avec `git ls-files --error-unmatch .github/workflows/update-workspace-kit.yml`. Le workflow doit être présent dans la première branche publiée. Ne jamais le supprimer, le placer dans `.gitignore` ou le pousser directement vers `main`.
 
 
 ## Contrat du premier message d initialisation

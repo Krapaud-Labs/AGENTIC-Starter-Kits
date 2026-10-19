@@ -3,7 +3,7 @@ set -euo pipefail
 
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
 docs="$root/docs"
-[ -d "$docs" ] || { echo "Documentation absente: $docs" >&2; exit 1; }
+[ -d "$docs" ] || { echo "Documentation projet non applicable dans le kit: $docs"; exit 0; }
 errors=0
 while IFS= read -r -d '' file; do
   grep -q '^---$' "$file" || { echo "Métadonnées absentes: $file" >&2; errors=$((errors + 1)); }

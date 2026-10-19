@@ -12,6 +12,8 @@ La version 1.16.63 applique ce même parcours aux outils absents du registre par
 
 Les rapports spécialistes sont maintenant contrôlés avant clôture.
 
+L’audit global couvre désormais le bootstrap shared, la conservation des liens symboliques, le workflow unique `update-workspace-kit.yml` et les scénarios de régression associés.
+
 Chaque Goal doit déclarer ses rôles spécialistes requis et leurs identifiants réels avant de commencer. Le Coordinateur ne peut pas travailler seul lorsqu’un spécialiste est disponible ; le mode séquentiel exige une preuve explicite d’indisponibilité.
 
 

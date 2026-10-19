@@ -4,15 +4,11 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 if root="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$root/CLAUDE.md" ]; then :; else root="$(cd "$script_dir/../.." && pwd)"; fi
 entry="$root/CLAUDE.md"
 [ -f "$entry" ] || { echo "ENTRYPOINT: CLAUDE.md absent" >&2; exit 1; }
+entry_is_link=false
+if [ -L "$entry" ]; then entry_is_link=true; fi
 kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$script_dir/../KIT.toml")"
 [ -n "$kit_version" ] || { echo "ENTRYPOINT: version KIT.toml absente" >&2; exit 1; }
-if [ -L "$entry" ]; then
-  local_entry="$(mktemp "$root/.CLAUDE.md.XXXXXX")"
-  cp "$entry" "$local_entry"
-  rm "$entry"
-  mv "$local_entry" "$entry"
-fi
-if grep -q '^<!-- ENTRYPOINT-CONTRACT:' "$entry"; then
+if [ "$entry_is_link" = false ] && grep -q '^<!-- ENTRYPOINT-CONTRACT:' "$entry"; then
   sed -i.bak "s/^<!-- ENTRYPOINT-CONTRACT:.*-->$/<!-- ENTRYPOINT-CONTRACT: $kit_version -->/" "$entry"
   rm -f "$entry.bak"
 fi

@@ -35,9 +35,9 @@ fi
 
 mkdir -p "$config_root/work-items/archive" "$config_root/evaluations"
 
-if [ "$updates_mode" != "off" ] && [ ! -f "$project_root/.github/workflows/update-agentic-starter-kit.yml" ]; then
+if [ "$updates_mode" != "off" ] && [ ! -f "$project_root/.github/workflows/update-workspace-kit.yml" ]; then
   mkdir -p "$project_root/.github/workflows"
-  cp "$config_root/templates/github/workflows/update-agentic-starter-kit.yml" "$project_root/.github/workflows/update-agentic-starter-kit.yml"
+  cp "$config_root/templates/github/workflows/update-workspace-kit.yml" "$project_root/.github/workflows/update-workspace-kit.yml"
 fi
 
 if [ ! -f "$config_root/project-profile.toml" ]; then

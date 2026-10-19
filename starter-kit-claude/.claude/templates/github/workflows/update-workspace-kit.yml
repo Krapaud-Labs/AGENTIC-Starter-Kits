@@ -1,0 +1,56 @@
+name: Update workspace kit
+
+on:
+  schedule:
+    - cron: '17 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: workspace-kit-update-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Detect latest kit version
+        id: version
+        run: |
+          latest="$(curl -fsSL https://raw.githubusercontent.com/Krapaud-Labs/AGENTIC-Starter-Kits/main/VERSION)"
+          current="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' .workspace.toml)"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+          [ "$current" = "$latest" ] && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Update workspace manifest
+        if: steps.version.outputs.changed == 'true'
+        run: sed -i.bak "s/^kit_version = .*/kit_version = \"${{ steps.version.outputs.latest }}\"/" .workspace.toml && rm -f .workspace.toml.bak
+
+      - name: Select integration branch
+        if: steps.version.outputs.changed == 'true'
+        id: integration
+        run: |
+          if git ls-remote --exit-code --heads origin develop >/dev/null 2>&1; then
+            echo "branch=develop" >> "$GITHUB_OUTPUT"
+          elif git ls-remote --exit-code --heads origin dev >/dev/null 2>&1; then
+            echo "branch=dev" >> "$GITHUB_OUTPUT"
+          else
+            echo "Aucune branche d'intégration develop ou dev n'existe" >&2
+            exit 1
+          fi
+      - name: Open update pull request
+        if: steps.version.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/update-workspace-kit
+          base: ${{ steps.integration.outputs.branch }}
+          delete-branch: true
+          title: 'chore: update workspace kit to v${{ steps.version.outputs.latest }}'
+          commit-message: 'chore: update workspace kit manifest'
+          body: Mise à jour automatique de la version du kit shared.

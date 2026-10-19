@@ -411,8 +411,8 @@ Remplacez le chemin par celui de votre projet. L’installateur copie directemen
 Dans le projet, vérifiez la présence de l’une des structures suivantes :
 
 ```text
-Codex : AGENTS.md, .codex/, .github/workflows/update-agentic-starter-kit.yml.
-Claude : CLAUDE.md, .claude/, .github/workflows/update-agentic-starter-kit.yml.
+Codex : AGENTS.md, .codex/, .github/workflows/update-workspace-kit.yml.
+Claude : CLAUDE.md, .claude/, .github/workflows/update-workspace-kit.yml.
 ```
 
 N’installez jamais Codex et Claude ensemble dans le même projet.
@@ -457,7 +457,7 @@ Le choix recommandé est `O`. L’agent peut alors détecter une nouvelle versio
 
 ## Branche des Pull Requests automatiques
 
-Le workflow cible `develop` par défaut. Si votre projet utilise `dev`, définissez la variable de dépôt GitHub `AGENTIC_INTEGRATION_BRANCH` avec la valeur `dev`. Toute autre valeur, notamment `main`, est refusée automatiquement. La Pull Request de promotion vers `main` reste manuelle ou doit être demandée explicitement par l’utilisateur.
+Le workflow cible `develop` par défaut. Si votre projet utilise `dev`, définissez la variable de dépôt GitHub `AGENTIC_INTEGRATION_BRANCH` avec la valeur `dev`. Toute autre valeur, notamment `main`, est refusée automatiquement. Le Coordinateur peut ensuite promouvoir automatiquement vers `main` dans une demande de livraison active, après contrôles verts.
 
 ### Installateur guidé
 
@@ -473,13 +473,13 @@ Dans le sélecteur intégré, les flèches haut et bas parcourent les sous-dossi
 
 ### Gestion automatique du `.gitignore`
 
-L’installation crée `.gitignore` s’il est absent et ajoute uniquement les entrées nécessaires au kit choisi. Codex ajoute `.codex/` et `AGENTS.md`. Claude ajoute `.claude/` et `CLAUDE.md`. Les doublons ne sont pas ajoutés. Le fichier `.github/workflows/update-agentic-starter-kit.yml` reste suivi par Git, car il est nécessaire aux mises à jour automatiques.
+L’installation crée `.gitignore` s’il est absent et ajoute uniquement les entrées nécessaires au kit choisi. Codex ajoute `.codex/` et `AGENTS.md`. Claude ajoute `.claude/` et `CLAUDE.md`. Les doublons ne sont pas ajoutés. Le fichier `.github/workflows/update-workspace-kit.yml` reste suivi par Git, car il est nécessaire aux mises à jour automatiques.
 
 Le workflow détecte automatiquement `develop`, puis `dev`. Il refuse `main` et ne demande aucune variable GitHub Actions supplémentaire.
 
 ## Publication Release et About
 
-La promotion vers `main` reste humaine. Après cette promotion, créez et poussez le tag annoté prévu par le versionnement :
+La promotion vers `main` est effectuée automatiquement par le Coordinateur dans le même GitFlow lorsque la demande de livraison est active. Après cette promotion, le kit crée et pousse le tag annoté prévu par le versionnement :
 
 ```bash
 git tag -a vX.Y.Z -m "Release vX.Y.Z"

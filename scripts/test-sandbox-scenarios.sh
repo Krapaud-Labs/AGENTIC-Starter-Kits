@@ -26,6 +26,8 @@ for kit in codex claude; do
   assert_contains "$source/scripts/verify-specialist-plan.sh" 'identifiant réel au format role@id'
   assert_contains "$source/scripts/start-goal.sh" 'GOAL_REQUIRED_ROLES'
   assert_contains "$source/scripts/start-goal.sh" 'GOAL_SPECIALIST_AVAILABILITY'
+  assert_contains "$source/scripts/validate-entrypoint.sh" 'entry_is_link=false'
+  assert_contains "$source/scripts/validate-documentation.sh" 'non applicable dans le kit'
   assert_contains "$source/scripts/validate-session-state.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/scripts/guard-before-response.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/scripts/validate-entrypoint.sh" 'git rev-parse --show-toplevel'
@@ -63,6 +65,8 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   fi
   assert_contains "$source/scripts/sync-workspace-kit.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md'
   assert_contains "$source/scripts/init-project.sh" 'local_file in PROJECT-BRIEF.md project-profile.toml'
+  assert_contains "$source/scripts/init-project.sh" 'update-workspace-kit.yml'
+  test -f "$source/templates/github/workflows/update-workspace-kit.yml"
   assert_contains "$source/scripts/start-goal.sh" 'lots parallèles détectés sans au moins deux agents'
   assert_contains "$source/ORCHESTRATION.md" 'crée ou active d.abord le Goal natif'
   assert_contains "$source/ORCHESTRATION.md" 'start-goal.sh.*n.est jamais une création de Goal natif'

@@ -38,12 +38,25 @@ jobs:
         if: steps.version.outputs.changed == 'true'
         run: sed -i.bak "s/^kit_version = .*/kit_version = \"${{ steps.version.outputs.latest }}\"/" .workspace.toml && rm -f .workspace.toml.bak
 
+      - name: Select integration branch
+        if: steps.version.outputs.changed == 'true'
+        id: integration
+        run: |
+          if git ls-remote --exit-code --heads origin develop >/dev/null 2>&1; then
+            echo "branch=develop" >> "$GITHUB_OUTPUT"
+          elif git ls-remote --exit-code --heads origin dev >/dev/null 2>&1; then
+            echo "branch=dev" >> "$GITHUB_OUTPUT"
+          else
+            echo "Aucune branche d'intégration develop ou dev n'existe" >&2
+            exit 1
+          fi
+
       - name: Open update pull request
         if: steps.version.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: chore/update-workspace-kit
-          base: ${{ github.ref_name }}
+          base: ${{ steps.integration.outputs.branch }}
           delete-branch: true
           title: 'chore: update workspace kit to v${{ steps.version.outputs.latest }}'
           commit-message: 'chore: update workspace kit manifest'
