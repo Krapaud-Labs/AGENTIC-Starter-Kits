@@ -394,3 +394,5 @@ L initialisation demande explicitement la revue et l approbation des hooks avant
 
 Le runtime partagé réconcilie désormais l’état dans le projet appelant, y compris lorsque le kit est installé par liens symboliques.
 Le bootstrap de session conserve aussi ses marqueurs dans le projet appelant.
+
+La résolution de racine Git du bootstrap est explicite afin d éviter les chemins multi-lignes.
