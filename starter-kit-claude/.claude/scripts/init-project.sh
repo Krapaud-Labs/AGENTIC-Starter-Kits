@@ -23,7 +23,7 @@ project_root="$(git -C "$config_root/.." rev-parse --show-toplevel 2>/dev/null |
 # Première mutation du projet : protéger immédiatement l'installation locale du kit.
 gitignore="$project_root/.gitignore"
 touch "$gitignore"
-for ignored_path in ".claude/" "CLAUDE.md"; do
+for ignored_path in ".claude/" "CLAUDE.md" ".kit-reports/"; do
   grep -Fqx "$ignored_path" "$gitignore" || printf '%s\n' "$ignored_path" >> "$gitignore"
 done
 git -C "$project_root" check-ignore -q "$config_root" || { echo "ÉCHEC: l'installation Claude n'est pas ignorée" >&2; exit 1; }

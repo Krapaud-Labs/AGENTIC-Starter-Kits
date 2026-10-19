@@ -52,6 +52,11 @@ case "$status" in
     [[ -n "$next" && ! "$next" =~ ^(none|aucune|aucun)$ ]] || fail "next_action absente pour $status"
     recovery="$script_dir/verify-recovery-state.sh"
     [ -x "$recovery" ] && bash "$recovery" || fail "blocage récupérable ou état de reprise invalide"
+    reporter="$script_dir/report-kit-blocker.sh"
+    if [ -x "$reporter" ]; then
+      severity=normal; [ "$status" = blocked ] && severity=bloquant
+      KIT_REPORT_FAIL_ON_BLOCKING=0 bash "$reporter" --severity "$severity" --summary "Garde agentique $severity" --details "execution_status=$status" >/dev/null 2>&1 || true
+    fi
     ;;
   running|waiting-ci) fail "état non terminal: $status" ;;
   *) fail "execution_status absent ou invalide: ${status:-absent}" ;;
