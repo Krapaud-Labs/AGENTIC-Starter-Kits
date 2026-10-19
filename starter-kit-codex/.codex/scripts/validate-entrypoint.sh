@@ -7,7 +7,7 @@ entry="$root/AGENTS.md"
 kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$script_dir/../KIT.toml")"
 [ -n "$kit_version" ] || { echo "ENTRYPOINT: version KIT.toml absente" >&2; exit 1; }
 if [ -L "$entry" ]; then
-  shared_entry="$(cd "$script_dir/.." && pwd)/AGENTS.md"
+  shared_entry="$(cd "$script_dir/../.." && pwd)/AGENTS.md"
   [ -f "$shared_entry" ] || { echo "ENTRYPOINT: AGENTS.md partagé absent" >&2; exit 1; }
   ln -sfn "$shared_entry" "$entry"
 fi
