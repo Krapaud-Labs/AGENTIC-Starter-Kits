@@ -32,6 +32,8 @@ La cible partagée est résolue depuis la racine de la version active du kit.
 
 Les réponses aux questionnaires sont consommées par `resolve-user-input.sh` avant toute clôture.
 
+Le résolveur est installé avec ses permissions exécutables.
+
 L'inventaire transversal des fonctionnalités, hooks, preuves, limites et scénarios de tests est disponible dans [docs/IMPLEMENTED-FEATURES.md](../docs/IMPLEMENTED-FEATURES.md).
 
 Une conception incomplète ou un blocage récupérable déclenche automatiquement la reprise du Goal avec les agents requis et une prochaine action observable. Le Coordinateur ne demande pas un nouveau message « continue » lorsqu'une action autonome reste possible.
