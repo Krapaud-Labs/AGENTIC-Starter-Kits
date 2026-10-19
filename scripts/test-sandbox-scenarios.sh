@@ -37,6 +37,8 @@ assert_contains "$source/scripts/guard-before-response.sh" 'demande utilisateur 
 assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/session-start-gate.sh" 'ENTRYPOINT-CONTRACT:'
   assert_contains "$source/hooks/session-start.sh" 'check-kit-reports.sh'
+  assert_contains "$root/scripts/check-kit-reports.sh" 'kit-report-history.jsonl'
+  assert_contains "$root/scripts/record-kit-report.sh" 'duplicate'
   assert_contains "$source/scripts/guard-before-response.sh" 'report-kit-blocker.sh'
   assert_contains "$source/scripts/init-project.sh" '.kit-reports/'
   test -x "$source/scripts/report-kit-blocker.sh"

@@ -20,6 +20,10 @@ Le dépôt central lit automatiquement les issues ouvertes portant le label `kit
 
 Les projets consommateurs disposent de `report-kit-blocker.sh`. Lorsqu’une porte de réponse constate un état `blocked` ou `needs-review`, le kit produit un rapport limité aux métadonnées anonymisées autorisées, calcule une empreinte anti-doublon, le conserve dans `.kit-reports/outbox/` si GitHub est indisponible, puis tente sa publication dans les issues `kit-report` du dépôt central. Le dossier de file d’attente est ignoré par Git.
 
+Le dépôt central conserve `docs/audit/kit-report-history.jsonl`. Le script `scripts/check-kit-reports.sh` relit les issues ouvertes et fermées, reconnaît les rapports déjà enregistrés, et les affiche comme `BLOQUANT`, `NORMAL`, `RESOLU` ou `DOUBLON`. Après traitement, `scripts/record-kit-report.sh` ajoute l’empreinte et le statut à cet historique versionné.
+
+Un rapport dont l’empreinte existe déjà dans une issue ouverte ou fermée n’est jamais renvoyé par un projet consommateur, y compris lorsque son classement précédent est `normal`, `resolved` ou `duplicate`.
+
 Chaque Goal doit déclarer ses rôles spécialistes requis et leurs identifiants réels avant de commencer. Le Coordinateur ne peut pas travailler seul lorsqu’un spécialiste est disponible ; le mode séquentiel exige une preuve explicite d’indisponibilité.
 
 
