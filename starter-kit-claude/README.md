@@ -331,3 +331,5 @@ La racine Git est résolue sans concaténation de sortie shell.
 Les gardes shared relisent le runtime local du projet et non le registre du kit.
 
 Le hook autorise le résolveur de réponse même lorsque les autres outils sont suspendus.
+
+En cas de commande prématurée, le hook indique l identifiant pending et la commande de réconciliation.
