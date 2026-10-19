@@ -297,3 +297,4 @@ L initialisation demande explicitement la revue et l approbation des hooks avant
 ## Mise à jour 1.16.66
 
 Le script de réconciliation utilise la racine Git du projet pour préserver le registre shared.
+Le bootstrap de session écrit ses marqueurs dans le projet appelant.

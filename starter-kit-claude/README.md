@@ -310,3 +310,4 @@ Une mise à jour détectée en cours de work item déclenche la suspension oblig
 ## Mise à jour 1.16.66
 
 Le script de réconciliation utilise la racine Git du projet pour préserver le registre shared.
+Le bootstrap de session écrit ses marqueurs dans le projet appelant.
