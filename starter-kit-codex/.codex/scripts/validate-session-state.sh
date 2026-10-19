@@ -8,6 +8,12 @@ for key in execution_status next_action last_observable_evidence required_action
   v="$(value "$key")"
   [ -n "$v" ] && [[ "$v" != *A_COMPLETER* ]] || { echo "SESSION: champ absent ou incomplet: $key" >&2; exit 1; }
 done
+if [ "$(value execution_status)" = "complete" ]; then
+  case "$(value pending_request_id):$(value required_action_status)" in
+    none:none|none:resolved|resolved:none|resolved:resolved) ;;
+    *) echo "SESSION: Goal terminal avec une demande utilisateur en attente" >&2; exit 1 ;;
+  esac
+fi
 execution="$(value execution_status)"
 if [ "$execution" = "waiting-for-user" ]; then
   [ "$(value pending_request_id)" != "none" ] || { echo "SESSION: questionnaire sans identifiant" >&2; exit 1; }
