@@ -412,3 +412,5 @@ Si le point d'entrée du projet est un lien symbolique vers une ancienne version
 Le validateur d'entrée effectue cette réparation avant le premier garde d'outil, afin qu'un ancien marqueur ne bloque pas la reprise.
 
 Le hook PreToolUse autorise uniquement le résolveur de réponse lorsqu une demande est en attente.
+
+Le message de refus contient la commande exacte à exécuter avec l identifiant de la demande.
