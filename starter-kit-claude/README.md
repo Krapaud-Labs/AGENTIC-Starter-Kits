@@ -237,6 +237,8 @@ Le hook de fin distingue un événement générique du Goal d’un spécialiste 
 
 Dans le dépôt source du kit, `scripts/check-kit-reports.sh` est lu par `SessionStart`. Il classe les issues `kit-report` en `BLOQUANT` ou `NORMAL` et impose le traitement prioritaire des blocages ; ce contrôle ne s’active pas dans les projets consommateurs.
 
+Dans un projet consommateur, `scripts/report-kit-blocker.sh` est appelé par la garde de réponse pour les états bloqués. Il ne transmet que la gravité, la version du kit, un résumé court et une preuve filtrée, conserve les rapports hors ligne dans `.kit-reports/outbox/` et ignore les doublons grâce à une empreinte stable.
+
 | Identifiant | Fichier | Livrable principal |
 | --- | --- | --- |
 | `produit` | `.claude/agents/produit.md` | Priorités, valeur métier et critères fonctionnels. |

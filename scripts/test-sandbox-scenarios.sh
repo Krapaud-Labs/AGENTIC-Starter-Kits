@@ -37,6 +37,16 @@ assert_contains "$source/scripts/guard-before-response.sh" 'demande utilisateur 
 assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/session-start-gate.sh" 'ENTRYPOINT-CONTRACT:'
   assert_contains "$source/hooks/session-start.sh" 'check-kit-reports.sh'
+  assert_contains "$source/scripts/guard-before-response.sh" 'report-kit-blocker.sh'
+  assert_contains "$source/scripts/init-project.sh" '.kit-reports/'
+  test -x "$source/scripts/report-kit-blocker.sh"
+  report_project="$tmp/report-$kit"
+  mkdir -p "$report_project/$hidden"
+  cp -R "$source/." "$report_project/$hidden/"
+  (cd "$report_project" && KIT_REPORT_DRY_RUN=1 bash "$hidden/scripts/report-kit-blocker.sh" --severity bloquant --summary 'test report' --details '/Users/test token=secret') >/dev/null
+  report_file="$(find "$report_project/.kit-reports/outbox" -type f -name '*.md' -print -quit)"
+  test -n "$report_file"
+  ! grep -Eq '/Users/test|token=secret' "$report_file"
   assert_contains "$source/hooks/pre-tool-use.sh" 'reconcile-runtime.sh'
   assert_contains "$source/scripts/verify-before-push.sh" 'diff --cached --name-only'
   assert_contains "$source/scripts/verify-before-push.sh" 'créer immédiatement une branche dédiée'
