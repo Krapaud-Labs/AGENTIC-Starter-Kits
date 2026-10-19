@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 config="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-state="$config/RUNTIME-STATE.md"
+project_root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [ -n "$project_root" ] && [ -d "$project_root/.codex" ]; then
+  state="$project_root/.codex/RUNTIME-STATE.md"
+else
+  state="$config/RUNTIME-STATE.md"
+fi
 [ -f "$state" ] || { echo "RECONCILIATION: RUNTIME-STATE.md absent" >&2; exit 1; }
 native="$(sed -n 's/^- native_goal_status: //p' "$state" | head -1)"
 case "$native" in
