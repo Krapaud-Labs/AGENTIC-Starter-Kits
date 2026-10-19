@@ -27,7 +27,7 @@ if [ ! -f "$config/.session-kit-validated" ]; then
   else
     if [ -f "$config/RUNTIME-STATE.md" ] && grep -q '^- execution_status: waiting-for-user$' "$config/RUNTIME-STATE.md"; then
       request_id="$(sed -n 's/^- pending_request_id: //p' "$config/RUNTIME-STATE.md" | head -1)"
-      printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Question utilisateur en attente (%s). Répondre au questionnaire avant toute nouvelle action."}}\n' "$request_id"
+      printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Question utilisateur en attente (%s). Exécuter immédiatement bash .codex/scripts/resolve-user-input.sh %s <reponse>, puis reprendre next_action."}}\n' "$request_id" "$request_id"
       exit 0
     fi
     reason="Porte kit non validée : réamorçage automatique impossible."
@@ -53,7 +53,7 @@ goal="$(sed -n 's/^- goal_status: //p' "$state" | head -1)"
 session="$(sed -n 's/^- session_status: //p' "$state" | head -1)"
 if [ "$execution" = "waiting-for-user" ] || [ "$session" = "waiting-for-user" ]; then
   request_id="$(sed -n 's/^- pending_request_id: //p' "$state" | head -1)"
-  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Question utilisateur en attente (%s). Ne pas relancer automatiquement l\u2019action; attendre la réponse puis reprendre."}}\n' "$request_id"
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Question utilisateur en attente (%s). Exécuter immédiatement bash .codex/scripts/resolve-user-input.sh %s <reponse>, puis reprendre next_action."}}\n' "$request_id" "$request_id"
   exit 0
 fi
 case "$tool" in
