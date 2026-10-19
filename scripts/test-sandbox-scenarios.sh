@@ -28,6 +28,7 @@ for kit in codex claude; do
   assert_contains "$source/scripts/guard-before-response.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/scripts/validate-entrypoint.sh" 'git rev-parse --show-toplevel'
 assert_contains "$source/scripts/resolve-user-input.sh" 'process-user-response'
+assert_contains "$source/hooks/pre-tool-use.sh" 'resolve-user-input\\.sh'
 assert_contains "$source/scripts/guard-before-response.sh" 'demande utilisateur encore en attente'
 assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/session-start-gate.sh" 'ENTRYPOINT-CONTRACT:'

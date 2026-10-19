@@ -17,6 +17,10 @@ if [ "$tool_name" = "Bash" ] && [ "$command_text" = "bash .claude/scripts/reconc
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"Réconciliation runtime autorisée avant la reprise; exécuter la commande puis relire l état."}}\n'
   exit 0
 fi
+if [ "$tool_name" = "Bash" ] && [[ "$command_text" =~ ^bash[[:space:]]+\.claude/scripts/resolve-user-input\.sh[[:space:]]+[A-Za-z0-9._-]+[[:space:]]+[^[:space:]]+$ ]]; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"Résolveur de réponse utilisateur autorisé pour réconcilier la demande en attente."}}\n'
+  exit 0
+fi
 if [ ! -f "$config/.session-kit-validated" ]; then
   if [ -x "$config/scripts/session-start-gate.sh" ] && bash "$config/scripts/session-start-gate.sh" >/dev/null 2>"$config/.session-kit-bootstrap-error"; then
     rm -f "$config/.session-kit-bootstrap-error"
