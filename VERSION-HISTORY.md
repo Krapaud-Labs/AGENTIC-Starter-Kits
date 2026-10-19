@@ -2,6 +2,8 @@
 
 ## Objet
 
+| 1.16.62 | 2026-10-19 | Ajoute l état waiting-for-user avec questionnaire unique et reprise après réponse. |
+
 Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il complète `CHANGELOG.md`, qui contient le détail opérationnel de chaque entrée. Les versions correspondent aux évolutions consommables du kit Codex ou Claude, et non à chaque commit interne.
 
 ## Origine du projet
