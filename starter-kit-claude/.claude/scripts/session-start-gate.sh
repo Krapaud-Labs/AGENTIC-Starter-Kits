@@ -11,6 +11,12 @@ project_config="$root/.claude"
 entry="$root/CLAUDE.md"
 kit_version="$(sed -n 's/^kit_version = "\([^"]*\)"/\1/p' "$config/KIT.toml")"
 if [ -f "$entry" ] && grep -q '^<!-- ENTRYPOINT-CONTRACT:' "$entry"; then
+  if [ -L "$entry" ]; then
+    local_entry="$(mktemp "$root/.CLAUDE.md.XXXXXX")"
+    cp "$entry" "$local_entry"
+    rm "$entry"
+    mv "$local_entry" "$entry"
+  fi
   sed -i.bak "s/^<!-- ENTRYPOINT-CONTRACT:.*-->$/<!-- ENTRYPOINT-CONTRACT: $kit_version -->/" "$entry"
   rm -f "$entry.bak"
 fi
