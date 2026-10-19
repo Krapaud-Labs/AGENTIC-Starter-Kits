@@ -60,6 +60,8 @@ Le Goal maintient un registre vivant des agents `required`, `active`, `available
 
 La présence historique d'un agent ne vaut jamais activation pour le Goal courant. À chaque création ou reprise de Goal, le Coordinateur recalcule les rôles requis, réactive ou crée chaque spécialiste, vérifie son identifiant et son état `active` dans le registre courant, lui affecte un lot et exige un rapport daté pour cette passe. Tant que ces preuves ne sont pas présentes, le coordinateur ne lance aucune validation spécialisée et ne peut pas déclarer l'audit ou la carte terminés.
 
+`start-goal.sh` doit recevoir `GOAL_REQUIRED_ROLES` et refuser tout démarrage si un rôle requis n'a pas un identifiant réel dans `GOAL_AGENTS_CREATED`. La valeur `séquentiel justifié` n'est admise qu'avec `GOAL_SPECIALIST_AVAILABILITY=none` et `GOAL_SEQUENTIAL_REASON` non vide. Le Coordinateur ne peut donc plus choisir silencieusement de travailler seul lorsqu'un spécialiste est disponible.
+
 Le Coordinateur renseigne `goal_status: active`, `goal_objective`, `goal_verification`, `goal_constraints`, `goal_budget`, `goal_blocked_condition` et `goal_session_id` dans `RUNTIME-STATE.md`, puis active `/goal` ou l'API native lorsqu'elle est disponible. Toute demande ciblant une carte à reprendre ou à livrer active automatiquement le Goal, y compris une carte à une seule case ou une reprise ponctuelle. Une simple demande d'information sans travail sur une carte reste hors de ce mécanisme.
 
 ## Source de référence

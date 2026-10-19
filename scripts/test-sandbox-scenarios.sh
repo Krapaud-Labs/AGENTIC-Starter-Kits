@@ -24,6 +24,8 @@ for kit in codex claude; do
     [ "$count" -eq "$contract_count" ] || { echo "ECHEC SANDBOX: champ $field incomplet pour $kit" >&2; exit 1; }
   done
   assert_contains "$source/scripts/verify-specialist-plan.sh" 'identifiant réel au format role@id'
+  assert_contains "$source/scripts/start-goal.sh" 'GOAL_REQUIRED_ROLES'
+  assert_contains "$source/scripts/start-goal.sh" 'GOAL_SPECIALIST_AVAILABILITY'
   assert_contains "$source/scripts/validate-session-state.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/scripts/guard-before-response.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/scripts/validate-entrypoint.sh" 'git rev-parse --show-toplevel'
@@ -78,18 +80,18 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   : > "$scenario/$hidden/runtime-events.log"
 
   # Scenario 1: démarrer une carte multi-lots crée le Goal et son plan d'agents.
-  (cd "$scenario" && NATIVE_GOAL_STATUS=unavailable NATIVE_GOAL_EVIDENCE='sandbox API native non exposée' GOAL_AGENT_EVIDENCE='sandbox agents déclarés par scénario isolé' bash "$hidden/scripts/start-goal.sh" \
+  (cd "$scenario" && NATIVE_GOAL_STATUS=unavailable NATIVE_GOAL_EVIDENCE='sandbox API native non exposée' GOAL_AGENT_EVIDENCE='sandbox agents déclarés par scénario isolé' GOAL_REQUIRED_ROLES='frontend,qa' bash "$hidden/scripts/start-goal.sh" \
     "Livrer une carte multi-lots" "preuves de tests et livraison" \
     "branche dev, aucune dépense" "accès externe manquant" \
     "P23" "dev" "création de 2 agents; agent intégrateur; lots indépendants" \
-    "agent-frontend,agent-qa" "frontend->lot-ui,qa->lot-tests") >/dev/null
+    "frontend@agent-frontend,qa@agent-qa" "frontend->lot-ui,qa->lot-tests") >/dev/null
   assert_contains "$scenario/$hidden/RUNTIME-STATE.md" '^- goal_status: active$'
   assert_contains "$scenario/$hidden/RUNTIME-STATE.md" 'goal_delegation_plan: création de 2 agents'
-  assert_contains "$scenario/$hidden/RUNTIME-STATE.md" 'goal_agents_created: agent-frontend,agent-qa'
+  assert_contains "$scenario/$hidden/RUNTIME-STATE.md" 'goal_agents_created: frontend@agent-frontend,qa@agent-qa'
   assert_contains "$scenario/$hidden/runtime-events.log" 'delegation=création de 2 agents'
 
   # Scenario 2: le Coordinateur active les agents et répartit les lots sans recouvrement.
-  assert_contains "$scenario/$hidden/RUNTIME-STATE.md" 'goal_agents_created: agent-frontend,agent-qa'
+  assert_contains "$scenario/$hidden/RUNTIME-STATE.md" 'goal_agents_created: frontend@agent-frontend,qa@agent-qa'
   assert_contains "$scenario/$hidden/RUNTIME-STATE.md" 'goal_agent_assignments: frontend->lot-ui,qa->lot-tests'
 
   # Scenario 3: une réponse ne peut pas être émise pendant l'exécution.

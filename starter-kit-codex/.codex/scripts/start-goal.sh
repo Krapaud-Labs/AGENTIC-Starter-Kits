@@ -32,9 +32,28 @@ export GOAL_OBJECTIVE="$1" GOAL_VERIFICATION="$2" GOAL_CONSTRAINTS="$3" GOAL_BLO
 export GOAL_CARD="${5:-none}" GOAL_BRANCH="${6:-none}" GOAL_DELEGATION="${7:-none}"
 export GOAL_AGENTS_CREATED="${8:-${GOAL_AGENTS_CREATED:-}}" GOAL_AGENT_ASSIGNMENTS="${9:-${GOAL_AGENT_ASSIGNMENTS:-}}"
 export GOAL_AGENT_EVIDENCE="${GOAL_AGENT_EVIDENCE:-}"
+export GOAL_REQUIRED_ROLES="${GOAL_REQUIRED_ROLES:-}"
 if [ "$GOAL_DELEGATION" = "none" ]; then
   echo "GOAL: travail sans analyse de délégation; fournir les agents et affectations, ou 'séquentiel justifié' avec sa raison" >&2
   exit 3
+fi
+if [ -z "$GOAL_REQUIRED_ROLES" ]; then
+  echo "GOAL: rôles spécialistes requis absents; définir GOAL_REQUIRED_ROLES avant le démarrage" >&2
+  exit 3
+fi
+if [ "$GOAL_DELEGATION" = "séquentiel justifié" ]; then
+  [ "${GOAL_SPECIALIST_AVAILABILITY:-}" = "none" ] && [ -n "${GOAL_SEQUENTIAL_REASON:-}" ] || {
+    echo "GOAL: séquentiel justifié exige la preuve qu aucun spécialiste n est disponible et une raison explicite" >&2
+    exit 3
+  }
+else
+  IFS=',' read -r -a required_roles <<< "$GOAL_REQUIRED_ROLES"
+  for role in "${required_roles[@]}"; do
+    case ",$GOAL_AGENTS_CREATED," in
+      *,"$role"@*,*) ;;
+      *) echo "GOAL: agent requis absent ou sans identifiant réel: $role" >&2; exit 3 ;;
+    esac
+  done
 fi
 if [ "$GOAL_DELEGATION" != "none" ] && [ "$GOAL_DELEGATION" != "séquentiel justifié" ] && { [ -z "$GOAL_AGENTS_CREATED" ] || [ -z "$GOAL_AGENT_ASSIGNMENTS" ]; }; then
   echo "GOAL: délégation annoncée sans agents créés et affectations explicites; création obligatoire avant le démarrage" >&2

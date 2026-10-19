@@ -12,6 +12,8 @@ La version 1.16.63 applique ce même parcours aux outils absents du registre par
 
 Les rapports spécialistes sont maintenant contrôlés avant clôture.
 
+Chaque Goal doit déclarer ses rôles spécialistes requis et leurs identifiants réels avant de commencer. Le Coordinateur ne peut pas travailler seul lorsqu’un spécialiste est disponible ; le mode séquentiel exige une preuve explicite d’indisponibilité.
+
 L'inventaire détaillé des fonctionnalités réellement implémentées, des hooks, des preuves, des limites d'intégration et de la couverture de tests se trouve dans [docs/IMPLEMENTED-FEATURES.md](docs/IMPLEMENTED-FEATURES.md).
 
 Agentic Starter Kits est une base portable de gouvernance, de conception, d’orchestration et de contrôle qualité pour construire des projets logiciels avec un agent IA. Le dépôt transforme une conversation en processus de livraison traçable, depuis le cahier des charges jusqu’à la Pull Request et à la maintenance.
