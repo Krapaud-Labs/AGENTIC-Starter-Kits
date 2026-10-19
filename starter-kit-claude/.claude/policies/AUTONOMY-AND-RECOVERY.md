@@ -30,6 +30,8 @@ Dans le flux d'initialisation ou de livraison autorisé, une branche publiée et
 
 Dans un flux de livraison explicitement autorisé, la fusion d'une PR déjà créée vers la branche d'intégration (`dev` ou `develop`) est une étape réversible prévue et doit être exécutée automatiquement dès que la PR est ouverte, propre et fusionnable. L'absence de contrôle CI ou de revue humaine configurée doit être enregistrée comme preuve manquante, mais ne constitue pas à elle seule une demande de confirmation. Ne demander une intervention que si une protection de branche l'exige, si un contrôle échoue, si une revue obligatoire manque, ou si une décision métier, une dépense, un secret ou une action irréversible est nécessaire.
 
+L'autorisation utilisateur de terminer, livrer ou corriger couvre donc aussi la fusion vers `dev` ou `develop`, la vérification du commit distant et la reprise immédiate de la prochaine action. Le Coordinateur ne doit jamais s'arrêter après la création de la PR en demandant à l'utilisateur de lancer lui-même la mise à jour de `dev`.
+
 Lorsqu'une intégration Trello déjà autorisée est disponible, une demande explicite de publier, corriger ou synchroniser un commentaire vaut autorisation d'écriture externe réversible. Ne pas demander une seconde confirmation juste avant l'envoi. Demander uniquement l'activation d'un accès absent, un secret, une dépense, une action irréversible ou une décision réellement manquante, puis vérifier visuellement le commentaire après publication.
 
 Après chaque action, l'agent choisit immédiatement l'étape suivante selon cet ordre :

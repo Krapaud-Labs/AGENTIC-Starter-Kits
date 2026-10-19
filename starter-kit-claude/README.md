@@ -196,6 +196,7 @@ Chaque feature, correctif ou tâche documentaire se fait sur une branche dédié
 
 Si une demande de livraison arrive alors que le checkout est sur une branche protégée, le refus est routé automatiquement vers une branche dédiée puis une PR vers `dev` ou `develop`. Ce contrôle ne doit pas interrompre le Goal ni demander une confirmation supplémentaire.
 
+
 ## Dossier de conception de niveau CDA
 
 Le générateur de conception produit des documents structurés, mais aucun marqueur `[[A_COMPLETER]]` ne peut rester avant le preflight. Après le cahier accepté, le Concepteur transforme chaque modèle en dossier complet : contexte, objectifs mesurables, acteurs, user stories et critères, règles métier, scénarios d’erreur, parcours, diagrammes Mermaid, architecture, données, contrats, sécurité, roadmap, stratégie de validation, rollback et décisions. Un simple squelette ne valide pas le projet.
