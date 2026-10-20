@@ -20,6 +20,8 @@ Ce kit installe une gouvernance projet pour Codex. Il ne construit rien tant que
 
 En mode shared, la porte de session relit la racine Git du projet appelant et répare automatiquement le marqueur de version de `AGENTS.md` avant la validation.
 
+Si `.workspace.toml` est absent lors d'une nouvelle session, le synchroniseur shared l'initialise automatiquement dans la racine Git du projet, sans remplacer les fichiers de contexte locaux.
+
 Cette réparation intervient avant le garde pretool, y compris lors d'une reprise bloquée.
 
 Les liens symboliques `AGENTS.md` obsolètes sont repointés vers le registre partagé courant.

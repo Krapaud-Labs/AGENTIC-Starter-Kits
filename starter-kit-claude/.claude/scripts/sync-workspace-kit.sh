@@ -2,9 +2,19 @@
 set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 kit_root="$(cd "$script_dir/.." && pwd)"
-project_root="$(cd "$kit_root/.." && pwd)"
+project_root="$(git -C "${KIT_PROJECT_ROOT:-$PWD}" rev-parse --show-toplevel 2>/dev/null || cd "$kit_root/.." && pwd)"
 manifest="$project_root/.workspace.toml"
-[ -f "$manifest" ] || { echo "Manifest .workspace.toml introuvable." >&2; exit 1; }
+if [ ! -f "$manifest" ]; then
+  cat > "$manifest" <<EOF
+orchestrator = "claude"
+kit_version = "$(sed -n 's/^kit_version = "\([^"]*\)"/\1/p' "$kit_root/KIT.toml")"
+source = "https://github.com/Krapaud-Labs/AGENTIC-Starter-Kits"
+kit_mode = "shared"
+kit_home = "${AGENTIC_KIT_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/agentic-starter-kits/kits}"
+update_channel = "stable"
+EOF
+  echo "Manifest .workspace.toml initialisé dans $project_root" >&2
+fi
 source_url="$(sed -n 's/^source = "\(.*\)"/\1/p' "$manifest")"
 [ -n "$source_url" ] || { echo "Source du kit absente du manifeste." >&2; exit 1; }
 legacy_source="github.com/""krapaud/AGENTIC-Starter-Kits"

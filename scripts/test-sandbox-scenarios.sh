@@ -41,6 +41,12 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$root/scripts/record-kit-report.sh" 'duplicate'
   assert_contains "$source/scripts/guard-before-response.sh" 'report-kit-blocker.sh'
   assert_contains "$source/scripts/init-project.sh" '.kit-reports/'
+  assert_contains "$source/scripts/sync-workspace-kit.sh" 'Manifest .workspace.toml initialisé'
+  if [ "$kit" = codex ]; then
+    assert_contains "$root/starter-kit-codex/AGENTS.md" 'Ne jamais utiliser de tiret cadratin.'
+  else
+    assert_contains "$root/starter-kit-claude/CLAUDE.md" 'Ne jamais utiliser de tiret cadratin.'
+  fi
   test -x "$source/scripts/report-kit-blocker.sh"
   report_project="$tmp/report-$kit"
   mkdir -p "$report_project/$hidden"

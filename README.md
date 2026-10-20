@@ -360,6 +360,10 @@ Le flux d'initialisation ouvre automatiquement la PR vers `dev` ou `develop` dè
 
 Le kit impose désormais un contrat documentaire : chaque document indique son statut, sa version, sa date, son responsable, son audience, son périmètre, ses faits vérifiés, ses hypothèses, ses inconnues, ses décisions, ses risques et ses critères de validation. Le Skill de rédaction adapte le contenu au lecteur et ajoute les exemples, diagrammes, commandes et références nécessaires. Le Skill d’audit refuse les documents incomplets, vagues ou incohérents avec le code.
 
+### Convention de rédaction
+
+Les agents n'utilisent jamais le tiret cadratin (U+2014) dans leurs réponses, documents, issues, commentaires ou comptes rendus. Ils utilisent une ponctuation simple et compatible avec les interfaces de suivi.
+
 ## Release et section About GitHub
 
 Après la promotion vers `main`, une modification de `VERSION`, `CHANGELOG.md` ou `VERSION-HISTORY.md` déclenche le workflow `publish-release-and-about.yml`. Il lit `VERSION`, crée le tag SemVer manquant, publie la GitHub Release avec les notes générées, puis met à jour la description et les topics de la section About du dépôt. Le workflow n’est pas déclenché par les branches `dev` ou `develop` et peut aussi être lancé manuellement avec une version explicite.
