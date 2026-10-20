@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.68 - 2026-10-20
+
+- Automatise le manifeste local d'empreintes du contexte à chaque démarrage de session.
+- Ignore ce manifeste pour éviter les artefacts et les commits inutiles.
+- Ajoute les tests de bootstrap du manifeste pour Codex et Claude.
+
 ## 1.16.67 - 2026-10-20
 
 - Ajoute un chargement du contexte par niveaux afin d'éviter les relectures intégrales répétées.

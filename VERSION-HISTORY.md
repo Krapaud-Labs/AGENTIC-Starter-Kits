@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.68 | 2026-10-20 | Manifeste d'empreintes du contexte généré automatiquement au démarrage et ignoré par Git. |
 | 1.16.67 | 2026-10-20 | Optimisation du contexte agentique par chargement ciblé, cache d'empreintes et audit automatisé. |
 
 ## Origine du projet

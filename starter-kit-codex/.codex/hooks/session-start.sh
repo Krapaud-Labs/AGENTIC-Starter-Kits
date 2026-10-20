@@ -4,7 +4,9 @@ root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 config="$root/.codex"
 tools_script="$config/scripts/ensure-tools.sh"
 gate_script="$config/scripts/session-start-gate.sh"
+context_script="$config/scripts/prepare-context-manifest.sh"
 if [ -x "$gate_script" ]; then bash "$gate_script"; fi
+if [ -x "$context_script" ]; then bash "$context_script" >/dev/null; fi
 tool_context=""
 report_context=""
 if [ -x "$tools_script" ]; then

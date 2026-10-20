@@ -22,7 +22,7 @@ title() {
 ensure_gitignore() {
   local gitignore="$target/.gitignore"
   touch "$gitignore"
-  local entries=("$hidden/" "$entry")
+  local entries=("$hidden/" "$entry" ".context-manifest.tsv")
   for ignored_path in "${entries[@]}"; do
     if ! grep -Fqx "$ignored_path" "$gitignore"; then
       printf "%s\n" "$ignored_path" >> "$gitignore"

@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.67-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.68-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -413,7 +413,7 @@ Le synchroniseur partagé met à jour le registre central et conserve les donné
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
 L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.
 
-## Mise à jour 1.16.67
+## Mise à jour 1.16.68
 
 Le runtime partagé réconcilie désormais l’état dans le projet appelant, y compris lorsque le kit est installé par liens symboliques.
 

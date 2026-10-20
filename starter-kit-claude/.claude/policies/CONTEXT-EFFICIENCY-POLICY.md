@@ -6,7 +6,7 @@ Cette politique réduit les tokens et les appels sans réduire les contrôles.
 
 Au démarrage, charger seulement le contrat d'entrée, l'index d'orchestration, le profil, l'état runtime et le work item actif. Charger une policy, un Skill ou un document complet uniquement lorsqu'une règle de son domaine est déclenchée. Les documents déjà relus dans la session sont réutilisés tant que leur empreinte n'a pas changé.
 
-Le manifeste de session local doit conserver le chemin, l'empreinte, la version et l'heure de lecture des documents. Une empreinte identique autorise la réutilisation du résumé précédent. Une empreinte différente impose une nouvelle lecture complète avant toute action concernée.
+Le script `scripts/prepare-context-manifest.sh` crée le manifeste de session local avec le chemin, l'empreinte, la taille, la version et l'heure de lecture des documents. Une empreinte identique autorise la réutilisation du résumé précédent. Une empreinte différente impose une nouvelle lecture complète avant toute action concernée.
 
 ## Contexte à ne pas charger intégralement
 
