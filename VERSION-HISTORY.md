@@ -4,6 +4,10 @@
 
 Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il complète `CHANGELOG.md`, qui contient le détail opérationnel de chaque entrée. Les versions correspondent aux évolutions consommables du kit Codex ou Claude, et non à chaque commit interne.
 
+| Version | Date | Évolution |
+|---|---|---|
+| 1.16.67 | 2026-10-20 | Optimisation du contexte agentique par chargement ciblé, cache d'empreintes et audit automatisé. |
+
 ## Origine du projet
 
 Le dépôt a été initialisé le 21 septembre 2026. Les premiers commits ont établi la documentation du dépôt, les deux variantes Codex et Claude, les rôles spécialisés, les Skills, les scripts de cycle de vie, la sécurité, la validation avant push, le support multiplateforme et les standards de contribution.

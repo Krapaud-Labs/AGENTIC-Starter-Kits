@@ -42,6 +42,7 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/guard-before-response.sh" 'report-kit-blocker.sh'
   assert_contains "$source/scripts/init-project.sh" '.kit-reports/'
   assert_contains "$source/scripts/sync-workspace-kit.sh" 'Manifest .workspace.toml initialisé'
+  assert_contains "$source/ORCHESTRATION.md" 'CONTEXT-EFFICIENCY-POLICY.md'
   if [ "$kit" = codex ]; then
     assert_contains "$root/starter-kit-codex/AGENTS.md" 'Ne jamais utiliser de tiret cadratin.'
   else

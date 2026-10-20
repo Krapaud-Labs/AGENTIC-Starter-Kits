@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.67 - 2026-10-20
+
+- Ajoute un chargement du contexte par niveaux afin d'éviter les relectures intégrales répétées.
+- Ajoute un audit automatisé de l'efficacité du contexte et des délégations.
+- Conserve les preuves, portes et règles de sécurité pendant l'optimisation.
+
 ## 1.16.66 - 2026-10-19
 
 - ajoute `reconcile-runtime.sh` pour réparer les divergences Goal/runtime

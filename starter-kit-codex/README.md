@@ -1,6 +1,6 @@
 # Kit d'orchestration Codex portable
 
-![Version du kit](https://img.shields.io/badge/version-1.16.66-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.16.67-blue.svg)
 
 Le hook `SessionStart` initialise automatiquement `AGENTIC_TOOLS_HOME` et vérifie les outils de base avant toute tâche. Une session est refusée si une installation automatique ne permet pas de rendre ces outils disponibles.
 
@@ -333,7 +333,7 @@ Envoyer cette commande seule depuis la racine du projet. Codex recharge alors le
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
 L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.
 
-## Mise à jour 1.16.66
+## Mise à jour 1.16.67
 
 Le script de réconciliation utilise la racine Git du projet pour préserver le registre shared.
 

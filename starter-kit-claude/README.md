@@ -1,6 +1,6 @@
 # Kit d'orchestration Claude Code portable
 
-![Version du kit](https://img.shields.io/badge/version-1.16.66-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.16.67-blue.svg)
 
 Le hook `SessionStart` initialise automatiquement `AGENTIC_TOOLS_HOME` et vérifie les outils de base avant toute tâche. Une session est refusée si une installation automatique ne permet pas de rendre ces outils disponibles.
 
@@ -344,7 +344,7 @@ L initialisation demande explicitement la revue et l approbation des hooks avant
 
 Une mise à jour détectée en cours de work item déclenche la suspension obligatoire. Le Coordinateur sauvegarde l’état, livre la mise à jour par PR vers `dev`, vérifie `dev`, puis exécute `resume-kit-update.sh` et reprend `next_action`.
 
-## Mise à jour 1.16.66
+## Mise à jour 1.16.67
 
 Le script de réconciliation utilise la racine Git du projet pour préserver le registre shared.
 

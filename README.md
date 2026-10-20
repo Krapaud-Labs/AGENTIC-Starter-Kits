@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.66-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.67-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -364,6 +364,10 @@ Le kit impose désormais un contrat documentaire : chaque document indique son s
 
 Les agents n'utilisent jamais le tiret cadratin (U+2014) dans leurs réponses, documents, issues, commentaires ou comptes rendus. Ils utilisent une ponctuation simple et compatible avec les interfaces de suivi.
 
+### Optimisation du contexte
+
+Les kits appliquent un chargement par niveaux. Les politiques, historiques et README sont recherchés de façon ciblée, les documents déjà relus sont réutilisés par empreinte inchangée et les agents spécialisés reçoivent uniquement leur périmètre et leur preuve attendue. L'audit `scripts/audit-context-efficiency.sh` vérifie cette configuration sans mesurer ni enregistrer de contenu utilisateur.
+
 ## Release et section About GitHub
 
 Après la promotion vers `main`, une modification de `VERSION`, `CHANGELOG.md` ou `VERSION-HISTORY.md` déclenche le workflow `publish-release-and-about.yml`. Il lit `VERSION`, crée le tag SemVer manquant, publie la GitHub Release avec les notes générées, puis met à jour la description et les topics de la section About du dépôt. Le workflow n’est pas déclenché par les branches `dev` ou `develop` et peut aussi être lancé manuellement avec une version explicite.
@@ -409,7 +413,7 @@ Le synchroniseur partagé met à jour le registre central et conserve les donné
 La procédure de synchronisation vérifie désormais les fichiers obligatoires et la cohérence de version du kit installé.
 L initialisation demande explicitement la revue et l approbation des hooks avant toute action produit.
 
-## Mise à jour 1.16.66
+## Mise à jour 1.16.67
 
 Le runtime partagé réconcilie désormais l’état dans le projet appelant, y compris lorsque le kit est installé par liens symboliques.
 
