@@ -64,6 +64,10 @@ if [ "$GOAL_DELEGATION" != "séquentiel justifié" ] && [ -z "$GOAL_AGENT_EVIDEN
   echo "GOAL: preuve observable de création ou activation des agents requise" >&2
   exit 3
 fi
+if [ "$GOAL_DELEGATION" != "séquentiel justifié" ]; then
+  [ -d "$GOAL_AGENT_EVIDENCE" ] || { echo "GOAL: dossier d’affectations spécialistes absent" >&2; exit 3; }
+  bash "$script_dir/verify-specialist-plan.sh" "${GOAL_DOMAIN:-general}" "$GOAL_AGENTS_CREATED" "$GOAL_AGENT_EVIDENCE" >/dev/null
+fi
 if [[ "$GOAL_DELEGATION" =~ (parall|indépend|multi[-_]t[aâ]che|plusieurs) ]]; then
   agent_count=$(( $(tr -cd ',' <<< "$GOAL_AGENTS_CREATED" | wc -c) + 1 ))
   assignment_count=$(( $(tr -cd ',' <<< "$GOAL_AGENT_ASSIGNMENTS" | wc -c) + 1 ))
