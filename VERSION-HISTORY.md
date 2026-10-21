@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.81 | 2026-10-21 | Auto-correction locale des problèmes connus et rapport anonymisé de correction. |
 | 1.16.80 | 2026-10-21 | Correcteur automatique contrôlé des rapports avec playbooks, tests et historique de correction. |
 | 1.16.79 | 2026-10-21 | Corrige la boucle de reprise lorsque l'état utilisateur est résiduel sans demande en attente. |
 | 1.16.74 | 2026-10-20 | Fiabilisation des erreurs distantes, de la déduplication et de l'historique des rapports. |

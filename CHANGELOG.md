@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.81 - 2026-10-21
+
+- Ajoute l’auto-correction locale des états runtime connus avant l’envoi d’un rapport.
+- Le projet consommateur envoie désormais la preuve de correction, pas seulement le blocage initial.
+
 ## 1.16.80 - 2026-10-21
 
 - Ajoute un correcteur central limité à des playbooks sûrs pour traiter automatiquement les rapports connus.

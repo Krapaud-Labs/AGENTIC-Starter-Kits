@@ -1,6 +1,6 @@
 # Kit d'orchestration Codex portable
 
-![Version du kit](https://img.shields.io/badge/version-1.16.80-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-1.16.81-blue.svg)
 
 Le hook `SessionStart` initialise automatiquement `AGENTIC_TOOLS_HOME` et vérifie les outils de base avant toute tâche. Une session est refusée si une installation automatique ne permet pas de rendre ces outils disponibles.
 
@@ -244,6 +244,8 @@ Dans un projet consommateur, `scripts/report-kit-blocker.sh` est appelé par la 
 Le correcteur central conserve l’historique dans `docs/audit/kit-report-history.jsonl`. Il doit appeler `scripts/record-kit-report.sh` après chaque traitement pour classer l’empreinte en `bloquant`, `normal`, `resolved` ou `duplicate`. Les blocages prévus par le contrat du kit sont classés `normal` et ne doivent pas interrompre la maintenance.
 
 Un projet consommateur recherche l’empreinte dans toutes les issues `kit-report`, pas uniquement les issues ouvertes. Un problème déjà classé `normal`, `resolved` ou `duplicate` n’est donc plus reporté.
+
+Avant l’envoi, `auto-remediate-kit-report.sh` tente une correction locale connue, valide le runtime et le rapport indique le résultat de cette correction. Les problèmes inconnus restent signalés sans modification automatique.
 
 Le dépôt central peut exécuter `scripts/auto-correct-kit-report.sh --report <fichier> --apply`. Le correcteur n’emploie que des playbooks connus, travaille sur une branche isolée, exécute les tests et produit un statut de correction. Les cas inconnus restent en revue et ne modifient jamais `main`.
 

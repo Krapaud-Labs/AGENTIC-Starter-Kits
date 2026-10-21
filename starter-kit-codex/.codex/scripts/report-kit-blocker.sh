@@ -24,6 +24,12 @@ while [ "$#" -gt 0 ]; do
 done
 case "$severity" in normal|bloquant) ;; *) echo "Gravité invalide: $severity" >&2; exit 2 ;; esac
 
+if correction="$("$config/scripts/auto-remediate-kit-report.sh" 2>/dev/null)"; then
+  severity=normal
+  summary="Correction automatique du kit appliquée"
+  details="$correction"
+fi
+
 sanitize() {
   sed -E \
     -e 's#/(Users|home)/[^ ]+#<local-path>#g' \
