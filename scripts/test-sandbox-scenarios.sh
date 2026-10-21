@@ -139,13 +139,16 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
     exit 1
   fi
   scenario="$tmp/$kit"
-  mkdir -p "$scenario/$hidden/scripts"
+  mkdir -p "$scenario/$hidden/scripts" "$scenario/agent-evidence"
   cp "$source/RUNTIME-STATE.md" "$scenario/$hidden/"
   cp "$source/scripts/start-goal.sh" "$scenario/$hidden/scripts/"
+  cp "$source/scripts/verify-specialist-plan.sh" "$scenario/$hidden/scripts/"
+  printf 'scope=lot-ui\ndeliverable=frontend report\nevidence=ui evidence\n' > "$scenario/agent-evidence/frontend.assignment"
+  printf 'scope=lot-tests\ndeliverable=qa report\nevidence=test evidence\n' > "$scenario/agent-evidence/qa.assignment"
   : > "$scenario/$hidden/runtime-events.log"
 
   # Scenario 1: démarrer une carte multi-lots crée le Goal et son plan d'agents.
-  (cd "$scenario" && NATIVE_GOAL_STATUS=unavailable NATIVE_GOAL_EVIDENCE='sandbox API native non exposée' GOAL_AGENT_EVIDENCE='sandbox agents déclarés par scénario isolé' GOAL_REQUIRED_ROLES='frontend,qa' bash "$hidden/scripts/start-goal.sh" \
+  (cd "$scenario" && NATIVE_GOAL_STATUS=unavailable NATIVE_GOAL_EVIDENCE='sandbox API native non exposée' GOAL_AGENT_EVIDENCE="$scenario/agent-evidence" GOAL_REQUIRED_ROLES='frontend,qa' bash "$hidden/scripts/start-goal.sh" \
     "Livrer une carte multi-lots" "preuves de tests et livraison" \
     "branche dev, aucune dépense" "accès externe manquant" \
     "P23" "dev" "création de 2 agents; agent intégrateur; lots indépendants" \

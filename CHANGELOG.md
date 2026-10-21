@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.85 - 2026-10-21
+
+- Rend les affectations spécialistes vérifiables au démarrage d’un Goal.
+- Refuse une délégation qui ne fournit pas un dossier réel d’affectations par rôle ou qui recouvre les périmètres.
+- Renforce les scénarios d’exécution Codex et Claude pour couvrir les identifiants absents et les chevauchements.
+
 ## 1.16.84 - 2026-10-21
 
 - Renforce la reprise du Goal natif lorsqu’un blocage natif conserve une action locale autonome.
