@@ -36,6 +36,9 @@ if [ "$status" -ne 0 ]; then
   elif [ "$status" -eq 2 ]; then echo "KIT-SESSION: source distante indisponible; utilisation contrôlée du kit local" >&2; status=0; verification_mode=local-fallback
   else echo "KIT-SESSION: mise à jour requise ou vérification distante impossible" >&2; exit 1; fi
 fi
+if [ -s "$project_config/RUNTIME-STATE.md" ] && [ -x "$script_dir/normalize-runtime-state.sh" ]; then
+  bash "$script_dir/normalize-runtime-state.sh" "$project_config/RUNTIME-STATE.md" >/dev/null
+fi
 bash "$script_dir/validate-agentic-contract.sh" >/dev/null
 printf 'kit_version=%s\nvalidated_at=%s\nmode=%s\n' "$(sed -n 's/^kit_version = "\([^"]*\)"/\1/p' "$config/KIT.toml")" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$mode" > "$project_config/.session-kit-validated"
 manifest_hash="missing"
