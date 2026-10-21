@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.84 - 2026-10-21
+
+- Renforce la reprise du Goal natif lorsqu’un blocage natif conserve une action locale autonome.
+- Distingue désormais un blocage récupérable d’une dépendance externe ou d’une décision humaine réellement bloquante.
+- Ajoute un scénario Codex/Claude vérifiant le fallback local puis le maintien du blocage externe.
+
 ## 1.16.83 - 2026-10-21
 
 - Autorise explicitement les commandes de récupération sûres avant la porte de session.
