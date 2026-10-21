@@ -20,8 +20,13 @@ fi
 if [ -z "$report" ]; then
   archive="$config/reports/agents/$id.md"
   if [ -s "$archive" ]; then report="$archive"; else
+    pending="$config/reports/agents/pending.tsv"
+    mkdir -p "$(dirname "$pending")"
+    if ! awk -F '\t' -v id="$id" '$1 == id { found=1 } END { exit found ? 0 : 1 }' "$pending" 2>/dev/null; then
+      printf '%s\t%s\t%s\n' "$id" "${role:-unknown}" "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" >> "$pending"
+    fi
     log_event "$(date -u '+%Y-%m-%dT%H:%M:%SZ') | subagent_stop | report-pending | id=$id | role=${role:-unknown}"
-    printf '{"decision":"allow","systemMessage":"Sous-agent %s arrêté. Rapport à récupérer avant validation; aucune relance automatique ne sera déclenchée."}\n' "$id"
+    printf '{"decision":"allow","systemMessage":"Sous-agent %s arrêté. Rapport enregistré comme pending; le prochain contrôle le récupérera sans relance automatique."}\n' "$id"
     exit 0
   fi
 fi

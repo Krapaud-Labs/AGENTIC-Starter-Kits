@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.86 - 2026-10-21
+
+- Enregistre les rapports de sous-agents absents dans un registre pending idempotent.
+- Résout automatiquement l’entrée pending lors de la validation du rapport retrouvé.
+- Ajoute un scénario Codex/Claude couvrant l’arrêt sans rapport puis la récupération sans relance en boucle.
+
 ## 1.16.85 - 2026-10-21
 
 - Rend les affectations spécialistes vérifiables au démarrage d’un Goal.

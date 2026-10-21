@@ -21,4 +21,10 @@ actual_id="$(sed -n 's/^agent_id:[[:space:]]*//p' "$report" | head -1)"
 [ "$actual_id" = "$agent_id" ] || { echo "RAPPORT: identifiant incohérent ($actual_id != $agent_id)" >&2; exit 1; }
 mkdir -p "$(dirname "$archive")"
 [ "$report" = "$archive" ] || cp "$report" "$archive"
+pending="$(dirname "$archive")/pending.tsv"
+if [ -f "$pending" ]; then
+  tmp="$pending.tmp.$$"
+  awk -F '\t' -v id="$agent_id" '$1 != id' "$pending" > "$tmp"
+  mv "$tmp" "$pending"
+fi
 echo "Rapport spécialiste vérifié: $role@$agent_id"
