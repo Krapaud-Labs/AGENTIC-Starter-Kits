@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.83 | 2026-10-21 | Élimine le deadlock des hooks en autorisant uniquement les commandes de récupération sûres, avec scénarios Codex/Claude. |
 | 1.16.82 | 2026-10-21 | Canonisation automatique et idempotente de `RUNTIME-STATE.md` au démarrage, avec test Codex/Claude. |
 | 1.16.81 | 2026-10-21 | Auto-correction locale des problèmes connus et rapport anonymisé de correction. |
 | 1.16.80 | 2026-10-21 | Correcteur automatique contrôlé des rapports avec playbooks, tests et historique de correction. |

@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.83 - 2026-10-21
+
+- Autorise explicitement les commandes de récupération sûres avant la porte de session.
+- Élimine le deadlock où l’initialisation, la réconciliation ou la résolution d’une réponse utilisateur était bloquée par le hook lui-même.
+- Ajoute les scénarios Codex et Claude couvrant l’amorçage, la reprise, la résolution d’input et le refus d’une commande de livraison.
+
 ## 1.16.82 - 2026-10-21
 
 - Canonise automatiquement `RUNTIME-STATE.md` au démarrage des kits Codex et Claude.
