@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.80 - 2026-10-21
+
+- Ajoute un correcteur central limité à des playbooks sûrs pour traiter automatiquement les rapports connus.
+- Ajoute la validation et l’historisation du résultat de correction sans modification directe de `main`.
+
 ## 1.16.79 - 2026-10-21
 
 - Autorise la reprise lorsque l'état `waiting-for-user` est résiduel sans demande en attente.
