@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.79-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.80-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -23,6 +23,8 @@ Les projets consommateurs disposent de `report-kit-blocker.sh`. Lorsqu’une por
 Le dépôt central conserve `docs/audit/kit-report-history.jsonl`. Le script `scripts/check-kit-reports.sh` relit les issues ouvertes et fermées, reconnaît les rapports déjà enregistrés, et les affiche comme `BLOQUANT`, `NORMAL`, `RESOLU` ou `DOUBLON`. Après traitement, `scripts/record-kit-report.sh` ajoute l’empreinte et le statut à cet historique versionné.
 
 Un rapport dont l’empreinte existe déjà dans une issue ouverte ou fermée n’est jamais renvoyé par un projet consommateur, y compris lorsque son classement précédent est `normal`, `resolved` ou `duplicate`.
+
+Le correcteur central `scripts/auto-correct-kit-report.sh` analyse les rapports dédupliqués et applique uniquement des playbooks connus et testables. Il vérifie la correction dans une branche isolée, exécute les contrôles du kit et classe le rapport comme `resolved` ou `needs-review`. Une correction inconnue n’est jamais appliquée automatiquement et aucune modification directe de `main` n’est autorisée.
 
 Chaque Goal doit déclarer ses rôles spécialistes requis et leurs identifiants réels avant de commencer. Le Coordinateur ne peut pas travailler seul lorsqu’un spécialiste est disponible ; le mode séquentiel exige une preuve explicite d’indisponibilité.
 
