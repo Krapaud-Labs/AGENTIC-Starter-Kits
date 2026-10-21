@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 1.16.79 - 2026-10-21
+
+- Autorise la reprise lorsque l'état `waiting-for-user` est résiduel sans demande en attente.
+- Rend la résolution neutre `none` idempotente et empêche la boucle du hook sur une réponse déjà résolue.
+
 ## 1.16.78 - 2026-10-21
 
 - Rend les kit reports exploitables avec cause, action, prochaine action, preuve et état du Goal.
