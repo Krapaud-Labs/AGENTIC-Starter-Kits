@@ -9,6 +9,10 @@ if ! printf '%s' "$input" | jq -e . >/dev/null 2>&1; then
 fi
 tool_name="$(printf '%s' "$input" | jq -r '.tool_name // empty')"
 command_text="$(printf '%s' "$input" | jq -r '.command // .arguments.command // empty')"
+if [ -x "$config/scripts/is-recovery-command.sh" ] && bash "$config/scripts/is-recovery-command.sh" "$tool_name" "$command_text"; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"Commande de récupération autorisée pour réparer l’état sans contourner les contrôles de livraison."}}\n'
+  exit 0
+fi
 if [ "$tool_name" = "Bash" ] && [ "$command_text" = "bash .claude/scripts/sync-workspace-kit.sh" ]; then
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"Synchroniseur du kit autorisé pour rétablir la porte de session."}}\n'
   exit 0
