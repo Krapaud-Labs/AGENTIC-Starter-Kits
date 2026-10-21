@@ -46,6 +46,16 @@ next="$(sed -n 's/^- next_action: //p' "$state" | head -1)"
 execution="$(sed -n 's/^- execution_status: //p' "$state" | head -1)"
 goal="$(sed -n 's/^- goal_status: //p' "$state" | head -1)"
 session="$(sed -n 's/^- session_status: //p' "$state" | head -1)"
+if [ "$execution" = "waiting-for-user" ] || [ "$session" = "waiting-for-user" ]; then
+  request_id="$(sed -n 's/^- pending_request_id: //p' "$state" | head -1)"
+  required_action="$(sed -n 's/^- required_action_status: //p' "$state" | head -1)"
+  if [ "$request_id" = "none" ] || [ "$required_action" != "pending" ]; then
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"Aucun input utilisateur en attente; reprise autorisée malgré l’état waiting-for-user résiduel."}}\n'
+    exit 0
+  fi
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Question utilisateur en attente (%s). Exécuter immédiatement bash .claude/scripts/resolve-user-input.sh %s <reponse>, puis reprendre next_action."}}\n' "$request_id" "$request_id"
+  exit 0
+fi
 case "$tool" in
   Bash|apply_patch|Edit|Write|Agent)
     if [[ "$native" == "required" || "$native" == "none" || "$next" == *A_COMPLETER* || -z "$next" || "$goal" == "none" && "$session" != "not-required" ]]; then

@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.79 | 2026-10-21 | Corrige la boucle de reprise lorsque l'état utilisateur est résiduel sans demande en attente. |
 | 1.16.74 | 2026-10-20 | Fiabilisation des erreurs distantes, de la déduplication et de l'historique des rapports. |
 | 1.16.73 | 2026-10-20 | Correction du chemin outbox et test réel de génération et déduplication des rapports. |
 | 1.16.72 | 2026-10-20 | Lecture des rapports depuis tous les projets et rejeu automatique de l'outbox locale. |

@@ -6,6 +6,7 @@ if root="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$root/.claude/RU
 request_id="$1"; answer="$2"
 value() { sed -n "s/^-\{0,1\}[[:space:]]*$1:[[:space:]]*//p" "$state" | head -n 1; }
 [ -f "$state" ] || { echo "INPUT: RUNTIME-STATE.md absent" >&2; exit 1; }
+[ "$request_id" = "none" ] && [ "$(value pending_request_id)" = "none" ] && [ "$(value required_action_status)" != "pending" ] && { echo "INPUT: aucune réponse en attente; état déjà résolu"; exit 0; }
 [ "$(value pending_request_id)" = "$request_id" ] || { echo "INPUT: demande différente ou déjà résolue" >&2; exit 3; }
 [ "$(value required_action_status)" = "pending" ] || { echo "INPUT: aucune réponse en attente" >&2; exit 3; }
 safe_answer="$(printf '%s' "$answer" | tr '\n' ' ' | sed 's/[|]/-/g')"
