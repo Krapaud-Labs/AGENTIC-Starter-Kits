@@ -13,5 +13,10 @@ done
 grep -Fq "version-" "$root/README.md" || { echo "Version absente du README principal" >&2; exit 1; }
 grep -Fq "## $version -" "$root/CHANGELOG.md" || { echo "Entrée changelog absente: $version" >&2; exit 1; }
 grep -Fq "| $version |" "$root/VERSION-HISTORY.md" || { echo "Entrée historique absente: $version" >&2; exit 1; }
+grep -Fq "Version actuelle | \`$version\`" "$root/docs/IMPLEMENTED-FEATURES.md" || { echo "Version fonctionnelle obsolète" >&2; exit 1; }
+if rg -n 'Le kit est actuellement en version \`(0|1\.[0-9]+\.[0-9]+)\`' "$root/starter-kit-codex/README.md" "$root/starter-kit-claude/README.md" | rg -v "\`$version\`" >/dev/null; then
+  echo "Version actuelle obsolète dans un README" >&2
+  exit 1
+fi
 bash "$root/scripts/audit-governance-consistency.sh"
 printf 'Documentation et version cohérentes: %s\n' "$version"
