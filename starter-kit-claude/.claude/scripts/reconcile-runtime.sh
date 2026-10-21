@@ -9,9 +9,22 @@ else
 fi
 [ -f "$state" ] || { echo "RECONCILIATION: RUNTIME-STATE.md absent" >&2; exit 1; }
 native="$(sed -n 's/^- native_goal_status: //p' "$state" | head -1)"
+next="$(sed -n 's/^- next_action: //p' "$state" | head -1)"
+condition="$(sed -n 's/^- goal_blocked_condition: //p' "$state" | head -1)"
 case "$native" in
   active) execution=running; session=active; goal=active; evidence="native-goal-active-runtime-reconciled" ;;
-  blocked) execution=blocked; session=blocked; goal=blocked; evidence="native-goal-blocked-runtime-reconciled" ;;
+  blocked)
+    case "$condition" in
+      *"externe inaccessible"*|*"décision humaine"*|*"decision humaine"*)
+        execution=blocked; session=blocked; goal=blocked; evidence="native-goal-blocked-runtime-reconciled" ;;
+      *)
+        if [ -n "$next" ] && [[ ! "$next" =~ ^(none|aucune|aucun|A_COMPLETER)$ ]]; then
+          execution=needs-review; session=active; goal=active; evidence="native-goal-blocked-local-recovery-available"
+        else
+          execution=blocked; session=blocked; goal=blocked; evidence="native-goal-blocked-runtime-reconciled"
+        fi ;;
+    esac
+    ;;
   paused) execution=paused; session=paused; goal=paused; evidence="native-goal-paused-runtime-reconciled" ;;
   unavailable) execution=needs-review; session=active; goal=active; evidence="native-goal-unavailable-runtime-reconciled" ;;
   *) echo "RECONCILIATION: statut natif inconnu ou requis: $native" >&2; exit 4 ;;
