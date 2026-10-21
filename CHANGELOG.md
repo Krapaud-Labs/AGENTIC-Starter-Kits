@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.82 - 2026-10-21
+
+- Canonise automatiquement `RUNTIME-STATE.md` au démarrage des kits Codex et Claude.
+- Déduplique les clés runtime en conservant la dernière valeur, valide le schéma et évite les sauvegardes inutiles lorsque l’état est déjà canonique.
+- Ajoute un test d’intégration commun aux deux variantes pour vérifier la migration et son idempotence.
+
 ## 1.16.81 - 2026-10-21
 
 - Ajoute l’auto-correction locale des états runtime connus avant l’envoi d’un rapport.
