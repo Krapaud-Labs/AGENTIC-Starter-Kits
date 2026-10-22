@@ -12,6 +12,7 @@ class BuildFreshnessTests(unittest.TestCase):
         self.assertIn("origin/dev", text)
         self.assertIn("origin/main", text)
         self.assertIn("SHA", text)
+        self.assertIn("ancien checkout local", text)
 
     def test_scripts_accept_matching_clean_checkout_and_reject_stale_image(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -24,8 +25,8 @@ class BuildFreshnessTests(unittest.TestCase):
             sha = subprocess.check_output(["git", "-C", directory, "rev-parse", "HEAD"], text=True).strip()
             for relative in ("starter-kit-codex/.codex/scripts/verify-build-freshness.sh", "starter-kit-claude/.claude/scripts/verify-build-freshness.sh"):
                 script = ROOT / relative
-                self.assertEqual(subprocess.run(["bash", str(script), directory, sha, sha]).returncode, 0)
-                self.assertNotEqual(subprocess.run(["bash", str(script), directory, sha, "stale"]).returncode, 0)
+                self.assertNotEqual(subprocess.run(["bash", str(script), directory, sha, sha]).returncode, 0)
+                self.assertNotEqual(subprocess.run(["bash", str(script), directory, sha, "stale", "dev"]).returncode, 0)
 
 
 if __name__ == "__main__":

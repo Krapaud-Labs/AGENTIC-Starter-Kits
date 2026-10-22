@@ -52,6 +52,8 @@ Les gates d'audit et de livraison ouverts déclenchent la suite des actions auto
 
 Tout rebuild vérifie que le checkout correspond au dernier commit de `origin/dev` ou `origin/main`, puis compare le SHA de l'image et du conteneur avec ce commit via `verify-build-freshness.sh`.
 
+Un rebuild sans cible explicite `dev` ou `main` est refusé, comme tout rebuild lancé depuis une branche de fonctionnalité.
+
 ## Prérequis
 
 - Claude Code est installé.
