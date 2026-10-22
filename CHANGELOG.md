@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.89 - 2026-10-22
+
+- Recrée automatiquement et de façon idempotente `RUNTIME-STATE.md` depuis le modèle lorsqu il est absent, avant toute validation de session, et autorise explicitement ce bootstrap dans les hooks Codex et Claude.
+
 ## 1.16.88 - 2026-10-22
 
 - Corrige l extraction des commandes des hooks PreToolUse pour accepter les formes `command`, `cmd`, `arguments.command`, `arguments.cmd` et `tool_input`, afin que les voies de récupération autorisées ne soient plus bloquées par le format de l événement.

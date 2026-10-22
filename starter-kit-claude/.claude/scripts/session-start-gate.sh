@@ -8,6 +8,9 @@ else
   root="$(cd "$config/.." && pwd)"
 fi
 project_config="$root/.claude"
+if [ ! -s "$project_config/RUNTIME-STATE.md" ] && [ -x "$script_dir/bootstrap-runtime-state.sh" ]; then
+  bash "$script_dir/bootstrap-runtime-state.sh"
+fi
 entry="$root/CLAUDE.md"
 kit_version="$(sed -n 's/^kit_version = "\([^"]*\)"/\1/p' "$config/KIT.toml")"
 if [ -f "$entry" ] && grep -q '^<!-- ENTRYPOINT-CONTRACT:' "$entry"; then
