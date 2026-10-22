@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.88 - 2026-10-22
+
+- Corrige l extraction des commandes des hooks PreToolUse pour accepter les formes `command`, `cmd`, `arguments.command`, `arguments.cmd` et `tool_input`, afin que les voies de récupération autorisées ne soient plus bloquées par le format de l événement.
+
 ## 1.16.87 - 2026-10-22
 
 - Rend les preuves de connecteurs externes vérifiables et récentes, avec référence distante, SHA complet, relecture confirmée et méthode d'observation obligatoire.
