@@ -18,6 +18,8 @@ Les hooks de fin de sous-agent distinguent les événements génériques du Goal
 
 Le dépôt central lit automatiquement les issues ouvertes portant le label `kit-report` au démarrage d’une session. Les rapports marqués `bloquant`, `blocker`, `critical` ou `critique` sont prioritaires et doivent être traités avant une nouvelle amélioration ; les autres sont classés `normal`. Cette lecture ne s’active pas dans les projets consommateurs.
 
+Les rebuilds et déploiements sont verrouillés sur le dernier SHA de `origin/dev` ou `origin/main`. Le kit refuse une image ou un conteneur construit depuis un checkout ancien ou un SHA divergent.
+
 Les projets consommateurs disposent de `report-kit-blocker.sh`. Lorsqu’une porte de réponse constate un état `blocked` ou `needs-review`, le kit produit un rapport limité aux métadonnées anonymisées autorisées, calcule une empreinte anti-doublon, le conserve dans `.kit-reports/outbox/` si GitHub est indisponible, puis tente sa publication dans les issues `kit-report` du dépôt central. Le dossier de file d’attente est ignoré par Git.
 
 Le dépôt central conserve `docs/audit/kit-report-history.jsonl`. Le script `scripts/check-kit-reports.sh` relit les issues ouvertes et fermées, reconnaît les rapports déjà enregistrés, et les affiche comme `BLOQUANT`, `NORMAL`, `RESOLU` ou `DOUBLON`. Après traitement, `scripts/record-kit-report.sh` ajoute l’empreinte et le statut à cet historique versionné.
