@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.89 | 2026-10-22 | Répare le deadlock du runtime absent par bootstrap automatique et idempotent avant la validation de session. |
 | 1.16.88 | 2026-10-22 | Corrige le routage des commandes de récupération dans les hooks Codex et Claude, avec régression sur les formes d événements supportées. |
 | 1.16.87 | 2026-10-22 | Preuves de connecteurs externes vérifiables, récentes et relues, avec rejet des attestations fictives et sensibles. |
 | 1.16.86 | 2026-10-21 | Registre pending idempotent et récupération fiable des rapports de sous-agents absents. |
