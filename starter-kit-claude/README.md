@@ -50,6 +50,8 @@ Les fichiers locaux d'onboarding sont créés avant la validation structurelle d
 
 Les gates d'audit et de livraison ouverts déclenchent la suite des actions autonomes jusqu'à leur preuve, sans blocage prématuré.
 
+Tout rebuild vérifie que le checkout correspond au dernier commit de `origin/dev` ou `origin/main`, puis compare le SHA de l'image et du conteneur avec ce commit via `verify-build-freshness.sh`.
+
 ## Prérequis
 
 - Claude Code est installé.
