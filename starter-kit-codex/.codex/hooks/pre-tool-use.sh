@@ -8,7 +8,8 @@ if ! printf '%s' "$input" | jq -e . >/dev/null 2>&1; then
   exit 0
 fi
 tool_name="$(printf '%s' "$input" | jq -r '.tool_name // empty')"
-command_text="$(printf '%s' "$input" | jq -r '.command // .arguments.command // empty')"
+# Accept all supported event layouts emitted by Codex.
+command_text="$(printf '%s' "$input" | jq -r '.command // .cmd // .arguments.command // .arguments.cmd // .tool_input.command // .tool_input.cmd // empty')"
 if [ -x "$config/scripts/is-recovery-command.sh" ] && bash "$config/scripts/is-recovery-command.sh" "$tool_name" "$command_text"; then
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"Commande de récupération autorisée pour réparer l’état sans contourner les contrôles de livraison."}}\n'
   exit 0
