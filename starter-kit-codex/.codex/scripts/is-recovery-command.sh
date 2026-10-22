@@ -5,6 +5,7 @@ set -euo pipefail
 command_text="${2:-}"
 case "$command_text" in
   bash\ .codex/scripts/init-project.sh*) exit 0 ;;
+  bash\ .codex/scripts/bootstrap-runtime-state.sh*) exit 0 ;;
   bash\ .codex/scripts/session-start-gate.sh*) exit 0 ;;
   bash\ .codex/scripts/reconcile-runtime.sh*) exit 0 ;;
   bash\ .codex/scripts/normalize-runtime-state.sh*) exit 0 ;;
