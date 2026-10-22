@@ -6,6 +6,7 @@ trap 'rm -rf "$tmp"' EXIT
 echo "INTEGRATION PREFLIGHT"
 require_real=0
 [ "${1:-}" = "--require-real" ] && require_real=1
+evidence_file="${CONNECTOR_EVIDENCE_FILE:-}"
 
 git -C "$tmp" init -q
 git -C "$tmp" config user.email integration@example.invalid
@@ -46,11 +47,9 @@ if [ "${REAL_BROWSER_TEST:-0}" = "1" ]; then
 else
   echo "browser=not-executed"
 fi
-if [ "$require_real" -eq 1 ] && { [ "${REAL_TRELLO_TEST:-0}" != "1" ] || [ "${REAL_AGENT_TEST:-0}" != "1" ] || [ "${REAL_BROWSER_TEST:-0}" != "1" ]; }; then
-  echo "ECHEC: --require-real exige les trois parcours externes et leurs preuves" >&2
-  exit 2
-fi
 if [ "$require_real" -eq 1 ]; then
+  [ -n "$evidence_file" ] || { echo "ECHEC: --require-real exige CONNECTOR_EVIDENCE_FILE" >&2; exit 2; }
+  python3 "$(dirname "$0")/validate-external-evidence.py" "$evidence_file"
   echo "status=external-evidence-provided"
 else
   echo "status=completed-with-explicit-external-limits"
