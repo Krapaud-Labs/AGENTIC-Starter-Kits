@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.16.87 - 2026-10-22
+
+- Rend les preuves de connecteurs externes vérifiables et récentes, avec référence distante, SHA complet, relecture confirmée et méthode d'observation obligatoire.
+- Refuse les manifestes contenant des valeurs factices, expirées ou des champs sensibles.
+- Ajoute les scénarios négatifs du préflight réel pour les preuves simulées et sans relecture.
+
 ## 1.16.86 - 2026-10-21
 
 - Enregistre les rapports de sous-agents absents dans un registre pending idempotent.
