@@ -1,6 +1,6 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.16.86-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.16.87-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
@@ -309,6 +309,8 @@ Le cycle de travail prend également en charge les cartes Trello `time-gated`. U
 ## Synchronisation d’un fork d’organisation
 
 Pour exiger la preuve des intégrations externes, lancer `bash scripts/test-integration-preflight.sh --require-real`. Sans cette option, le préflight local indique explicitement les scénarios Trello, agents et navigateur non exécutés.
+
+En mode `--require-real`, le préflight exige désormais `CONNECTOR_EVIDENCE_FILE` et valide un manifeste anonymisé couvrant GitHub, Trello, navigateur et agents. Chaque entrée doit contenir une référence distante, un SHA complet, une relecture confirmée, une méthode d'observation et une preuve récente. Une simulation, une autorisation seule, une valeur factice ou un champ sensible est refusé.
 
 Le dépôt personnel constitue la source de référence du starter kit. Un fork placé dans une organisation ne reçoit pas automatiquement les nouvelles versions. Depuis le clone du fork, ajouter le dépôt personnel comme remote `upstream`, puis synchroniser après chaque version validée :
 

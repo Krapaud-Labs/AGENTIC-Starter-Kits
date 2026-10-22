@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.87 | 2026-10-22 | Preuves de connecteurs externes vérifiables, récentes et relues, avec rejet des attestations fictives et sensibles. |
 | 1.16.86 | 2026-10-21 | Registre pending idempotent et récupération fiable des rapports de sous-agents absents. |
 | 1.16.85 | 2026-10-21 | Délégation spécialiste vérifiable au démarrage avec affectations par rôle et refus des chevauchements. |
 | 1.16.84 | 2026-10-21 | Reprise du Goal natif avec fallback local lorsqu’une action autonome reste disponible, sans masquer les blocages externes. |
