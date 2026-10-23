@@ -1,5 +1,13 @@
 ## Unreleased
 
+## 1.16.91 - 2026-10-23
+
+- Archive automatiquement chaque cahier accepté ou reconstitué dans `docs/project-management/cahier-des-charges/<projet>/`, avec déduplication par empreinte pour le préserver hors de `.codex/` et `.claude/`.
+
+## 1.16.90 - 2026-10-23
+
+- Autorise la reconstitution documentaire explicite d un cahier des charges absent, avec statut provisoire, sources, hypothèses et inconnues, sans autoriser l implémentation avant validation.
+
 ## 1.16.89 - 2026-10-22
 
 - Recrée automatiquement et de façon idempotente `RUNTIME-STATE.md` depuis le modèle lorsqu il est absent, avant toute validation de session, et autorise explicitement ce bootstrap dans les hooks Codex et Claude.

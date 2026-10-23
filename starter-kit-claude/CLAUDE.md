@@ -1,5 +1,5 @@
 # Point d'entrée Claude
-<!-- ENTRYPOINT-CONTRACT: 1.16.89 -->
+<!-- ENTRYPOINT-CONTRACT: 1.16.91 -->
 
 ## Contrat obligatoire de chaque nouveau chat
 
@@ -12,7 +12,7 @@ L'agent principal de ce chat est le Coordinateur. Dès le premier message qui de
 
 ## Modes de conversation
 
-Si le message utilisateur commence par `Mode initialisation :`, suspendre le flux courant et exécuter la procédure d’initialisation complète, même dans une conversation déjà ouverte. Relire `CLAUDE.md`, `.claude/START-HERE.md`, `.claude/CONVERSATION-MODES.md`, `.claude/PROJECT-BRIEF.md`, `.claude/project-profile.toml` et `.claude/RUNTIME-STATE.md` s’ils existent. Vérifier le statut du cahier des charges. S’il est absent ou `pending`, appliquer uniquement `project-intake` et demander le cahier sans analyser la stack, créer de work item ou modifier le produit. Ne reprendre l’orchestration qu’après acceptation du cahier et validation de la phase de complétude.
+Si le message utilisateur commence par `Mode initialisation :`, suspendre le flux courant et exécuter la procédure d’initialisation complète, même dans une conversation déjà ouverte. Relire `CLAUDE.md`, `.claude/START-HERE.md`, `.claude/CONVERSATION-MODES.md`, `.claude/PROJECT-BRIEF.md`, `.claude/project-profile.toml` et `.claude/RUNTIME-STATE.md` s’ils existent. Vérifier le statut du cahier des charges. S’il est absent ou `pending`, appliquer uniquement `project-intake` et demander le cahier sans analyser la stack, créer de work item ou modifier le produit, sauf si l’utilisateur demande explicitement de retrouver, auditer ou reconstituer le cahier à partir du projet et de ses documents. Dans ce cas, l’audit documentaire est autorisé, sans implémentation ni choix technique irréversible ; créer un cahier provisoire marqué `reconstructed`, lister ses sources, ses hypothèses et ses inconnues, puis poursuivre le cadrage avec une seule série de questions ciblées.
 Lire aussi .claude/policies/INITIALIZATION-TRANSPARENCY.md. Afficher obligatoirement l origine du cahier, son statut, les fichiers réellement lus, les fichiers manquants et l action suivante. Si le cahier est present et accepted, dire explicitement qu il est reutilise et ne sera pas remplace.
 
 Si le message utilisateur commence par `Mode général :`, répondre à sa demande sans lire, analyser ou modifier le projet. Ne pas demander de cahier des charges dans ce mode.
@@ -23,7 +23,7 @@ Si le message utilisateur commence par `Mode maintenance :`, traiter uniquement 
 
 En l'absence de mode général ou maintenance, si `.claude/PROJECT-BRIEF.md` est absent ou possède le statut `pending`, appliquer uniquement `.claude/skills/project-intake/SKILL.md`.
 
-Demander à l'utilisateur : `Envoie-moi le cahier des charges du projet. Je ne démarre aucune analyse, choix technique, modification ou orchestration avant sa réception.`
+Demander à l'utilisateur : `Envoie-moi le cahier des charges du projet. Si tu ne l’as plus, demande explicitement sa reconstitution à partir du dépôt et de ses documents.` Ne jamais refuser une reconstitution explicitement demandée ; elle reste limitée à l’audit documentaire et doit être marquée comme provisoire jusqu’à validation.
 
 Après réception du cahier dans le chat, demander explicitement si l’utilisateur veut un Trello complet et attendre sa réponse oui ou non. Cette question fait partie de la série de cadrage et doit proposer le meilleur choix recommandé avec sa justification. Enregistrer cette décision dans `project-profile.toml` avant de continuer. Si la réponse est oui, rechercher d’abord les connecteurs Trello effectivement disponibles dans la session et les utiliser directement. Ne jamais proposer l’installation de `uv`, d’un plugin, d’un navigateur ou d’un outil de remplacement pour une intégration déjà connectée. Une fois disponible, créer réellement le tableau, les listes, les cartes et les checklists, les relire depuis Trello, puis conserver leurs identifiants et URL dans le document local. Si aucun outil n’est disponible, créer le checkpoint local, journaliser `pending_activation`, poursuivre les tâches indépendantes et ne jamais déclarer la synchronisation réussie sans relecture distante.
 
