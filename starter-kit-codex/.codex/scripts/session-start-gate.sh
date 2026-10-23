@@ -8,6 +8,9 @@ else
   root="$(cd "$config/.." && pwd)"
 fi
 project_config="$root/.codex"
+if [ -x "$script_dir/archive-project-brief.sh" ]; then
+  bash "$script_dir/archive-project-brief.sh"
+fi
 if [ ! -s "$project_config/RUNTIME-STATE.md" ] && [ -x "$script_dir/bootstrap-runtime-state.sh" ]; then
   bash "$script_dir/bootstrap-runtime-state.sh"
 fi
