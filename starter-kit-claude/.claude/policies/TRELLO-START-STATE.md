@@ -1,4 +1,6 @@
-# État initial obligatoire d'une carte Trello
+# État initial obligatoire d'un élément de suivi
+
+Cette procédure s'applique de façon identique à une carte Trello et à une Issue ou un élément GitHub Projects. Pour GitHub Projects, remplacer la liste par le champ `Status` et relire à la fois l'Issue et l'élément du Project.
 
 Avant tout code, modification de fichier, délégation ou implémentation technique liée à une carte Trello, le Coordinateur doit déplacer la carte active dans la liste exacte `En cours` et relire la carte depuis Trello.
 

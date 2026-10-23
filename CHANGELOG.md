@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.93 - 2026-10-23
+
+- Unifie les règles Trello et GitHub Projects dans une politique commune couvrant statuts, labels, tâches, commentaires, synchronisation, délégation et clôture.
+
 ## 1.16.92 - 2026-10-23
 
 - Protège le cahier initial du MVP par empreinte persistante et transforme toute modification ultérieure en demande de changement séparée, sans réécrire l historique.

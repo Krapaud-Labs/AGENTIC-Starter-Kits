@@ -1,4 +1,6 @@
-# Trello Visual System
+# Système visuel commun des gestionnaires de projet
+
+La source de vérité commune à Trello et GitHub Projects est `policies/PROJECT-TRACKER-VISUAL-SYSTEM.md`. Toutes les règles de ce fichier s'appliquent aussi à GitHub Projects. Ce fichier conserve les détails spécifiques à Trello pour compatibilité.
 
 ## Purpose
 
