@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.93 | 2026-10-23 | Unifie les règles Trello et GitHub Projects dans une politique commune avec adaptation des statuts, labels, tâches, commentaires, synchronisation et livraison. |
 | 1.16.92 | 2026-10-23 | Rend le cahier initial du MVP immuable et crée une demande de changement séparée pour toute évolution postérieure. |
 | 1.16.91 | 2026-10-23 | Archive automatiquement le cahier dans un dossier projet versionné et dédupliqué, hors des répertoires locaux ignorés. |
 | 1.16.90 | 2026-10-23 | Autorise la reconstitution documentaire explicite d un cahier absent sans contourner la validation ni démarrer l implémentation. |
