@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.92 - 2026-10-23
+
+- Protège le cahier initial du MVP par empreinte persistante et transforme toute modification ultérieure en demande de changement séparée, sans réécrire l historique.
+
 ## 1.16.91 - 2026-10-23
 
 - Archive automatiquement chaque cahier accepté ou reconstitué dans `docs/project-management/cahier-des-charges/<projet>/`, avec déduplication par empreinte pour le préserver hors de `.codex/` et `.claude/`.
