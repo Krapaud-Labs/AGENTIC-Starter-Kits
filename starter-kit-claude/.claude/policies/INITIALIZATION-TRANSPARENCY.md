@@ -21,6 +21,8 @@ Avant toute action, lire et signaler explicitement :
 
 Si le cahier est absent, répondre avec le chemin vérifié et proposer sa réception. Si l'utilisateur demande explicitement de le retrouver ou de le reconstituer, auditer uniquement les sources documentaires autorisées, produire `.claude/PROJECT-BRIEF.md` avec `status: reconstructed`, les sources, les hypothèses et les inconnues, puis lancer le questionnaire de validation. Cette reconstitution n'autorise ni implémentation, ni choix technique irréversible, ni clôture du cadrage sans validation.
 
+Après acceptation, le cahier initial du MVP est immuable. Une demande client ultérieure ne doit jamais réécrire ce document ni transformer une fonctionnalité non prévue en obligation historique. Elle doit créer une demande de changement séparée, avec impact, décision MVP ou Post-MVP et preuve d'acceptation.
+
 Si le cahier est présent et accepté, afficher son chemin, son statut, son origine, les documents réellement lus, les documents manquants et l'action de réutilisation sans remplacement.
 
 L'agent ne doit jamais déclarer qu'un projet est configuré sans afficher ces informations. Le fichier existant ne doit jamais être considéré comme reçu dans le chat sans preuve.
