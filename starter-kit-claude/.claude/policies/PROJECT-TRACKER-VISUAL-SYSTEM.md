@@ -4,7 +4,7 @@ Cette politique est la source de vérité pour Trello et GitHub Projects. Les m�
 
 ## Langue et rédaction
 
-Tout contenu de suivi est rédigé en français, y compris les noms, titres, descriptions, tâches, commentaires, décisions et preuves. Les commandes, identifiants, URLs, noms de branches et extraits de logs peuvent conserver leur forme technique. Une information par ligne, sans titre séparé, gras, numérotation manuelle, tiret cadratin, caractère déclenchant une autocomplétion ou ponctuation ambiguë. Chaque phrase se termine par un point. Après publication, relire le contenu réellement affiché. Ne jamais demander une confirmation pour une écriture explicitement demandée.
+Tout contenu créé ou édité par le kit est rédigé en français, y compris les noms, titres, descriptions, tâches, commentaires, décisions et preuves. Les commandes, identifiants, URLs, noms de branches et extraits de logs peuvent conserver leur forme technique. Les libellés natifs par défaut de la plateforme, ses champs système, ses vues, ses couleurs et ses paramètres ne sont pas renommés ni remplacés sauf demande explicite. Une information par ligne, sans titre séparé, gras, numérotation manuelle, tiret cadratin, caractère déclenchant une autocomplétion ou ponctuation ambiguë. Chaque phrase se termine par un point. Après publication, relire le contenu réellement affiché. Ne jamais demander une confirmation pour une écriture explicitement demandée.
 
 ## Statuts et ordre
 
@@ -38,9 +38,9 @@ Les commentaires et preuves sont concis, factuels, en français, une information
 
 Dans Trello, les statuts sont des listes, les labels sont les étiquettes, les tâches sont une checklist et les commentaires sont les commentaires de carte.
 
-Dans GitHub Projects, les statuts sont les options du champ `Status`, les éléments sont des Issues ou Draft Issues, les labels sont les labels du dépôt, et les tâches sont une liste de tâches Markdown dans l'Issue. GitHub Projects n'ayant pas toujours de checklist native, ne jamais prétendre qu'une tâche est synchronisée sans relire le corps de l'Issue et l'élément du Project. Conserver le numéro du Project, l'ID de l'élément, le numéro de l'Issue, les IDs des champs, les URLs et la vue Kanban dans le document local.
+Dans GitHub Projects, les statuts utilisent par défaut les options natives existantes du champ `Status`, les éléments sont des Issues ou Draft Issues, les labels sont les labels du dépôt, et les tâches sont une liste de tâches Markdown dans l'Issue. Ne pas renommer, supprimer ou remplacer les options, champs, vues ou paramètres natifs sauf demande explicite. GitHub Projects n'ayant pas toujours de checklist native, ne jamais prétendre qu'une tâche est synchronisée sans relire le corps de l'Issue et l'élément du Project. Conserver le numéro du Project, l'ID de l'élément, le numéro de l'Issue, les IDs des champs, les URLs et la vue Kanban dans le document local.
 
-Mapper les statuts français exactement, conserver une vue Kanban, réutiliser les labels existants par nom et couleur et créer uniquement les champs ou labels manquants. Une Issue et son élément Project forment une seule carte logique. Toute modification de l'un exige la relecture des deux.
+Pour GitHub Projects, conserver les champs et vues natifs et utiliser uniquement le contenu français dans les Issues, descriptions, tâches, commentaires et preuves. Réutiliser les labels existants par nom et couleur et créer uniquement les labels manquants si nécessaire. Une Issue et son élément Project forment une seule carte logique. Toute modification de l'un exige la relecture des deux.
 
 ## Livraison
 
