@@ -19,7 +19,7 @@ Avant toute action, lire et signaler explicitement :
 
 ## Réponses obligatoires
 
-Si le cahier est absent, répondre avec le chemin vérifié, l'action d'attente et l'interdiction de commencer.
+Si le cahier est absent, répondre avec le chemin vérifié et proposer sa réception. Si l'utilisateur demande explicitement de le retrouver ou de le reconstituer, auditer uniquement les sources documentaires autorisées, produire `.claude/PROJECT-BRIEF.md` avec `status: reconstructed`, les sources, les hypothèses et les inconnues, puis lancer le questionnaire de validation. Cette reconstitution n'autorise ni implémentation, ni choix technique irréversible, ni clôture du cadrage sans validation.
 
 Si le cahier est présent et accepté, afficher son chemin, son statut, son origine, les documents réellement lus, les documents manquants et l'action de réutilisation sans remplacement.
 
