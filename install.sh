@@ -50,13 +50,14 @@ verify_update_workflow() {
     fail "Le workflow de mise à jour est ignoré par Git. Retirez cette règle avant de continuer."
   fi
 }
-usage() { printf "%b\n" "Usage : ./install.sh [--kit codex|claude] [--mode shared] [--target CHEMIN] [--force]"; }
-kit=""; mode="shared"; target=""; force=false
+usage() { printf "%b\n" "Usage : ./install.sh [--kit codex|claude] [--mode shared] [--target CHEMIN] [--briefs-root CHEMIN] [--force]"; }
+kit=""; mode="shared"; target=""; briefs_root=""; force=false
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --kit) [ "$#" -ge 2 ] || fail "Valeur manquante pour --kit."; kit="$2"; shift 2 ;;
     --mode) [ "$#" -ge 2 ] || fail "Valeur manquante pour --mode."; mode="$2"; shift 2 ;;
     --target) [ "$#" -ge 2 ] || fail "Valeur manquante pour --target."; target="$2"; shift 2 ;;
+    --briefs-root) [ "$#" -ge 2 ] || fail "Valeur manquante pour --briefs-root."; briefs_root="$2"; shift 2 ;;
     --force) force=true; shift ;;
     -h|--help) usage; exit 0 ;;
     *) fail "Option inconnue : $1" ;;
@@ -145,6 +146,18 @@ fi
 case "$project_name" in
   ""|.|..|*/*) fail "Le nom du projet doit être un nom de dossier simple, sans slash." ;;
 esac
+briefs_root="${briefs_root:-${AGENTIC_BRIEFS_HOME:-$HOME/Documents/Projets/Cahier-des-Charges}}"
+if [ -t 0 ]; then
+  printf "\n%b\n" "${bold}Dossier commun des cahiers des charges${reset}"
+  printf "Tous les projets auront un sous-dossier dans ce dossier.\n"
+  printf "  Chemin [%s] : " "$briefs_root"
+  read -r requested_briefs_root
+  briefs_root="${requested_briefs_root:-$briefs_root}"
+fi
+case "$briefs_root" in
+  ""|/*) ;;
+  *) fail "Le dossier commun des cahiers doit être un chemin absolu." ;;
+esac
 if [ "$force" != true ] && { [ -e "$target/$entry" ] || [ -e "$target/$hidden" ]; }; then
   fail "Un kit existe déjà dans $target. Utilisez --force après vérification."
 fi
@@ -180,18 +193,12 @@ kit_version = "$kit_version"
 source = "https://github.com/Krapaud-Labs/AGENTIC-Starter-Kits"
 kit_mode = "shared"
 kit_home = "$shared_root"
+briefs_home = "$briefs_root"
 update_channel = "stable"
 EOF
 ensure_gitignore
 verify_update_workflow "${workflow_path#$target/}"
-projects_root="$target"
-while [ "$projects_root" != "/" ] && [ "$(basename "$projects_root")" != "Projets" ]; do
-  projects_root="$(dirname "$projects_root")"
-done
-if [ "$(basename "$projects_root")" != "Projets" ]; then
-  projects_root="$(dirname "$target")"
-fi
-brief_archive="$projects_root/Cahier-des-Charges/$project_name/cahier-des-charges.md"
+brief_archive="$briefs_root/$project_name/cahier-des-charges.md"
 mkdir -p "$(dirname "$brief_archive")"
 if [ ! -e "$brief_archive" ]; then
   cat > "$brief_archive" <<EOF
