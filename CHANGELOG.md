@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.95 - 2026-10-24
+
+- Ajoute des modèles complets de cahier universel, vierge, de reconstitution et de changement Post-MVP, ainsi qu'un registre officiel pour éviter les doublons de cahiers dans les projets.
+
 ## 1.16.94 - 2026-10-23
 
 - Conserve les champs, statuts, vues, couleurs et paramètres natifs de GitHub Projects et limite la règle française au contenu créé ou édité par le kit.

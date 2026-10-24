@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.95 | 2026-10-24 | Ajoute les modèles de cahier universel, vierge, de reconstitution et de changement Post-MVP ainsi que le registre de rangement et déduplication. |
 | 1.16.94 | 2026-10-23 | Conserve les éléments natifs de GitHub Projects et applique le français uniquement au contenu géré par le kit. |
 | 1.16.93 | 2026-10-23 | Unifie les règles Trello et GitHub Projects dans une politique commune avec adaptation des statuts, labels, tâches, commentaires, synchronisation et livraison. |
 | 1.16.92 | 2026-10-23 | Rend le cahier initial du MVP immuable et crée une demande de changement séparée pour toute évolution postérieure. |
