@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.96 - 2026-10-24
+
+- Ajoute un parcours accéléré et borné pour l'initialisation des projets existants afin d'éviter les audits documentaires interminables.
+
 ## 1.16.95 - 2026-10-24
 
 - Ajoute des modèles complets de cahier universel, vierge, de reconstitution et de changement Post-MVP, ainsi qu'un registre officiel pour éviter les doublons de cahiers dans les projets.

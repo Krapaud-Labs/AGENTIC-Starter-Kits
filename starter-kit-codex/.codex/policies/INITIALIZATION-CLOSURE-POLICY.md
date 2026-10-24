@@ -4,6 +4,8 @@
 
 L'initialisation est une phase courte de cadrage bornée à 15 minutes de travail actif et 20 actions maximum. Elle doit lire et formaliser le cahier des charges, créer les documents de conception, recenser le projet, décomposer le MVP et le Post-MVP et créer les cartes détaillées nécessaires avec labels, descriptions, dépendances et checklists. Elle ne développe rien, n'exécute aucune carte et ne réalise pas d'audit approfondi par domaine. Les audits techniques, visuels, sécurité, exploitation et les preuves de production deviennent des cartes distinctes exécutées plus tard. Si le budget est atteint, le Coordinateur arrête l'initialisation avec un inventaire des cartes restantes, sans boucle ni répétition.
 
+Pour un projet existant, le parcours accéléré limite l'inventaire à une passe de 20 minutes et 30 actions maximum. Il ne relit pas toutes les cartes ni tous les domaines en profondeur. Il crée des cartes d'audit regroupées et déléguées, puis remet les détails à leur exécution dédiée.
+
 L'initialisation est livrée lorsque le cahier, les documents de conception, la matrice MVP/Post-MVP, les cartes et la livraison d'onboarding sont vérifiés. Elle n'attend pas l'implémentation, les audits détaillés ou la readiness globale du produit.
 
 ## Séquence obligatoire
