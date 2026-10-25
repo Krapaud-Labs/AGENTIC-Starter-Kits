@@ -430,16 +430,9 @@ Ce document est la source versionnée du tableau. Chaque carte possède un ident
 
 ## Listes du tableau
 
-1. À trier
-2. Prêt à concevoir
-3. Conception en cours
-4. Prêt à développer
-5. En développement
-6. En revue
-7. En validation
-8. Bloqué
-9. Terminé
-10. Archivé
+1. Backlog
+2. In progress
+3. Done
 
 ## Cartes détaillées
 
