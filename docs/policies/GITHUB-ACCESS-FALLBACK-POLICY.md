@@ -21,9 +21,19 @@ L'échec du binaire local `gh` ne signifie pas que GitHub est indisponible. Chaq
 - Ne jamais annoncer GitHub indisponible sans avoir testé les voies exposées.
 - Ne jamais ouvrir ou utiliser Chrome si une API capable de réaliser l'action est disponible.
 
+## Gestion des limites
+
+- Une limite REST, GraphQL ou secondaire doit être classée séparément de `api_unavailable`.
+- Lire le délai de réinitialisation fourni par GitHub avant toute nouvelle tentative.
+- Ne pas boucler sur la même requête, ne pas changer de voie sans vérifier sa capacité réelle et ne pas demander une réauthentification lorsque le token est valide.
+- Pendant l'attente, poursuivre les contrôles locaux et les opérations indépendantes.
+- Une mutation Project V2 ne doit être déclarée non exposée qu'après un test de capacité hors limite ou une preuve d'absence dans le catalogue.
+- Conserver la dernière réponse GitHub, la date de réinitialisation et la prochaine action dans l'état runtime.
+
 ## Classification des échecs
 
 - `api_unavailable` signifie que l'API ou le connecteur requis n'est pas exposé ou ne répond pas.
+- `api_rate_limited` signifie que GitHub répond mais impose une limite temporaire.
 - `cli_unavailable` signifie que seul le binaire `gh` échoue.
 - `browser_unavailable` signifie que Chrome ne peut pas être utilisé lorsque son emploi est nécessaire.
 - `permission_denied` signifie que la voie répond mais refuse l'opération.
