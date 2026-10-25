@@ -1,5 +1,13 @@
 ## Unreleased
 
+## 1.16.99 - 2026-10-25
+
+- Simplifie les gestionnaires de projet à trois colonnes uniquement : `Backlog`, `In progress` et `Done`, sans colonnes artificielles par phase ou par personne.
+
+## 1.16.98 - 2026-10-25
+
+- Interdit les cartes GitHub Project terminées en brouillon et convertit les brouillons suivis en Issues réelles lors de l'audit.
+
 ## 1.16.97 - 2026-10-25
 
 - Rend automatique la transition vers l état terminal lorsque la Definition of Done est prouvée, sans confirmation intermédiaire ni remise artificielle de la livraison en attente.
