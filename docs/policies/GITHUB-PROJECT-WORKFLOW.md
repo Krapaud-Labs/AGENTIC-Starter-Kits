@@ -38,7 +38,7 @@ Le statut décrit l'avancement. La priorité décrit l'importance. Les deux cham
 
 Les étiquettes restent simples, capitalisées et sans préfixe. Utiliser uniquement les labels pertinents parmi `Feature`, `Bug`, `Documentation`, `Governance`, `Frontend`, `Backend`, `Security`, `QA`, `DevOps`, `MVP`, `Post-MVP`, `P0`, `P1`, `P2` et `P3`.
 
-Le statut reste un champ du GitHub Project. Il ne doit pas être dupliqué dans une étiquette. Une carte doit recevoir au moins une étiquette de type ou de domaine lorsque l'information est connue, sans inventer une classification absente de sa description.
+Le statut reste un champ du GitHub Project. Il ne doit pas être dupliqué dans une étiquette. Une carte doit recevoir au moins une étiquette de type ou de domaine lorsque l'information est connue, sans inventer une classification absente de sa description. Une carte sans aucune étiquette est non conforme et doit rester bloquée en `Backlog` jusqu'à correction.
 
 ## Contrôle obligatoire avant création et clôture
 
@@ -61,5 +61,7 @@ Après toute création ou modification, vérifier
 - le statut réellement appliqué;
 - la priorité réellement appliquée lorsqu'elle est connue;
 - la présence de la carte dans la vue Kanban attendue.
+
+Le contrôle global des étiquettes doit être exécuté avant toute clôture de l'initialisation et avant toute livraison du Project. Il doit parcourir toutes les cartes, signaler chaque carte sans étiquette, appliquer une étiquette pertinente ou laisser la carte ouverte si aucune classification fiable n'est déductible. Une simple vérification de la configuration des labels ne suffit pas.
 
 Une carte historique peut conserver ses notes anciennes, mais doit recevoir un identifiant unique et les sections manquantes doivent être ajoutées sans effacer les preuves existantes. Les cartes sans preuve d'avancement sont placées dans `Backlog`; aucune carte ne doit être classée `In progress`, `Review` ou `Done` par déduction arbitraire.
