@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.0 - 2026-10-25
+
+- Regroupe l'exécution d'une carte en une passe spécialisée, une correction groupée et une revalidation finale.
+- Limite les relances identiques et interdit les micro-audits sans changement d'état.
+- Ajoute la politique d'efficacité commune aux kits Codex et Claude avec test de non-régression.
+
 ## 1.16.99 - 2026-10-25
 
 - Simplifie les gestionnaires de projet à trois colonnes uniquement : `Backlog`, `In progress` et `Done`, sans colonnes artificielles par phase ou par personne.
