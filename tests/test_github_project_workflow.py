@@ -23,3 +23,5 @@ def test_github_project_convention_is_complete() -> None:
     assert "titre réellement enregistré" in content
     assert "contenu complet réellement enregistré" in content
     assert "labels réellement attachés" in content
+    assert "Une carte sans aucune étiquette est non conforme" in content
+    assert "contrôle global des étiquettes" in content
