@@ -32,6 +32,10 @@ Avant de traiter un check, un blocage ou une suggestion découverte pendant l'au
 
 ## Procédure
 
+### Cadence obligatoire
+
+Appliquer `policies/EXECUTION-EFFICIENCY-POLICY.md`. Pour une carte ou feature, regrouper l'inventaire, les affectations spécialisées et la matrice de preuves dans un seul plan. Exécuter une correction groupée, puis une seule revalidation finale. Ne pas relancer un audit identique sans changement d'état et ne pas demander « continue » pour une action déjà autorisée.
+
 1. Créer un work item avec résultat, hors périmètre, critères et budget.
 2. En mode `autonomous-after-brief` et lorsque `execution_authorization = "continuous-until-done"`, une instruction comme « fais tout » autorise l’exécution de toutes les sous-tâches du work item jusqu’à la Definition of Done. Regrouper les choix non bloquants en décisions réversibles dans un ADR et continuer sans interrompre l’utilisateur. Ne poser qu’une demande consolidée pour les blocages réels.
 3. Évaluer le risque avec `.claude/RISK-MATRIX.md`.
