@@ -347,7 +347,7 @@ for kit in codex claude; do
     exit 1
   fi
 
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>"$test_root/guard.err"; then
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>"$test_root/guard.err"; then
     echo "ECHEC TEST: l'état running aurait dû bloquer la réponse $kit"
     exit 1
   fi
@@ -363,30 +363,30 @@ for kit in codex claude; do
   for audit_key in audit_matrix_status specialist_audit_status negative_tests_status contradiction_audit_status independent_reaudit_status; do
     grep -q "^- $audit_key:" "$config/RUNTIME-STATE.md" || printf '%s\n' "- $audit_key: not-applicable" >> "$config/RUNTIME-STATE.md"
   done
-  perl -0pi -e 's/execution_status: .*/execution_status: complete/; s/next_action: .*/next_action: none/; s/open_checklist_items: .*/open_checklist_items: 0/; s/last_observable_evidence: .*/last_observable_evidence: test-evidence/; s/ci_status: .*/ci_status: success/; s/trello_sync_status: .*/trello_sync_status: disabled/; s/goal_agents_created: .*/goal_agents_created: agent-test/; s/goal_agent_evidence: .*/goal_agent_evidence: test-agent-evidence/; s/audit_matrix_status: .*/audit_matrix_status: verified/; s/specialist_audit_status: .*/specialist_audit_status: verified/; s/negative_tests_status: .*/negative_tests_status: verified/; s/contradiction_audit_status: .*/contradiction_audit_status: verified/; s/independent_reaudit_status: .*/independent_reaudit_status: verified/' "$config/RUNTIME-STATE.md"
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+  perl -0pi -e 's/^- execution_status: .*/- execution_status: complete/m; s/^- next_action: .*/- next_action: none/m; s/^- open_checklist_items: .*/- open_checklist_items: 0/m; s/^- last_observable_evidence: .*/- last_observable_evidence: test-evidence/m; s/^- ci_status: .*/- ci_status: success/m; s/^- trello_sync_status: .*/- trello_sync_status: disabled/m; s/^- goal_agents_created: .*/- goal_agents_created: agent-test/m; s/^- goal_agent_evidence: .*/- goal_agent_evidence: test-agent-evidence/m; s/^- audit_matrix_status: .*/- audit_matrix_status: verified/m; s/^- specialist_audit_status: .*/- specialist_audit_status: verified/m; s/^- negative_tests_status: .*/- negative_tests_status: verified/m; s/^- contradiction_audit_status: .*/- contradiction_audit_status: verified/m; s/^- independent_reaudit_status: .*/- independent_reaudit_status: verified/m' "$config/RUNTIME-STATE.md"
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: une obligation pending aurait dû bloquer complete $kit"
     exit 1
   fi
 
   perl -0pi -e 's/\tpending\tnot-collected\t/\tverified\ttest-evidence\t/g' "$config/work-items/demo/obligations.tsv"
   bash "$config/scripts/validate-obligations.sh" --require-active >/dev/null
-  bash "$config/scripts/guard-before-response.sh" >/dev/null
+  (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null
 
 
   perl -0pi -e 's/goal_status: .*/goal_status: active/; s/goal_delivery_status: .*/goal_delivery_status: pending/; s/integration_branch: .*/integration_branch: dev/; s/pushed_integration_commit: .*/pushed_integration_commit: none/; s/pull_request_status: .*/pull_request_status: not-required/' "$config/RUNTIME-STATE.md"
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: un goal sans livraison vers dev aurait dû bloquer complete $kit"
     exit 1
   fi
 
   perl -0pi -e 's/goal_status: .*/goal_status: complete/; s/goal_delivery_status: .*/goal_delivery_status: verified/; s/pushed_integration_commit: .*/pushed_integration_commit: abc123/; s/integration_remote_evidence: .*/integration_remote_evidence: none/; s/pull_request_status: .*/pull_request_status: open/' "$config/RUNTIME-STATE.md"
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: une PR ouverte aurait dû bloquer complete $kit"
     exit 1
   fi
   perl -0pi -e 's/integration_remote_evidence: .*/integration_remote_evidence: origin\/dev contient abc123/; s/pull_request_status: .*/pull_request_status: verified/' "$config/RUNTIME-STATE.md"
-  bash "$config/scripts/guard-before-response.sh" >/dev/null
+  (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null
 
   perl -0pi -e 's/\tverified\ttest-evidence\t/\tverified\tnot-collected\t/' "$config/work-items/demo/obligations.tsv"
   if bash "$config/scripts/validate-obligations.sh" --require-active >/dev/null 2>&1; then
@@ -471,5 +471,7 @@ for kit in codex claude; do
   (cd "$recovery_root/$kit" && bash .${kit}/scripts/verify-recovery-state.sh) >/dev/null || { echo "ECHEC TEST: needs-review récupérable refusé pour $kit"; exit 1; }
 done
 echo "Test reprise récupérable OK"
+
+bash "$root/tests/test-github-access-diagnostic.sh"
 
 echo "Tests des portes exécutables OK"

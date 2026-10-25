@@ -156,6 +156,10 @@ Les dossiers initialement vides contiennent un `.gitkeep`, afin qu'ils restent p
 
 ## Validation avant GitHub
 
+### Diagnostiquer l’accès GitHub
+
+Pour distinguer une authentification `gh` expirée d’un problème réseau, lancer `bash .codex/scripts/verify-github-access.sh`. `GH_AUTH_UNVERIFIED` concerne uniquement la session `gh`; `DNS_RESOLUTION_FAILED` signifie que le processus ne résout pas le nom et ne prouve pas une panne GitHub. `SANDBOX_LIMITATION` signale une permission bloquante et `NETWORK_ACCESS_UNVERIFIED` un accès réseau qui doit être retenté dans un contexte autorisé. Après ce retry réseau, ajouter `--after-network-enabled-retry`; seul un nouvel échec non-DNS/non-sandbox est alors classé `GITHUB_EXTERNAL_UNAVAILABLE`. Le flag atteste que le retry a eu lieu, il ne vérifie pas lui-même les permissions du contexte.
+
 `init-project.sh` installe un hook Git pre-push lorsque le projet est un dépôt. Avant chaque push, le rôle responsable exécute :
 
 ```bash
