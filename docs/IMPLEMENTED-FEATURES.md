@@ -6,7 +6,15 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.16.97` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `1.16.99` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 1.16.99
+
+- Trois colonnes stables pour les gestionnaires de projet : Backlog, In progress et Done.
+
+## Version 1.16.98
+
+- GitHub Projects refuse les cartes terminées en Draft et convertit les éléments suivis en Issues réelles.
 
 ## Version 1.16.97
 

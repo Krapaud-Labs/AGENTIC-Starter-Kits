@@ -8,7 +8,7 @@ Tout contenu créé ou édité par le kit est rédigé en français, y compris l
 
 ## Statuts et ordre
 
-Utiliser les statuts dans cet ordre, sans doublon : `À trier`, `Prêt à concevoir`, `Conception en cours`, `Prêt à développer`, `En développement`, `En revue`, `En validation`, `Bloqué`, `Terminé`, `Archivé`. Un statut absent est créé, puis l'ordre réel est relu. `Bloqué` exige une cause, une preuve, une alternative tentée et une prochaine action. `Terminé` exige la preuve de chaque tâche, la documentation finale, la PR fusionnée et la relecture distante.
+Utiliser uniquement trois statuts dans cet ordre : `Backlog`, `In progress`, `Done`. Les détails de conception, validation, blocage et phase sont portés par la description, les labels, les tâches et les preuves, pas par des colonnes supplémentaires. `Done` exige la preuve de chaque tâche, la documentation finale, la PR fusionnée et la relecture distante.
 
 Les colonnes de travail sont dimensionnées selon les membres actifs : `min(4, max(1, ceil(active_members / 2)))`. Une ou deux personnes utilisent une colonne, trois ou quatre deux, cinq à huit trois et au-delà quatre maximum. Ne jamais créer une colonne vide par personne.
 
@@ -17,6 +17,8 @@ Les colonnes de travail sont dimensionnées selon les membres actifs : `min(4, m
 Attribuer avant création un identifiant stable et topologique au format `[MVP-001]` ou `[POST-MVP-001]`. Ne jamais renuméroter un élément publié. Le titre est court, français, unique et orienté action.
 
 La description commence par Owner, Type, Priority, Dependencies, Execution order, Phase, Parallel group, Scope decision et Definition of Done, puis contient Context, Scope, Implementation plan, Acceptance criteria, Evidence, Risks, Rollback et Definition of Done. Les tâches utilisent de vraies cases Markdown, une par preuve.
+
+Pour une carte terminée, le contenu utilise des rubriques Markdown explicites : `## Contexte`, `## Objectif`, `## Périmètre`, `## Réalisation attendue`, `## Critères d'acceptation`, `## Preuves`, `## Risques`, `## Retour arrière` et `## Définition de terminé`. Les preuves historiques restent dans `## Preuves` et les tâches prouvées sont cochées dans une checklist Markdown. Le titre conserve un identifiant stable et une formulation d'action, sans préfixe de statut ajouté après publication. Une carte existante mal formée est corrigée lors de la prochaine relecture sans perdre son contenu historique.
 
 Réutiliser ou créer les labels nommés `Fonctionnalité`, `Anomalie`, `Sécurité`, `Architecture`, `Frontend`, `Backend`, `Données`, `DevOps`, `Documentation`, `Qualité`, `Bloqué`, `Priorité haute` et `Validation externe`, avec leurs couleurs documentées. Chaque élément possède au moins un label de type et un label de domaine. Les labels restent compréhensibles sans la couleur.
 
@@ -38,7 +40,7 @@ Les commentaires et preuves sont concis, factuels, en français, une information
 
 Dans Trello, les statuts sont des listes, les labels sont les étiquettes, les tâches sont une checklist et les commentaires sont les commentaires de carte.
 
-Dans GitHub Projects, les statuts utilisent par défaut les options natives existantes du champ `Status`, les éléments sont des Issues ou Draft Issues, les labels sont les labels du dépôt, et les tâches sont une liste de tâches Markdown dans l'Issue. Ne pas renommer, supprimer ou remplacer les options, champs, vues ou paramètres natifs sauf demande explicite. GitHub Projects n'ayant pas toujours de checklist native, ne jamais prétendre qu'une tâche est synchronisée sans relire le corps de l'Issue et l'élément du Project. Conserver le numéro du Project, l'ID de l'élément, le numéro de l'Issue, les IDs des champs, les URLs et la vue Kanban dans le document local.
+Dans GitHub Projects, les statuts utilisent par défaut les options natives existantes du champ `Status`, les éléments suivis sont des Issues ou des Pull Requests, les labels sont les labels du dépôt, et les tâches sont une liste de tâches Markdown dans l'Issue. Un `Draft Issue` est réservé au brouillon d'intake non suivi. Dès qu'un élément reçoit un identifiant stable, un propriétaire, des tâches, une Definition of Done, un statut de travail ou une branche, le Coordinateur le convertit immédiatement en Issue réelle et relit le nouvel élément. Une carte ne peut jamais être `Terminé` tout en restant `Draft Issue`. Lors de l'audit d'un Project existant, convertir les brouillons déjà terminés en Issues en conservant le titre, le corps et le statut, puis relire chaque conversion. Ne pas renommer, supprimer ou remplacer les options, champs, vues ou paramètres natifs sauf demande explicite. GitHub Projects n'ayant pas toujours de checklist native, ne jamais prétendre qu'une tâche est synchronisée sans relire le corps de l'Issue et l'élément du Project. Conserver le numéro du Project, l'ID de l'élément, le numéro de l'Issue, les IDs des champs, les URLs et la vue Kanban dans le document local.
 
 Pour GitHub Projects, conserver les champs et vues natifs et utiliser uniquement le contenu français dans les Issues, descriptions, tâches, commentaires et preuves. Réutiliser les labels existants par nom et couleur et créer uniquement les labels manquants si nécessaire. Une Issue et son élément Project forment une seule carte logique. Toute modification de l'un exige la relecture des deux.
 

@@ -14,16 +14,9 @@ Tout contenu rédigé dans Trello doit être exclusivement en français : noms d
 
 Create missing lists in this order:
 
-1. `À trier`
-2. `Prêt à concevoir`
-3. `Conception en cours`
-4. `Prêt à développer`
-5. `En développement`
-6. `En revue`
-7. `En validation`
-8. `Bloqué`
-9. `Terminé`
-10. `Archivé`
+1. `Backlog`
+2. `In progress`
+3. `Done`
 
 Après chaque création ou reprise, relire les positions réelles et réordonner explicitement les listes. Si Trello place les nouvelles listes en tête, créer dans l'ordre inverse ou utiliser le réordonnancement. La synchronisation reste non vérifiée tant que cette séquence n'est pas confirmée.
 
@@ -31,7 +24,7 @@ Use `Inbox` only for captured requests. Move a card to `Ready` after its scope, 
 
 ### Dimensionnement selon l'équipe
 
-Les listes de gouvernance restent stables (`Inbox`, `Ready`, `Blocked`, `Review`, `Done`, `Archived`). Les colonnes de travail remplacent `In Progress` selon le nombre de personnes réellement affectées au projet, après déduplication des membres et confirmation de leur rôle : `work_columns = min(4, max(1, ceil(active_members / 2)))`. Une ou deux personnes utilisent une seule colonne ; trois ou quatre utilisent deux colonnes ; cinq à huit utilisent trois colonnes ; neuf personnes ou plus utilisent quatre colonnes maximum. Chaque colonne a un responsable ou groupe documenté. Si les membres ne sont pas confirmés, conserver une seule colonne `In Progress` et demander la clarification avant d'en créer d'autres. Le Coordinateur réévalue ce dimensionnement lorsque l'équipe change de taille.
+Le tableau conserve ces trois listes quelle que soit la taille de l'équipe. Le nombre de personnes est indiqué dans les cartes et les affectations, jamais traduit en colonnes supplémentaires. Ne pas créer une colonne par personne ni de colonne vide.
 
 ## Standard labels
 
