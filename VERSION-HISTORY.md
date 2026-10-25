@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.16.97 | 2026-10-25 | Rend automatique la transition terminale après preuve complète et interdit les confirmations intermédiaires artificielles. |
 | 1.16.96 | 2026-10-24 | Ajoute un parcours de reprise rapide pour les projets existants, avec inventaire borné et audits détaillés reportés dans des cartes dédiées. |
 | 1.16.95 | 2026-10-24 | Ajoute les modèles de cahier universel, vierge, de reconstitution et de changement Post-MVP ainsi que le registre de rangement et déduplication. |
 | 1.16.94 | 2026-10-23 | Conserve les éléments natifs de GitHub Projects et applique le français uniquement au contenu géré par le kit. |

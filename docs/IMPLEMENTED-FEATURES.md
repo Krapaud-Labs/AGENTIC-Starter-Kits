@@ -6,7 +6,11 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.16.96` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `1.16.97` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 1.16.97
+
+- Transition terminale autonome après preuves complètes, sans confirmation intermédiaire artificielle.
 | Variante Codex | Implémentée | `starter-kit-codex/` |
 | Variante Claude | Implémentée | `starter-kit-claude/` |
 | Mise à jour des consommateurs | Implémentée | `sync-workspace-kit.sh` |

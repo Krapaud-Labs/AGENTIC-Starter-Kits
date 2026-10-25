@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 1.16.97 - 2026-10-25
+
+- Rend automatique la transition vers l état terminal lorsque la Definition of Done est prouvée, sans confirmation intermédiaire ni remise artificielle de la livraison en attente.
+
 ## 1.16.96 - 2026-10-24
 
 - Ajoute un parcours accéléré et borné pour l'initialisation des projets existants afin d'éviter les audits documentaires interminables.
