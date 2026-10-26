@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Corrige le diagnostic d’accès GitHub des kits Codex et Claude : une erreur DNS ou sandboxée ne se présente plus comme une panne externe confirmée; l’indisponibilité externe exige une relance réseau renforcée explicite. Impact consommateur : patch, aucune version incrémentée dans ce correctif pré-release.
+
 ## 1.17.0 - 2026-10-25
 
 - Regroupe l'exécution d'une carte en une passe spécialisée, une correction groupée et une revalidation finale.

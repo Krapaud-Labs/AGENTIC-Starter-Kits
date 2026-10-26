@@ -14,6 +14,13 @@ Pour un daemon local connu, une commande qui échoue ne suffit jamais à déclar
 
 Une conclusion d indisponibilité doit mentionner les emplacements vérifiés, la commande de version ou d identité, l état d authentification, les alternatives disponibles et la prochaine action. Une simple sortie `command not found` est insuffisante.
 
-Pour GitHub, exécuter `.codex/scripts/verify-github-access.sh` avant tout blocage. Un échec marqué `SANDBOX_LIMITATION` signifie que le processus est limité par l'environnement d'exécution, pas que GitHub est indisponible : relancer avec l'accès réseau renforcé, le shell de l'IDE ou le navigateur connecté. Seul `GITHUB_EXTERNAL_UNAVAILABLE`, après ces alternatives, peut documenter une indisponibilité externe réelle.
+Pour GitHub, exécuter `.codex/scripts/verify-github-access.sh` avant tout blocage. Les résultats distinguent les états suivants :
+
+- `DNS_RESOLUTION_FAILED` : le processus courant ne résout pas le nom demandé. Cela ne prouve ni une panne de GitHub ni une panne DNS macOS. Vérifier le résolveur système hors sandbox avant toute conclusion.
+- `SANDBOX_LIMITATION` : le processus est bloqué par une permission ou une restriction d'exécution. Relancer dans un contexte réseau renforcé, le shell de l'IDE ou le navigateur connecté.
+- `NETWORK_ACCESS_UNVERIFIED` : un échec réseau initial ne permet pas de conclure. Relancer `verify-github-access.sh --after-network-enabled-retry` depuis un contexte où l'accès réseau renforcé est effectivement actif.
+- `GITHUB_EXTERNAL_UNAVAILABLE` : ne peut être émis qu'après cette relance explicite, pour un échec non lié à la résolution DNS ou à une permission. C'est alors seulement une preuve d'indisponibilité externe.
+
+Le résultat de `gh auth status` est distinct du test DNS/HTTP : une authentification non vérifiée dans le contexte courant ne prouve pas que le jeton est invalide ni que GitHub est indisponible. Vérifier séparément l'authentification dans le contexte réseau approprié.
 
 Un endpoint public en HTTP 200 ne prouve pas un accès d'administration VPS, Dokploy ou préproduction. Avant de conclure à l'absence d'accès, le Coordinateur doit créer ou activer l'agent DevOps et vérifier les chemins autorisés disponibles : binaire `ssh`, configurations et agents SSH, `gh`, variables non sensibles, navigateur déjà connecté, URL Dokploy, connecteurs et outils du projet. Il ne demande jamais un secret dans le dépôt et ne modifie pas la production sans autorisation explicite.

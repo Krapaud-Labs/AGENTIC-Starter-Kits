@@ -327,6 +327,7 @@ Pour préserver le GitFlow, effectuer cette synchronisation sur une branche déd
 
 - `Preflight` échoue : lire la première erreur, compléter le profil ou le cahier, puis relancer le contrôle.
 - Trello n’est pas disponible : le plan local reste créé ; activer l’intégration puis demander une synchronisation vérifiée.
+- Vérification GitHub : `DNS_RESOLUTION_FAILED` indique que le processus n’a pas résolu le nom et ne prouve pas une panne GitHub ni macOS. `SANDBOX_LIMITATION` désigne une permission bloquante. Après un échec réseau initial `NETWORK_ACCESS_UNVERIFIED`, relancer `verify-github-access.sh --after-network-enabled-retry` dans un contexte réseau renforcé; seul un échec non-DNS à cette seconde étape donne `GITHUB_EXTERNAL_UNAVAILABLE`. L’état d’authentification `gh` se vérifie séparément.
 - Un outil manque sur la machine : lancer `doctor.sh`. Le Coordinateur utilise les outils disponibles et documente la limite.
 - Une commande projet est inconnue : renseigner les champs `[commands]` du profil au lieu d’inventer une validation.
 
