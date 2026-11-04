@@ -4,6 +4,18 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 state="${1:-$(cd "$script_dir/.." && pwd)/RUNTIME-STATE.md}"
 [ -s "$state" ] || { echo "RUNTIME: fichier absent" >&2; exit 1; }
 tmp="$state.normalize.$$"
+input="$state.normalize-input.$$"
+cp "$state" "$input"
+if ! grep -Eq '^- native_goal_status:' "$input"; then
+  goal_status="$(sed -n 's/^- goal_status:[[:space:]]*//p' "$input" | head -1)"
+  case "$goal_status" in
+    active|running) native_status=active ;;
+    blocked) native_status=blocked ;;
+    paused) native_status=paused ;;
+    *) native_status=unavailable ;;
+  esac
+  printf '%s\n' "- native_goal_status: $native_status" >> "$input"
+fi
 awk '
   /^- [A-Za-z0-9_]+:/ { key=$2; sub(/:$/, "", key); count[key]++; last[key]=NR }
   { lines[NR]=$0 }
@@ -16,7 +28,8 @@ awk '
       print lines[i]
     }
   }
-' "$state" > "$tmp"
+' "$input" > "$tmp"
+rm -f "$input"
 if cmp -s "$state" "$tmp"; then
   rm -f "$tmp"
   printf 'RUNTIME: état déjà canonique\n'
