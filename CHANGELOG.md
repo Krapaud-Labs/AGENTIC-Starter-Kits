@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.3 - 2026-11-04
+
+- Impose automatiquement la relecture complète du kit après chaque mise à jour.
+- Signale au hook SessionStart les fichiers et politiques à recharger avant toute reprise.
+- Conserve la suspension du travail projet jusqu'à validation du nouveau contexte.
+
 ## 1.17.2 - 2026-11-04
 
 - Rend la synchronisation tolérante à l'indisponibilité DNS de raw.githubusercontent.com en testant ensuite l'API GitHub via gh.
