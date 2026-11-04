@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.17.3 | 2026-11-04 | Force la relecture complète des instructions et du runtime après toute mise à jour du kit. |
 | 1.17.2 | 2026-11-04 | Rend la synchronisation résiliente aux échecs DNS et distingue les canaux et causes de blocage. |
 | 1.17.1 | 2026-11-04 | Répare le runtime incomplet et le deadlock de reprise lorsque le statut Goal natif manque. |
 | 1.17.0 | 2026-10-25 | Regroupe les lots spécialisés, limite les relances et interdit les micro-audits sans changement d'état. |

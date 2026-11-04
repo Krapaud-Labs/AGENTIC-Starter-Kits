@@ -30,6 +30,10 @@ if [ ! -f "$config/RUNTIME-STATE.md" ] && [ -f "$config/templates/RUNTIME-STATE.
   cp "$config/templates/RUNTIME-STATE.md" "$config/RUNTIME-STATE.md"
 fi
 version="$(sed -n 's/^kit_version = "\([^"]*\)"/\1/p' "$config/KIT.toml" 2>/dev/null || echo unknown)"
+reload_context=""
+if grep -q '^kit_update_requires_reload=true$' "$config/.session-kit-validated" 2>/dev/null; then
+  reload_context=" Mise à jour du kit appliquée. Relire intégralement CLAUDE.md, START-HERE, ORCHESTRATION, les politiques, skills, agents, models.toml et RUNTIME-STATE.md avant toute action projet."
+fi
 status="$(sed -n 's/^- execution_status: //p' "$config/RUNTIME-STATE.md" 2>/dev/null | head -1 || true)"
 goal="$(sed -n 's/^- goal_status: //p' "$config/RUNTIME-STATE.md" 2>/dev/null | head -1 || true)"
-printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"Contrat agentic %s. État runtime %s. Goal %s.%s%s Lire CLAUDE.md, l’état runtime et les politiques avant toute action. Créer ou reprendre le Goal natif et les agents requis avant toute modification."}}\n' "$version" "${status:-absent}" "${goal:-absent}" "$tool_context" "$report_context"
+printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"Contrat agentic %s. État runtime %s. Goal %s.%s%s%s Lire CLAUDE.md, l’état runtime et les politiques avant toute action. Créer ou reprendre le Goal natif et les agents requis avant toute modification."}}\n' "$version" "${status:-absent}" "${goal:-absent}" "$tool_context" "$report_context" "$reload_context"
