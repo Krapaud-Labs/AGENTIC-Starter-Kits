@@ -6,7 +6,12 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.17.1` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `1.17.2` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 1.17.2
+
+- Synchronisation GitHub multi-canal avec repli API après échec DNS du canal raw.
+- Classification distincte entre version non vérifiable et archive non téléchargeable.
 
 ## Version 1.17.1
 
