@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.4 - 2026-11-04
+
+- Préserve un Goal natif actif lorsqu'un identifiant réel existe malgré un statut runtime `unavailable`.
+- Reconstruit automatiquement `next_action` lorsqu'elle est absente.
+- Ajoute une régression contre le deadlock de reprise observé dans Skkup.
+
 ## 1.17.3 - 2026-11-04
 
 - Impose automatiquement la relecture complète du kit après chaque mise à jour.
