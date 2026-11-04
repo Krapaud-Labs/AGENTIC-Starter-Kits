@@ -11,6 +11,7 @@ fi
 native="$(sed -n 's/^- native_goal_status: //p' "$state" | head -1)"
 next="$(sed -n 's/^- next_action: //p' "$state" | head -1)"
 condition="$(sed -n 's/^- goal_blocked_condition: //p' "$state" | head -1)"
+[ -n "$condition" ] || condition="$(sed -n 's/^- native_goal_blocked_condition: //p' "$state" | head -1)"
 case "$native" in
   active)
     execution=running; session=active; goal=active; evidence="native-goal-active-runtime-reconciled" ;;

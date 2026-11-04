@@ -26,4 +26,21 @@ EOF
   test "$before" = "$after"
   rm -rf "$tmp"
 done
+for kit in codex claude; do
+  hidden="$root/starter-kit-$kit/.${kit}"
+  tmp="$(mktemp -d)"
+  cat > "$tmp/RUNTIME-STATE.md" <<'EOF'
+- execution_status: running
+- session_status: active
+- goal_status: active
+- current_action: recovery
+- next_action: reconcile-runtime
+- last_observable_evidence: bootstrap
+- goal_budget: 10
+EOF
+  bash "$hidden/scripts/normalize-runtime-state.sh" "$tmp/RUNTIME-STATE.md" >/dev/null
+  grep -q '^- native_goal_status: active$' "$tmp/RUNTIME-STATE.md"
+  bash "$hidden/scripts/validate-runtime-schema.sh" "$tmp/RUNTIME-STATE.md" >/dev/null
+  rm -rf "$tmp"
+done
 echo "Normalisation runtime Codex/Claude: OK"
