@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.2 - 2026-11-04
+
+- Rend la synchronisation tolérante à l'indisponibilité DNS de raw.githubusercontent.com en testant ensuite l'API GitHub via gh.
+- Distingue l'absence de canal de version vérifiable de l'impossibilité de télécharger l'archive.
+- Ajoute le canal utilisé et une prochaine action explicite sans déclarer GitHub indisponible à tort.
+
 ## 1.17.1 - 2026-11-04
 
 - Répare la récupération lorsque `native_goal_status` manque dans `RUNTIME-STATE.md`.

@@ -26,14 +26,22 @@ case "$source_url" in
   *"$legacy_source"*) source_url="https://github.com/Krapaud-Labs/AGENTIC-Starter-Kits" ;;
 esac
 raw_base="${source_url/github.com/raw.githubusercontent.com}"
-latest="$(curl -fsSL "$raw_base/main/VERSION")"
-if command -v gh >/dev/null 2>&1; then
-  gh_latest="$(gh api 'repos/Krapaud-Labs/AGENTIC-Starter-Kits/contents/VERSION?ref=main' --jq .content 2>/dev/null | tr -d '\n' | base64 --decode | tr -d '[:space:]' || true)"
-  [ -n "$gh_latest" ] && latest="$gh_latest"
+latest=""
+remote_channel=""
+if latest_candidate="$(curl -fsSL --connect-timeout 5 --max-time 15 "$raw_base/main/VERSION" 2>/dev/null | tr -d '[:space:]')" && [ -n "$latest_candidate" ]; then
+  latest="$latest_candidate"
+  remote_channel="raw"
 fi
+if [ -z "$latest" ] && command -v gh >/dev/null 2>&1; then
+  if latest_candidate="$(gh api 'repos/Krapaud-Labs/AGENTIC-Starter-Kits/contents/VERSION?ref=main' --jq .content 2>/dev/null | tr -d '\n' | base64 --decode 2>/dev/null | tr -d '[:space:]')" && [ -n "$latest_candidate" ]; then
+    latest="$latest_candidate"
+    remote_channel="github-api-via-gh"
+  fi
+fi
+[ -n "$latest" ] || { echo "KIT_SYNC_BLOCKED: aucune voie de version GitHub vérifiable (raw DNS/API gh/connecteur)." >&2; echo "KIT_SYNC_ACTION: conserver le kit installé et réessayer automatiquement à la prochaine session." >&2; exit 20; }
 installed="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$manifest")"
 [ -n "$installed" ] || { echo "Version installée absente du manifeste." >&2; exit 1; }
-[ "$installed" = "$latest" ] && { echo "Kit Codex déjà à jour : $installed"; exit 0; }
+[ "$installed" = "$latest" ] && { echo "Kit Codex déjà à jour : $installed (source: $remote_channel)"; exit 0; }
 backup_root="$project_root/.codex/backups/kit-$installed-$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$backup_root"
 mkdir -p "$backup_root/codex-before-update"; rsync -a --exclude backups/ "$kit_root/" "$backup_root/codex-before-update/"
@@ -50,7 +58,11 @@ cleanup() {
 }
 trap cleanup EXIT
 archive="$tmp_dir/kit.tar.gz"
-curl -fsSL -L "${source_url%/}/archive/refs/heads/main.tar.gz" -o "$archive"
+if ! curl -fsSL --connect-timeout 5 --max-time 30 -L "${source_url%/}/archive/refs/heads/main.tar.gz" -o "$archive"; then
+  echo "KIT_SYNC_BLOCKED: version distante $latest détectée via $remote_channel, mais l'archive GitHub est inaccessible." >&2
+  echo "KIT_SYNC_ACTION: réessayer avec le même canal de version dès que le téléchargement est disponible." >&2
+  exit 21
+fi
 tar -xzf "$archive" -C "$tmp_dir"
 source_kit="$(find "$tmp_dir" -mindepth 2 -maxdepth 2 -type d -name starter-kit-codex | head -n 1)"
 [ -n "$source_kit" ] || { echo "Kit Codex absent de l'archive." >&2; exit 1; }
