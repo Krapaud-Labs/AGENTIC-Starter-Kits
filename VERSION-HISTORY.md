@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.17.1 | 2026-11-04 | Répare le runtime incomplet et le deadlock de reprise lorsque le statut Goal natif manque. |
 | 1.17.0 | 2026-10-25 | Regroupe les lots spécialisés, limite les relances et interdit les micro-audits sans changement d'état. |
 | 1.16.99 | 2026-10-25 | Simplifie les tableaux à trois colonnes stables : Backlog, In progress et Done. |
 | 1.16.98 | 2026-10-25 | Interdit les cartes GitHub Project terminées en brouillon et impose la conversion des brouillons suivis en Issues réelles. |

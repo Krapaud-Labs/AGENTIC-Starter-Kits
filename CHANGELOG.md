@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.1 - 2026-11-04
+
+- Répare la récupération lorsque `native_goal_status` manque dans `RUNTIME-STATE.md`.
+- Infère le statut natif depuis `goal_status` et accepte les deux noms de condition de blocage.
+- Ajoute les tests de régression Codex et Claude contre ce deadlock.
+
 ## 1.17.0 - 2026-10-25
 
 - Regroupe l'exécution d'une carte en une passe spécialisée, une correction groupée et une revalidation finale.
