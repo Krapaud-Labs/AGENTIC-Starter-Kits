@@ -55,5 +55,10 @@ manifest_hash="missing"
 [ -f "$root/.workspace.toml" ] && manifest_hash="$(shasum -a 256 "$root/.workspace.toml" | awk '{print $1}')"
 kit_hash="$(find "$config" -type f ! -name 'RUNTIME-STATE.md' ! -name '*.log' ! -name '.session-kit-validated' | sort | while IFS= read -r file; do shasum -a 256 "$file"; done | shasum -a 256 | awk '{print $1}')"
 printf 'verification_mode=%s\nmanifest_sha256=%s\nkit_sha256=%s\n' "$verification_mode" "$manifest_hash" "$kit_hash" >> "$project_config/.session-kit-validated"
+if [ "$verification_mode" = "remote-updated" ]; then
+  printf 'kit_update_requires_reload=true\nkit_update_reloaded=false\nkit_update_read_order=CLAUDE.md,.claude/START-HERE.md,.claude/ORCHESTRATION.md,.claude/policies,.claude/skills,.claude/agents,.claude/models.toml,.claude/RUNTIME-STATE.md\n' >> "$project_config/.session-kit-validated"
+else
+  printf 'kit_update_requires_reload=false\nkit_update_reloaded=true\n' >> "$project_config/.session-kit-validated"
+fi
 rm -f "$project_config/.kit-update-error"
 echo "KIT-SESSION: porte de démarrage validée"
