@@ -8,13 +8,17 @@ input="$state.normalize-input.$$"
 cp "$state" "$input"
 if ! grep -Eq '^- native_goal_status:' "$input"; then
   goal_status="$(sed -n 's/^- goal_status:[[:space:]]*//p' "$input" | head -1)"
+  native_goal_id="$(sed -n 's/^- native_goal_id:[[:space:]]*//p' "$input" | head -1)"
   case "$goal_status" in
     active|running) native_status=active ;;
     blocked) native_status=blocked ;;
     paused) native_status=paused ;;
-    *) native_status=unavailable ;;
+    *) [ -n "$native_goal_id" ] && [ "$native_goal_id" != "none" ] && native_status=active || native_status=unavailable ;;
   esac
   printf '%s\n' "- native_goal_status: $native_status" >> "$input"
+fi
+if ! grep -Eq '^- next_action:[[:space:]]*[^[:space:]].*' "$input"; then
+  printf '%s\n' '- next_action: resume-after-runtime-reconciliation' >> "$input"
 fi
 awk '
   /^- [A-Za-z0-9_]+:/ { key=$2; sub(/:$/, "", key); count[key]++; last[key]=NR }

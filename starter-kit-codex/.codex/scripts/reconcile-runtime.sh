@@ -30,7 +30,12 @@ case "$native" in
   paused)
     execution=paused; session=paused; goal=paused; evidence="native-goal-paused-runtime-reconciled" ;;
   unavailable)
-    execution=needs-review; session=active; goal=active; evidence="native-goal-unavailable-runtime-reconciled" ;;
+    native_id="$(sed -n 's/^- native_goal_id: //p' "$state" | head -1)"
+    if [ -n "$native_id" ] && [ "$native_id" != "none" ]; then
+      native=active; execution=running; session=active; goal=active; evidence="native-goal-id-preserved-runtime-reconciled"
+    else
+      execution=needs-review; session=active; goal=active; evidence="native-goal-unavailable-runtime-reconciled"
+    fi ;;
   *) echo "RECONCILIATION: statut natif inconnu ou requis: $native" >&2; exit 4 ;;
 esac
 now="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"

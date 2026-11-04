@@ -43,4 +43,28 @@ EOF
   bash "$hidden/scripts/validate-runtime-schema.sh" "$tmp/RUNTIME-STATE.md" >/dev/null
   rm -rf "$tmp"
 done
+for kit in codex claude; do
+  hidden="$root/starter-kit-$kit/.$kit"
+  tmp="$(mktemp -d)"
+  cat > "$tmp/RUNTIME-STATE.md" <<'EOF'
+- execution_status: needs-review
+- session_status: active
+- goal_status: active
+- native_goal_status: unavailable
+- native_goal_id: 01a16341-cfb4-7013-83ae-d8195584bbe8
+- current_action: runtime-recovery
+- last_observable_evidence: native-goal-query-retry
+- goal_budget: 10
+EOF
+  bash "$hidden/scripts/normalize-runtime-state.sh" "$tmp/RUNTIME-STATE.md" >/dev/null
+  grep -q '^- native_goal_status: unavailable$' "$tmp/RUNTIME-STATE.md"
+  grep -q '^- next_action: resume-after-runtime-reconciliation$' "$tmp/RUNTIME-STATE.md"
+  mkdir -p "$tmp/.$kit/scripts"
+  cp "$hidden/scripts/reconcile-runtime.sh" "$tmp/.$kit/scripts/"
+  cp "$tmp/RUNTIME-STATE.md" "$tmp/.$kit/RUNTIME-STATE.md"
+  (cd "$tmp" && bash ".${kit}/scripts/reconcile-runtime.sh" >/dev/null)
+  grep -q '^- execution_status: running$' "$tmp/.$kit/RUNTIME-STATE.md"
+  grep -q '^- last_observable_evidence: .*native-goal-id-preserved-runtime-reconciled$' "$tmp/.$kit/RUNTIME-STATE.md"
+  rm -rf "$tmp"
+done
 echo "Normalisation runtime Codex/Claude: OK"
