@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.17.5 | 2026-11-05 | Réduit la surproduction documentaire par une politique canonique, un audit de structure et l archivage des rapports temporaires. |
 | 1.17.4 | 2026-11-04 | Évite le blocage lorsque le Goal natif existe mais que le runtime le déclare temporairement indisponible. |
 | 1.17.3 | 2026-11-04 | Force la relecture complète des instructions et du runtime après toute mise à jour du kit. |
 | 1.17.2 | 2026-11-04 | Rend la synchronisation résiliente aux échecs DNS et distingue les canaux et causes de blocage. |

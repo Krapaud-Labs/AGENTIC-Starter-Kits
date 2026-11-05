@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.5 - 2026-11-05
+
+- Ajoute une politique de documentation canonique pour limiter les fichiers redondants.
+- Ajoute un audit de structure qui détecte artefacts, collisions de numérotation et croissance des preuves.
+- Impose la consolidation des audits et l archivage des rapports temporaires dans les kits Codex et Claude.
+
 ## 1.17.4 - 2026-11-04
 
 - Préserve un Goal natif actif lorsqu'un identifiant réel existe malgré un statut runtime `unavailable`.
