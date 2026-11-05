@@ -1,5 +1,5 @@
 # Point d'entrée Codex
-<!-- ENTRYPOINT-CONTRACT: 1.17.4 -->
+<!-- ENTRYPOINT-CONTRACT: 1.17.5 -->
 
 ## Contrat obligatoire de chaque nouveau chat
 
@@ -43,6 +43,8 @@ Une CI en cours doit être suivie jusqu’à son résultat. Une dette historique
 Avant toute livraison, contrôler le diff complet depuis la branche d’intégration et refuser toute branche qui mélange plusieurs objectifs, work items ou domaines sans lien. Si la branche est mélangée, créer automatiquement une branche propre depuis `dev` ou `develop`, reporter uniquement les commits du work item courant et relancer les contrôles.
 
 Lire et appliquer obligatoirement `.codex/policies/PERSISTENT-EXECUTION-CONTRACT.md`. Une réponse de statut sans action observable est invalide. Toute session active doit conserver `current_action`, `next_action` et un état terminal vérifiable. Lire aussi `.codex/policies/PROJECT-BOUNDARY-POLICY.md` et `.codex/policies/FREE-TOOLS-ONLY-POLICY.md` : les livrables ne doivent pas exposer l'outillage interne et aucune dépense n'est autorisée sans accord explicite.
+
+Lire et appliquer `.codex/policies/DOCUMENTATION-CANONICALIZATION-POLICY.md`. Mettre à jour le document canonique avant de créer un nouveau document, consolider les audits et archiver les rapports temporaires. Exécuter `.codex/scripts/audit-documentation-structure.sh` avant toute initialisation ou carte documentaire importante.
 
 ## Interdiction de rendre la main avant la fin
 
