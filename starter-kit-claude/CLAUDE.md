@@ -1,5 +1,5 @@
 # Point d'entrée Claude
-<!-- ENTRYPOINT-CONTRACT: 1.17.4 -->
+<!-- ENTRYPOINT-CONTRACT: 1.17.5 -->
 
 ## Contrat obligatoire de chaque nouveau chat
 
@@ -46,6 +46,8 @@ Après réception du cahier, annoncer qu’une phase de questions de complétude
 Une CI en cours doit être suivie jusqu’à son résultat. Une dette historique détectée dans le périmètre est corrigée par lots, et une dette hors périmètre reçoit un work item sans interrompre les tâches indépendantes. Les corrections non majeures et réversibles de dépendances sont exécutées, testées et documentées sans demander « Continue ».
 
 Lire et appliquer obligatoirement `.claude/policies/PERSISTENT-EXECUTION-CONTRACT.md`. Une réponse de statut sans action observable est invalide. Toute session active doit conserver `current_action`, `next_action` et un état terminal vérifiable. Lire aussi `.claude/policies/PROJECT-BOUNDARY-POLICY.md` et `.claude/policies/FREE-TOOLS-ONLY-POLICY.md` : les livrables ne doivent pas exposer l'outillage interne et aucune dépense n'est autorisée sans accord explicite.
+
+Lire et appliquer `.claude/policies/DOCUMENTATION-CANONICALIZATION-POLICY.md`. Mettre à jour le document canonique avant de créer un nouveau document, consolider les audits et archiver les rapports temporaires. Exécuter `.claude/scripts/audit-documentation-structure.sh` avant toute initialisation ou carte documentaire importante.
 
 ## Interdiction de rendre la main avant la fin
 
