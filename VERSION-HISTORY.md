@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.1 | 2026-11-06 | Corrige l affichage du mode shared dans le diagnostic Codex et aligne les manifestes. |
+
 | 2.0.0 | 2026-11-06 | Première fondation Agentic 2.0 : migration, runtime, orchestration spécialisée et portes de release. |
 
 | 1.18.2 | 2026-11-06 | Renforce la sécurité, l anonymisation et la validation des rapports produits par les deux kits. |

@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.1 - 2026-11-06
+
+- Corrige le diagnostic du mode d'installation partagé Codex.
+- Aligne les versions, manifestes et README sur 2.0.1.
+
 ## 2.0.0 - 2026-11-06
 
 - Regroupe les audits lourds responsive, visuels, navigateur, accessibilité et performance en fin d implémentation.

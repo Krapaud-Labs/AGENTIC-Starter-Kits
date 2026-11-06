@@ -18,7 +18,8 @@ report 'Kit local' "${version:-absent}"
 if [ -f "$manifest" ]; then
   installed="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$manifest")"
   source="$(sed -n 's/^source = "\(.*\)"/\1/p' "$manifest")"
-  report 'Mode' 'external'
+  mode="$(sed -n 's/^kit_mode = \"\(.*\)\"/\1/p' \"$manifest\")"
+  report 'Mode' "${mode:-external}"
   report 'Manifeste' "${installed:-invalide}"
   report 'Source' "${source:-absente}"
 else
@@ -29,7 +30,7 @@ fi
 [ -f "$root/$entry" ] && report 'Point d entrée' 'présent' || { report 'Point d entrée' 'absent'; fail=1; }
 if [ -f "$root/.workspace.toml" ]; then
   workflow="$root/.github/workflows/update-workspace-kit.yml"
-  [ -f "$workflow" ] && report 'Workflow external' 'présent' || { report 'Workflow external' 'absent'; fail=1; }
+  [ -f "$workflow" ] && report "Workflow ${mode:-external}" 'présent' || { report "Workflow ${mode:-external}" 'absent'; fail=1; }
   if [ -d "$config/$hidden" ]; then report 'Doublon imbriqué' 'absent'; else report 'Doublon imbriqué' 'absent'; fi
 fi
 if git -C "$root" ls-files --error-unmatch "$hidden" "$entry" >/dev/null 2>&1; then
