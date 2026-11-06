@@ -52,7 +52,9 @@ body="$(printf '%s\n' \
 
 mkdir -p "$outbox"
 queued="$outbox/$fingerprint.md"
-printf '%s\n' "$body" > "$queued"
+tmp_report="$queued.tmp.$$"
+printf '%s\n' "$body" > "$tmp_report"
+mv -n "$tmp_report" "$queued" 2>/dev/null || { rm -f "$tmp_report"; queued="$outbox/$fingerprint.md"; }
 
 if [ "${KIT_REPORT_DRY_RUN:-0}" = 1 ]; then echo "KIT-REPORT: dry-run $queued"; exit 0; fi
 if ! command -v gh >/dev/null 2>&1 || ! gh auth status >/dev/null 2>&1; then

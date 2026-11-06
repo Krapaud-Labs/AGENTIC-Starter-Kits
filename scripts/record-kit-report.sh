@@ -15,7 +15,7 @@ while [ "$#" -gt 0 ]; do
     *) echo "Argument inconnu: $1" >&2; exit 2 ;;
   esac
 done
-[ -n "$fingerprint" ] || { echo 'Empreinte requise' >&2; exit 2; }
+[ "$fingerprint" ] && [[ "$fingerprint" =~ ^[a-f0-9]{64}$ ]] || { echo 'Empreinte SHA-256 requise' >&2; exit 2; }
 case "$status" in bloquant|normal|resolved|duplicate) ;; *) echo "Statut invalide: $status" >&2; exit 2 ;; esac
 mkdir -p "$(dirname -- "$history_file")"
 safe_note="$(printf '%s' "$note" | sed -E 's#/(Users|home)/[^ ]+#<local-path>#g; s#(token|secret|password|api[_-]?key)[[:space:]]*=[[:space:]]*[^[:space:]]+#\1=<redacted>#gi' | cut -c1-500)"
