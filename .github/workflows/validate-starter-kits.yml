@@ -59,6 +59,9 @@ jobs:
       - name: Run context and cost controls
         run: bash tests/test-context-cost-controls.sh
 
+      - name: Run GitFlow and PR cadence controls
+        run: bash tests/test-gitflow-pr-efficiency.sh
+
       - name: Run isolated adapter simulations
         run: bash scripts/test-sandbox-adapters.sh
 
