@@ -6,7 +6,11 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `2.0.0` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `2.0.1` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 2.0.1
+
+- Le diagnostic Codex affiche le mode réel du manifeste, notamment `shared`, au lieu d'un mode `external` codé en dur.
 
 ## Version 2.0.0
 
