@@ -6,9 +6,9 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.18.3` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `2.0.0` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
 
-## Version 1.18.3
+## Version 2.0.0
 
 - Contrôles négatifs des budgets Goal exécutés pour les deux variantes.
 - Audit de contexte doté d un mode strict pour bloquer les alertes critiques.

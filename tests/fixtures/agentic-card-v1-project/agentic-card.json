@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.4",
+  "id": "AGENTIC-2.0",
+  "title": "Carte AGENTIC 2.0",
+  "description": "Migration contrôlée du kit.",
+  "status": "Backlog",
+  "priority": "P1",
+  "labels": ["migration", "kit"],
+  "tasks": ["Définir le contrat", "Tester le rollback"],
+  "acceptance_criteria": ["Dry-run sans écriture", "Checksum conservé"],
+  "evidence": ["tests/fixtures/agentic-card-v1-project"]
+}
