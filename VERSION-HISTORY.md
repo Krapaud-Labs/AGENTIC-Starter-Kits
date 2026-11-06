@@ -6,7 +6,6 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
-| 1.17.8 | 2026-11-06 | Renforce le correcteur local des rapports, la déduplication, la pagination, l outbox atomique et les tests Codex/Claude. |
 | 1.17.7 | 2026-11-06 | Rend la synchronisation shared transactionnelle avec verrou, phases, rollback complet, préservation des fichiers consommateurs et tests dédiés. |
 | 1.17.6 | 2026-11-06 | Ajoute les scénarios comportementaux d initialisation et de reprise Codex/Claude, corrige le budget runtime initial et persiste la réconciliation du Goal natif. |
 | 1.17.5 | 2026-11-05 | Réduit la surproduction documentaire par une politique canonique, un audit de structure et l archivage des rapports temporaires. |

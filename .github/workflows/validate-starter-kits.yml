@@ -50,9 +50,6 @@ jobs:
       - name: Run shared synchronization transaction checks
         run: bash tests/test-shared-sync-transaction.sh
 
-      - name: Run kit report corrector checks
-        run: bash tests/test-kit-report-corrector.sh
-
       - name: Run isolated adapter simulations
         run: bash scripts/test-sandbox-adapters.sh
 

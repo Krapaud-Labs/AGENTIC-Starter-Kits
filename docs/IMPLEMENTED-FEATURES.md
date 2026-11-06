@@ -6,14 +6,7 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.17.8` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
-
-## Version 1.17.8
-
-- Correcteur local Codex et Claude aligné sur l historique des rapports.
-- Rapports résolus ou dupliqués exclus des blocages actifs.
-- Erreurs GitHub conservées comme erreurs récupérables au lieu de créer des doublons.
-- Outbox écrite de façon atomique et empreintes SHA-256 validées.
+| Version actuelle | `1.17.7` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
 
 ## Version 1.17.7
 

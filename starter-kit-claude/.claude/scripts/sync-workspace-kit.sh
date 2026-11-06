@@ -84,7 +84,7 @@ for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
     [ -f "$candidate" ] && cp "$candidate" "$kit_root/.claude/$local_file"
   fi
 done
-sed -i.bak "s/^kit_version = .*/kit_version = \"$latest\"/" "$manifest"
+sed -i.bak "s/^kit_version = .*/kit_version = \"\$latest\"/" "$manifest"
 rm -f "$manifest.bak"
 printf 'validated\n' > "$backup_root/operation.phase"
 bash "$kit_root/scripts/deliver-workspace-update.sh" "$latest"
