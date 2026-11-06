@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.3 | 2026-11-06 | Corrige l extraction du mode shared dans le diagnostic Codex. |
+
 | 2.0.2 | 2026-11-06 | Corrige la résolution de la racine Git depuis un kit shared lié symboliquement. |
 
 | 2.0.1 | 2026-11-06 | Corrige l affichage du mode shared dans le diagnostic Codex et aligne les manifestes. |
