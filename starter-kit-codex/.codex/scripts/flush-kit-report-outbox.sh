@@ -11,7 +11,11 @@ for file in "$outbox"/*.md; do
   [ -f "$file" ] || continue
   fingerprint="$(sed -n 's/^KIT_REPORT_FINGERPRINT:\([a-f0-9]*\)$/\1/p' "$file" | head -1)"
   [ -n "$fingerprint" ] || { echo "KIT-REPORTS: rapport ignoré sans empreinte $file" >&2; continue; }
-  existing="$(gh issue list --repo "$repository" --state all --label kit-report --limit 100 --json body 2>/dev/null | jq --arg fp "KIT_REPORT_FINGERPRINT:$fingerprint" '[.[] | select((.body // "") | contains($fp))] | length' || echo 0)"
+  if ! existing_json="$(gh issue list --repo "$repository" --state all --label kit-report --limit 1000 --json body 2>/dev/null)"; then
+    echo "KIT-REPORTS: lecture distante impossible, rapport conservé $file" >&2
+    continue
+  fi
+  existing="$(printf '%s' "$existing_json" | jq --arg fp "KIT_REPORT_FINGERPRINT:$fingerprint" '[.[] | select((.body // "") | contains($fp))] | length')"
   if [ "$existing" -gt 0 ]; then mv "$file" "$archive/"; continue; fi
   title="$(sed -n 's/^Gravité$/x/; /\[KIT-REPORT\]/p' "$file" | head -1)"
   title="[KIT-REPORT] $(basename "$file" .md)"
