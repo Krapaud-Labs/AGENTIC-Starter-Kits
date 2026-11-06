@@ -1,6 +1,6 @@
 ## Unreleased
 
-## 1.18.3 - 2026-11-06
+## 2.0.0 - 2026-11-06
 
 - Regroupe les audits lourds responsive, visuels, navigateur, accessibilité et performance en fin d implémentation.
 - Conserve uniquement les contrôles rapides de non-régression pendant le développement.

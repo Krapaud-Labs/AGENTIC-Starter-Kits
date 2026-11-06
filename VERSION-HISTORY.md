@@ -1,6 +1,6 @@
 # Historique des versions
 
-| 1.18.3 | 2026-11-06 | Regroupe les audits lourds en fin d implémentation et limite les contrôles intermédiaires aux risques immédiats. |
+| 2.0.0 | 2026-11-06 | Première fondation Agentic 2.0 : migration, runtime, orchestration spécialisée et portes de release. |
 
 | 1.18.2 | 2026-11-06 | Renforce la sécurité, l anonymisation et la validation des rapports produits par les deux kits. |
 
