@@ -8,6 +8,12 @@ else
   project_root="$(cd "$kit_root/.." && pwd)"
 fi
 manifest="$project_root/.workspace.toml"
+lock_dir="$kit_root/.sync-workspace-kit.lock"
+if ! mkdir "$lock_dir" 2>/dev/null; then
+  echo "KIT_SYNC_BLOCKED: une synchronisation shared est déjà en cours." >&2
+  exit 22
+fi
+trap 'rmdir "$lock_dir" 2>/dev/null || true' EXIT
 if [ ! -f "$manifest" ]; then
   cat > "$manifest" <<EOF
 orchestrator = "claude"
@@ -43,14 +49,17 @@ installed="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$manifest")"
 [ "$installed" = "$latest" ] && { echo "Kit Claude déjà à jour : $installed (source: $remote_channel)"; exit 0; }
 backup_root="$project_root/.claude/backups/kit-$installed-$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$backup_root"
+printf 'prepared\n' > "$backup_root/operation.phase"
 mkdir -p "$backup_root/claude-before-update"; rsync -a --exclude backups/ "$kit_root/" "$backup_root/claude-before-update/"
+cp "$manifest" "$backup_root/workspace.toml.before-update"
 tmp_dir="$(mktemp -d)"
 rollback_dir="$backup_root/claude-before-update"
 cleanup() {
   status="$?"
   if [ "$status" -ne 0 ] && [ -d "$rollback_dir" ]; then
     echo "Échec de la mise à jour. Restauration du kit Claude précédent." >&2
-    cp -R "$rollback_dir"/. "$kit_root/"
+    rsync -a --delete --exclude backups/ "$rollback_dir/" "$kit_root/"
+    cp "$backup_root/workspace.toml.before-update" "$manifest"
   fi
   rm -rf "$tmp_dir"
   exit "$status"
@@ -66,6 +75,7 @@ tar -xzf "$archive" -C "$tmp_dir"
 source_kit="$(find "$tmp_dir" -mindepth 2 -maxdepth 2 -type d -name starter-kit-claude | head -n 1)"
 [ -n "$source_kit" ] || { echo "Kit Claude absent de l'archive." >&2; exit 1; }
 rsync -a --delete --exclude 'backups/' --exclude 'PROJECT-BRIEF.md' --exclude 'project-profile.toml' --exclude 'project-inventory.md' --exclude 'RUNTIME-STATE.md' --exclude 'decisions/' --exclude 'work-items/' --exclude 'reports/' --exclude 'metrics/' --exclude 'evaluations/' "$source_kit/.claude/" "$kit_root/.claude/"
+printf 'applied\n' > "$backup_root/operation.phase"
 cp "$source_kit/CLAUDE.md" "$kit_root/CLAUDE.md"
 for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
   if [ ! -f "$kit_root/$local_file" ]; then
@@ -76,5 +86,7 @@ for local_file in PROJECT-BRIEF.md project-profile.toml RUNTIME-STATE.md; do
 done
 sed -i.bak "s/^kit_version = .*/kit_version = \"\$latest\"/" "$manifest"
 rm -f "$manifest.bak"
+printf 'validated\n' > "$backup_root/operation.phase"
 bash "$kit_root/scripts/deliver-workspace-update.sh" "$latest"
+printf 'committed\n' > "$backup_root/operation.phase"
 printf 'Kit Claude mis à jour : %s -> %s\nSauvegarde : %s\n' "$installed" "$latest" "$backup_root"
