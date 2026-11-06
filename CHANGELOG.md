@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.18.0 - 2026-11-06
+
+- Rend les contrôles de budget Goal et de contexte agentique exécutables dans la CI.
+- Ajoute les scénarios négatifs de dépassement des minutes, étapes, tokens, reprises et agents.
+- Ajoute le mode strict de l audit de contexte.
+
 ## 1.17.9 - 2026-11-06
 
 - Ajoute un registre central documenté et vérifiable pour les outils Codex et Claude.

@@ -33,6 +33,11 @@ class ContextTokenAuditTests(unittest.TestCase):
         self.assertTrue(any("contexte trop large" in message for message in messages))
         self.assertTrue(any("duplique" in message for message in messages))
 
+    def test_strict_mode_fails_on_review(self):
+        messages, failed = audit(self.make_root("x" * 16001), strict=True)
+        self.assertTrue(failed)
+        self.assertTrue(any("REVIEW" in message for message in messages))
+
     def test_empty_tree_is_informational(self):
         with tempfile.TemporaryDirectory() as directory:
             messages, failed = audit(Path(directory))
