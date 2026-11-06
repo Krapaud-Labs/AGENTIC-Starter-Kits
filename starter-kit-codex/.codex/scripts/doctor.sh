@@ -18,7 +18,7 @@ report 'Kit local' "${version:-absent}"
 if [ -f "$manifest" ]; then
   installed="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$manifest")"
   source="$(sed -n 's/^source = "\(.*\)"/\1/p' "$manifest")"
-  mode="$(sed -n 's/^kit_mode = \"\(.*\)\"/\1/p' \"$manifest\")"
+  mode="$(sed -n 's/^kit_mode = \"\(.*\)\"/\1/p' "$manifest")"
   report 'Mode' "${mode:-external}"
   report 'Manifeste' "${installed:-invalide}"
   report 'Source' "${source:-absente}"
