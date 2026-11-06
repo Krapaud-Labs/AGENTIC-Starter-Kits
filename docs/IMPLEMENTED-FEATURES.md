@@ -130,7 +130,7 @@ Les hooks locaux doivent être relus et approuvés dans Codex avec `/hooks` apr�
 - Les commits sont atomiques et contrôlés avant push.
 - Une PR prématurée est refusée tant que la carte et sa checklist ne sont pas terminées.
 - La branche d'intégration doit être relue après fusion.
-- La promotion vers `main` suit la CI et la documentation du kit.
+- La promotion vers `main` reste soumise à une demande humaine explicite après la CI et la documentation du kit.
 - La version, le changelog, l'historique et les README sont mis à jour pour les changements consommés.
 
 ## Trello

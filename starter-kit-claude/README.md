@@ -210,7 +210,7 @@ Chaque feature, correctif ou tâche documentaire se fait sur une branche dédié
 
 Si une demande de livraison arrive alors que le checkout est sur une branche protégée, le refus est routé automatiquement vers une branche dédiée puis une PR vers `dev` ou `develop`. Ce contrôle ne doit pas interrompre le Goal ni demander une confirmation supplémentaire.
 
-Après vérification de `dev`, le Coordinateur crée, valide et fusionne automatiquement l’unique PR de promotion vers `main` lorsque la demande de livraison est active.
+Après vérification de `dev`, le Coordinateur peut préparer l’unique PR de promotion vers `main`, mais sa création ou sa fusion exige toujours une demande humaine explicite.
 
 
 ## Dossier de conception de niveau CDA
