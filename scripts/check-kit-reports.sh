@@ -30,7 +30,7 @@ printf '%s\n' "$json" | jq --argjson history "$history" -r '
   if length == 0 then
     "KIT-REPORTS: aucun rapport"
   else
-    "KIT-REPORTS: rapports ouverts " + (length|tostring),
+    "KIT-REPORTS: rapports consultés " + (length|tostring),
     (sort_by(if blocking then 0 else 1 end, .createdAt)
       | .[]
       | (if (history_status == "resolved") then "RESOLU"
@@ -40,7 +40,7 @@ printf '%s\n' "$json" | jq --argjson history "$history" -r '
         + " #" + (.number|tostring) + " " + .title + " | " + .url)
   end'
 
-blocking="$(printf '%s\n' "$json" | jq --argjson history "$history" '[.[] | select(.state == "OPEN") | select((([.labels[]?.name] | any(. == "priority:critical" or . == "severity:blocking" or . == "bloquant")) or ((.title + " " + (.body // "")) | test("(?i)(bloquant|blocker|critical|critique)"))))] | length')"
+blocking="$(printf '%s\n' "$json" | jq --argjson history "$history" '[.[] | select(.state == "OPEN") | select(([ $history[] | select(.fingerprint == ((.body // "") | (try capture("KIT_REPORT_FINGERPRINT:(?<id>[a-f0-9]+)").id catch ""))) | .status ] | last) as $status | ($status != "resolved" and $status != "duplicate") and ((([.labels[]?.name] | any(. == "priority:critical" or . == "severity:blocking" or . == "bloquant")) or ((.title + " " + (.body // "")) | test("(?i)(bloquant|blocker|critical|critique)")))))] | length')"
 if [ "${KIT_REPORT_FAIL_ON_BLOCKING:-0}" = 1 ] && [ "$blocking" -gt 0 ]; then
   echo "KIT-REPORTS: $blocking rapport(s) bloquant(s) doivent être traités avant une nouvelle tâche" >&2
   exit 2

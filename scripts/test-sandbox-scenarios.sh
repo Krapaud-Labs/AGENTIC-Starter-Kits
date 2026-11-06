@@ -84,7 +84,7 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/verify-before-push.sh" 'Validation avant push du dépôt source du kit OK'
   assert_contains "$source/policies/TASK-ROUTING-POLICY.md" 'frontend@id,qa@id,auditeur@id'
   delegation="$tmp/delegation-$kit"
-  mkdir -p "$delegation"
+  mkdir -p "$delegation/.codex/reports/agents"
   for role in frontend qa auditeur; do printf 'thread=real-%s\nscope=sandbox-%s\ndeliverable=%s-report\nevidence=%s-proof\n' "$role" "$role" "$role" "$role" > "$delegation/$role.assignment"; done
   if bash "$source/scripts/verify-specialist-plan.sh" visual 'frontend,qa,auditeur' "$delegation" >/dev/null 2>&1; then
     echo "ECHEC SANDBOX: délégation sans identifiants acceptée pour $kit" >&2
@@ -98,15 +98,16 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   fi
   printf 'thread=real-q\nscope=sandbox-qa\ndeliverable=qa-report\nevidence=qa-proof\n' > "$delegation/qa.assignment"
   printf 'agent_role: frontend\nagent_id: real-f\nstatus: accepted\nscope: sandbox-frontend\nevidence: frontend-proof\nnext_action: integrate\n' > "$delegation/frontend.report"
-  bash "$source/scripts/verify-agent-report.sh" frontend real-f "$delegation/frontend.report" >/dev/null
-  if sed 's/^evidence:.*/evidence:/' "$delegation/frontend.report" | bash "$source/scripts/verify-agent-report.sh" frontend real-f /dev/stdin >/dev/null 2>&1; then
+  (cd "$delegation" && bash "$source/scripts/verify-agent-report.sh" frontend real-f "$delegation/frontend.report") >/dev/null
+  if (cd "$delegation" && sed 's/^evidence:.*/evidence:/' "$delegation/frontend.report" | bash "$source/scripts/verify-agent-report.sh" frontend real-f /dev/stdin) >/dev/null 2>&1; then
     echo "ECHEC SANDBOX: rapport incomplet accepté pour $kit" >&2
     exit 1
   fi
   # Un événement générique ou une référence de Goal orpheline ne doit pas
   # être traité comme un spécialiste sans rapport et boucler indéfiniment.
   hook_sandbox="$tmp/hook-$kit"
-  mkdir -p "$hook_sandbox/$hidden/hooks"
+  mkdir -p "$hook_sandbox/$hidden/hooks" "$hook_sandbox/$hidden/reports/agents"
+  git init -q "$hook_sandbox"
   cp "$source/hooks/hook-runtime.sh" "$hook_sandbox/$hidden/hooks/"
   cp "$source/hooks/subagent-stop.sh" "$hook_sandbox/$hidden/hooks/"
   : > "$hook_sandbox/$hidden/runtime-events.log"

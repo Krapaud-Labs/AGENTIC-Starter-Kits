@@ -8,11 +8,15 @@ Avant le premier outil, le Coordinateur produit un plan consolidé contenant le 
 
 Une carte ou feature conserve une seule branche de travail et une seule PR finale. Les commits intermédiaires restent des checkpoints locaux ou sur cette branche. Une PR de déploiement n'est ouverte que si l'utilisateur demande explicitement une mise à jour de la branche d'intégration avant la fin.
 
+Le lien de livraison est déterministe : l'identifiant de la carte figure dans le nom de branche et la PR, la branche part de la dernière référence `dev`, et une seule PR ouverte peut exister pour cette carte. Une relance, un agent, un résultat CI ou une correction documentaire met à jour la branche et la PR existantes, sans créer un nouvel objet.
+
 ## Passe spécialisée consolidée
 
 Les agents spécialisés nécessaires sont créés ou réactivés dans le même cycle avant l'implémentation. Chaque agent reçoit un lot non recouvrant et un contexte minimal. Le Coordinateur attend les rapports du lot complet avant de lancer l'audit final.
 
 Pour une tâche visuelle ou multi-écrans, une seule matrice couvre tous les écrans, états, dimensions, interactions, accessibilité et preuves. Les agents peuvent remplir des lignes distinctes en parallèle, mais aucun contrôle identique ne doit être répété.
+
+Les audits lourds de rendu, responsive, accessibilité, performance et navigateur sont différés jusqu'à la fin du lot d'implémentation. Pendant le développement, seuls les contrôles rapides nécessaires pour éviter une régression immédiate sont autorisés. Une passe anticipée n'est permise que si l'utilisateur la demande, si un risque critique doit être tranché avant de continuer, ou si une preuve locale est indispensable pour choisir l'implémentation. Cette exception doit être inscrite dans le plan du Goal.
 
 ## Limites d'itération
 
@@ -31,3 +35,5 @@ Le Coordinateur poursuit automatiquement les actions autonomes du plan. Il ne de
 ## Mesures obligatoires
 
 Le rapport final indique le nombre de lots, agents, appels, relances, audits, revalidations et minutes. Une dérive de plus de 50 pour cent par rapport au budget du work item déclenche une consolidation immédiate, pas une nouvelle série de micro-tâches.
+
+Les plafonds exécutables sont validés par `validate-goal-budget.sh` et les dépassements de minutes, étapes, tokens, reprises ou agents doivent échouer avant le démarrage d une action supplémentaire. Les contrôles de contexte et les tests négatifs sont exécutés par la CI.

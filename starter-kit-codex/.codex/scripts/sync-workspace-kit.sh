@@ -8,6 +8,12 @@ else
   project_root="$(cd "$kit_root/.." && pwd)"
 fi
 manifest="$project_root/.workspace.toml"
+lock_dir="$kit_root/.sync-workspace-kit.lock"
+if ! mkdir "$lock_dir" 2>/dev/null; then
+  echo "KIT_SYNC_BLOCKED: une synchronisation shared est déjà en cours." >&2
+  exit 22
+fi
+trap 'rmdir "$lock_dir" 2>/dev/null || true' EXIT
 if [ ! -f "$manifest" ]; then
   cat > "$manifest" <<EOF
 orchestrator = "codex"
@@ -44,14 +50,17 @@ installed="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$manifest")"
 [ "$installed" = "$latest" ] && { echo "Kit Codex déjà à jour : $installed (source: $remote_channel)"; exit 0; }
 backup_root="$project_root/.codex/backups/kit-$installed-$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$backup_root"
+printf 'prepared\n' > "$backup_root/operation.phase"
 mkdir -p "$backup_root/codex-before-update"; rsync -a --exclude backups/ "$kit_root/" "$backup_root/codex-before-update/"
+cp "$manifest" "$backup_root/workspace.toml.before-update"
 tmp_dir="$(mktemp -d)"
 rollback_dir="$backup_root/codex-before-update"
 cleanup() {
   status="$?"
   if [ "$status" -ne 0 ] && [ -d "$rollback_dir" ]; then
     echo "Échec de la mise à jour. Restauration du kit Codex précédent." >&2
-    cp -R "$rollback_dir"/. "$kit_root/"
+    rsync -a --delete --exclude backups/ "$rollback_dir/" "$kit_root/"
+    cp "$backup_root/workspace.toml.before-update" "$manifest"
   fi
   rm -rf "$tmp_dir"
   exit "$status"
@@ -67,7 +76,10 @@ tar -xzf "$archive" -C "$tmp_dir"
 source_kit="$(find "$tmp_dir" -mindepth 2 -maxdepth 2 -type d -name starter-kit-codex | head -n 1)"
 [ -n "$source_kit" ] || { echo "Kit Codex absent de l'archive." >&2; exit 1; }
 rsync -a --delete --exclude 'backups/' --exclude 'PROJECT-BRIEF.md' --exclude 'project-profile.toml' --exclude 'project-inventory.md' --exclude 'RUNTIME-STATE.md' --exclude 'decisions/' --exclude 'work-items/' --exclude 'reports/' --exclude 'metrics/' --exclude 'evaluations/' "$source_kit/.codex/" "$kit_root/"
-cp "$source_kit/AGENTS.md" "$project_root/AGENTS.md"
+printf 'applied\n' > "$backup_root/operation.phase"
+if [ ! -f "$project_root/AGENTS.md" ]; then
+  cp "$source_kit/AGENTS.md" "$project_root/AGENTS.md"
+fi
 [ -x "$kit_root/scripts/validate-entrypoint.sh" ] || chmod +x "$kit_root/scripts/validate-entrypoint.sh"
 for required_file in KIT.toml hooks.json scripts/validate-entrypoint.sh scripts/validate-agentic-contract.sh scripts/verify-billing-mode.sh scripts/validate-documentation.sh; do
   [ -e "$kit_root/$required_file" ] || { echo "Fichier obligatoire absent après synchronisation: .codex/$required_file" >&2; exit 1; }
@@ -89,5 +101,7 @@ installed_kit="$(sed -n 's/^kit_version = \"\(.*\)\"/\1/p' "$kit_root/KIT.toml")
   echo "Échec de cohérence de version après synchronisation." >&2
   exit 1
 }
+printf 'validated\n' > "$backup_root/operation.phase"
 bash "$kit_root/scripts/deliver-workspace-update.sh" "$latest"
+printf 'committed\n' > "$backup_root/operation.phase"
 printf 'Kit Codex mis à jour : %s -> %s\nSauvegarde : %s\n' "$installed" "$latest" "$backup_root"

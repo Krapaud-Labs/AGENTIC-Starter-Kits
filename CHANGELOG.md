@@ -1,5 +1,54 @@
 ## Unreleased
 
+## 1.18.3 - 2026-11-06
+
+- Regroupe les audits lourds responsive, visuels, navigateur, accessibilité et performance en fin d implémentation.
+- Conserve uniquement les contrôles rapides de non-régression pendant le développement.
+- Ajoute des exceptions explicites pour une demande utilisateur, un risque critique ou une preuve nécessaire au choix technique.
+
+## 1.18.2 - 2026-11-06
+
+- Ajoute une validation de sécurité commune des rapports pour Codex et Claude.
+- Expurge tokens, secrets, clés, chemins personnels et adresses e-mail avant publication.
+- Couvre les entrées valides, les données sensibles et les formats invalides par des tests dédiés.
+
+## 1.18.1 - 2026-11-06
+
+- Ajoute un garde GitFlow testable pour imposer une branche dédiée, une seule PR finale par carte et la cible `dev` ou `develop`.
+- Refuse les PR dupliquées, les branches protégées et les pushes directs vers `main` ou `master`.
+- Ajoute les scénarios négatifs et l'exécution CI de cette vérification.
+
+## 1.18.0 - 2026-11-06
+
+- Rend les contrôles de budget Goal et de contexte agentique exécutables dans la CI.
+- Ajoute les scénarios négatifs de dépassement des minutes, étapes, tokens, reprises et agents.
+- Ajoute le mode strict de l audit de contexte.
+
+## 1.17.9 - 2026-11-06
+
+- Ajoute un registre central documenté et vérifiable pour les outils Codex et Claude.
+- Contrôle la parité des manifestes, les doublons et les commandes déclarées dans la CI.
+- Rend l emplacement et les règles d installation des outils explicites.
+
+## 1.17.8 - 2026-11-06
+
+- Renforce le correcteur local des rapports avec une résolution de chemin fiable dans Codex et Claude.
+- Évite les faux blocages pour les rapports déjà résolus ou dupliqués.
+- Étend la pagination, refuse les erreurs distantes silencieuses et rend l écriture de l outbox atomique.
+- Ajoute les tests de reprise du correcteur local.
+
+## 1.17.7 - 2026-11-06
+
+- Rend la synchronisation shared transactionnelle avec verrou exclusif, phases d opération et rollback complet.
+- Préserve les fichiers du projet consommateur, notamment `AGENTS.md`, et restaure le manifeste en cas d échec.
+- Ajoute les contrôles de transaction aux scénarios de test.
+
+## 1.17.6 - 2026-11-06
+
+- Ajoute un scénario comportemental d initialisation idempotente et de reprise du Goal pour Codex et Claude.
+- Corrige l initialisation du budget runtime et la persistance du statut natif lors de la réconciliation.
+- Vérifie la préservation des fichiers existants et exécute le scénario dans la CI.
+
 ## 1.17.5 - 2026-11-05
 
 - Ajoute une politique de documentation canonique pour limiter les fichiers redondants.

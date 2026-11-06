@@ -1,11 +1,22 @@
 # Historique des versions
 
+| 1.18.3 | 2026-11-06 | Regroupe les audits lourds en fin d implémentation et limite les contrôles intermédiaires aux risques immédiats. |
+
+| 1.18.2 | 2026-11-06 | Renforce la sécurité, l anonymisation et la validation des rapports produits par les deux kits. |
+
+| 1.18.1 | 2026-11-06 | Rend la cadence GitFlow et l'unicité de la PR par carte vérifiables par script et scénarios CI. |
+
 ## Objet
 
 Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il complète `CHANGELOG.md`, qui contient le détail opérationnel de chaque entrée. Les versions correspondent aux évolutions consommables du kit Codex ou Claude, et non à chaque commit interne.
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.18.0 | 2026-11-06 | Rend les budgets Goal et les contrôles de contexte exécutables, avec scénarios négatifs et audit strict. |
+| 1.17.9 | 2026-11-06 | Ajoute la politique et le vérificateur du registre central des outils avec contrôle de parité Codex/Claude dans la CI. |
+| 1.17.8 | 2026-11-06 | Renforce le correcteur local des rapports, la déduplication, la pagination, l outbox atomique et les tests Codex/Claude. |
+| 1.17.7 | 2026-11-06 | Rend la synchronisation shared transactionnelle avec verrou, phases, rollback complet, préservation des fichiers consommateurs et tests dédiés. |
+| 1.17.6 | 2026-11-06 | Ajoute les scénarios comportementaux d initialisation et de reprise Codex/Claude, corrige le budget runtime initial et persiste la réconciliation du Goal natif. |
 | 1.17.5 | 2026-11-05 | Réduit la surproduction documentaire par une politique canonique, un audit de structure et l archivage des rapports temporaires. |
 | 1.17.4 | 2026-11-04 | Évite le blocage lorsque le Goal natif existe mais que le runtime le déclare temporairement indisponible. |
 | 1.17.3 | 2026-11-04 | Force la relecture complète des instructions et du runtime après toute mise à jour du kit. |

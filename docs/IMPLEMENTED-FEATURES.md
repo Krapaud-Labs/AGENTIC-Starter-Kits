@@ -6,7 +6,39 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.17.5` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `1.18.3` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 1.18.3
+
+- Contrôles négatifs des budgets Goal exécutés pour les deux variantes.
+- Audit de contexte doté d un mode strict pour bloquer les alertes critiques.
+- Contrôles intégrés à la CI afin de détecter les dépassements avant livraison.
+
+## Version 1.17.9
+
+- Registre central des outils documenté dans `docs/policies/CENTRAL-TOOL-REGISTRY-POLICY.md`.
+- Vérificateur de parité Codex/Claude exécuté par la CI.
+- Détection des commandes dupliquées ou absentes dans les manifestes.
+
+## Version 1.17.8
+
+- Correcteur local Codex et Claude aligné sur l historique des rapports.
+- Rapports résolus ou dupliqués exclus des blocages actifs.
+- Erreurs GitHub conservées comme erreurs récupérables au lieu de créer des doublons.
+- Outbox écrite de façon atomique et empreintes SHA-256 validées.
+
+## Version 1.17.7
+
+- Synchronisation shared protégée par un verrou exclusif et des phases `prepared`, `applied`, `validated` et `committed`.
+- Rollback complet du kit et de `.workspace.toml` en cas d échec.
+- Préservation de `AGENTS.md` et des fichiers du projet consommateur.
+- Scénarios de contrôle transactionnel pour les variantes Codex et Claude.
+
+## Version 1.17.6
+
+- Scénario comportemental partagé Codex/Claude couvrant une initialisation répétée, la préservation d un fichier projet, le bootstrap runtime et la reprise d un Goal natif.
+- Budget runtime initial borné et valide dès la première initialisation.
+- Réconciliation persistante de `native_goal_status` quand un identifiant de Goal permet la reprise locale.
 
 ## Version 1.17.5
 

@@ -44,6 +44,26 @@ jobs:
 
       - name: Run isolated sandbox scenarios
         run: bash scripts/test-sandbox-scenarios.sh
+      - name: Run initialization and recovery scenarios
+        run: bash tests/test-initialization-recovery-scenarios.sh
+
+      - name: Run shared synchronization transaction checks
+        run: bash tests/test-shared-sync-transaction.sh
+
+      - name: Run kit report corrector checks
+        run: bash tests/test-kit-report-corrector.sh
+
+      - name: Verify central tool registry
+        run: bash scripts/verify-central-tool-registry.sh
+
+      - name: Run context and cost controls
+        run: bash tests/test-context-cost-controls.sh
+
+      - name: Run GitFlow and PR cadence controls
+        run: bash tests/test-gitflow-pr-efficiency.sh
+
+      - name: Run report security controls
+        run: python3 -m unittest tests/test_report_security.py tests/test_report_security_qa.py
 
       - name: Run isolated adapter simulations
         run: bash scripts/test-sandbox-adapters.sh
