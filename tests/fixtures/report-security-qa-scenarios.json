@@ -1,0 +1,9 @@
+[
+  {"id":"valid-input","expected":{"outcome":"accepted"}},
+  {"id":"secrets","input":{"api_key":"TEST_SECRET_VALUE"},"expected":{"outcome":"rejected","forbidden_output":true}},
+  {"id":"malformed-input","expected":{"outcome":"rejected"}},
+  {"id":"duplicate","expected":{"outcome":"idempotent","created_count":1}},
+  {"id":"resolved-report","expected":{"outcome":"unchanged","reopened":false}},
+  {"id":"interruption","expected":{"outcome":"interrupted","secret_fields":[]}},
+  {"id":"resume","expected":{"outcome":"resumed","repeated_effects":[]}}
+]
