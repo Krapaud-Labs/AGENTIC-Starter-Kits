@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+bash "$root/scripts/verify-central-tool-registry.sh"
 for kit in codex claude; do
   hidden=".$kit"
   script="$root/starter-kit-$kit/$hidden/scripts/ensure-tools.sh"
@@ -15,6 +16,7 @@ for kit in codex claude; do
   grep -Fq 'npm\teslint' "$manifest"
   grep -Fq 'python\truff' "$manifest"
   test -f "$env_script"
+  bash "$root/scripts/verify-central-tool-registry.sh" >/dev/null
 done
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT

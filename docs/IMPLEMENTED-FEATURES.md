@@ -6,7 +6,13 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.17.8` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `1.17.9` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 1.17.9
+
+- Registre central des outils documenté dans `docs/policies/CENTRAL-TOOL-REGISTRY-POLICY.md`.
+- Vérificateur de parité Codex/Claude exécuté par la CI.
+- Détection des commandes dupliquées ou absentes dans les manifestes.
 
 ## Version 1.17.8
 
