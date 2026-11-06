@@ -31,3 +31,5 @@ Le Coordinateur poursuit automatiquement les actions autonomes du plan. Il ne de
 ## Mesures obligatoires
 
 Le rapport final indique le nombre de lots, agents, appels, relances, audits, revalidations et minutes. Une dérive de plus de 50 pour cent par rapport au budget du work item déclenche une consolidation immédiate, pas une nouvelle série de micro-tâches.
+
+Les plafonds exécutables sont validés par `validate-goal-budget.sh` et les dépassements de minutes, étapes, tokens, reprises ou agents doivent échouer avant le démarrage d une action supplémentaire. Les contrôles de contexte et les tests négatifs sont exécutés par la CI.

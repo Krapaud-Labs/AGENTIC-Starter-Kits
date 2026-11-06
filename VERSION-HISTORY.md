@@ -6,6 +6,7 @@ Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il co
 
 | Version | Date | Évolution |
 |---|---|---|
+| 1.18.0 | 2026-11-06 | Rend les budgets Goal et les contrôles de contexte exécutables, avec scénarios négatifs et audit strict. |
 | 1.17.9 | 2026-11-06 | Ajoute la politique et le vérificateur du registre central des outils avec contrôle de parité Codex/Claude dans la CI. |
 | 1.17.8 | 2026-11-06 | Renforce le correcteur local des rapports, la déduplication, la pagination, l outbox atomique et les tests Codex/Claude. |
 | 1.17.7 | 2026-11-06 | Rend la synchronisation shared transactionnelle avec verrou, phases, rollback complet, préservation des fichiers consommateurs et tests dédiés. |
