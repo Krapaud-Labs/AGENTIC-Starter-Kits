@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.18.3 - 2026-11-06
+
+- Regroupe les audits lourds responsive, visuels, navigateur, accessibilité et performance en fin d implémentation.
+- Conserve uniquement les contrôles rapides de non-régression pendant le développement.
+- Ajoute des exceptions explicites pour une demande utilisateur, un risque critique ou une preuve nécessaire au choix technique.
+
 ## 1.18.2 - 2026-11-06
 
 - Ajoute une validation de sécurité commune des rapports pour Codex et Claude.

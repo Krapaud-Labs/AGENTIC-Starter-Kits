@@ -16,6 +16,8 @@ Les agents spécialisés nécessaires sont créés ou réactivés dans le même 
 
 Pour une tâche visuelle ou multi-écrans, une seule matrice couvre tous les écrans, états, dimensions, interactions, accessibilité et preuves. Les agents peuvent remplir des lignes distinctes en parallèle, mais aucun contrôle identique ne doit être répété.
 
+Les audits lourds de rendu, responsive, accessibilité, performance et navigateur sont différés jusqu'à la fin du lot d'implémentation. Pendant le développement, seuls les contrôles rapides nécessaires pour éviter une régression immédiate sont autorisés. Une passe anticipée n'est permise que si l'utilisateur la demande, si un risque critique doit être tranché avant de continuer, ou si une preuve locale est indispensable pour choisir l'implémentation. Cette exception doit être inscrite dans le plan du Goal.
+
 ## Limites d'itération
 
 - Une passe d'inventaire et une passe de correction groupée avant la revalidation.

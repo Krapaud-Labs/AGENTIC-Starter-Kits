@@ -18,6 +18,17 @@ for required in \
   }
 done
 
+for required in \
+  'audits lourds de rendu' \
+  "différés jusqu'à la fin du lot" \
+  'contrôles rapides' \
+  'risque critique'; do
+  grep -Fiq "$required" "$policy" || {
+    printf 'ECHEC: règle de regroupement des audits absente: %s\n' "$required" >&2
+    exit 1
+  }
+done
+
 for kit in codex claude; do
   config="$root/starter-kit-$kit/.${kit}/policies/EXECUTION-EFFICIENCY-POLICY.md"
   test -s "$config" || {

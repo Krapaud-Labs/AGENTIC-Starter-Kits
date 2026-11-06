@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 1.18.3 | 2026-11-06 | Regroupe les audits lourds en fin d implémentation et limite les contrôles intermédiaires aux risques immédiats. |
+
 | 1.18.2 | 2026-11-06 | Renforce la sécurité, l anonymisation et la validation des rapports produits par les deux kits. |
 
 | 1.18.1 | 2026-11-06 | Rend la cadence GitFlow et l'unicité de la PR par carte vérifiables par script et scénarios CI. |
