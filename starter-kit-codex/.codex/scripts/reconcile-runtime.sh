@@ -41,6 +41,7 @@ esac
 now="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 tmp="$state.reconcile.$$"
 sed -e "s/^- execution_status: .*/- execution_status: $execution/" \
+    -e "s/^- native_goal_status: .*/- native_goal_status: $native/" \
     -e "s/^- session_status: .*/- session_status: $session/" \
     -e "s/^- goal_status: .*/- goal_status: $goal/" \
     -e "s/^- last_observable_evidence: .*/- last_observable_evidence: $now | $evidence/" "$state" > "$tmp"

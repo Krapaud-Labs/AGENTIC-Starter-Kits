@@ -6,7 +6,13 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.17.5` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `1.17.6` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 1.17.6
+
+- Scénario comportemental partagé Codex/Claude couvrant une initialisation répétée, la préservation d un fichier projet, le bootstrap runtime et la reprise d un Goal natif.
+- Budget runtime initial borné et valide dès la première initialisation.
+- Réconciliation persistante de `native_goal_status` quand un identifiant de Goal permet la reprise locale.
 
 ## Version 1.17.5
 

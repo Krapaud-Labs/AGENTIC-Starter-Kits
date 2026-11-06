@@ -27,7 +27,7 @@
 - goal_objective: [[A_COMPLETER]]
 - goal_verification: [[A_COMPLETER]]
 - goal_constraints: [[A_COMPLETER]]
-- goal_budget: [[A_COMPLETER]]
+- goal_budget: 100000
 - audit_matrix_status: not-applicable
 - specialist_audit_status: not-applicable
 - negative_tests_status: not-applicable
