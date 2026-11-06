@@ -2,7 +2,7 @@
 set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config="$(cd "$script_dir/.." && pwd)"
-if root="$(git -C "$config/.." rev-parse --show-toplevel 2>/dev/null)"; then
+if root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
   :
 else
   root="$(cd "$config/.." && pwd)"

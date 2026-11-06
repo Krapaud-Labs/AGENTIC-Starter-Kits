@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 2.0.2 - 2026-11-06
+
+- Corrige la résolution de la racine Git dans le diagnostic shared.
+
 ## 2.0.1 - 2026-11-06
 
 - Corrige le diagnostic du mode d'installation partagé Codex.

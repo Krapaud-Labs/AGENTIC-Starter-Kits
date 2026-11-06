@@ -6,7 +6,11 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `2.0.1` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `2.0.2` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 2.0.2
+
+- Corrige la résolution de la racine Git depuis un kit shared appelé par lien symbolique.
 
 ## Version 2.0.1
 
