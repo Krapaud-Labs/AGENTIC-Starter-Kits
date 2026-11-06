@@ -6,7 +6,14 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.17.6` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `1.17.7` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 1.17.7
+
+- Synchronisation shared protégée par un verrou exclusif et des phases `prepared`, `applied`, `validated` et `committed`.
+- Rollback complet du kit et de `.workspace.toml` en cas d échec.
+- Préservation de `AGENTS.md` et des fichiers du projet consommateur.
+- Scénarios de contrôle transactionnel pour les variantes Codex et Claude.
 
 ## Version 1.17.6
 

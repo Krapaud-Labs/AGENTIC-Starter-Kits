@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.7 - 2026-11-06
+
+- Rend la synchronisation shared transactionnelle avec verrou exclusif, phases d opération et rollback complet.
+- Préserve les fichiers du projet consommateur, notamment `AGENTS.md`, et restaure le manifeste en cas d échec.
+- Ajoute les contrôles de transaction aux scénarios de test.
+
 ## 1.17.6 - 2026-11-06
 
 - Ajoute un scénario comportemental d initialisation idempotente et de reprise du Goal pour Codex et Claude.
