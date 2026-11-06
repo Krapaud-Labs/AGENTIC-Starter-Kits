@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.6 - 2026-11-06
+
+- Ajoute un scénario comportemental d initialisation idempotente et de reprise du Goal pour Codex et Claude.
+- Corrige l initialisation du budget runtime et la persistance du statut natif lors de la réconciliation.
+- Vérifie la préservation des fichiers existants et exécute le scénario dans la CI.
+
 ## 1.17.5 - 2026-11-05
 
 - Ajoute une politique de documentation canonique pour limiter les fichiers redondants.

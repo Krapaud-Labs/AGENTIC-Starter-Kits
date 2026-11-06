@@ -44,6 +44,8 @@ jobs:
 
       - name: Run isolated sandbox scenarios
         run: bash scripts/test-sandbox-scenarios.sh
+      - name: Run initialization and recovery scenarios
+        run: bash tests/test-initialization-recovery-scenarios.sh
 
       - name: Run isolated adapter simulations
         run: bash scripts/test-sandbox-adapters.sh
