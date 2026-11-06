@@ -73,7 +73,11 @@ if [ "$execution" = "waiting-for-user" ] || [ "$session" = "waiting-for-user" ];
 fi
 case "$tool" in
   Bash|apply_patch|Edit|Write|Agent)
-    if [[ "$native" == "required" || "$native" == "none" || "$next" == *A_COMPLETER* || -z "$next" || "$goal" == "none" && "$session" != "not-required" ]]; then
+    terminal_without_goal=false
+    if [[ "$execution" == "complete" && "$goal" == "none" && "$session" == "completed" ]]; then
+      terminal_without_goal=true
+    fi
+    if [[ "$native" == "required" || "$native" == "none" || "$next" == *A_COMPLETER* || -z "$next" || ( "$goal" == "none" && "$session" != "not-required" && "$terminal_without_goal" != true ) ]]; then
       printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Action bloquée : état runtime, Goal ou prochaine action incohérents."}}\n'
       exit 0
     fi
