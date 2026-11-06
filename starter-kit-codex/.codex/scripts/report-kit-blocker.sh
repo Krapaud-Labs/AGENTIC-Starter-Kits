@@ -52,9 +52,7 @@ body="$(printf '%s\n' \
 
 mkdir -p "$outbox"
 queued="$outbox/$fingerprint.md"
-tmp_report="$queued.tmp.$$"
-printf '%s\n' "$body" > "$tmp_report"
-mv -n "$tmp_report" "$queued" 2>/dev/null || { rm -f "$tmp_report"; queued="$outbox/$fingerprint.md"; }
+printf '%s\n' "$body" > "$queued"
 
 if [ "${KIT_REPORT_DRY_RUN:-0}" = 1 ]; then
   echo "KIT-REPORT: dry-run $queued"
