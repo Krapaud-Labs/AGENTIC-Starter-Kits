@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 1.17.8 - 2026-11-06
+
+- Renforce le correcteur local des rapports avec une résolution de chemin fiable dans Codex et Claude.
+- Évite les faux blocages pour les rapports déjà résolus ou dupliqués.
+- Étend la pagination, refuse les erreurs distantes silencieuses et rend l écriture de l outbox atomique.
+- Ajoute les tests de reprise du correcteur local.
+
 ## 1.17.7 - 2026-11-06
 
 - Rend la synchronisation shared transactionnelle avec verrou exclusif, phases d opération et rollback complet.
