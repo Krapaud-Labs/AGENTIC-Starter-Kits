@@ -8,6 +8,8 @@ Avant le premier outil, le Coordinateur produit un plan consolidé contenant le 
 
 Une carte ou feature conserve une seule branche de travail et une seule PR finale. Les commits intermédiaires restent des checkpoints locaux ou sur cette branche. Une PR de déploiement n'est ouverte que si l'utilisateur demande explicitement une mise à jour de la branche d'intégration avant la fin.
 
+Le lien de livraison est déterministe : l'identifiant de la carte figure dans le nom de branche et la PR, la branche part de la dernière référence `dev`, et une seule PR ouverte peut exister pour cette carte. Une relance, un agent, un résultat CI ou une correction documentaire met à jour la branche et la PR existantes, sans créer un nouvel objet.
+
 ## Passe spécialisée consolidée
 
 Les agents spécialisés nécessaires sont créés ou réactivés dans le même cycle avant l'implémentation. Chaque agent reçoit un lot non recouvrant et un contexte minimal. Le Coordinateur attend les rapports du lot complet avant de lancer l'audit final.

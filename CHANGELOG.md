@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.18.1 - 2026-11-06
+
+- Ajoute un garde GitFlow testable pour imposer une branche dédiée, une seule PR finale par carte et la cible `dev` ou `develop`.
+- Refuse les PR dupliquées, les branches protégées et les pushes directs vers `main` ou `master`.
+- Ajoute les scénarios négatifs et l'exécution CI de cette vérification.
+
 ## 1.18.0 - 2026-11-06
 
 - Rend les contrôles de budget Goal et de contexte agentique exécutables dans la CI.

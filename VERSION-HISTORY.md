@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 1.18.1 | 2026-11-06 | Rend la cadence GitFlow et l'unicité de la PR par carte vérifiables par script et scénarios CI. |
+
 ## Objet
 
 Ce document constitue la vue chronologique du projet Agentic Starter Kits. Il complète `CHANGELOG.md`, qui contient le détail opérationnel de chaque entrée. Les versions correspondent aux évolutions consommables du kit Codex ou Claude, et non à chaque commit interne.
