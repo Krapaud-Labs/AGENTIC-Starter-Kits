@@ -62,6 +62,9 @@ jobs:
       - name: Run GitFlow and PR cadence controls
         run: bash tests/test-gitflow-pr-efficiency.sh
 
+      - name: Run report security controls
+        run: python3 -m unittest tests/test_report_security.py tests/test_report_security_qa.py
+
       - name: Run isolated adapter simulations
         run: bash scripts/test-sandbox-adapters.sh
 

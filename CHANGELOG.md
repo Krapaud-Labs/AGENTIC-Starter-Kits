@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.18.2 - 2026-11-06
+
+- Ajoute une validation de sécurité commune des rapports pour Codex et Claude.
+- Expurge tokens, secrets, clés, chemins personnels et adresses e-mail avant publication.
+- Couvre les entrées valides, les données sensibles et les formats invalides par des tests dédiés.
+
 ## 1.18.1 - 2026-11-06
 
 - Ajoute un garde GitFlow testable pour imposer une branche dédiée, une seule PR finale par carte et la cible `dev` ou `develop`.
