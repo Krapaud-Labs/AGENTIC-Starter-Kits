@@ -53,6 +53,9 @@ jobs:
       - name: Run kit report corrector checks
         run: bash tests/test-kit-report-corrector.sh
 
+      - name: Verify central tool registry
+        run: bash scripts/verify-central-tool-registry.sh
+
       - name: Run isolated adapter simulations
         run: bash scripts/test-sandbox-adapters.sh
 

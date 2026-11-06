@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 1.17.9 - 2026-11-06
+
+- Ajoute un registre central documenté et vérifiable pour les outils Codex et Claude.
+- Contrôle la parité des manifestes, les doublons et les commandes déclarées dans la CI.
+- Rend l emplacement et les règles d installation des outils explicites.
+
 ## 1.17.8 - 2026-11-06
 
 - Renforce le correcteur local des rapports avec une résolution de chemin fiable dans Codex et Claude.
