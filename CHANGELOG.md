@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.5 - 2026-11-07
+
+- Renforce la détection Docker multi-contexte et son diagnostic.
+- Évite de déclarer Docker indisponible lorsque Docker Desktop est accessible dans un autre contexte.
+
 ## 2.0.4 - 2026-11-06
 
 - Autorise la reprise d initialisation sur un runtime terminé sans Goal actif.

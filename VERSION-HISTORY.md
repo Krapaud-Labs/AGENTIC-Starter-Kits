@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.5 | 2026-11-07 | Renforce la détection Docker multi-contexte et distingue CLI, daemon, socket et stack. |
+
 | 2.0.4 | 2026-11-06 | Autorise la reprise d initialisation sur un runtime terminé sans Goal actif. |
 
 | 2.0.3 | 2026-11-06 | Corrige l extraction du mode shared dans le diagnostic Codex. |

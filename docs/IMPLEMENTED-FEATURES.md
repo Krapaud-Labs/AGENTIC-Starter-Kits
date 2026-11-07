@@ -6,7 +6,12 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `2.0.4` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `2.0.5` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 2.0.5
+
+- Distingue Docker CLI, daemon, contexte, socket et serveur réel.
+- Sélectionne automatiquement `desktop-linux` sur macOS lorsqu un autre contexte est invalide.
 
 ## Version 2.0.4
 
