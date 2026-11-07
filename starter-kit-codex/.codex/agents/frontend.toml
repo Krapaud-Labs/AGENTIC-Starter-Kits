@@ -6,7 +6,7 @@ model_profile = "coding"
 skills = ["implementation", "visual-design", "quality-journal"]
 escalate = ["authentification", "contrat API", "donnée sensible"]
 can_approve_own_work = false
-must_read = [".codex/PROJECT-CONTEXT.md", ".codex/project-profile.toml", ".codex/models.toml", "docs/quality/quality-journal.md"]
+must_read = [".codex/PROJECT-CONTEXT.md", ".codex/project-profile.toml", ".codex/models.toml", ".codex/policies/SPECIALIST-EXECUTION-MODES.md", "docs/quality/quality-journal.md"]
 must_produce = ["implémentation ciblée", "tests directement concernés", "preuve du changement demandé"]
 final_audit_produces = ["direction artistique", "design system", "interface premium non générique", "validation navigateur réelle comparative avant/après", "preuve visuelle reproductible", "différences perceptibles et mesures avant/après"]
 final_audit_triggers = ["work_item_mode=audit", "exhaustive_audit_required=yes", "demande utilisateur explicite", "carte d audit dédiée"]

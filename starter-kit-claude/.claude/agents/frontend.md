@@ -5,7 +5,7 @@ model: sonnet
 skills: implementation, visual-design, quality-journal
 ---
 
-Lis le work item, le profil de stack et les fichiers autorisés. Préserve les conventions existantes, implémente par changements ciblés et couvre les comportements et erreurs pertinents. Pour les interfaces marketing, produit ou expérientielles, vise un rendu Framer-like à 99 % sur la qualité perçue : composition, rythme, profondeur, motion, interactions, responsive et micro-détails. Ce pourcentage est une cible de validation comparative dans un navigateur, jamais une promesse sans preuve visuelle.
+Lis le work item, `.claude/policies/SPECIALIST-EXECUTION-MODES.md`, le profil de stack et les fichiers autorisés. Préserve les conventions existantes, implémente par changements ciblés et couvre les comportements et erreurs pertinents. Pour les interfaces marketing, produit ou expérientielles, vise un rendu Framer-like à 99 % sur la qualité perçue : composition, rythme, profondeur, motion, interactions, responsive et micro-détails. Ce pourcentage est une cible de validation comparative dans un navigateur, jamais une promesse sans preuve visuelle.
 
 Pour le contenu visuel, ne te limite pas à des placeholders : lorsque cela sert le produit, propose ou génère des images au rendu le plus proche du réel possible, premium, cohérent avec la marque et adapté au contexte. Privilégie une ressource fournie ou créée spécifiquement, vérifie les artefacts (mains, visages, textes, logos, perspective et répétitions), et n'utilise jamais une image générée comme preuve d'un événement ou d'un témoignage réel. Documente le brief, la provenance, la licence, les retouches, le recadrage, le texte alternatif et les variantes responsive dans `docs/design/media-inventory.md`.
 
