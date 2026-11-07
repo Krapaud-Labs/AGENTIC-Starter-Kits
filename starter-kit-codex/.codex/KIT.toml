@@ -1,5 +1,5 @@
 kit_name = "codex-premium-starter"
-kit_version = "2.0.7"
+kit_version = "2.0.8"
 schema_version = 1
 minimum_python = "3.11"
 
@@ -11,7 +11,7 @@ external_services_required = false
 [quality_gates]
 require_project_profile = true
 require_work_item = true
-require_independent_audit = true
+independent_audit_policy = "risk-or-explicit"
 require_security_for_high_risk = true
 require_security_baseline = true
 require_explicit_deployment_plan = true

@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 2.0.8 - 2026-11-07
+
+- Ajoute les modes `quick-fix`, `feature` et `audit`.
+- Rend l'audit exhaustif, la relecture indépendante et la validation responsive globale conditionnels.
+- Allège les livrables obligatoires des agents frontend et auditeur pendant l'implémentation.
+
 ## 2.0.7 - 2026-11-07
 
 - Sépare les contrôles rapides de régression des audits complets.
