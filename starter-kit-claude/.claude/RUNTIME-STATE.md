@@ -20,6 +20,8 @@
 - max_attempts: 3
 - redundant_confirmation_requested: no
 - goal_status: none
+- work_item_mode: quick-fix
+- exhaustive_audit_required: no
 - goal_objective: [[A_COMPLETER]]
 - goal_verification: [[A_COMPLETER]]
 - goal_constraints: [[A_COMPLETER]]

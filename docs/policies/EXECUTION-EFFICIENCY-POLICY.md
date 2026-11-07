@@ -4,6 +4,8 @@ Cette politique réduit la durée et le nombre d'appels sans supprimer les contr
 
 ## Plan unique par carte ou feature
 
+Chaque work item déclare un mode d'exécution : `quick-fix` pour une correction ciblée, `feature` pour une fonctionnalité complète, ou `audit` pour une revue exhaustive. Le mode `quick-fix` utilise l'agent de domaine et les contrôles ciblés. Le mode `feature` ajoute les tests fonctionnels et une validation finale groupée. Le mode `audit` active les agents de revue et la matrice complète. Aucun mode ne doit déclencher automatiquement un audit exhaustif pour une modification ciblée.
+
 Avant le premier outil, le Coordinateur produit un plan consolidé contenant le périmètre, les lots indépendants, les agents requis, les preuves et la Definition of Done. Il ne découpe pas une même feature en micro-goals, micro-branches, micro-PR ou micro-audits.
 
 Une carte ou feature conserve une seule branche de travail et une seule PR finale. Les commits intermédiaires restent des checkpoints locaux ou sur cette branche. Une PR de déploiement n'est ouverte que si l'utilisateur demande explicitement une mise à jour de la branche d'intégration avant la fin.

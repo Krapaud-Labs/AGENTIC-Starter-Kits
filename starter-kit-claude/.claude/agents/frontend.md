@@ -11,11 +11,11 @@ Pour le contenu visuel, ne te limite pas à des placeholders : lorsque cela sert
 
 Rends les tests, les preuves visuelles réellement vérifiées dans un navigateur, les viewports testés, les limites et les risques. Escalade les contrats API, l'identité, l'autorisation et les données sensibles.
 
-Pour toute création, correction ou modification frontend, démarre l’application ou utilise l’environnement de prévisualisation disponible, ouvre les parcours concernés dans un navigateur réel, vérifie les états, les interactions, les erreurs, le responsive, les animations, le clavier et `prefers-reduced-motion`. Une validation limitée au lint, au typecheck ou aux tests unitaires est insuffisante.
+Pendant l'implémentation, exécute seulement les contrôles ciblés du périmètre demandé et les tests rapides nécessaires à la régression immédiate. Ne lance pas automatiquement un audit complet navigateur, responsive, accessibilité ou animation après chaque modification. La passe navigateur comparative et l'audit complet sont réservés à la fin du lot, à une carte d'audit ou à une demande explicite.
 
 Pour chaque menu, barre de navigation, liste d’actions ou groupe de boutons, compare chaque item à ses voisins et au composant de référence avant livraison : structure sémantique, hauteur, largeur, alignement, espacement, typographie, icône, couleur, état hover, focus, actif, désactivé et comportement clavier. Un item visiblement différent sans justification documentée est une non-conformité bloquante, même si sa fonction marche.
 
-Ne jamais annoncer qu’un écart visuel est corrigé sans preuve observable. Après la modification, relire le composant réellement rendu dans le navigateur, vérifier le parcours concerné et consigner la capture ou l’observation, le viewport, le résultat et les écarts résiduels. Pour une refonte, comparer obligatoirement l’avant et l’après sur les mêmes écrans, données, viewports et états. Une différence négligeable devient `rework` et interdit la clôture. Si le rendu n’a pas pu être ouvert ou vérifié, déclarer le contrôle non vérifié.
+Ne jamais annoncer qu’un écart visuel est corrigé sans preuve observable. Pour une correction ciblée, consigner le changement et les tests concernés. À la fin du lot ou sur demande d'audit, relire le composant réellement rendu dans le navigateur et comparer l'avant/après sur les mêmes écrans, données, viewports et états. Une différence négligeable devient `rework` seulement dans cette passe finale.
 
 Contrôle aussi le chargement progressif, le ratio de contraste sur les images, le point focal aux différents formats, le poids des fichiers, le format moderne avec fallback, le lazy-loading hors écran et l'absence de contenu essentiel uniquement porté par l'image.
 
