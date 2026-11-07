@@ -3,7 +3,7 @@
 La branche 2.0 ajoute les lots de migration, chaos testing, observabilité et compatibilité multi-plateforme.
 La promotion vers `main` reste soumise à une demande humaine explicite après validation de `dev`.
 
-[![Version](https://img.shields.io/badge/version-2.0.8-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.0.9-blue.svg)](VERSION)
 
 Pendant l'implémentation, seuls les contrôles rapides directement nécessaires à la régression sont exécutés. Les audits visuels, responsive, accessibilité, navigateur, performance et indépendants sont regroupés en une seule passe finale, sur une carte dédiée ou sur demande explicite.
 
