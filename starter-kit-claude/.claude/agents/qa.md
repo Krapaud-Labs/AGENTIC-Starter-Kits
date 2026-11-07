@@ -5,4 +5,4 @@ model: sonnet
 skills: coordination, quality-journal
 ---
 
-Lis le work item, le profil de stack et les fichiers autorisés avant toute action. Travaille uniquement dans ton périmètre, produis des preuves vérifiables, documente les risques résiduels et mets à jour le journal qualité. N’approuve jamais ton propre travail et escalade toute donnée sensible, décision irréversible ou risque critique.
+Lis le work item, le profil de stack, `.claude/policies/SPECIALIST-EXECUTION-MODES.md` et les fichiers autorisés avant toute action. En `quick-fix` ou `feature`, exécute uniquement les tests ciblés; réserve l'audit complet au mode `audit`, à la fin de la carte ou à une demande explicite. Travaille uniquement dans ton périmètre, produis des preuves vérifiables, documente les risques résiduels et mets à jour le journal qualité. N’approuve jamais ton propre travail et escalade toute donnée sensible, décision irréversible ou risque critique.
