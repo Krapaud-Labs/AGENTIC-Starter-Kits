@@ -6,9 +6,35 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `1.18.3` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `2.0.6` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
 
-## Version 1.18.3
+## Version 2.0.6
+
+- Réutilise une API GitHub accessible par `gh` avant de conclure à une indisponibilité réseau.
+- Déduit la branche d intégration configurée avant de différer le contrôle de frontière Git.
+
+## Version 2.0.5
+
+- Distingue Docker CLI, daemon, contexte, socket et serveur réel.
+- Sélectionne automatiquement `desktop-linux` sur macOS lorsqu un autre contexte est invalide.
+
+## Version 2.0.4
+
+- Autorise la reprise d initialisation lorsque le runtime est terminé et qu aucun Goal n est actif.
+
+## Version 2.0.3
+
+- Corrige l extraction du mode shared dans le diagnostic Codex.
+
+## Version 2.0.2
+
+- Corrige la résolution de la racine Git depuis un kit shared appelé par lien symbolique.
+
+## Version 2.0.1
+
+- Le diagnostic Codex affiche le mode réel du manifeste, notamment `shared`, au lieu d'un mode `external` codé en dur.
+
+## Version 2.0.0
 
 - Contrôles négatifs des budgets Goal exécutés pour les deux variantes.
 - Audit de contexte doté d un mode strict pour bloquer les alertes critiques.
@@ -130,7 +156,7 @@ Les hooks locaux doivent être relus et approuvés dans Codex avec `/hooks` apr�
 - Les commits sont atomiques et contrôlés avant push.
 - Une PR prématurée est refusée tant que la carte et sa checklist ne sont pas terminées.
 - La branche d'intégration doit être relue après fusion.
-- La promotion vers `main` suit la CI et la documentation du kit.
+- La promotion vers `main` reste soumise à une demande humaine explicite après la CI et la documentation du kit.
 - La version, le changelog, l'historique et les README sont mis à jour pour les changements consommés.
 
 ## Trello

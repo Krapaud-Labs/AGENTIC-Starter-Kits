@@ -1,6 +1,8 @@
 # Kit d'orchestration Claude Code portable
 
-![Version du kit](https://img.shields.io/badge/version-1.18.3-blue.svg)
+La version 2.0 inclut le runtime canonique, la migration shared et les contrôles de release multi-plateforme.
+
+![Version du kit](https://img.shields.io/badge/version-2.0.6-blue.svg)
 
 Trello et GitHub Projects suivent la même politique dans `starter-kit-claude/.claude/policies/PROJECT-TRACKER-VISUAL-SYSTEM.md`.
 
@@ -208,7 +210,7 @@ Chaque feature, correctif ou tâche documentaire se fait sur une branche dédié
 
 Si une demande de livraison arrive alors que le checkout est sur une branche protégée, le refus est routé automatiquement vers une branche dédiée puis une PR vers `dev` ou `develop`. Ce contrôle ne doit pas interrompre le Goal ni demander une confirmation supplémentaire.
 
-Après vérification de `dev`, le Coordinateur crée, valide et fusionne automatiquement l’unique PR de promotion vers `main` lorsque la demande de livraison est active.
+Après vérification de `dev`, le Coordinateur peut préparer l’unique PR de promotion vers `main`, mais sa création ou sa fusion exige toujours une demande humaine explicite.
 
 
 ## Dossier de conception de niveau CDA
@@ -274,7 +276,7 @@ Le Coordinateur ne les appelle pas tous systématiquement. Il lit `.claude/SPECI
 
 Une CI en cours ne clôture jamais le work item. Le Coordinateur attend les résultats, traite les erreurs, corrige les lints et les dettes historiques du périmètre par lots, puis relance les contrôles jusqu’à la Definition of Done.
 
-Le kit est actuellement en version `1.18.3`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
+Le kit est actuellement en version `2.0.6`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
 
 Le contrat central `.claude/policies/CORE-EXECUTION-CONTRACT.md` impose un registre d obligations, huit portes de validation et une reprise persistante. Une tâche ne peut être clôturée tant qu une obligation applicable ne possède pas de preuve.
 

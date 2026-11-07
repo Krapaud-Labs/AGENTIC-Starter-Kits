@@ -65,6 +65,15 @@ jobs:
       - name: Run report security controls
         run: python3 -m unittest tests/test_report_security.py tests/test_report_security_qa.py
 
+      - name: Validate Agentic 2.0 contract
+        run: bash tests/test-agentic-v2-contract.sh
+
+      - name: Run Agentic 2.0 runtime, migration and orchestration tests
+        run: python3 -m unittest tests/test_agentic_orchestration.py tests/test_migrate_agentic_card.py tests/test_runtime_v2.py
+
+      - name: Run Agentic 2.0 chaos and compatibility tests
+        run: python3 -m unittest tests/test_chaos_observability.py tests/test_compatibility_release.py
+
       - name: Run isolated adapter simulations
         run: bash scripts/test-sandbox-adapters.sh
 

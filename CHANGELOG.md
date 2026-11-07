@@ -1,6 +1,33 @@
 ## Unreleased
 
-## 1.18.3 - 2026-11-06
+## 2.0.6 - 2026-11-07
+
+- Corrige les faux blocages GitHub lorsque `gh api` fonctionne mais que `curl` échoue.
+- Corrige la détection de branche d intégration du contrôle de frontière projet.
+
+## 2.0.5 - 2026-11-07
+
+- Renforce la détection Docker multi-contexte et son diagnostic.
+- Évite de déclarer Docker indisponible lorsque Docker Desktop est accessible dans un autre contexte.
+
+## 2.0.4 - 2026-11-06
+
+- Autorise la reprise d initialisation sur un runtime terminé sans Goal actif.
+
+## 2.0.3 - 2026-11-06
+
+- Corrige l extraction du mode shared dans le diagnostic Codex.
+
+## 2.0.2 - 2026-11-06
+
+- Corrige la résolution de la racine Git dans le diagnostic shared.
+
+## 2.0.1 - 2026-11-06
+
+- Corrige le diagnostic du mode d'installation partagé Codex.
+- Aligne les versions, manifestes et README sur 2.0.1.
+
+## 2.0.0 - 2026-11-06
 
 - Regroupe les audits lourds responsive, visuels, navigateur, accessibilité et performance en fin d implémentation.
 - Conserve uniquement les contrôles rapides de non-régression pendant le développement.

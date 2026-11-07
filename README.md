@@ -1,6 +1,9 @@
 # Agentic Starter Kits
 
-[![Version](https://img.shields.io/badge/version-1.18.3-blue.svg)](VERSION)
+La branche 2.0 ajoute les lots de migration, chaos testing, observabilité et compatibilité multi-plateforme.
+La promotion vers `main` reste soumise à une demande humaine explicite après validation de `dev`.
+
+[![Version](https://img.shields.io/badge/version-2.0.6-blue.svg)](VERSION)
 
 ## Construire avec une IA comme avec une équipe senior
 
