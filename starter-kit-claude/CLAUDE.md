@@ -1,5 +1,5 @@
 # Point d'entrée Claude
-<!-- ENTRYPOINT-CONTRACT: 2.0.8 -->
+<!-- ENTRYPOINT-CONTRACT: 2.0.9 -->
 
 ## Contrat obligatoire de chaque nouveau chat
 
