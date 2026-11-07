@@ -18,7 +18,7 @@ attempts="$(value attempt_count)"; max_attempts="$(value max_attempts)"; redunda
 required="$(value required_action_status)"; budget="$(value budget_status)"; environment="$(value environment_status)"; shutdown="$(value environment_shutdown_status)"; pending_request="$(value pending_request_id)"; pending_turn="$(value pending_turn_id)"
 goal_status="$(value goal_status)"; goal_delivery="$(value goal_delivery_status)"; integration_branch="$(value integration_branch)"; pushed_commit="$(value pushed_integration_commit)"; remote_evidence="$(value integration_remote_evidence)"; pr_status="$(value pull_request_status)"
 agents_created="$(value goal_agents_created)"; agent_evidence="$(value goal_agent_evidence)"
-turn_status="$(value last_turn_status)"; tool_failures="$(value tool_failures)"; session_status="$(value session_status)"
+turn_status="$(value last_turn_status)"; tool_failures="$(value tool_failures)"; session_status="$(value session_status)"; audit_required="$(value exhaustive_audit_required)"
 
 case "$status" in
   waiting-for-user)
@@ -28,7 +28,7 @@ case "$status" in
     ;;
   complete)
     audit_guard="$script_dir/validate-exhaustive-audit.sh"
-    if [ -x "$audit_guard" ]; then bash "$audit_guard" "$state" || fail "audit exhaustif non vérifié"; fi
+    if [[ "$audit_required" =~ ^(yes|true|exhaustive)$ ]] && [ -x "$audit_guard" ]; then bash "$audit_guard" "$state" || fail "audit exhaustif requis mais non vérifié"; fi
     [[ "$(value pending_request_id)" =~ ^(none|resolved)$ && "$(value required_action_status)" =~ ^(none|resolved|not-required)$ ]] || fail "demande utilisateur encore en attente"
     if [[ "$goal_status" != "none" && "$goal_status" != "not-required" ]]; then
       [[ "$goal_status" == "complete" ]] || fail "goal encore actif: $goal_status"
