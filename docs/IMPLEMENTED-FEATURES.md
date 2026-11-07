@@ -6,7 +6,12 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `2.0.5` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `2.0.6` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 2.0.6
+
+- Réutilise une API GitHub accessible par `gh` avant de conclure à une indisponibilité réseau.
+- Déduit la branche d intégration configurée avant de différer le contrôle de frontière Git.
 
 ## Version 2.0.5
 

@@ -9,7 +9,11 @@ done
 [ -n "$found_gh" ] && echo "gh trouvé: $found_gh" || echo "gh absent des emplacements vérifiés"
 if [ -n "$found_gh" ]; then
   "$found_gh" --version >/dev/null || { echo "gh trouvé mais inutilisable" >&2; exit 2; }
-  "$found_gh" auth status >/dev/null 2>&1 && echo "gh authentifié" || echo "gh non authentifié ou session limitée"
+  if "$found_gh" api rate_limit >/dev/null 2>&1; then
+    echo "GitHub API accessible par gh"
+    exit 0
+  fi
+  "$found_gh" auth status >/dev/null 2>&1 && echo "gh authentifié mais API non accessible" || echo "gh non authentifié ou session limitée"
 fi
 
 if curl_output="$(curl -fsSIL --max-time "$timeout_seconds" https://api.github.com 2>&1)"; then

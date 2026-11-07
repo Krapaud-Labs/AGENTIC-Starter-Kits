@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.6 | 2026-11-07 | Corrige les faux blocages GitHub et la détection de branche d intégration. |
+
 | 2.0.5 | 2026-11-07 | Renforce la détection Docker multi-contexte et distingue CLI, daemon, socket et stack. |
 
 | 2.0.4 | 2026-11-06 | Autorise la reprise d initialisation sur un runtime terminé sans Goal actif. |

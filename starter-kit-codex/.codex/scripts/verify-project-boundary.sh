@@ -4,7 +4,9 @@ set -euo pipefail
 root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 forbidden='agentic|agentic starter kits|starter kit|\.codex|\.claude'
 violations=()
-base_ref="${BOUNDARY_BASE_REF:-develop}"
+profile="$root/.codex/project-profile.toml"
+configured_ref="$(sed -n 's/^integration_branch = "\([^"]*\)"/\1/p' "$profile" 2>/dev/null | head -1 || true)"
+base_ref="${BOUNDARY_BASE_REF:-${configured_ref:-dev}}"
 base="$(git -C "$root" merge-base HEAD "$base_ref" 2>/dev/null || true)"
 if [ -z "$base" ]; then
   echo "Frontière projet: branche de référence absente, contrôle différé à la première PR d'intégration."

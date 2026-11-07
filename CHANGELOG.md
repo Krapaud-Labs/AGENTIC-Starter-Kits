@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.6 - 2026-11-07
+
+- Corrige les faux blocages GitHub lorsque `gh api` fonctionne mais que `curl` échoue.
+- Corrige la détection de branche d intégration du contrôle de frontière projet.
+
 ## 2.0.5 - 2026-11-07
 
 - Renforce la détection Docker multi-contexte et son diagnostic.
