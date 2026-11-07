@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.8 | 2026-11-07 | Ajoute les modes d'exécution et limite les audits exhaustifs aux cartes d'audit, demandes explicites ou risques critiques. |
+
 | 2.0.7 | 2026-11-07 | Sépare les contrôles de régression indispensables des audits complets, regroupés en fin d'implémentation ou sur demande. |
 
 | 2.0.6 | 2026-11-07 | Corrige les faux blocages GitHub et la détection de branche d intégration. |

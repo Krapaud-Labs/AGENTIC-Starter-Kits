@@ -4,6 +4,8 @@
 
 - Projet: [[A_COMPLETER]]
 - Work item actif: none
+- work_item_mode: quick-fix | feature | audit
+- exhaustive_audit_required: no
 - Dernière mise à jour: [[A_COMPLETER]]
 - Responsable: Coordinateur
 - execution_session: [[A_COMPLETER]]
