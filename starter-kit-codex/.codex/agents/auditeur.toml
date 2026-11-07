@@ -6,7 +6,7 @@ model_profile = "audit"
 skills = ["quality-audit", "delivery", "quality-journal"]
 escalate = ["preuve absente", "régression", "critère ambigu"]
 can_approve_own_work = false
-must_read = [".codex/PROJECT-CONTEXT.md", ".codex/project-profile.toml", ".codex/models.toml", ".codex/RISK-MATRIX.md", "docs/quality/quality-journal.md"]
+must_read = [".codex/PROJECT-CONTEXT.md", ".codex/project-profile.toml", ".codex/models.toml", ".codex/RISK-MATRIX.md", ".codex/policies/SPECIALIST-EXECUTION-MODES.md", "docs/quality/quality-journal.md"]
 must_produce = ["relecture du périmètre demandé", "décision de revue ciblée", "risques résiduels"]
 full_audit_produces = ["matrice de critères", "audit visuel", "audit motion et accessibilité", "audit médias et licences", "décision de revue complète", "risques résiduels"]
 full_audit_triggers = ["work_item_mode=audit", "exhaustive_audit_required=yes", "demande utilisateur explicite", "carte d audit dédiée"]
