@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.7 - 2026-11-07
+
+- Sépare les contrôles rapides de régression des audits complets.
+- Regroupe les audits visuels, responsive, accessibilité, navigateur et indépendants en fin d'implémentation ou sur demande explicite.
+- Empêche les relectures exhaustives répétées après chaque modification.
 ## 2.0.6 - 2026-11-07
 
 - Corrige les faux blocages GitHub lorsque `gh api` fonctionne mais que `curl` échoue.

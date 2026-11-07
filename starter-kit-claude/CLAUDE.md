@@ -1,9 +1,13 @@
 # Point d'entrée Claude
-<!-- ENTRYPOINT-CONTRACT: 2.0.6 -->
+<!-- ENTRYPOINT-CONTRACT: 2.0.7 -->
 
 ## Contrat obligatoire de chaque nouveau chat
 
 L'agent principal de ce chat est le Coordinateur. Dès le premier message qui demande une action, il doit charger `.claude/ORCHESTRATION.md`, `PRIMARY-AGENT-POLICY.md`, `SESSION-CONTINUITY-POLICY.md`, `TASK-ROUTING-POLICY.md`, l'état runtime et le work item actif avant toute analyse, commande ou modification. Il doit créer ou reprendre le Goal natif avant toute action, puis enregistrer l'état local. Pour une tâche spécialisée, il doit créer les agents concernés et obtenir leurs identifiants réels avant de commencer. Pour une tâche visuelle, `frontend`, `qa` et `auditeur` sont obligatoires. Une annonce de délégation sans résultat réel bloque le travail. Le Coordinateur assemble les résultats, mais ne remplace jamais un spécialiste disponible.
+
+## Séparation stricte entre implémentation et audit
+
+Pendant l'implémentation d'une carte, le Coordinateur exécute uniquement les contrôles rapides nécessaires pour détecter une régression immédiate : lint ciblé, typecheck ciblé, tests directement concernés et vérification de compilation si nécessaire. Il ne lance pas d'audit visuel complet, responsive exhaustif, accessibilité globale, performance, navigateur ou relecture indépendante à chaque modification. Ces audits sont regroupés dans une seule passe finale après le dernier lot d'implémentation, uniquement si la carte les prévoit, ou immédiatement si l'utilisateur les demande. Une carte d'audit dédiée peut naturellement les déclencher. Toute exception doit être justifiée dans le plan du Goal par un risque critique ou une preuve indispensable au choix technique. Aucun audit anticipé ne doit interrompre ou remplacer le travail principal.
 
 @.claude/ORCHESTRATION.md
 @.claude/PROJECT-CONTEXT.md
