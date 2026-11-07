@@ -6,7 +6,13 @@ Ce document est la référence synthétique du comportement livré par les kits.
 
 | Élément | État | Preuve |
 |---|---|---|
-| Version actuelle | `2.0.6` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+| Version actuelle | `2.0.7` | `VERSION`, `starter-kit-codex/.codex/KIT.toml`, `starter-kit-claude/.claude/KIT.toml` |
+
+## Version 2.0.7
+
+- Sépare les contrôles rapides de régression des audits complets.
+- Regroupe les audits lourds en fin d'implémentation, sur une carte dédiée ou sur demande explicite.
+- Interdit les relectures exhaustives répétées après chaque modification.
 
 ## Version 2.0.6
 

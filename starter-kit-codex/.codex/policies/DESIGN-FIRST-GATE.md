@@ -1,12 +1,12 @@
 # Porte conception avant développement
 
-La conception est une porte obligatoire avant toute écriture de code, délégation d'implémentation, création de branche de feature ou PR de code.
+La conception est une porte obligatoire avant toute écriture de code lorsque la carte introduit ou modifie une décision d'architecture, un contrat, un modèle de données, une règle de sécurité ou le design system. Elle n'est pas une approbation globale exigée pour chaque carte d'implémentation déjà couverte par une conception acceptée.
 
-Le Coordinateur ne peut lancer le développement que lorsque `docs/design/design-readiness.md` indique `Status: approved`, que toutes ses cases sont cochées et que chaque document obligatoire est présent, cohérent, relu et sans marqueur `[[A_COMPLETER]]`, `TODO` ou `FIXME` non traité.
+Le Coordinateur ne peut lancer une carte de conception ou une carte qui modifie un contrat structurant que lorsque `docs/design/design-readiness.md` indique `Status: approved`, que ses cases concernées sont cochées et que les documents impactés sont cohérents. Pour une carte d'implémentation fonctionnelle déjà couverte par la conception acceptée, il vérifie uniquement les documents et critères directement concernés. Une readiness globale en `review` ne bloque pas cette carte si aucun changement structurant n'est introduit.
 
 Le dossier de conception doit couvrir au minimum la vision et le périmètre, les user stories, les parcours, l'architecture, les données, les contrats, la sécurité, la direction visuelle si applicable, la roadmap, les décisions, les diagrammes et les critères de validation. « Parfait » signifie ici complet au regard du cahier des charges accepté, cohérent entre documents, audité et approuvé ; toute inconnue bloquante doit être résolue ou explicitement marquée `needs-review` avant le code.
 
-Une demande de code reçue avant cette approbation devient une action de conception : compléter les documents, faire relire la conception et exécuter le preflight. Aucun agent d'implémentation ne doit être activé avant le passage de cette porte.
+Une demande de code qui modifie un élément structurant avant cette approbation devient une action de conception. Une demande de code fonctionnelle déjà couverte par les documents acceptés reste une action d'implémentation et ne doit pas être transformée artificiellement en audit général.
 
 ## Transition de phase atomique
 

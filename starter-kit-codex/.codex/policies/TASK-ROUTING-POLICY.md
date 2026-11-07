@@ -6,7 +6,7 @@ Cette politique s’applique à toute demande reçue après l’acceptation du c
 
 Le Coordinateur ne transmet jamais une demande directement à un agent sans la qualifier. Il identifie le résultat attendu, le périmètre, le risque, les contraintes, les fichiers concernés, les dépendances, les preuves attendues et la Definition of Done.
 
-Avant toute route vers un agent d'implémentation, vérifier la porte `DESIGN-FIRST-GATE.md` et le preflight. Si `docs/design/design-readiness.md` n'est pas `Status: approved` avec toutes les cases fermées, router la demande vers la conception et l'audit, jamais vers le code.
+Avant toute route vers un agent d'implémentation, vérifier la porte `DESIGN-FIRST-GATE.md` et le preflight. Router vers la conception uniquement si la carte introduit ou modifie une décision structurante ou si les documents directement concernés sont absents ou incohérents. Une readiness globale en `review` ne suffit pas à détourner une carte fonctionnelle déjà couverte par une conception acceptée. Dans ce cas, router vers l'agent d'implémentation compétent et réserver l'audit complet à la fin du lot ou à une demande explicite.
 
 Une demande hors cahier des charges devient une évolution tracée du périmètre vivant. Le cahier initial reste historique et ne doit pas être réécrit pour masquer l’ajout.
 
