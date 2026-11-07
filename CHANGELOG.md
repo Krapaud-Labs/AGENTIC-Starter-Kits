@@ -1,5 +1,12 @@
 ## Unreleased
 
+## 2.0.9 - 2026-11-07
+
+- Harmonise tous les agents spécialistes avec les modes `quick-fix`, `feature` et `audit`.
+- Réserve les audits exhaustifs aux cartes d audit, à la validation finale, aux risques critiques ou aux demandes explicites.
+- Exige pour chaque affectation un mode, un périmètre, un livrable et une preuve rattachée au SHA observé.
+- Empêche les relectures répétées sans changement d état ou de preuve.
+
 ## 2.0.8 - 2026-11-07
 
 - Ajoute les modes `quick-fix`, `feature` et `audit`.

@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.9 | 2026-11-07 | Harmonise tous les agents spécialistes et impose des audits proportionnels regroupés en fin de carte ou réservés au mode audit. |
+
 | 2.0.8 | 2026-11-07 | Ajoute les modes d'exécution et limite les audits exhaustifs aux cartes d'audit, demandes explicites ou risques critiques. |
 
 | 2.0.7 | 2026-11-07 | Sépare les contrôles de régression indispensables des audits complets, regroupés en fin d'implémentation ou sur demande. |
