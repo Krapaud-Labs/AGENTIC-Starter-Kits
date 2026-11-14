@@ -12,6 +12,7 @@ if ! grep -Eq '^- native_goal_status:' "$input"; then
   case "$goal_status" in
     active|running) native_status=active ;;
     blocked) native_status=blocked ;;
+    budget-limited|budgetLimited) native_status=budget-limited ;;
     paused) native_status=paused ;;
     *) [ -n "$native_goal_id" ] && [ "$native_goal_id" != "none" ] && native_status=active || native_status=unavailable ;;
   esac
