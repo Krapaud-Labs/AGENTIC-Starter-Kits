@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.11 | 2026-11-14 | Réduit le contexte des Goals et évite la réinjection des historiques complets. |
+
 | 2.0.10 | 2026-11-14 | Traite l épuisement du budget natif comme un arrêt technique du Goal et non comme un blocage projet. |
 
 | 2.0.9 | 2026-11-07 | Harmonise tous les agents spécialistes et impose des audits proportionnels regroupés en fin de carte ou réservés au mode audit. |

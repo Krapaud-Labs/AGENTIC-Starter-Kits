@@ -12,6 +12,7 @@ config="$(cd "$script_dir/.." && pwd)"
 state="$config/RUNTIME-STATE.md"
 events="$config/runtime-events.log"
 [ -f "$state" ] || { echo "GOAL: RUNTIME-STATE.md absent" >&2; exit 1; }
+[ -x "$script_dir/prepare-context-manifest.sh" ] && bash "$script_dir/prepare-context-manifest.sh" >/dev/null
 
 native_status="${NATIVE_GOAL_STATUS:-}"
 native_id="${NATIVE_GOAL_ID:-none}"
