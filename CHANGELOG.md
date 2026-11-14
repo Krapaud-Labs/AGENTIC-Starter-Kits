@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 2.0.10 - 2026-11-14
+
+- Distingue `budgetLimited` d'un blocage réel du projet.
+- Préserve les preuves et indique la création d'un nouveau Goal comme prochaine action.
+- Autorise la validation du runtime avec `native_goal_status: budget-limited`.
+
 ## 2.0.9 - 2026-11-07
 
 - Harmonise tous les agents spécialistes avec les modes `quick-fix`, `feature` et `audit`.
