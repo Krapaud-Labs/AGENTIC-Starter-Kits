@@ -25,3 +25,7 @@ Le Coordinateur regroupe les contrôles compatibles dans une commande ou un appe
 Un échec réessayable utilise un nombre limité de tentatives et une alternative différente. Les messages de statut ne recopient pas l'historique. Ils indiquent seulement le changement observé, la preuve et l'action suivante.
 
 Cette politique ne permet jamais d'omettre une instruction de sécurité, une obligation applicable, une preuve requise ou une relecture d'un fichier modifié.
+
+## Budget du Goal
+
+Le Coordinateur ne transfère jamais l'historique complet de conversation dans un Goal. Il construit son contexte à partir du manifeste, du work item actif, de `RUNTIME-STATE.md`, des derniers résumés et des fichiers directement concernés. Les anciennes preuves sont référencées par chemin et empreinte, puis relues uniquement si leur empreinte a changé ou si une obligation les exige.

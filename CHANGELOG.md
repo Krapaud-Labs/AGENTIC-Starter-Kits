@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 2.0.11 - 2026-11-14
+
+- Réduit le contexte initial des Goals au work item, au manifeste, au runtime et aux preuves concernées.
+- Interdit la réinjection complète de l historique et des anciens rapports.
+- Génère automatiquement le manifeste de contexte au démarrage du Goal.
+
 ## 2.0.10 - 2026-11-14
 
 - Distingue `budgetLimited` d'un blocage réel du projet.
