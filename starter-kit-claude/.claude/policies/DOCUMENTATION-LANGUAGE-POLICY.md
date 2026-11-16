@@ -1,4 +1,4 @@
-# Documentation Language and Code Comment Policy
+# Politique de langue documentaire et des commentaires de code
 
 ## Langue obligatoire
 
@@ -8,9 +8,9 @@ Le français est également la langue par défaut des commentaires de code, docs
 
 ## Structure documentaire obligatoire
 
-Every README must use a predictable structure when relevant: purpose, scope, prerequisites, installation, configuration, usage, project structure, commands, testing, troubleshooting, security, contribution rules, versioning and license.
+Chaque README suit, lorsque cela est pertinent, une structure prévisible : objectif, périmètre, prérequis, installation, configuration, utilisation, structure du projet, commandes, tests, dépannage, sécurité, contribution, versionnement et licence.
 
-Every substantial document must include a title, scope, status, last-updated date, owner or responsible agent, assumptions, verified facts, limitations, validation evidence and references when applicable.
+Chaque document substantiel indique un titre, un périmètre, un statut, une date de mise à jour, un responsable, les hypothèses, les faits vérifiés, les limites, les preuves de validation et les références utiles.
 
 ## Séparateurs de sections
 
@@ -26,11 +26,11 @@ Ne pas utiliser de séparateurs décoratifs, ambigus ou mélangeant les langues.
 
 ## Qualité des commentaires
 
-Comments must explain intent, constraints, security considerations or non-obvious tradeoffs. Do not narrate obvious syntax, leave stale comments, duplicate the code or hide unfinished work. Every TODO or FIXME must include an owner, a reason, a reference to a work item and a clear completion condition.
+Les commentaires expliquent l’intention, les contraintes, la sécurité ou les compromis non évidents. Ne pas décrire une syntaxe évidente, conserver des commentaires périmés, répéter le code ou masquer un travail inachevé. Chaque TODO ou FIXME indique un responsable, une raison, une référence de work item et une condition claire de résolution.
 
 ## Règle de synchronisation
 
-After every meaningful code, architecture, security, API, CI or deployment change, the Documentation agent must inspect and update every affected README, comment, example, changelog, ADR, work item and release note. A change is not complete while the documentation contradicts the implementation.
+Après toute modification significative du code, de l’architecture, de la sécurité, des API, de la CI ou du déploiement, l’agent Documentation inspecte et met à jour les README, commentaires, exemples, changelog, ADR, work items et notes de version concernés. Le travail est incomplet tant que la documentation contredit l’implémentation.
 
 ## Validation
 

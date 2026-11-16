@@ -193,6 +193,20 @@ for kit in codex claude; do
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-agentic-contract.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh" ] || { echo "ECHEC TEST: validate-session-state.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/validate-session-state.sh"
+  entry_fixture="$(mktemp -d)"
+  mkdir -p "$entry_fixture/.$kit/scripts"
+  cp "$root/starter-kit-$kit/.$kit/scripts/validate-entrypoint.sh" "$entry_fixture/.$kit/scripts/"
+  cp "$root/starter-kit-$kit/.$kit/KIT.toml" "$entry_fixture/.$kit/KIT.toml"
+  entry_file="$entry_fixture/$([ "$kit" = codex ] && echo AGENTS.md || echo CLAUDE.md)"
+  printf '%s\n' '<!-- ENTRYPOINT-CONTRACT: stale -->' > "$entry_file"
+  entry_hash_before="$(shasum -a 256 "$entry_file" | cut -d' ' -f1)"
+  if (cd "$entry_fixture" && bash ".$kit/scripts/validate-entrypoint.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: version d'entrée obsolète acceptée pour $kit"; exit 1
+  fi
+  entry_hash_after="$(shasum -a 256 "$entry_file" | cut -d' ' -f1)"
+  [ "$entry_hash_before" = "$entry_hash_after" ] || { echo "ECHEC TEST: le validateur a modifié le point d'entrée pour $kit"; exit 1; }
+  rm -f "$entry_file" "$entry_fixture/.$kit/scripts/validate-entrypoint.sh" "$entry_fixture/.$kit/KIT.toml"
+  rmdir "$entry_fixture/.$kit/scripts" "$entry_fixture/.$kit" "$entry_fixture"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh" ] || { echo "ECHEC TEST: ensure-native-goal.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/ensure-native-goal.sh"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/guard-repeated-blocker.sh" ] || { echo "ECHEC TEST: garde anti-boucle absente pour $kit"; exit 1; }
@@ -206,7 +220,7 @@ for kit in codex claude; do
   cp "$root/starter-kit-$kit/.$kit/RUNTIME-STATE.md" "$session_fixture/.$kit/RUNTIME-STATE.md"
   sed -i.bak \
     -e 's/\[\[A_COMPLETER\]\]/fixture/g' \
-    -e 's/native_goal_status: required | active | unavailable/native_goal_status: blocked/' \
+    -e 's/native_goal_status: .*/native_goal_status: blocked/' \
     -e 's/native_goal_id: none/native_goal_id: goal-fixture/' \
     -e 's/native_goal_evidence: fixture/native_goal_evidence: preuve-fixture/' \
     -e 's/native_goal_blocked_condition: none/native_goal_blocked_condition: décision humaine indispensable/' \
@@ -217,6 +231,34 @@ for kit in codex claude; do
   if (cd "$session_fixture" && bash ".${kit}/scripts/validate-session-state.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: statut natif mélangé accepté pour $kit"; exit 1
   fi
+  perl -0pi -e 's/execution_status: .*/execution_status: complete/; s/goal_status: .*/goal_status: complete/; s/next_action: .*/next_action: none/; s/required_action_status: .*/required_action_status: none/; s/pending_request_id: .*/pending_request_id: none/; s/native_goal_status: .*/native_goal_status: complete/' "$session_fixture/.$kit/RUNTIME-STATE.md"
+  (cd "$session_fixture" && bash ".${kit}/scripts/validate-session-state.sh") >/dev/null || { echo "ECHEC TEST: clôture Goal native complète et sans demande attendue refusée pour $kit"; exit 1; }
+  perl -0pi -e 's/pending_request_id: .*/pending_request_id: request-pending/' "$session_fixture/.$kit/RUNTIME-STATE.md"
+  if (cd "$session_fixture" && bash ".${kit}/scripts/validate-session-state.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: clôture Goal avec demande pendante acceptée pour $kit"; exit 1
+  fi
+  cp "$root/starter-kit-$kit/.$kit/scripts/verify-agent-report.sh" "$session_fixture/.$kit/scripts/"
+  cp "$root/starter-kit-$kit/.$kit/scripts/report_security.py" "$session_fixture/.$kit/scripts/"
+  cat > "$session_fixture/report.txt" <<'EOF'
+agent_role: cybersecurite
+agent_id: test-agent
+status: accepted
+scope: security review
+evidence: /Users/private/project, sk-1234567890secret, owner@example.invalid
+next_action: none
+EOF
+  mkdir -p "$session_fixture/outside"
+  ln -s "$session_fixture/outside" "$session_fixture/.$kit/reports"
+  if (cd "$session_fixture" && bash ".$kit/scripts/verify-agent-report.sh" cybersecurite test-agent report.txt) >/dev/null 2>&1; then
+    echo "ECHEC TEST: parent reports symbolique accepté pour $kit"; exit 1
+  fi
+  [ ! -e "$session_fixture/outside/agents/test-agent.md" ] || { echo "ECHEC TEST: écriture d'archive sortie du kit pour $kit"; exit 1; }
+  rm -f "$session_fixture/.$kit/reports"
+  (cd "$session_fixture" && bash ".${kit}/scripts/verify-agent-report.sh" cybersecurite test-agent report.txt) >/dev/null || { echo "ECHEC TEST: rapport spécialiste refusé pour $kit"; exit 1; }
+  report_archive="$session_fixture/.$kit/reports/agents/test-agent.md"
+  grep -q '\[REDACTED_TOKEN\]' "$report_archive" || { echo "ECHEC TEST: token non expurgé de l'archive spécialiste pour $kit"; exit 1; }
+  grep -q '\[REDACTED_EMAIL\]' "$report_archive" || { echo "ECHEC TEST: adresse non expurgée de l'archive spécialiste pour $kit"; exit 1; }
+  grep -q '\[REDACTED_PATH\]' "$report_archive" || { echo "ECHEC TEST: chemin personnel non expurgé de l'archive spécialiste pour $kit"; exit 1; }
   rm -rf "$session_fixture"
   [ -x "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh" ] || { echo "ECHEC TEST: verify-recovery-state.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/verify-recovery-state.sh"
@@ -226,8 +268,18 @@ for kit in codex claude; do
   [ -x "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh" ] || { echo "ECHEC TEST: prepare-qa-fixture.sh absent pour $kit"; exit 1; }
   bash -n "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh"
   qa_fixture="$(mktemp -d)"
-  (cd "$qa_fixture" && QA_FIXTURE_RESET_COMMAND='mkdir -p .qa && printf fixture > .qa/storage-state.json' QA_STORAGE_STATE=.qa/storage-state.json bash "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh") >/dev/null || { echo "ECHEC TEST: fixture QA locale non régénérée pour $kit"; exit 1; }
+  mkdir -p "$qa_fixture/.qa"
+  cat > "$qa_fixture/.qa/fixture-reset.sh" <<'EOF'
+#!/usr/bin/env bash
+printf fixture > "$QA_STORAGE_STATE"
+EOF
+  qa_sentinel="$qa_fixture/should-not-exist"
+  (cd "$qa_fixture" && QA_FIXTURE_RESET_COMMAND="touch $qa_sentinel" QA_STORAGE_STATE=.qa/storage-state.json bash "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh") >/dev/null || { echo "ECHEC TEST: fixture QA locale non régénérée pour $kit"; exit 1; }
   [ -s "$qa_fixture/.qa/storage-state.json" ] || { echo "ECHEC TEST: storage state QA absent pour $kit"; exit 1; }
+  [ ! -e "$qa_sentinel" ] || { echo "ECHEC TEST: commande shell historique exécutée pour $kit"; exit 1; }
+  if (cd "$qa_fixture" && QA_STORAGE_STATE=../outside.json bash "$root/starter-kit-$kit/.$kit/scripts/prepare-qa-fixture.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: storage-state hors de .qa accepté pour $kit"; exit 1
+  fi
   rm -rf "$qa_fixture"
   grep -q "approuv" "$root/starter-kit-$kit/.$kit/scripts/init-project.sh" || { echo "ECHEC TEST: demande d'approbation des hooks absente pour $kit"; exit 1; }
   [ -f "$root/starter-kit-$kit/.$kit/hooks.json" ] || { echo "ECHEC TEST: hooks.json absent pour $kit"; exit 1; }
@@ -347,14 +399,25 @@ for kit in codex claude; do
     exit 1
   fi
 
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>"$test_root/guard.err"; then
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>"$test_root/guard.err"; then
     echo "ECHEC TEST: l'état running aurait dû bloquer la réponse $kit"
     exit 1
   fi
   grep -q "état non terminal" "$test_root/guard.err"
 
+  chmod 600 "$config/RUNTIME-STATE.md"
   bash "$config/scripts/checkpoint.sh" validation waiting "attente récupérable" >/dev/null
+  python3 - "$config/RUNTIME-STATE.md" <<'PY'
+import os, stat, sys
+if stat.S_IMODE(os.stat(sys.argv[1]).st_mode) != 0o600:
+    raise SystemExit("ECHEC TEST: mode du runtime non préservé par checkpoint")
+PY
   grep -q '^- execution_status: waiting-ci$' "$config/RUNTIME-STATE.md"
+  checkpoint_marker="$test_root/checkpoint-injection-marker"
+  checkpoint_payload="x/; system('touch $checkpoint_marker'); #"
+  bash "$config/scripts/checkpoint.sh" validation started "$checkpoint_payload" >/dev/null
+  [ ! -e "$checkpoint_marker" ] || { echo "ECHEC TEST: message checkpoint interprété comme code Perl pour $kit"; exit 1; }
+  grep -Fq "$checkpoint_payload" "$config/RUNTIME-STATE.md" || { echo "ECHEC TEST: texte checkpoint non conservé littéralement pour $kit"; exit 1; }
   if grep -q '^- execution_status: blocked$' "$config/RUNTIME-STATE.md"; then
     echo "ECHEC TEST: une attente récupérable ne doit pas bloquer le Goal $kit"
     exit 1
@@ -364,29 +427,29 @@ for kit in codex claude; do
     grep -q "^- $audit_key:" "$config/RUNTIME-STATE.md" || printf '%s\n' "- $audit_key: not-applicable" >> "$config/RUNTIME-STATE.md"
   done
   perl -0pi -e 's/execution_status: .*/execution_status: complete/; s/next_action: .*/next_action: none/; s/open_checklist_items: .*/open_checklist_items: 0/; s/last_observable_evidence: .*/last_observable_evidence: test-evidence/; s/ci_status: .*/ci_status: success/; s/trello_sync_status: .*/trello_sync_status: disabled/; s/goal_agents_created: .*/goal_agents_created: agent-test/; s/goal_agent_evidence: .*/goal_agent_evidence: test-agent-evidence/; s/audit_matrix_status: .*/audit_matrix_status: verified/; s/specialist_audit_status: .*/specialist_audit_status: verified/; s/negative_tests_status: .*/negative_tests_status: verified/; s/contradiction_audit_status: .*/contradiction_audit_status: verified/; s/independent_reaudit_status: .*/independent_reaudit_status: verified/' "$config/RUNTIME-STATE.md"
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: une obligation pending aurait dû bloquer complete $kit"
     exit 1
   fi
 
   perl -0pi -e 's/\tpending\tnot-collected\t/\tverified\ttest-evidence\t/g' "$config/work-items/demo/obligations.tsv"
   bash "$config/scripts/validate-obligations.sh" --require-active >/dev/null
-  bash "$config/scripts/guard-before-response.sh" >/dev/null
+  (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null
 
 
   perl -0pi -e 's/goal_status: .*/goal_status: active/; s/goal_delivery_status: .*/goal_delivery_status: pending/; s/integration_branch: .*/integration_branch: dev/; s/pushed_integration_commit: .*/pushed_integration_commit: none/; s/pull_request_status: .*/pull_request_status: not-required/' "$config/RUNTIME-STATE.md"
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: un goal sans livraison vers dev aurait dû bloquer complete $kit"
     exit 1
   fi
 
   perl -0pi -e 's/goal_status: .*/goal_status: complete/; s/goal_delivery_status: .*/goal_delivery_status: verified/; s/pushed_integration_commit: .*/pushed_integration_commit: abc123/; s/integration_remote_evidence: .*/integration_remote_evidence: none/; s/pull_request_status: .*/pull_request_status: open/' "$config/RUNTIME-STATE.md"
-  if bash "$config/scripts/guard-before-response.sh" >/dev/null 2>&1; then
+  if (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null 2>&1; then
     echo "ECHEC TEST: une PR ouverte aurait dû bloquer complete $kit"
     exit 1
   fi
   perl -0pi -e 's/integration_remote_evidence: .*/integration_remote_evidence: origin\/dev contient abc123/; s/pull_request_status: .*/pull_request_status: verified/' "$config/RUNTIME-STATE.md"
-  bash "$config/scripts/guard-before-response.sh" >/dev/null
+  (cd "$test_root" && bash "$config/scripts/guard-before-response.sh") >/dev/null
 
   perl -0pi -e 's/\tverified\ttest-evidence\t/\tverified\tnot-collected\t/' "$config/work-items/demo/obligations.tsv"
   if bash "$config/scripts/validate-obligations.sh" --require-active >/dev/null 2>&1; then
@@ -437,23 +500,123 @@ git -C "$boundary_root" config user.email test@example.invalid
 git -C "$boundary_root" config user.name test
 git -C "$boundary_root" config commit.gpgsign false
 git -C "$boundary_root" checkout --quiet -b main
-mkdir -p "$boundary_root/.codex/scripts"
+mkdir -p "$boundary_root/.codex/scripts" "$boundary_root/.claude/scripts"
 cp "$root/starter-kit-codex/.codex/scripts/verify-project-boundary.sh" "$boundary_root/.codex/scripts/verify-project-boundary.sh"
+cp "$root/starter-kit-claude/.claude/scripts/verify-project-boundary.sh" "$boundary_root/.claude/scripts/verify-project-boundary.sh"
 printf '%s\n' 'Documentation produit neutre' > "$boundary_root/README.md"
-git -C "$boundary_root" add README.md .codex/scripts/verify-project-boundary.sh
+git -C "$boundary_root" add README.md .codex/scripts/verify-project-boundary.sh .claude/scripts/verify-project-boundary.sh
 git -C "$boundary_root" commit --quiet -m baseline
 git -C "$boundary_root" checkout --quiet -b feature/test-boundary
 printf '%s\n' 'Piloté par Agentic Starter Kits' > "$boundary_root/README.md"
 git -C "$boundary_root" add README.md
 git -C "$boundary_root" commit --quiet -m leak
+for boundary_kit in codex claude; do
+  hidden=".$boundary_kit"
+  if (cd "$boundary_root" && BOUNDARY_BASE_REF=main bash "$hidden/scripts/verify-project-boundary.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: référence commitée au kit non détectée par $boundary_kit"; exit 1
+  fi
+  if (cd "$boundary_root" && BOUNDARY_BASE_REF=missing-ref bash "$hidden/scripts/verify-project-boundary.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: frontière sans référence commune acceptée par $boundary_kit"; exit 1
+  fi
+done
+printf '%s\n' 'Mention du kit Agentic' > "$boundary_root/untracked.txt"
 if (cd "$boundary_root" && BOUNDARY_BASE_REF=main bash .codex/scripts/verify-project-boundary.sh >/dev/null 2>&1); then
-  echo "ECHEC TEST: une référence au kit aurait dû être bloquée"
+  echo "ECHEC TEST: fuite dans un fichier non suivi ignorée"
   exit 1
 fi
+rm -f "$boundary_root/untracked.txt"
 printf '%s\n' 'Documentation produit neutre' > "$boundary_root/README.md"
 git -C "$boundary_root" add README.md
 git -C "$boundary_root" commit --quiet -m neutralize
 (cd "$boundary_root" && BOUNDARY_BASE_REF=main bash .codex/scripts/verify-project-boundary.sh >/dev/null)
+for boundary_kit in codex claude; do
+  hidden=".$boundary_kit"
+  printf '%s\n' 'Piloté par Agentic Starter Kits' > "$boundary_root/README.md"
+  git -C "$boundary_root" add README.md
+  if (cd "$boundary_root" && BOUNDARY_BASE_REF=main bash "$hidden/scripts/verify-project-boundary.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: référence au kit stagée ignorée par $boundary_kit"; exit 1
+  fi
+  printf '%s\n' 'Documentation produit neutre' > "$boundary_root/README.md"
+  git -C "$boundary_root" add README.md
+  printf '%s\n' 'Piloté par Agentic Starter Kits' > "$boundary_root/README.md"
+  if (cd "$boundary_root" && BOUNDARY_BASE_REF=main bash "$hidden/scripts/verify-project-boundary.sh") >/dev/null 2>&1; then
+    echo "ECHEC TEST: référence au kit unstaged ignorée par $boundary_kit"; exit 1
+  fi
+  printf '%s\n' 'Documentation produit neutre' > "$boundary_root/README.md"
+  git -C "$boundary_root" add README.md
+done
+echo "Test frontière Codex/Claude commitée, staged, unstaged et non suivie OK"
+
+push_fixture="$(mktemp -d)"
+git -C "$push_fixture" init --quiet
+git -C "$push_fixture" checkout --quiet -b fix/push-whitespace
+git -C "$push_fixture" config user.email test@example.invalid
+git -C "$push_fixture" config user.name test
+git -C "$push_fixture" config commit.gpgsign false
+mkdir -p "$push_fixture/.codex/scripts" "$push_fixture/.github/workflows"
+cp "$root/starter-kit-codex/.codex/scripts/verify-before-push.sh" "$push_fixture/.codex/scripts/"
+cp "$root/starter-kit-codex/.codex/scripts/verify-consumer-index.sh" "$push_fixture/.codex/scripts/"
+printf '%s\n' '.codex/' > "$push_fixture/.gitignore"
+printf '%s\n' 'kit_mode = "external"' > "$push_fixture/.workspace.toml"
+printf '%s\n' 'name: Update workspace kit' > "$push_fixture/.github/workflows/update-workspace-kit.yml"
+printf '%s\n' 'baseline' > "$push_fixture/README.md"
+git -C "$push_fixture" add .gitignore .workspace.toml .github README.md
+git -C "$push_fixture" commit --quiet -m baseline
+printf '%s  ' 'staged whitespace' > "$push_fixture/README.md"
+git -C "$push_fixture" add README.md
+if (cd "$push_fixture" && bash .codex/scripts/verify-before-push.sh) >/dev/null 2>&1; then
+  echo "ECHEC TEST: whitespace staged non détecté avant push"
+  exit 1
+fi
+echo "Test vérification du diff staged avant push OK"
+
+python3 - "$root" <<'PY'
+from pathlib import Path
+import shutil, subprocess, sys, tempfile
+
+source_root = Path(sys.argv[1])
+cases = [
+    ("default-unknown", "unknown", False, "", False),
+    ("private-no-approval", "private", False, "", False),
+    ("private-no-limit-evidence", "private", True, "", False),
+    ("public-confirmed", "public", False, "", True),
+    ("private-approved-with-limit", "private", True, "billing-budget-verified", True),
+]
+for kit in ("codex", "claude"):
+    hidden = ".codex" if kit == "codex" else ".claude"
+    generator = source_root / f"starter-kit-{kit}" / hidden / "scripts" / "generate-github-ci.sh"
+    workflow_name = "codex-orchestration.yml" if kit == "codex" else "claude-orchestration.yml"
+    for label, visibility, approved, evidence, should_pass in cases:
+        with tempfile.TemporaryDirectory(prefix="kit-ci-billing-") as temporary:
+            project = Path(temporary)
+            config = project / hidden
+            scripts = config / "scripts"
+            scripts.mkdir(parents=True)
+            shutil.copy2(generator, scripts / generator.name)
+            shutil.copy2(source_root / f"starter-kit-{kit}" / hidden / "scripts" / "python.sh", scripts / "python.sh")
+            (config / "project-profile.toml").write_text(
+                "[delivery]\n"
+                'ci_trigger_mode = "pull-request-only"\n'
+                f'github_repository_visibility = "{visibility}"\n'
+                f"github_actions_private_billing_approved = {'true' if approved else 'false'}\n"
+                f'github_actions_usage_limit_evidence = "{evidence}"\n'
+                "github_actions_max_minutes_per_run = 30\n",
+                encoding="utf-8",
+            )
+            subprocess.run(["git", "init", "--quiet", str(project)], check=True)
+            result = subprocess.run(["bash", str(scripts / generator.name)], cwd=project, capture_output=True, text=True)
+            workflow = project / ".github" / "workflows" / workflow_name
+            if should_pass != (result.returncode == 0):
+                raise SystemExit(f"{kit}/{label}: code de sortie inattendu: {result.stdout} {result.stderr}")
+            if should_pass:
+                content = workflow.read_text(encoding="utf-8")
+                required = ("runs-on: ubuntu-latest", "timeout-minutes: 30", "permissions:\n  contents: read", "concurrency:", "cancel-in-progress: true")
+                if any(item not in content for item in required):
+                    raise SystemExit(f"{kit}/{label}: runner, timeout, permissions ou concurrency absent du workflow")
+            elif workflow.exists() or workflow.parent.exists():
+                raise SystemExit(f"{kit}/{label}: le refus a laissé créer un workflow ou son dossier")
+print("Test porte runners hébergés public/private Codex/Claude OK")
+PY
 
 recovery_root="$(mktemp -d)"
 trap 'rm -rf "$recovery_root"' EXIT

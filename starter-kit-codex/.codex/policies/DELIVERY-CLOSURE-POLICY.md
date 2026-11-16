@@ -2,14 +2,14 @@
 
 ## Principe
 
-Une carte ne doit jamais rester globalement `En cours` uniquement parce qu’une sous-tâche exige une décision humaine. Le Coordinateur distingue l’avancement réel, les limites techniques et les autorisations manquantes.
+Un élément ne doit jamais rester globalement `In Progress` uniquement parce qu’une sous-tâche exige une décision humaine. Le Coordinateur distingue l’avancement réel, les limites techniques et les autorisations manquantes.
 
 ## États obligatoires
 
 - `complete` : toutes les actions prévues et autorisées sont terminées avec preuves.
 - `needs-review` : le travail est prêt, mais une décision humaine est requise avant une action sensible.
 
-Une carte en `Review` déclenche d’abord l’agent `auditeur` et, si nécessaire, les spécialistes requis. `Review` ne signifie pas « validation humaine en attente ». Le Coordinateur ne demande une validation humaine que si les critères, le cahier ou une décision enregistrée identifient explicitement cette décision ; sinon il active l’audit et poursuit automatiquement.
+Dans le gestionnaire de suivi sélectionné dans le profil du projet, une carte en `Review` déclenche d’abord l’agent `auditeur`; cette règle ne rend pas Trello obligatoire. Un élément marqué par une étiquette ou métadonnée de revue déclenche d’abord l’agent `auditeur` et, si nécessaire, les spécialistes requis. `Review` ne signifie pas « validation humaine en attente ». Le Coordinateur ne demande une validation humaine que si les critères, le cahier ou une décision enregistrée identifient explicitement cette décision ; sinon il active l’audit et poursuit automatiquement.
 
 - `blocked` : une dépendance externe ou technique empêche réellement de poursuivre.
 - `in-progress` : au moins une action autonome reste à exécuter.
@@ -54,10 +54,10 @@ Une sous-fonctionnalité terminée, une PR créée, une PR fusionnée, une CI en
 
 ## Validations externes et juridiques
 
-Une validation juridique, métier, réglementaire, client ou externe prévue dans les critères d’acceptation est une condition de fin. Tant qu’elle n’est pas obtenue et prouvée, la carte ne doit jamais être déplacée dans `Terminé`. Utiliser `needs-review`, conserver la carte dans `En cours` ou créer une liste dédiée selon le workflow du projet, puis indiquer clairement la validation manquante.
+Une validation juridique, métier, réglementaire, client ou externe prévue dans les critères d’acceptation est une condition de fin. Tant qu’elle n’est pas obtenue et prouvée, la carte ne doit jamais être déplacée dans `Done`. Utiliser `needs-review`, conserver l’élément dans `In Progress` ou utiliser une étiquette ou métadonnée adaptée, puis indiquer clairement la validation manquante.
 
 Une publication technique réussie ne vaut pas validation juridique. L’agent doit distinguer `livré techniquement`, `en attente de validation` et `terminé`.
 
 ## Dépendances explicites
 
-Lorsqu’un utilisateur ordonne de terminer une carte avant d’en commencer une autre, créer une dépendance dans le work item et Trello. Ne pas déplacer la carte suivante dans `En cours` avant la preuve de clôture de la première. Si la première carte est techniquement livrée mais attend une validation externe, la seconde reste bloquée par dépendance, sauf autorisation explicite contraire.
+Lorsqu’un utilisateur ordonne de terminer une carte avant d’en commencer une autre, créer une dépendance dans le work item et Trello. Ne pas déplacer la carte suivante dans `In Progress` avant la preuve de clôture de la première. Si la première carte est techniquement livrée mais attend une validation externe, la seconde reste bloquée par dépendance, sauf autorisation explicite contraire.

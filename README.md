@@ -62,7 +62,7 @@ Pendant l'onboarding, les gates ouverts, la conception en revue, l'audit P0 abse
 
 ## Démarrage rapide
 
-Vous n’avez pas besoin de déplacer manuellement les dossiers du dépôt. L’installateur choisit une seule variante, la copie au bon emplacement et installe le workflow de mises à jour.
+Vous n’avez pas besoin de déplacer manuellement les dossiers du dépôt. L’installateur choisit une seule variante et la copie au bon emplacement. L’updater reste désactivé par défaut (`--updates off`) et ne peut être demandé qu’après configuration du profil et validation de la garde d’usage hébergé.
 
 ### 1. Télécharger le kit
 
@@ -101,7 +101,7 @@ Le chemin cible doit déjà exister. L’installation partagée est le seul mode
 
 ### 3. Activer les mises à jour
 
-Publiez le projet sur GitHub, ouvrez `Actions`, puis activez les workflows si GitHub le demande. Le workflow installé vérifie les nouvelles versions chaque semaine et ouvre une Pull Request automatique.
+Pour activer l’updater, demandez explicitement `--updates dispatch` (manuel) ou `--updates pr` (calendrier hebdomadaire) et confirmez que la garde de visibilité/facturation passe. Sans cette configuration, aucun nouvel updater n’est installé. Les workflows préexistants sont conservés; l’installateur ne les supprime ni ne les migre automatiquement.
 
 ### 4. Premier échange avec l’agent
 
@@ -118,7 +118,7 @@ Avec un seul kit importé dans un nouveau dépôt, l’IA peut :
 - Adapter son comportement aux technologies déclarées dans `project-profile.toml`.
 - Produire une conception complète de niveau Concepteur Développeur d’Applications.
 - Générer vision, objectifs, user stories, parcours, architecture, données, API, sécurité, roadmap et diagrammes.
-- Proposer un Trello complet des tâches, après une réponse explicite de l’utilisateur.
+- Proposer le suivi local, GitHub Projects ou Trello, selon le choix explicite de l’utilisateur.
 - Répartir le travail entre les six agents du noyau et les dix agents spécialistes optionnels.
 - Construire des interfaces premium avec direction artistique, design system, motion design et validation visuelle.
 - Rechercher ou générer des médias réalistes avec provenance, licence et retouches documentées.
@@ -244,7 +244,9 @@ Avant de l’utiliser, lisez [SECURITY.md](SECURITY.md). Il explique les donnée
 
 ## Installation et premier démarrage
 
-Le guide complet et unique est [INSTALLATION.md](INSTALLATION.md). Il explique les prérequis, la copie du kit, l’initialisation, la conversation obligatoire, le choix Trello, la configuration des technologies, la conception, le premier work item, les tests, le GitFlow et la première livraison.
+Le guide complet et unique est [INSTALLATION.md](INSTALLATION.md). Il explique les prérequis, la copie du kit, l’initialisation, la conversation obligatoire, le choix du gestionnaire de suivi, la configuration des technologies, la conception, le premier work item, les tests, le GitFlow et la première livraison.
+
+La génération CI hébergée vérifie d’abord la visibilité déclarée du dépôt : `public` confirmé par son propriétaire permet le runner standard; `private` ou `unknown` requiert une approbation explicite et une référence à une limite ou un budget GitHub vérifié. Le workflow généré reçoit uniquement `contents: read` et annule les exécutions obsolètes de la même branche. Le délai maximal par job ne plafonne pas le cumul mensuel; le kit ne vérifie pas ces attestations en direct.
 
 Guides rapides :
 
@@ -255,7 +257,8 @@ Guides rapides :
 
 1. Ouvrir l’agent à la racine du projet.
 2. Fournir le cahier des charges dans le chat.
-3. Répondre au choix Trello.
+3. Choisir le gestionnaire de suivi; Trello reste facultatif.
+
 4. Valider le profil de technologies détecté.
 5. Compléter la conception générée.
 6. Demander un work item précis.
@@ -263,6 +266,8 @@ Guides rapides :
 8. Vérifier les tests, lint, sécurité et documentation.
 9. Faire auditer la livraison.
 10. Commiter sur la branche dédiée et ouvrir la Pull Request.
+
+Le choix est enregistré dans `[tracking].mode` : `local` (défaut recommandé), `github` ou `trello`. GitHub Projects relie les Issues aux champs disponibles du Project; Trello utilise des cartes et checklists; le mode local conserve les work items dans le dépôt. Les statuts de travail communs sont `Todo`, `In Progress` et `Done`. Dans Trello, les responsables et phases MVP/Post-MVP restent des informations de carte, sans colonnes supplémentaires.
 
 Pour une conversation sans construction de projet, utiliser explicitement `Mode général`. Pour maintenir le kit, utiliser `Mode maintenance`.
 
@@ -347,11 +352,11 @@ Une échéance ne bloque que la carte concernée et ses dépendances directes. L
 
 ## Mises à jour automatiques
 
-Le kit installe un workflow GitHub Actions qui vérifie les nouvelles versions et ouvre une Pull Request dédiée. Le synchroniseur met à jour le socle universel et préserve le profil projet, les décisions, les journaux, les travaux, les rapports et l’état d’exécution. La fusion reste soumise à la CI et au GitFlow du projet.
+L’installation `./install.sh` n’installe aucun updater par défaut (`--updates off`). Après avoir renseigné et confirmé le profil `[delivery]`, `--updates dispatch` demande explicitement un workflow manuel, ou `--updates pr` demande aussi son calendrier hebdomadaire. Dans le parcours `init-project.sh`, `ask` interactif propose le mode PR; `ask` sans terminal choisit `dispatch`. Dans les deux parcours, la garde s’applique à tout updater hébergé, y compris au déclenchement manuel, car celui-ci peut consommer du quota facturable : une visibilité `public` confirmée par le propriétaire suffit; `private` ou `unknown` exige `github_actions_private_billing_approved = true` et une référence non vide et non placeholder dans `github_actions_usage_limit_evidence`. Ces valeurs sont des attestations du propriétaire, non vérifiées en direct. Si la garde échoue, aucun nouveau workflow updater n’est installé; tout workflow préexistant est conservé et nécessite une revue manuelle. Après validation de la garde, `dispatch` reste manuel et `pr` active le calendrier. Le synchroniseur met à jour le socle universel et préserve le profil projet, les décisions, les journaux, les travaux, les rapports et l’état d’exécution. La fusion reste soumise à la CI et au GitFlow du projet.
 
 ### Choix des mises à jour à l’initialisation
 
-Lors de l’initialisation, l’agent demande si les mises à jour automatiques doivent être activées. Le choix recommandé est `Oui, Pull Request automatique`. L’agent pourra alors préparer les mises à jour, les tester et ouvrir une Pull Request sans modifier directement `main`. Le choix `Non` désactive le workflow. Le comportement peut être imposé avec `--updates pr` ou `--updates off`.
+Lors de l’initialisation, l’agent demande si les mises à jour automatiques doivent être activées. Le choix recommandé est `Oui, Pull Request automatique`, qui active le calendrier uniquement si la garde de visibilité/facturation est satisfaite. Pour tout déclencheur hébergé, y compris manuel, cette garde est préalable; si elle échoue, aucun nouveau workflow updater n’est installé. `--updates off` signifie ne pas installer d’updater; si un workflow existe déjà, l’opération échoue avant mutation, le conserve et demande une revue manuelle, car il peut rester actif. `--updates dispatch` demande un déclencheur manuel après validation de la garde; `--updates pr` est le consentement explicite au calendrier, lui aussi conditionné par la garde. En mode non interactif `ask`, le défaut est `dispatch`; en mode interactif, oui choisit `pr` et non choisit `off`. L’installateur `./install.sh` a un défaut distinct : il conserve `off` sauf option `--updates` explicite. Aucun workflow préexistant n’est migré ou écrasé : il est accepté uniquement s’il correspond exactement au modèle attendu pour le mode demandé; sinon l’opération échoue sans modification.
 
 ## Règle de protection de main
 
@@ -365,7 +370,7 @@ Le sélecteur de dossier intégré fonctionne sans dépendance obligatoire : les
 
 La navigation et la sélection sont distinctes : entrer dans un dossier sert uniquement à le parcourir, tandis que `s` confirme le dossier courant comme projet. Cette distinction évite de sélectionner par erreur un dossier parent contenant plusieurs projets.
 
-L’installateur met également à jour ou crée `.gitignore` sans doublons. Il ignore le dossier de gouvernance choisi et son fichier d’entrée (`AGENTS.md` ou `CLAUDE.md`), tout en conservant le workflow GitHub de mise à jour dans Git afin que les futures Pull Requests fonctionnent.
+L’installateur met également à jour ou crée `.gitignore` sans doublons. Il ignore le dossier de gouvernance choisi et son fichier d’entrée (`AGENTS.md` ou `CLAUDE.md`); lorsque l’updater est demandé et que sa garde passe, son workflow reste suivi dans Git afin que les futures Pull Requests fonctionnent. Un updater préexistant n’est jamais supprimé ni modifié automatiquement; tout workflow non conforme au mode demandé exige une revue manuelle.
 
 Le workflow de mise à jour utilise la branche `develop` si elle existe, sinon `dev`. Il refuse `main` et ne dépend d’aucune variable GitHub Actions non déclarée.
 
@@ -398,7 +403,7 @@ Le routage des demandes est universel : chaque nouvelle demande est qualifiée p
 
 La validation navigateur est obligatoire pour les changements frontend et doit être documentée dans le work item.
 
-La synchronisation Trello est obligatoire immédiatement après chaque étape livrée, avec relecture de la carte et de sa checklist.
+Le gestionnaire de suivi configuré est utilisé. Après chaque écriture distante et aux checkpoints importants (fin de lot, blocage ou reprise, livraison, PR, CI, fusion), relire les champs concernés. Regrouper les mises à jour liées à un même checkpoint et éviter les synchronisations après chaque micro-événement local.
 
 Le kit distingue désormais les tâches terminées, les sous-tâches en attente d’autorisation et les blocages réels.
 

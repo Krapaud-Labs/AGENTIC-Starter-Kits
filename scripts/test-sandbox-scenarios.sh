@@ -26,7 +26,24 @@ for kit in codex claude; do
   assert_contains "$source/scripts/verify-specialist-plan.sh" 'identifiant réel au format role@id'
   assert_contains "$source/scripts/start-goal.sh" 'GOAL_REQUIRED_ROLES'
   assert_contains "$source/scripts/start-goal.sh" 'GOAL_SPECIALIST_AVAILABILITY'
-  assert_contains "$source/scripts/validate-entrypoint.sh" 'entry_is_link=false'
+  # Un point d'entrée périmé doit être rejeté sans que le validateur ne le réécrive.
+  entry_fixture="$tmp/entrypoint-$kit"
+  mkdir -p "$entry_fixture/$hidden/scripts"
+  cp "$source/scripts/validate-entrypoint.sh" "$entry_fixture/$hidden/scripts/"
+  cp "$source/KIT.toml" "$entry_fixture/$hidden/"
+  entry_name="$([ "$kit" = codex ] && echo AGENTS.md || echo CLAUDE.md)"
+  entry_file="$entry_fixture/$entry_name"
+  printf '%s\n' '<!-- ENTRYPOINT-CONTRACT: stale -->' > "$entry_file"
+  entry_before="$(shasum -a 256 "$entry_file" | cut -d' ' -f1)"
+  if (cd "$entry_fixture" && bash "$hidden/scripts/validate-entrypoint.sh") >/dev/null 2>&1; then
+    echo "ECHEC SANDBOX: version périmée acceptée par le validateur $kit" >&2
+    exit 1
+  fi
+  entry_after="$(shasum -a 256 "$entry_file" | cut -d' ' -f1)"
+  [ "$entry_before" = "$entry_after" ] || {
+    echo "ECHEC SANDBOX: le validateur $kit a modifié $entry_name" >&2
+    exit 1
+  }
   assert_contains "$source/scripts/validate-documentation.sh" 'non applicable dans le kit'
   assert_contains "$source/scripts/validate-session-state.sh" 'git rev-parse --show-toplevel'
   assert_contains "$source/scripts/guard-before-response.sh" 'git rev-parse --show-toplevel'
@@ -34,7 +51,6 @@ for kit in codex claude; do
 assert_contains "$source/scripts/resolve-user-input.sh" 'process-user-response'
 assert_contains "$source/hooks/pre-tool-use.sh" 'resolve-user-input\\.sh'
 assert_contains "$source/scripts/guard-before-response.sh" 'demande utilisateur encore en attente'
-assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/session-start-gate.sh" 'ENTRYPOINT-CONTRACT:'
   assert_contains "$source/hooks/session-start.sh" 'check-kit-reports.sh'
   test -x "$source/scripts/check-kit-reports.sh"
@@ -84,7 +100,7 @@ assert_contains "$source/scripts/validate-entrypoint.sh" 'sed -i.bak'
   assert_contains "$source/scripts/verify-before-push.sh" 'Validation avant push du dépôt source du kit OK'
   assert_contains "$source/policies/TASK-ROUTING-POLICY.md" 'frontend@id,qa@id,auditeur@id'
   delegation="$tmp/delegation-$kit"
-  mkdir -p "$delegation/.codex/reports/agents"
+  mkdir -p "$delegation/$hidden/reports/agents"
   for role in frontend qa auditeur; do printf 'thread=real-%s\nscope=sandbox-%s\ndeliverable=%s-report\nevidence=%s-proof\n' "$role" "$role" "$role" "$role" > "$delegation/$role.assignment"; done
   if bash "$source/scripts/verify-specialist-plan.sh" visual 'frontend,qa,auditeur' "$delegation" >/dev/null 2>&1; then
     echo "ECHEC SANDBOX: délégation sans identifiants acceptée pour $kit" >&2
@@ -207,7 +223,7 @@ for kit in codex claude; do
   git -C "$project" config user.email sandbox@example.invalid
   git -C "$project" config user.name sandbox
   cp -R "$source/." "$project/$hidden/"
-  if [ "$kit" = claude ]; then cp "$root/starter-kit-claude/CLAUDE.md" "$project/CLAUDE.md"; fi
+  if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$project/$hidden/templates/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$project/CLAUDE.md"; fi
   if python3 -c 'import tomllib' >/dev/null 2>&1; then
     bash "$project/$hidden/scripts/lint-kit.sh"
   else
@@ -216,6 +232,8 @@ for kit in codex claude; do
     echo "SCENARIO SANDBOX: lint dynamique reporté à la CI Python 3.11 pour $kit"
   fi
   bash "$project/$hidden/scripts/init-project.sh"
+  updater="$project/.github/workflows/update-workspace-kit.yml"
+  test ! -e "$updater" || { echo "ECHEC SANDBOX: updater hébergé installé avec visibilité unknown pour $kit"; exit 1; }
   if [ "$kit" = codex ]; then test -f "$project/AGENTS.md"; else test -f "$project/CLAUDE.md"; fi
   if bash "$project/$hidden/scripts/preflight.sh" >/dev/null 2>&1; then
     echo "ECHEC SANDBOX: preflight accepté sans cahier pour $kit" >&2
@@ -231,6 +249,187 @@ for kit in codex claude; do
   else
     assert_contains "$source/ORCHESTRATION.md" 'ensure-tools.sh'
   fi
+
+  schedule_project="$tmp/init-schedule-$kit"
+  mkdir -p "$schedule_project/$hidden"
+  git init --quiet "$schedule_project"
+  git -C "$schedule_project" config user.email sandbox@example.invalid
+  git -C "$schedule_project" config user.name sandbox
+  cp -R "$source/." "$schedule_project/$hidden/"
+  cp "$source/templates/project-profile.toml" "$schedule_project/$hidden/project-profile.toml"
+  perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "public"/' "$schedule_project/$hidden/project-profile.toml"
+  if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$schedule_project/$hidden/templates/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$schedule_project/CLAUDE.md"; fi
+  bash "$schedule_project/$hidden/scripts/init-project.sh" --updates pr >/dev/null
+  scheduled_updater="$schedule_project/.github/workflows/update-workspace-kit.yml"
+  grep -q '^  schedule:$' "$scheduled_updater" || { echo "ECHEC SANDBOX: visibilité publique explicite n'a pas activé le schedule pour $kit"; exit 1; }
+
+  public_dispatch_project="$tmp/init-public-dispatch-$kit"
+  mkdir -p "$public_dispatch_project/$hidden"
+  git init --quiet "$public_dispatch_project"
+  git -C "$public_dispatch_project" config user.email sandbox@example.invalid
+  git -C "$public_dispatch_project" config user.name sandbox
+  cp -R "$source/." "$public_dispatch_project/$hidden/"
+  cp "$source/templates/project-profile.toml" "$public_dispatch_project/$hidden/project-profile.toml"
+  perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "public"/' "$public_dispatch_project/$hidden/project-profile.toml"
+  if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$public_dispatch_project/$hidden/templates/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$public_dispatch_project/CLAUDE.md"; fi
+  bash "$public_dispatch_project/$hidden/scripts/init-project.sh" --updates dispatch >/dev/null
+  public_dispatch_updater="$public_dispatch_project/.github/workflows/update-workspace-kit.yml"
+  test -f "$public_dispatch_updater" || { echo "ECHEC SANDBOX: updater public manuel absent pour $kit"; exit 1; }
+  grep -q '^  workflow_dispatch:$' "$public_dispatch_updater" || { echo "ECHEC SANDBOX: dispatch public absent pour $kit"; exit 1; }
+  if grep -q '^  schedule:' "$public_dispatch_updater"; then echo "ECHEC SANDBOX: dispatch public a activé le schedule pour $kit"; exit 1; fi
+
+  private_project="$tmp/init-private-$kit"
+  mkdir -p "$private_project/$hidden"
+  git init --quiet "$private_project"
+  git -C "$private_project" config user.email sandbox@example.invalid
+  git -C "$private_project" config user.name sandbox
+  cp -R "$source/." "$private_project/$hidden/"
+  cp "$source/templates/project-profile.toml" "$private_project/$hidden/project-profile.toml"
+  perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "private"/' "$private_project/$hidden/project-profile.toml"
+  if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$private_project/$hidden/templates/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$private_project/CLAUDE.md"; fi
+  bash "$private_project/$hidden/scripts/init-project.sh" --updates dispatch >/dev/null
+  test ! -e "$private_project/.github/workflows/update-workspace-kit.yml" || { echo "ECHEC SANDBOX: updater installé en privé sans approbation pour $kit"; exit 1; }
+
+  approved_project="$tmp/init-approved-$kit"
+  mkdir -p "$approved_project/$hidden"
+  git init --quiet "$approved_project"
+  git -C "$approved_project" config user.email sandbox@example.invalid
+  git -C "$approved_project" config user.name sandbox
+  cp -R "$source/." "$approved_project/$hidden/"
+  cp "$source/templates/project-profile.toml" "$approved_project/$hidden/project-profile.toml"
+  perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "private"/; s/github_actions_private_billing_approved = false/github_actions_private_billing_approved = true/; s/github_actions_usage_limit_evidence = ""/github_actions_usage_limit_evidence = "owner-approved sandbox cap"/' "$approved_project/$hidden/project-profile.toml"
+  if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$approved_project/$hidden/templates/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$approved_project/CLAUDE.md"; fi
+  bash "$approved_project/$hidden/scripts/init-project.sh" --updates dispatch >/dev/null
+  approved_updater="$approved_project/.github/workflows/update-workspace-kit.yml"
+  test -f "$approved_updater" || { echo "ECHEC SANDBOX: updater privé approuvé absent pour $kit"; exit 1; }
+  grep -q '^  workflow_dispatch:$' "$approved_updater" || { echo "ECHEC SANDBOX: dispatch absent après approbation pour $kit"; exit 1; }
+  if grep -q '^  schedule:' "$approved_updater"; then echo "ECHEC SANDBOX: dispatch a activé le schedule pour $kit"; exit 1; fi
+
+  for existing_case in scheduled-public scheduled-mismatch scheduled-unknown scheduled-off custom-public; do
+    existing_project="$tmp/existing-updater-$kit-$existing_case"
+    mkdir -p "$existing_project/$hidden" "$existing_project/.github/workflows"
+    git init --quiet "$existing_project"
+    git -C "$existing_project" config user.email sandbox@example.invalid
+    git -C "$existing_project" config user.name sandbox
+    cp -R "$source/." "$existing_project/$hidden/"
+    cp "$source/templates/project-profile.toml" "$existing_project/$hidden/project-profile.toml"
+    if [ "$kit" = codex ]; then cp "$root/starter-kit-codex/AGENTS.md" "$existing_project/$hidden/templates/AGENTS.md"; else cp "$root/starter-kit-claude/CLAUDE.md" "$existing_project/CLAUDE.md"; fi
+    if [ "$existing_case" = scheduled-public ] || [ "$existing_case" = scheduled-mismatch ] || [ "$existing_case" = scheduled-off ] || [ "$existing_case" = custom-public ]; then
+      perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "public"/' "$existing_project/$hidden/project-profile.toml"
+    fi
+    existing_workflow="$existing_project/.github/workflows/update-workspace-kit.yml"
+    if [ "$existing_case" = custom-public ]; then
+      printf 'name: custom updater\non:\n  workflow_dispatch:\njobs:\n  custom:\n    runs-on: ubuntu-latest\n    steps:\n      - run: echo custom\n' > "$existing_workflow"
+    else
+      perl -0pe "s/on:\n  workflow_dispatch:\n/on:\n  schedule:\n    - cron: '17 8 * * 1'\n  workflow_dispatch:\n/" "$source/templates/github/workflows/update-workspace-kit.yml" > "$existing_workflow"
+    fi
+    workflow_before="$(shasum -a 256 "$existing_workflow" | cut -d' ' -f1)"
+    case "$existing_case" in
+      scheduled-public)
+        bash "$existing_project/$hidden/scripts/init-project.sh" --updates pr >/dev/null
+        ;;
+      scheduled-mismatch)
+        if bash "$existing_project/$hidden/scripts/init-project.sh" --updates dispatch >"$tmp/$kit-$existing_case.log" 2>&1; then
+          echo "ECHEC SANDBOX: schedule existant accepté pour le mode dispatch pour $kit"; exit 1
+        fi
+        grep -q 'ne correspond pas à --updates dispatch' "$tmp/$kit-$existing_case.log" || { echo "ECHEC SANDBOX: incompatibilité de mode non signalée pour $kit"; exit 1; }
+        test ! -e "$existing_project/.gitignore" || { echo "ECHEC SANDBOX: le refus de mode a créé .gitignore pour $kit"; exit 1; }
+        ;;
+      scheduled-unknown)
+        if bash "$existing_project/$hidden/scripts/init-project.sh" --updates pr >"$tmp/$kit-$existing_case.log" 2>&1; then
+          echo "ECHEC SANDBOX: updater planifié préexistant accepté sans gate pour $kit"; exit 1
+        fi
+        grep -q 'reste actif.*gate' "$tmp/$kit-$existing_case.log" || { echo "ECHEC SANDBOX: erreur de gate explicite absente pour $kit"; exit 1; }
+        test ! -e "$existing_project/.gitignore" || { echo "ECHEC SANDBOX: le refus pré-mutation a créé .gitignore pour $kit"; exit 1; }
+        ;;
+      scheduled-off)
+        if bash "$existing_project/$hidden/scripts/init-project.sh" --updates off >"$tmp/$kit-$existing_case.log" 2>&1; then
+          echo "ECHEC SANDBOX: --updates off a ignoré l'updater préexistant pour $kit"; exit 1
+        fi
+        grep -q 'ne désactive pas.*reste actif' "$tmp/$kit-$existing_case.log" || { echo "ECHEC SANDBOX: explication de --updates off absente pour $kit"; exit 1; }
+        test ! -e "$existing_project/.gitignore" || { echo "ECHEC SANDBOX: le refus --updates off a créé .gitignore pour $kit"; exit 1; }
+        ;;
+      custom-public)
+        if bash "$existing_project/$hidden/scripts/init-project.sh" --updates dispatch >"$tmp/$kit-$existing_case.log" 2>&1; then
+          echo "ECHEC SANDBOX: workflow custom accepté par init-project pour $kit"; exit 1
+        fi
+        grep -q 'conservé sans modification.*personnalisé' "$tmp/$kit-$existing_case.log" || { echo "ECHEC SANDBOX: workflow custom non signalé pour $kit"; exit 1; }
+        test ! -e "$existing_project/.gitignore" || { echo "ECHEC SANDBOX: le refus custom a créé .gitignore pour $kit"; exit 1; }
+        ;;
+    esac
+    workflow_after="$(shasum -a 256 "$existing_workflow" | cut -d' ' -f1)"
+    [ "$workflow_before" = "$workflow_after" ] || { echo "ECHEC SANDBOX: updater préexistant modifié pour $kit/$existing_case"; exit 1; }
+  done
+done
+
+# Vérifier séparément le chemin d'installation partagé, qui copie le workflow commun.
+for visibility_case in unknown public private-approved; do
+  install_target="$tmp/install-$visibility_case"
+  mkdir -p "$install_target/.codex"
+  git init --quiet "$install_target"
+  git -C "$install_target" config user.email sandbox@example.invalid
+  git -C "$install_target" config user.name sandbox
+  cp "$root/starter-kit-codex/.codex/templates/project-profile.toml" "$install_target/.codex/project-profile.toml"
+  case "$visibility_case" in
+    public) perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "public"/' "$install_target/.codex/project-profile.toml" ;;
+    private-approved) perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "private"/; s/github_actions_private_billing_approved = false/github_actions_private_billing_approved = true/; s/github_actions_usage_limit_evidence = ""/github_actions_usage_limit_evidence = "owner-approved sandbox cap"/' "$install_target/.codex/project-profile.toml" ;;
+  esac
+  AGENTIC_KIT_HOME="$tmp/install-kit-home" AGENTIC_BRIEFS_HOME="$tmp/install-briefs" \
+    bash "$root/install.sh" --kit codex --target "$install_target" --briefs-root "$tmp/install-briefs" --force --updates pr >/dev/null
+  install_updater="$install_target/.github/workflows/update-workspace-kit.yml"
+  if [ "$visibility_case" = unknown ]; then
+    test ! -e "$install_updater" || { echo "ECHEC SANDBOX: install.sh a posé un updater en visibilité unknown"; exit 1; }
+  else
+    grep -q '^  schedule:$' "$install_updater" || { echo "ECHEC SANDBOX: install.sh n'a pas activé le schedule après gate ($visibility_case)"; exit 1; }
+  fi
+done
+
+# L'installateur doit refuser les workflows préexistants non autorisés avant
+# de créer le kit partagé, les liens du kit ou le manifeste.
+for install_kit in codex claude; do
+for existing_case in scheduled-public scheduled-mismatch scheduled-unknown scheduled-off custom-public; do
+  install_hidden=".$install_kit"
+  install_target="$tmp/install-existing-$install_kit-$existing_case"
+  mkdir -p "$install_target/$install_hidden" "$install_target/.github/workflows"
+  git init --quiet "$install_target"
+  git -C "$install_target" config user.email sandbox@example.invalid
+  git -C "$install_target" config user.name sandbox
+  cp "$root/starter-kit-$install_kit/$install_hidden/templates/project-profile.toml" "$install_target/$install_hidden/project-profile.toml"
+  if [ "$existing_case" = scheduled-public ] || [ "$existing_case" = scheduled-mismatch ] || [ "$existing_case" = scheduled-off ] || [ "$existing_case" = custom-public ]; then
+    perl -0pi -e 's/github_repository_visibility = "unknown"/github_repository_visibility = "public"/' "$install_target/$install_hidden/project-profile.toml"
+  fi
+  install_existing_workflow="$install_target/.github/workflows/update-workspace-kit.yml"
+  if [ "$existing_case" = custom-public ]; then
+    printf 'name: custom updater\non:\n  workflow_dispatch:\njobs:\n  custom:\n    runs-on: ubuntu-latest\n    steps:\n      - run: echo custom\n' > "$install_existing_workflow"
+  else
+    perl -0pe "s/on:\n  workflow_dispatch:\n/on:\n  schedule:\n    - cron: '17 8 * * 1'\n  workflow_dispatch:\n/" "$root/distributions/shared/update-workspace-kit.yml" > "$install_existing_workflow"
+  fi
+  install_workflow_before="$(shasum -a 256 "$install_existing_workflow" | cut -d' ' -f1)"
+  case "$existing_case" in
+    scheduled-public)
+      install_output="$(AGENTIC_KIT_HOME="$tmp/existing-install-home-$install_kit" AGENTIC_BRIEFS_HOME="$tmp/install-briefs" bash "$root/install.sh" --kit "$install_kit" --target "$install_target" --briefs-root "$tmp/install-briefs" --force --updates pr 2>&1)"
+      printf '%s\n' "$install_output" | grep -q 'reconnu et conservé sans modification' || { echo "ECHEC SANDBOX: updater partagé préexistant présenté comme nouvellement installé ($install_kit)"; exit 1; }
+      ;;
+    scheduled-mismatch|scheduled-unknown|scheduled-off|custom-public)
+      updates_arg=pr
+      [ "$existing_case" != scheduled-off ] || updates_arg=off
+      [ "$existing_case" != scheduled-mismatch ] || updates_arg=dispatch
+      if AGENTIC_KIT_HOME="$tmp/existing-install-home-$install_kit-$existing_case" AGENTIC_BRIEFS_HOME="$tmp/install-briefs" bash "$root/install.sh" --kit "$install_kit" --target "$install_target" --briefs-root "$tmp/install-briefs" --force --updates "$updates_arg" >"$tmp/install-$install_kit-$existing_case.log" 2>&1; then
+        echo "ECHEC SANDBOX: install.sh a accepté workflow préexistant unsafe ($install_kit/$existing_case)"; exit 1
+      fi
+      if [ "$existing_case" = scheduled-off ]; then
+        grep -q 'ne désactive pas.*reste actif' "$tmp/install-$install_kit-$existing_case.log" || { echo "ECHEC SANDBOX: refus --updates off absent dans install.sh ($install_kit)"; exit 1; }
+      else
+        grep -Eq 'workflow updater préexistant|Workflow updater préexistant' "$tmp/install-$install_kit-$existing_case.log" || { echo "ECHEC SANDBOX: refus pré-mutation absent dans install.sh ($install_kit)"; exit 1; }
+      fi
+      test ! -e "$install_target/.workspace.toml" || { echo "ECHEC SANDBOX: install.sh a écrit le manifeste avant son refus ($install_kit/$existing_case)"; exit 1; }
+      test ! -e "$install_target/AGENTS.md" && test ! -e "$install_target/CLAUDE.md" || { echo "ECHEC SANDBOX: install.sh a écrit l'entrée avant son refus ($install_kit/$existing_case)"; exit 1; }
+      test ! -e "$tmp/existing-install-home-$install_kit-$existing_case" || { echo "ECHEC SANDBOX: install.sh a modifié le kit partagé avant son refus ($install_kit/$existing_case)"; exit 1; }
+      ;;
+  esac
+  install_workflow_after="$(shasum -a 256 "$install_existing_workflow" | cut -d' ' -f1)"
+  [ "$install_workflow_before" = "$install_workflow_after" ] || { echo "ECHEC SANDBOX: install.sh a modifié le workflow préexistant ($install_kit/$existing_case)"; exit 1; }
+done
 done
 
 # Parcours complet d'initialisation d'un projet existant avec audit et plan Trello isolé.

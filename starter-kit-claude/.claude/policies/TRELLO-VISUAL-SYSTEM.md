@@ -1,87 +1,23 @@
-# Système visuel commun des gestionnaires de projet
+# Système visuel Trello
 
-La source de vérité commune à Trello et GitHub Projects est `policies/PROJECT-TRACKER-VISUAL-SYSTEM.md`. Toutes les règles de ce fichier s'appliquent aussi à GitHub Projects. Ce fichier conserve les détails spécifiques à Trello pour compatibilité.
+Cette politique complète `PROJECT-TRACKER-VISUAL-SYSTEM.md` uniquement lorsque Trello est le gestionnaire choisi dans le profil du projet. Elle ne rend pas Trello obligatoire.
 
-## Purpose
+## Langue
 
-Every project board must be immediately understandable without reading every card. The Coordinateur creates or reuses a consistent visual system before creating cards.
+Tout contenu rédigé dans Trello est en français. Les commandes, identifiants, URL, noms de branches et extraits de journaux peuvent conserver leur forme technique. Les explications qui les accompagnent restent en français.
 
-## Langue obligatoire
+## Statuts et listes
 
-Tout contenu rédigé dans Trello doit être exclusivement en français : noms de tableaux, listes, cartes, descriptions, checklists, commentaires, preuves, décisions, étiquettes nommées et messages de synchronisation. Les noms techniques incompressibles, commandes, identifiants, URLs, noms de branches et extraits de logs peuvent rester dans leur forme originale, mais toute explication autour doit être en français. Le Coordinateur traduit le contenu avant publication et relit le texte réellement affiché après chaque enregistrement. Une carte partiellement rédigée en anglais n'est pas conforme et ne peut pas être déclarée terminée.
+Les trois statuts canoniques sont `Todo`, `In Progress` et `Done`, dans cet ordre. Réutiliser les listes existantes lorsque leur correspondance est claire. Les états de blocage, de revue, de priorité, d’échéance ou d’archivage sont représentés par des étiquettes ou métadonnées, jamais par des colonnes supplémentaires. La taille de l’équipe et les phases MVP ne créent pas de colonnes supplémentaires.
 
-## Standard lists
+## Étiquettes
 
-Create missing lists in this order:
+Réutiliser les étiquettes existantes par nom et créer uniquement celles qui manquent. Les étiquettes doivent distinguer le type et le domaine lorsque c’est utile. Une étiquette de blocage, de risque ou de priorité décrit un attribut, pas un statut. Le titre, la première partie de la description et la checklist restent compréhensibles sans couleur.
 
-1. `Backlog`
-2. `In progress`
-3. `Done`
+## Description et tâches
 
-Après chaque création ou reprise, relire les positions réelles et réordonner explicitement les listes. Si Trello place les nouvelles listes en tête, créer dans l'ordre inverse ou utiliser le réordonnancement. La synchronisation reste non vérifiée tant que cette séquence n'est pas confirmée.
+Utiliser de vrais retours à la ligne et des cases de checklist. Indiquer le périmètre, les dépendances, l’ordre, les critères d’acceptation, les preuves attendues, les risques et le retour arrière lorsque c’est pertinent. Ne pas encoder les sauts de ligne avec les caractères littéraux `\n`.
 
-Use `Inbox` only for captured requests. Move a card to `Ready` after its scope, owner, dependencies and Definition of Done are complete. A card remains in `In Progress` while work is active. Use `Blocked` only with a documented blocker and next action. Use `Review` only when implementation is complete and a real review remains. Use `Done` only after every checklist item is proven. The final checklist item before opening the card branch PR must always update and reread applicable README files, documentation, changelog and release notes. The PR is forbidden until this item is proven; after the PR, reread it again before `Done`.
+## Synchronisation et relecture
 
-### Dimensionnement selon l'équipe
-
-Le tableau conserve ces trois listes quelle que soit la taille de l'équipe. Le nombre de personnes est indiqué dans les cartes et les affectations, jamais traduit en colonnes supplémentaires. Ne pas créer une colonne par personne ni de colonne vide.
-
-## Standard labels
-
-Create or reuse these labels with the same names and colors:
-
-| Label | Color | Meaning |
-| --- | --- | --- |
-| `Fonctionnalité` | Green | Nouvelle capacité produit. |
-| `Anomalie` | Red | Défaut ou régression. |
-| `Sécurité` | Orange | Risque de sécurité, confidentialité ou conformité. |
-| `Architecture` | Purple | Architecture or design decision. |
-| `Frontend` | Blue | User interface or client work. |
-| `Backend` | Blue | API, service or server work. |
-| `Données` | Yellow | Base, migration ou contrat de données. |
-| `DevOps` | Black | CI, deployment or infrastructure. |
-| `Documentation` | Sky | Documentation or knowledge transfer. |
-| `Qualité` | Lime | Tests et validation. |
-| `Bloqué` | Red | Blocage actif. |
-| `Priorité haute` | Orange | À traiter avant le travail normal. |
-| `Validation externe` | Pink | Preuve humaine, juridique, client ou externe requise. |
-
-Use at least one type label and one domain label. Add risk, priority and validation labels only when relevant. Never create near-duplicate labels such as `frontend`, `Front end` and `UI`.
-
-## Numérotation, ordre et périmètre
-
-Chaque carte reçoit un numéro d'exécution stable, calculé après le tri des dépendances et avant la création Trello. Utiliser le format `[MVP-001]` pour le périmètre MVP et `[POST-MVP-001]` pour une fonctionnalité explicitement hors MVP. Le numéro suit l'ordre topologique des dépendances : une carte dépendante reçoit un numéro supérieur à toutes ses dépendances ; des cartes au même niveau peuvent partager le même groupe de parallélisation. Ne jamais renuméroter une carte déjà synchronisée ; utiliser le prochain numéro disponible et documenter tout déplacement de périmètre.
-
-Chaque description contient aussi `Execution order`, `Phase`, `Dependencies`, `Parallel group` et `Scope decision`. Si le tableau contient réellement les deux périmètres, créer des listes de travail lisibles comme `MVP - À développer` et `Post-MVP - À développer`, avec leurs variantes `In Progress` si nécessaires. Ne pas créer une colonne Post-MVP vide : une phase absente reste identifiée par le champ `Phase` et l'étiquette correspondante.
-
-## Card naming
-
-Use the format `[MVP-001] Verb + precise outcome` or `[POST-MVP-001] Verb + precise outcome`. Keep titles short, unique and action-oriented. Preserve the stable work-item ID in the description. Do not encode transient status, dates or unchecked progress in the title. Status belongs to the list and labels belong to the visual taxonomy.
-
-## Card layout
-
-The first lines of every description must contain:
-
-```text
-Owner: <name>
-Type: <Feature|Bug|Architecture|...>
-Priority: <Low|Medium|High|Critical>
-Dependencies: <IDs or None>
-Execution order: <MVP-001 or POST-MVP-001>
-Phase: <MVP|Post-MVP>
-Parallel group: <P0|P1|None>
-Scope decision: <Included in MVP|Post-MVP with reason>
-Definition of Done: <short statement>
-```
-
-Then use the headings `Context`, `Scope`, `Implementation plan`, `Acceptance criteria`, `Evidence`, `Risks`, `Rollback` and `Definition of Done`. Use real line breaks, short paragraphs and Markdown checklists. Never encode newlines as literal `\\n`.
-
-## Synchronization rules
-
-Before creating cards, inspect existing lists and labels and reuse matching objects by stable ID or exact name. Create only missing objects. After synchronization, reread the board, lists, labels, card descriptions, members, due dates and checklists. Record all IDs and URLs in the local board document.
-
-After every status change, assignment, checklist update, delivery, correction or merge, synchronize the card immediately. If the visual state and the local work item disagree, correct both before continuing.
-
-## Accessibility and clarity
-
-Labels must not be the only way to understand a card. The title, list, first description block and checklist must remain meaningful without color. Do not overload cards with more than five labels unless the extra labels carry a real decision or risk signal.
+Relire l’état distant après chaque écriture. Regrouper les écritures locales connexes et effectuer une relecture complémentaire aux checkpoints importants : fin de lot, blocage ou reprise, livraison, PR, CI et fusion. Vérifier les champs réellement modifiés et la prochaine tâche ouverte. Éviter une synchronisation pour chaque micro-événement local. Si Trello est indisponible, noter l’événement localement sans prétendre que le tableau est synchronisé.
