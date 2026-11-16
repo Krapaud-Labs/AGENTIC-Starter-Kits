@@ -9,8 +9,8 @@ configured_ref="$(sed -n 's/^integration_branch = "\([^"]*\)"/\1/p' "$profile" 2
 base_ref="${BOUNDARY_BASE_REF:-${configured_ref:-dev}}"
 base="$(git -C "$root" merge-base HEAD "$base_ref" 2>/dev/null || true)"
 if [ -z "$base" ]; then
-  echo "Frontière projet: branche de référence absente, contrôle différé à la première PR d'intégration."
-  exit 0
+  echo "FRONTIÈRE PROJET: référence '$base_ref' absente ou sans ancêtre commun; impossible de prouver la frontière." >&2
+  exit 1
 fi
 while IFS= read -r file; do
   case "$file" in
@@ -19,7 +19,12 @@ while IFS= read -r file; do
   if rg -n -i --hidden --glob '!node_modules/**' --glob '!.git/**' "$forbidden" "$root/$file" >/dev/null 2>&1; then
     violations+=("$file")
   fi
-done < <(git -C "$root" diff --name-only "$base" HEAD)
+done < <({
+  git -C "$root" diff --name-only "$base" HEAD
+  git -C "$root" diff --cached --name-only
+  git -C "$root" diff --name-only
+  git -C "$root" ls-files --others --exclude-standard
+} | sort -u)
 
 if [ "${#violations[@]}" -gt 0 ]; then
   printf '%s\n' "FRONTIÈRE PROJET: références interdites détectées dans :" "${violations[@]}"

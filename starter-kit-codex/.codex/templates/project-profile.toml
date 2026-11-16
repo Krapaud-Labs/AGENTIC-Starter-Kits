@@ -92,6 +92,11 @@ github_project_url = ""
 uses_pull_requests = true
 # pull-request-only ou every-push. Le Coordinateur propose ce choix à l'onboarding.
 ci_trigger_mode = "pull-request-only"
+# public must be confirmed by the repository owner; private or unknown requires the approval and usage-limit evidence below.
+github_repository_visibility = "unknown"
+github_actions_private_billing_approved = false
+github_actions_usage_limit_evidence = ""
+github_actions_max_minutes_per_run = 30
 requires_human_approval_for_critical = true
 require_feature_branch = true
 max_files_per_commit = 75

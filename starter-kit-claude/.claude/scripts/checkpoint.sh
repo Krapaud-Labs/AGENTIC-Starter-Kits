@@ -17,9 +17,43 @@ message="$*"
 case "$stage" in intake|questionnaire|onboarding|conception|planning|implementation|validation|audit|delivery|maintenance|blocked) ;; *) echo "Étape invalide: $stage"; exit 2 ;; esac
 case "$status" in started|completed|failed|blocked|waiting|resumed) ;; *) echo "Statut invalide: $status"; exit 2 ;; esac
 now="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-printf '%s | stage=%s | status=%s | message=%s\n' "$now" "$stage" "$status" "$message" >> "$events"
 [ -f "$state" ] || { echo "ECHEC CHECKPOINT: RUNTIME-STATE.md absent" >&2; exit 1; }
 runtime_status=running
 case "$status" in completed) runtime_status=complete;; blocked) runtime_status=blocked;; waiting) runtime_status=waiting-ci;; failed) runtime_status=needs-review;; esac
-perl -0pi -e "s/- Dernière mise à jour : .*\n/- Dernière mise à jour : $now\n/; s/- Étape : .*\n/- Étape : $stage\n/; s/- Dernière action réalisée : .*\n/- Dernière action réalisée : $message\n/; s/^- execution_status:.*\$/- execution_status: $runtime_status/m; s/^- current_action:.*\$/- current_action: $message/m; s/^- last_observable_evidence:.*\$/- last_observable_evidence: $now | $message/m" "$state"
+python3 - "$state" "$events" "$now" "$stage" "$status" "$runtime_status" "$message" <<'PY'
+from pathlib import Path
+import os
+import stat
+import sys
+
+state_path, events_path, now, stage, status, runtime_status, message = sys.argv[1:]
+single_line = " ".join(message.splitlines())
+state = Path(state_path)
+try:
+    mode = stat.S_IMODE(state.stat().st_mode)
+except FileNotFoundError:
+    mode = 0o600
+lines = state.read_text(encoding="utf-8").splitlines()
+replacements = {
+    "- Dernière mise à jour : ": f"- Dernière mise à jour : {now}",
+    "- Étape : ": f"- Étape : {stage}",
+    "- Dernière action réalisée : ": f"- Dernière action réalisée : {single_line}",
+    "- execution_status: ": f"- execution_status: {runtime_status}",
+    "- current_action: ": f"- current_action: {single_line}",
+    "- last_observable_evidence: ": f"- last_observable_evidence: {now} | {single_line}",
+}
+for prefix, replacement in replacements.items():
+    for index, line in enumerate(lines):
+        if line.startswith(prefix):
+            lines[index] = replacement
+            break
+    else:
+        raise SystemExit(f"ECHEC CHECKPOINT: champ runtime absent: {prefix}")
+temporary = state.with_name(state.name + f".tmp.{os.getpid()}")
+temporary.write_text("\n".join(lines) + "\n", encoding="utf-8")
+os.chmod(temporary, mode)
+temporary.replace(state)
+with Path(events_path).open("a", encoding="utf-8") as events:
+    events.write(f"{now} | stage={stage} | status={status} | message={single_line}\n")
+PY
 echo "Checkpoint enregistré: $stage/$status"

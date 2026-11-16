@@ -26,6 +26,7 @@ if [ -f "$root/.workspace.toml" ]; then
     exit 1
   fi
   git -C "$root" diff --check
+  git -C "$root" diff --cached --check
   workflow="$root/.github/workflows/update-workspace-kit.yml"
   [ -f "$workflow" ] || { echo "ECHEC EXTERNAL: workflow de mise à jour absent"; exit 1; }
   grep -q 'Update workspace kit' "$workflow" || { echo "ECHEC EXTERNAL: workflow invalide"; exit 1; }
@@ -112,6 +113,7 @@ if [ -n "$base" ]; then
 fi
 
 git -C "$root" diff --check
+git -C "$root" diff --cached --check
 if [ "$source_repository" = "true" ]; then
   echo "Validation avant push du dépôt source du kit OK"
   exit 0

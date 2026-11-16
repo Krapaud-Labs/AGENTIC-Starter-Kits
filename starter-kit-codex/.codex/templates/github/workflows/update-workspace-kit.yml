@@ -1,8 +1,7 @@
 name: Update workspace kit
 
+# Manual trigger is the safe default; init-project adds a schedule only after the billing gate passes.
 on:
-  schedule:
-    - cron: '17 8 * * 1'
   workflow_dispatch:
 
 permissions:
