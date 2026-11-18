@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 2.0.13 - 2026-11-18
+
+- Rend le mode `quick-fix` prioritaire pour les corrections et modifications courantes.
+- Diffère les audits lourds, responsive exhaustif et relectures indépendantes à la passe finale ou à une demande explicite.
+- Clarifie le routage des agents pour éviter les audits longs pendant l'implémentation.
+
 ## 2.0.12 - 2026-11-18
 
 - Réduit le coût local des contrôles de session grâce à un cache distant court et au réemploi du hash du kit lorsque sa version n’a pas changé.
