@@ -50,11 +50,19 @@ if [ -s "$project_config/RUNTIME-STATE.md" ] && [ -x "$script_dir/normalize-runt
   bash "$script_dir/normalize-runtime-state.sh" "$project_config/RUNTIME-STATE.md" >/dev/null
 fi
 bash "$script_dir/validate-agentic-contract.sh" >/dev/null
+cached_kit_mtime="$(sed -n 's/^kit_mtime=//p' "$config/.session-kit-validated" 2>/dev/null | head -1 || true)"
+cached_kit_hash="$(sed -n 's/^kit_sha256=//p' "$config/.session-kit-validated" 2>/dev/null | head -1 || true)"
 printf 'kit_version=%s\nvalidated_at=%s\nmode=%s\n' "$(sed -n 's/^kit_version = "\([^"]*\)"/\1/p' "$config/KIT.toml")" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$mode" > "$config/.session-kit-validated"
 manifest_hash="missing"
 [ -f "$root/.workspace.toml" ] && manifest_hash="$(shasum -a 256 "$root/.workspace.toml" | awk '{print $1}')"
-kit_hash="$(find "$config" -type f ! -name 'RUNTIME-STATE.md' ! -name '*.log' ! -name '.session-kit-validated' | sort | while IFS= read -r file; do shasum -a 256 "$file"; done | shasum -a 256 | awk '{print $1}')"
+if stat -f %m "$config/KIT.toml" >/dev/null 2>&1; then kit_mtime="$(stat -f %m "$config/KIT.toml")"; else kit_mtime="$(stat -c %Y "$config/KIT.toml")"; fi
+if [ "$kit_mtime" = "$cached_kit_mtime" ] && [ -n "$cached_kit_hash" ]; then
+  kit_hash="$cached_kit_hash"
+else
+  kit_hash="$(find "$config" -type f ! -name 'RUNTIME-STATE.md' ! -name '*.log' ! -name '.session-kit-validated' | sort | while IFS= read -r file; do shasum -a 256 "$file"; done | shasum -a 256 | awk '{print $1}')"
+fi
 printf 'verification_mode=%s\nmanifest_sha256=%s\nkit_sha256=%s\n' "$verification_mode" "$manifest_hash" "$kit_hash" >> "$project_config/.session-kit-validated"
+printf 'kit_mtime=%s\n' "$kit_mtime" >> "$project_config/.session-kit-validated"
 if [ "$verification_mode" = "remote-updated" ]; then
   printf 'kit_update_requires_reload=true\nkit_update_reloaded=false\nkit_update_read_order=CLAUDE.md,.claude/START-HERE.md,.claude/ORCHESTRATION.md,.claude/policies,.claude/skills,.claude/agents,.claude/models.toml,.claude/RUNTIME-STATE.md\n' >> "$project_config/.session-kit-validated"
 else
