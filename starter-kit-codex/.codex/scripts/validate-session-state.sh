@@ -27,6 +27,7 @@ native_evidence="$(value native_goal_evidence)"
 native_blocked_condition="$(value native_goal_blocked_condition)"
 case "$native_status" in
   active) [ "$native_id" != "none" ] && [ -n "$native_evidence" ] || { echo "SESSION: Goal natif actif sans identifiant ou preuve" >&2; exit 1; } ;;
+  complete) [ "$(value execution_status)" = complete ] && [ "$(value goal_status)" = complete ] && [ "$native_id" != "none" ] && [ -n "$native_evidence" ] || { echo "SESSION: Goal natif terminé sans clôture runtime/Goal, identifiant ou preuve" >&2; exit 1; } ;;
   unavailable) [ -n "$native_evidence" ] || { echo "SESSION: indisponibilité native sans preuve" >&2; exit 1; } ;;
   blocked|budget-limited) [ "$native_id" != "none" ] && [ -n "$native_evidence" ] && [ -n "$native_blocked_condition" ] || { echo "SESSION: Goal natif arrêté sans identifiant, preuve ou cause séparée" >&2; exit 1; } ;;
   *) echo "SESSION: native_goal_status invalide: $native_status" >&2; exit 1 ;;

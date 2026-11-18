@@ -28,7 +28,8 @@
 - goal_budget: [[A_COMPLETER]]
 - goal_blocked_condition: [[A_COMPLETER]]
 - goal_session_id: none
-- native_goal_status: required | active | unavailable
+<!-- native_goal_status accepts active, unavailable, complete, blocked, budget-limited, paused -->
+- native_goal_status: unavailable
 - native_goal_id: none
 - native_goal_evidence: [[A_COMPLETER]]
 - native_goal_blocked_condition: none

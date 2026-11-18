@@ -115,6 +115,16 @@ jobs:
 
             mkdir -p "$project_root"
             git init --quiet "$project_root"
+            git -C "$project_root" config user.email ci@example.invalid
+            git -C "$project_root" config user.name ci
+            git -C "$project_root" checkout --quiet -b develop
+            if [ "$kit" = "codex" ]; then
+              printf '%s\n' '.codex/' 'AGENTS.md' '.kit-reports/' '.context-manifest.tsv' > "$project_root/.gitignore"
+            else
+              printf '%s\n' '.claude/' 'CLAUDE.md' '.kit-reports/' '.context-manifest.tsv' > "$project_root/.gitignore"
+            fi
+            git -C "$project_root" add .gitignore
+            git -C "$project_root" -c commit.gpgsign=false commit --quiet --allow-empty -m "CI base"
             git -C "$project_root" checkout --quiet -b chore/ci-validation
             cp -R "starter-kit-$kit/$config_dir" "$project_root/$config_dir"
             [ "$kit" = "codex" ] && cp starter-kit-codex/AGENTS.md "$project_root/AGENTS.md"
@@ -139,7 +149,7 @@ jobs:
             sed -i 's/^Status: draft$/Status: approved/; s/^- \[ \]/- [x]/g' "$project_root/docs/design/design-readiness.md"
 
             bash "$project_root/$config_dir/scripts/preflight.sh"
-            bash "$project_root/$config_dir/scripts/verify-before-push.sh"
+            (cd "$project_root" && bash "$config_dir/scripts/verify-before-push.sh")
           done
 
   validate-windows-wrapper:

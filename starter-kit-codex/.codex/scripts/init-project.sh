@@ -4,21 +4,69 @@ updates_mode=ask
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --updates) updates_mode="$2"; shift 2 ;;
-    -h|--help) echo "Usage: init-project.sh [--updates ask|pr|off]"; exit 0 ;;
+    -h|--help) echo "Usage: init-project.sh [--updates ask|pr|dispatch|off]"; exit 0 ;;
     *) echo "Option inconnue: $1" >&2; exit 2 ;;
   esac
 done
+case "$updates_mode" in ask|pr|dispatch|off) ;; *) echo "Valeur --updates invalide: $updates_mode" >&2; exit 2 ;; esac
 if [ "$updates_mode" = "ask" ] && [ -t 0 ]; then
   printf "Activer les mises à jour automatiques du starter kit ? [O]ui Pull Request, [N]on : "
   read -r answer
   case "$answer" in n|N|non|Non) updates_mode=off ;; *) updates_mode=pr ;; esac
 elif [ "$updates_mode" = "ask" ]; then
-  updates_mode=pr
+  updates_mode=dispatch
 fi
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 config_root="$(cd "$script_dir/.." && pwd)"
 project_root="$(git -C "$config_root/.." rev-parse --show-toplevel 2>/dev/null || (cd "$config_root/.." && pwd))"
+
+# Vérifier tout updater préexistant avant la première mutation du projet. Le
+# script ne désactive ni ne remplace un workflow appartenant déjà au projet.
+workflow="$project_root/.github/workflows/update-workspace-kit.yml"
+if [ -e "$workflow" ] || [ -L "$workflow" ]; then
+  if [ "$updates_mode" = "off" ]; then
+    echo "ÉCHEC: --updates off ne désactive pas le workflow updater préexistant; il reste actif et doit être revu/désactivé manuellement: $workflow" >&2
+    exit 1
+  fi
+  profile_for_gate="$config_root/project-profile.toml"
+  [ -f "$profile_for_gate" ] || profile_for_gate="$config_root/templates/project-profile.toml"
+  updater_classification="$(bash "$config_root/scripts/python.sh" - "$profile_for_gate" "$config_root/templates/github/workflows/update-workspace-kit.yml" "$workflow" <<'PY'
+import pathlib, sys, tomllib
+try:
+    profile = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
+    template = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
+    existing = pathlib.Path(sys.argv[3]).read_text(encoding="utf-8")
+except (OSError, tomllib.TOMLDecodeError, UnicodeError):
+    print("false|unknown")
+    raise SystemExit(0)
+delivery = profile.get("delivery", {})
+visibility = str(delivery.get("github_repository_visibility", "unknown")).strip().lower()
+approved = delivery.get("github_actions_private_billing_approved", False)
+evidence = str(delivery.get("github_actions_usage_limit_evidence", "")).strip()
+allowed = visibility == "public" or (
+    visibility in {"private", "unknown"} and approved is True and evidence
+    and evidence.lower() not in {"none", "unknown", "[[a_completer]]"}
+)
+marker = "on:\n  workflow_dispatch:\n"
+scheduled = template.replace(marker, "on:\n  schedule:\n    - cron: '17 8 * * 1'\n  workflow_dispatch:\n", 1) if template.count(marker) == 1 else ""
+kind = "dispatch" if existing == template else "scheduled" if scheduled and existing == scheduled else "custom"
+print(("true" if allowed else "false") + "|" + kind)
+PY
+)" || updater_classification="false|unknown"
+  IFS='|' read -r hosted_updates_allowed existing_updater_kind <<< "$updater_classification"
+  if [ "$hosted_updates_allowed" != "true" ]; then
+    echo "ÉCHEC: le workflow updater préexistant reste actif, mais le profil ne passe pas le gate de visibilité/approbation; revue manuelle requise avant toute mutation: $workflow" >&2
+    exit 1
+  fi
+  case "$updates_mode:$existing_updater_kind" in
+    dispatch:dispatch|pr:scheduled) ;;
+    *)
+      echo "ÉCHEC: workflow updater préexistant conservé sans modification; il est personnalisé ou ne correspond pas à --updates $updates_mode. Revue manuelle requise avant toute mutation: $workflow" >&2
+      exit 1
+      ;;
+  esac
+fi
 
 # Première mutation du projet : protéger immédiatement l'installation locale du kit.
 gitignore="$project_root/.gitignore"
@@ -35,13 +83,58 @@ fi
 
 mkdir -p "$config_root/work-items/archive" "$config_root/evaluations"
 
-if [ "$updates_mode" != "off" ] && [ ! -f "$project_root/.github/workflows/update-workspace-kit.yml" ]; then
-  mkdir -p "$project_root/.github/workflows"
-  cp "$config_root/templates/github/workflows/update-workspace-kit.yml" "$project_root/.github/workflows/update-workspace-kit.yml"
-fi
-
 if [ ! -f "$config_root/project-profile.toml" ]; then
   cp "$config_root/templates/project-profile.toml" "$config_root/project-profile.toml"
+fi
+
+if [ "$updates_mode" != "off" ]; then
+  hosted_updates_allowed="$(bash "$config_root/scripts/python.sh" - "$config_root/project-profile.toml" <<'PY'
+import pathlib, sys, tomllib
+try:
+    profile = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
+except (OSError, tomllib.TOMLDecodeError):
+    print("false")
+    raise SystemExit(0)
+delivery = profile.get("delivery", {})
+visibility = str(delivery.get("github_repository_visibility", "unknown")).strip().lower()
+approved = delivery.get("github_actions_private_billing_approved", False)
+evidence = str(delivery.get("github_actions_usage_limit_evidence", "")).strip()
+allowed = visibility == "public" or (
+    visibility in {"private", "unknown"}
+    and approved is True
+    and evidence
+    and evidence.lower() not in {"none", "unknown", "[[a_completer]]"}
+)
+print("true" if allowed else "false")
+PY
+  )" || hosted_updates_allowed=false
+  if [ -e "$workflow" ] || [ -L "$workflow" ]; then
+    echo "Workflow updater préexistant validé et conservé sans modification (--updates $updates_mode)."
+  elif [ "$hosted_updates_allowed" = "true" ]; then
+    mkdir -p "$project_root/.github/workflows"
+    cp "$config_root/templates/github/workflows/update-workspace-kit.yml" "$workflow"
+    if [ "$updates_mode" = "pr" ]; then
+      bash "$config_root/scripts/python.sh" - "$workflow" <<'PY'
+import os, pathlib, sys
+workflow = pathlib.Path(sys.argv[1])
+content = workflow.read_text(encoding="utf-8")
+marker = "on:\n  workflow_dispatch:\n"
+scheduled = "on:\n  schedule:\n    - cron: '17 8 * * 1'\n  workflow_dispatch:\n"
+if content.count(marker) != 1:
+    raise SystemExit("CI billing gate: modèle updater inattendu; schedule non activé")
+mode = workflow.stat().st_mode & 0o777
+temporary = workflow.with_name(workflow.name + f".tmp.{os.getpid()}")
+temporary.write_text(content.replace(marker, scheduled, 1), encoding="utf-8")
+os.chmod(temporary, mode)
+temporary.replace(workflow)
+PY
+      echo "Workflow updater planifié après validation de la politique d’usage hébergé."
+    else
+      echo "Workflow updater manuel installé après validation de la politique d’usage hébergé."
+    fi
+  else
+    echo "Aucun workflow updater installé: visibilité ou approbation avec preuve de limite d’usage requise."
+  fi
 fi
 for context_file in PROJECT-CONTEXT.md PROJECT-DATA-BOUNDARY.md; do
   if [ ! -f "$config_root/$context_file" ] && [ -f "$config_root/templates/$context_file" ]; then

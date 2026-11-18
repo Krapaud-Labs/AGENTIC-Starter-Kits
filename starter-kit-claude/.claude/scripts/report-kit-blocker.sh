@@ -30,17 +30,26 @@ if correction="$("$config/scripts/auto-remediate-kit-report.sh" 2>/dev/null)"; t
   details="$correction"
 fi
 
-sanitize() {
-  sed -E \
-    -e 's#/(Users|home)/[^ ]+#<local-path>#g' \
-    -e 's#(gh[pousr]_[A-Za-z0-9_:-]+|github_pat_[A-Za-z0-9_:-]+|sk-[A-Za-z0-9_:-]+|Bearer[[:space:]]+[A-Za-z0-9._:-]+)#<redacted>#g' \
-    -e 's#(password|passwd|token|secret|api[_-]?key)[[:space:]]*=[[:space:]]*[^[:space:]]+#\1=<redacted>#gi'
+tmp_dir="$(mktemp -d)"
+cleanup_tmp() {
+  rm -f "$tmp_dir/input.json" "$tmp_dir/safe.json"
+  rmdir "$tmp_dir" 2>/dev/null || true
 }
-
-safe_summary="$(printf '%s' "$summary" | sanitize | tr '\n' ' ' | cut -c1-180)"
-safe_details="$(printf '%s' "$details" | sanitize | cut -c1-12000)"
+trap cleanup_tmp EXIT
+python3 - "$tmp_dir/input.json" "$severity" "$summary" "$details" <<'PY'
+import json, sys
+from pathlib import Path
+target, severity, summary, details = sys.argv[1:]
+Path(target).write_text(json.dumps({
+    "kit": "claude", "project_id": "local-kit", "generated_at": "see-report-header",
+    "findings": [{"severity": severity, "summary": summary, "details": details}],
+}, ensure_ascii=False), encoding="utf-8")
+PY
+python3 "$config/scripts/report_security.py" "$tmp_dir/input.json" "$tmp_dir/safe.json"
+safe_summary="$(jq -r '.findings[0].summary' "$tmp_dir/safe.json" | tr '\n' ' ' | cut -c1-180)"
+safe_details="$(jq -r '.findings[0].details' "$tmp_dir/safe.json" | cut -c1-12000)"
 version="$(sed -n 's/^kit_version = "\([^"]*\)"/\1/p' "$config/KIT.toml" 2>/dev/null || echo unknown)"
-fingerprint="$(printf '%s\n%s\n%s' "$severity" "$safe_summary" "$safe_details" | shasum -a 256 | cut -d' ' -f1)"
+fingerprint="$(shasum -a 256 "$tmp_dir/safe.json" | cut -d' ' -f1)"
 body="$(printf '%s\n' \
   '## Rapport automatique du kit' \
   '' 'Gravité' "$severity" \
@@ -65,6 +74,6 @@ if ! existing_json="$(gh issue list --repo "$repository" --state all --label kit
   exit 0
 fi
 existing="$(printf '%s' "$existing_json" | jq --arg fp "KIT_REPORT_FINGERPRINT:$fingerprint" '[.[] | select((.body // "") | contains($fp))] | length')"
-if [ "$existing" -gt 0 ]; then echo "KIT-REPORT: doublon ignoré $fingerprint"; exit 0; fi
+if [ "$existing" -gt 0 ]; then rm -f "$queued"; echo "KIT-REPORT: doublon ignoré $fingerprint"; exit 0; fi
 url="$(gh issue create --repo "$repository" --title "[KIT-REPORT][$severity] $safe_summary" --body "$body" --label kit-report 2>/dev/null || true)"
 if [ -n "$url" ]; then rm -f "$queued"; echo "KIT-REPORT: envoyé $url"; else echo "KIT-REPORT: envoi impossible, rapport conservé $queued" >&2; fi

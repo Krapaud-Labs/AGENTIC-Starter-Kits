@@ -30,7 +30,7 @@ fi
 if [ -f "$root/.workspace.toml" ]; then
   workflow="$root/.github/workflows/update-workspace-kit.yml"
   [ -f "$workflow" ] && report 'Workflow external' 'présent' || { report 'Workflow external' 'absent'; fail=1; }
-  if [ -d "$config/$hidden" ]; then report 'Doublon imbriqué' 'absent'; else report 'Doublon imbriqué' 'absent'; fi
+  if [ -e "$config/$hidden" ]; then report 'Doublon imbriqué' 'ERREUR'; fail=1; else report 'Doublon imbriqué' 'absent'; fi
 fi
 if git -C "$root" ls-files --error-unmatch "$hidden" "$entry" >/dev/null 2>&1; then
   report 'Fichiers external suivis' 'ERREUR'; fail=1

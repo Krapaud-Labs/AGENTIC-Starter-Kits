@@ -35,3 +35,7 @@
 Sonnet low est réservé aux tâches sans effet direct sur le produit ou la sécurité.
 
 Toute modification de `models.toml` nécessite une évaluation avant et après, conformément à `COST-AND-EVALUATION.md`.
+
+## Priorité du risque sur le profil de rôle
+
+Le profil de rôle fournit le choix par défaut. Si un niveau de risque est explicitement fourni, l’entrée correspondante de `[risk_override]` dans `models.toml` prime sur le profil de rôle, y compris lorsque le modèle choisi diffère de la colonne de risque du tableau ci-dessus. En cas d’absence de risque explicite, appliquer le profil de rôle.

@@ -4,15 +4,13 @@ script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 if root="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$root/CLAUDE.md" ]; then :; else root="$(cd "$script_dir/../.." && pwd)"; fi
 entry="$root/CLAUDE.md"
 [ -f "$entry" ] || { echo "ENTRYPOINT: CLAUDE.md absent" >&2; exit 1; }
-entry_is_link=false
-if [ -L "$entry" ]; then entry_is_link=true; fi
 kit_version="$(sed -n 's/^kit_version = "\(.*\)"/\1/p' "$script_dir/../KIT.toml")"
 [ -n "$kit_version" ] || { echo "ENTRYPOINT: version KIT.toml absente" >&2; exit 1; }
-if [ "$entry_is_link" = false ] && grep -q '^<!-- ENTRYPOINT-CONTRACT:' "$entry"; then
-  sed -i.bak "s/^<!-- ENTRYPOINT-CONTRACT:.*-->$/<!-- ENTRYPOINT-CONTRACT: $kit_version -->/" "$entry"
-  rm -f "$entry.bak"
+if ! grep -Fq "ENTRYPOINT-CONTRACT: $kit_version" "$entry"; then
+  echo "ENTRYPOINT: version attendue $kit_version absente; mettre à jour explicitement le point d'entrée" >&2
+  exit 1
 fi
-for marker in "ENTRYPOINT-CONTRACT: $kit_version" 'agent principal de ce chat est le Coordinateur' 'créer ou reprendre le Goal natif' 'frontend`, `qa` et `auditeur'; do
+for marker in 'agent principal de ce chat est le Coordinateur' 'créer ou reprendre le Goal natif' 'frontend`, `qa` et `auditeur'; do
   grep -Fq "$marker" "$entry" || { echo "ENTRYPOINT: règle manquante dans CLAUDE.md: $marker" >&2; exit 1; }
 done
 echo "Point d'entrée Claude robuste et versionné"

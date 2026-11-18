@@ -6,7 +6,7 @@ Ce répertoire s'importe dans tout nouveau projet. Il adapte les contrôles à p
 
 ## Recherche actualisée
 
-Lire et appliquer obligatoirement `policies/WEB-RESEARCH-POLICY.md`, `policies/SESSION-CONTINUITY-POLICY.md`, `policies/EXCEPTIONAL-REQUESTS.md`, `policies/PROJECT-TRACKER-VISUAL-SYSTEM.md`, `policies/TRELLO-VISUAL-SYSTEM.md`, `policies/TRELLO-START-STATE.md` et `policies/DOCUMENTATION-LANGUAGE-POLICY.md`. Le Coordinateur applique cette politique commune au gestionnaire sélectionné, Trello ou GitHub Projects, et déclenche une recherche externe dès qu'une information peut avoir changé ou engage une décision technique, légale, de sécurité, de coût ou de compatibilité. Les agents concernés consignent les sources et la date de consultation dans les preuves.
+Lire et appliquer obligatoirement `policies/WEB-RESEARCH-POLICY.md`, `policies/SESSION-CONTINUITY-POLICY.md`, `policies/EXCEPTIONAL-REQUESTS.md`, `policies/PROJECT-TRACKER-VISUAL-SYSTEM.md`, `policies/TRELLO-VISUAL-SYSTEM.md`, `policies/TRELLO-START-STATE.md` et `policies/DOCUMENTATION-LANGUAGE-POLICY.md`. Le Coordinateur applique cette politique commune au gestionnaire sélectionné dans le profil du projet, par exemple Trello ou GitHub Projects, et déclenche une recherche externe dès qu'une information peut avoir changé ou engage une décision technique, légale, de sécurité, de coût ou de compatibilité. Les agents concernés consignent les sources et la date de consultation dans les preuves.
 Lire également `policies/CONTINUOUS-IMPROVEMENT-POLICY.md` et consulter les incidents connus avant toute action comparable.
 Lire `policies/CONTEXT-EFFICIENCY-POLICY.md` au démarrage, puis appliquer son chargement par niveaux et son cache d'empreintes pour éviter les relectures intégrales répétées.
 Lire également `policies/EXECUTION-EFFICIENCY-POLICY.md` : un plan unique, une passe spécialisée consolidée, une correction groupée et une revalidation finale. Les micro-audits et relances identiques sans changement d'état sont interdits.
@@ -18,16 +18,16 @@ Lire également `policies/GOAL-RETRY-AGENT-METRICS.md` et exécuter `scripts/val
 
 ### Porte de démarrage d'initialisation
 
-Lorsqu'une session lance ou reprend une initialisation de projet, le Coordinateur charge intégralement les instructions applicables avant toute création de fichier, tableau Trello, carte, délégation ou modification produit. Il relit `AGENTS.md`, `ORCHESTRATION.md`, `START-HERE.md`, `CONVERSATION-MODES.md`, `GOVERNANCE.md`, `FILE-MANIFEST.md`, `PROJECT-DATA-BOUNDARY.md`, `SPECIALIST-AGENTS.md`, `models.toml`, `MODEL-POLICY.md`, `RISK-MATRIX.md`, `COST-AND-EVALUATION.md`, `ADAPTERS.md`, les policies référencées et les Skills `project-intake`, `project-onboarding`, `trello-planning` et `coordination`. Il consigne la liste et la version des documents relus dans le work item ou l'état runtime. Tant que cette relecture n'est pas prouvée, aucune action d'initialisation n'est autorisée.
+Lorsqu'une session lance ou reprend une initialisation de projet, le Coordinateur charge intégralement les instructions applicables avant toute création de fichier, élément de suivi, délégation ou modification produit. Il relit `AGENTS.md`, `ORCHESTRATION.md`, `START-HERE.md`, `CONVERSATION-MODES.md`, `GOVERNANCE.md`, `FILE-MANIFEST.md`, `PROJECT-DATA-BOUNDARY.md`, `SPECIALIST-AGENTS.md`, `models.toml`, `MODEL-POLICY.md`, `RISK-MATRIX.md`, `COST-AND-EVALUATION.md`, `ADAPTERS.md`, les policies référencées et les Skills `project-intake`, `project-onboarding`, le Skill adapté au gestionnaire configuré et `coordination`. Il consigne la liste et la version des documents relus dans le work item ou l'état runtime. Tant que cette relecture n'est pas prouvée, aucune action d'initialisation n'est autorisée.
 
-Après cette relecture, il crée immédiatement le Goal persistant couvrant toute l'initialisation jusqu'à sa livraison vérifiée. Le Goal est obligatoire même si aucun code n'est présent et même si Trello sert d'abord de checkpoint ; il ne devient `complete` qu'après les documents, le tableau, les cartes, les étiquettes, les checklists, le push prévu et la relecture finale.
+Après cette relecture, il crée immédiatement le Goal persistant couvrant toute l'initialisation jusqu'à sa livraison vérifiée. Le Goal est obligatoire même si aucun code n'est présent et même si Trello sert d'abord de checkpoint ; il ne devient `complete` qu'après les livrables exigés pour le projet, le gestionnaire de suivi sélectionné s’il est activé, le push prévu et la relecture finale.
 
 1. Recevoir et accepter le cahier des charges.
 2. Poser une seule série de questions de complétude avec choix recommandés.
 3. Mettre à jour `RUNTIME-STATE.md` à chaque transition et après chaque erreur.
-4. Recevoir le choix Trello et initialiser le profil du projet.
+4. Lire le gestionnaire de suivi configuré dans le profil projet et initialiser son adaptateur.
 5. Créer un work item.
-6. Classer toute demande exceptionnelle et créer une carte Trello dès que le seuil S3 ou S4 est atteint.
+6. Classer toute demande exceptionnelle et créer un élément dans le gestionnaire configuré dès que le seuil S3 ou S4 est atteint.
 7. Choisir rôle et Skill.
 8. Implémenter dans le périmètre déclaré.
 9. Auditer, vérifier et enregistrer les preuves.
@@ -54,7 +54,7 @@ Avant toute action, le Coordinateur exécute `scripts/session-start-gate.sh`, y 
 
 Lorsque l’utilisateur demande de tout faire ou de poursuivre jusqu’à la livraison, exécuter la chaîne complète du work item sans interruption volontaire. Produire des checkpoints et rapports intermédiaires sans demander d’approbation. Arrêter uniquement pour un blocage sensible défini par la politique d’autonomie.
 
-Lorsqu'une demande cible une carte Trello à terminer, reprendre, corriger ou livrer, activer ou reprendre le Goal persistant décrit dans `policies/SESSION-CONTINUITY-POLICY.md` avant toute analyse et avant la première case, quel que soit le nombre de cases ouvertes, puis rattacher toutes les preuves au même objectif.
+Toute demande visant à terminer, reprendre, corriger ou livrer un élément du gestionnaire de suivi sélectionné dans le profil du projet exige la création ou la reprise du Goal natif décrit dans `policies/SESSION-CONTINUITY-POLICY.md` avant toute analyse et avant la première case, quel que soit le nombre de cases ouvertes. Trello reste conditionnel à sa sélection dans le profil; la règle s’applique de la même façon à tout autre gestionnaire configuré. Rattacher toutes les preuves au même objectif.
 
 Le Coordinateur crée ou active d'abord le Goal natif de l'environnement avant toute commande, lecture, délégation, modification, test ou commentaire externe. Il capture son identifiant et son état actif, puis seulement après exécute `start-goal.sh` pour réconcilier l'état local avec ce Goal. `start-goal.sh` n'est jamais une création de Goal natif. Si l'API native est indisponible, le Coordinateur doit consigner explicitement `native_goal_status=unavailable` et la preuve de cette indisponibilité ; il peut alors utiliser le mode local de secours, sans le présenter comme un Goal natif. Si l'API est disponible mais que le Goal n'est pas actif, tout travail est interdit jusqu'à sa création ou activation effective.
 
@@ -80,8 +80,8 @@ Sources: URLs consultées et décisions influencées
 
 Lire et appliquer obligatoirement `.codex/policies/TASK-ROUTING-POLICY.md` ou `.claude/policies/TASK-ROUTING-POLICY.md` avant toute délégation, y compris pour une demande hors cahier des charges initial.
 
-## Synchronisation après chaque livraison
+## Synchronisation du gestionnaire de suivi
 
-Après chaque étape validée, fusion, correction ou changement de statut, relire la carte Trello concernée et sa checklist. Une livraison sans mise à jour et preuve de relecture Trello est incomplète.
+Utiliser exclusivement le gestionnaire déclaré dans le profil projet. Relire l’état distant après chaque écriture et aux checkpoints importants (fin d’un lot, blocage ou déblocage, livraison, PR, CI, fusion). Regrouper les mises à jour locales liées à un même checkpoint, puis relire les champs et tâches affectés avant de poursuivre. Une indisponibilité se consigne localement sans simuler une synchronisation.
 
 Lire et appliquer obligatoirement la politique DELIVERY-CLOSURE-POLICY.md avant de suspendre, clôturer ou déclarer bloqué un work item.

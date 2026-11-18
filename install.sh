@@ -50,20 +50,22 @@ verify_update_workflow() {
     fail "Le workflow de mise à jour est ignoré par Git. Retirez cette règle avant de continuer."
   fi
 }
-usage() { printf "%b\n" "Usage : ./install.sh [--kit codex|claude] [--mode shared] [--target CHEMIN] [--briefs-root CHEMIN] [--force]"; }
-kit=""; mode="shared"; target=""; briefs_root=""; force=false
+usage() { printf "%b\n" "Usage : ./install.sh [--kit codex|claude] [--mode shared] [--target CHEMIN] [--briefs-root CHEMIN] [--updates off|dispatch|pr] [--force]"; }
+kit=""; mode="shared"; target=""; briefs_root=""; updates_mode=off; force=false
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --kit) [ "$#" -ge 2 ] || fail "Valeur manquante pour --kit."; kit="$2"; shift 2 ;;
     --mode) [ "$#" -ge 2 ] || fail "Valeur manquante pour --mode."; mode="$2"; shift 2 ;;
     --target) [ "$#" -ge 2 ] || fail "Valeur manquante pour --target."; target="$2"; shift 2 ;;
     --briefs-root) [ "$#" -ge 2 ] || fail "Valeur manquante pour --briefs-root."; briefs_root="$2"; shift 2 ;;
+    --updates) [ "$#" -ge 2 ] || fail "Valeur manquante pour --updates."; updates_mode="$2"; shift 2 ;;
     --force) force=true; shift ;;
     -h|--help) usage; exit 0 ;;
     *) fail "Option inconnue : $1" ;;
   esac
 done
 case "$mode" in shared) ;; *) fail "Le seul mode d'installation autorisé est shared." ;; esac
+case "$updates_mode" in off|dispatch|pr) ;; *) fail "Valeur --updates invalide : $updates_mode" ;; esac
 title
 if [ -z "$kit" ] && [ -t 0 ]; then
   printf "%b\n" "${bold}Quel orchestrateur souhaitez-vous installer ?${reset}"
@@ -158,6 +160,53 @@ case "$briefs_root" in
   ""|/*) ;;
   *) fail "Le dossier commun des cahiers doit être un chemin absolu." ;;
 esac
+workflow_path="$target/.github/workflows/update-workspace-kit.yml"
+profile_path="$target/$hidden/project-profile.toml"
+[ -f "$profile_path" ] || profile_path="$repo_root/$source_dir/$hidden/templates/project-profile.toml"
+hosted_updates_allowed="$(bash "$repo_root/$source_dir/$hidden/scripts/python.sh" - "$profile_path" <<'PY'
+import pathlib, sys, tomllib
+try:
+    profile = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
+except (OSError, tomllib.TOMLDecodeError):
+    print("false")
+    raise SystemExit(0)
+delivery = profile.get("delivery", {})
+visibility = str(delivery.get("github_repository_visibility", "unknown")).strip().lower()
+approved = delivery.get("github_actions_private_billing_approved", False)
+evidence = str(delivery.get("github_actions_usage_limit_evidence", "")).strip()
+allowed = visibility == "public" or (
+    visibility in {"private", "unknown"} and approved is True and evidence
+    and evidence.lower() not in {"none", "unknown", "[[a_completer]]"}
+)
+print("true" if allowed else "false")
+PY
+)" || hosted_updates_allowed=false
+if [ -e "$workflow_path" ] || [ -L "$workflow_path" ]; then
+  if [ "$updates_mode" = "off" ]; then
+    fail "--updates off ne désactive pas le workflow updater préexistant; il reste actif et doit être revu/désactivé manuellement : $workflow_path"
+  fi
+  if [ "$hosted_updates_allowed" != "true" ]; then
+    fail "Le workflow updater préexistant reste actif, mais le profil ne passe pas le gate de visibilité/approbation; revue manuelle requise avant toute mutation : $workflow_path"
+  fi
+  existing_updater_kind="$(bash "$repo_root/$source_dir/$hidden/scripts/python.sh" - "$repo_root/distributions/shared/update-workspace-kit.yml" "$workflow_path" <<'PY'
+import pathlib, sys
+try:
+    template = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
+    existing = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
+except (OSError, UnicodeError):
+    print("custom")
+    raise SystemExit(0)
+marker = "on:\n  workflow_dispatch:\n"
+scheduled = template.replace(marker, "on:\n  schedule:\n    - cron: '17 8 * * 1'\n  workflow_dispatch:\n", 1) if template.count(marker) == 1 else ""
+kind = "dispatch" if existing == template else "scheduled" if scheduled and existing == scheduled else "custom"
+print(kind)
+PY
+)" || existing_updater_kind=custom
+  case "$updates_mode:$existing_updater_kind" in
+    dispatch:dispatch|pr:scheduled) ;;
+    *) fail "Workflow updater préexistant conservé sans modification; il est personnalisé ou ne correspond pas à --updates $updates_mode. Revue manuelle requise avant toute mutation : $workflow_path" ;;
+  esac
+fi
 if [ "$force" != true ] && { [ -e "$target/$entry" ] || [ -e "$target/$hidden" ]; }; then
   fail "Un kit existe déjà dans $target. Utilisez --force après vérification."
 fi
@@ -184,9 +233,36 @@ done
 for local_dir in decisions work-items reports metrics evaluations; do mkdir -p "$target/$hidden/$local_dir"; done
 rm -f "$target/$entry"
 ln -s "$shared_dir/$entry" "$target/$entry"
-mkdir -p "$target/.github/workflows"
-workflow_path="$target/.github/workflows/update-workspace-kit.yml"
-cp "$repo_root/distributions/shared/update-workspace-kit.yml" "$workflow_path"
+if [ "$updates_mode" != "off" ]; then
+  if [ "$hosted_updates_allowed" = "true" ]; then
+    mkdir -p "$target/.github/workflows"
+    if [ -e "$workflow_path" ] || [ -L "$workflow_path" ]; then
+      info "Workflow updater préexistant reconnu et conservé sans modification (--updates $updates_mode)."
+    else
+      cp "$repo_root/distributions/shared/update-workspace-kit.yml" "$workflow_path"
+      if [ "$updates_mode" = "pr" ]; then
+        bash "$shared_dir/$hidden/scripts/python.sh" - "$workflow_path" <<'PY'
+import os, pathlib, sys
+workflow = pathlib.Path(sys.argv[1])
+content = workflow.read_text(encoding="utf-8")
+marker = "on:\n  workflow_dispatch:\n"
+scheduled = "on:\n  schedule:\n    - cron: '17 8 * * 1'\n  workflow_dispatch:\n"
+if content.count(marker) != 1:
+    raise SystemExit("CI billing gate: modèle updater inattendu; schedule non activé")
+mode = workflow.stat().st_mode & 0o777
+temporary = workflow.with_name(workflow.name + f".tmp.{os.getpid()}")
+temporary.write_text(content.replace(marker, scheduled, 1), encoding="utf-8")
+os.chmod(temporary, mode)
+temporary.replace(workflow)
+PY
+      fi
+      verify_update_workflow "${workflow_path#$target/}"
+      info "Workflow updater $updates_mode installé après validation de la politique d’usage hébergé."
+    fi
+  else
+    warning "Aucun workflow updater installé : visibilité ou approbation avec preuve de limite d’usage requise."
+  fi
+fi
 cat > "$target/.workspace.toml" <<EOF
 orchestrator = "$kit"
 kit_version = "$kit_version"
@@ -197,7 +273,6 @@ briefs_home = "$briefs_root"
 update_channel = "stable"
 EOF
 ensure_gitignore
-verify_update_workflow "${workflow_path#$target/}"
 brief_archive="$briefs_root/$project_name/cahier-des-charges.md"
 mkdir -p "$(dirname "$brief_archive")"
 if [ ! -e "$brief_archive" ]; then
@@ -225,11 +300,13 @@ printf "\n"
 success "Kit $label installé avec succès."
 success "Fichier racine : $target/$entry"
 success "Configuration : $target/$hidden"
-success "Mises à jour  : $workflow_path"
+success "Mises à jour  : $updates_mode"
 printf "\n%b\n" "${cyan}Prochaine étape${reset}"
 printf "%s\n" "Ouvrez le projet dans $label et envoyez votre cahier des charges complet."
-printf "%s\n" "Les futures mises à jour arriveront par Pull Request vers dev ou develop."
-if git -C "$target" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+if [ -f "$target/.github/workflows/update-workspace-kit.yml" ]; then
+  printf "%s\n" "Les futures mises à jour suivront le mode $updates_mode (runner hébergé potentiellement facturable)."
+fi
+if [ -f "$target/.github/workflows/update-workspace-kit.yml" ] && git -C "$target" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   printf "\n%b\n" "${yellow}Avant le premier push${reset}"
   printf "%s\n" "Ajoutez le workflow au premier commit :"
   printf "  git add .github/workflows/update-workspace-kit.yml .workspace.toml .gitignore\n"

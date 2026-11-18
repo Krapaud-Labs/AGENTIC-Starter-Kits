@@ -14,6 +14,7 @@ if ! grep -Eq '^- native_goal_status:' "$input"; then
     blocked) native_status=blocked ;;
     budget-limited|budgetLimited) native_status=budget-limited ;;
     paused) native_status=paused ;;
+    complete) [ -n "$native_goal_id" ] && [ "$native_goal_id" != "none" ] && native_status=complete || native_status=unavailable ;;
     *) [ -n "$native_goal_id" ] && [ "$native_goal_id" != "none" ] && native_status=active || native_status=unavailable ;;
   esac
   printf '%s\n' "- native_goal_status: $native_status" >> "$input"

@@ -39,7 +39,7 @@ Si le projet existe déjà, ne pas supprimer ses fichiers. Importer le kit de ma
 
 ## 3. Choisir et copier un kit
 
-Le seul mode disponible est `shared`. Il installe une seule copie du kit dans le registre partagé de la machine et place dans chaque projet les liens symboliques, le contexte local et le manifeste de version.
+Le seul mode disponible est `shared`. Il installe une seule copie du kit dans le registre partagé de la machine et place dans chaque projet les liens symboliques, le contexte local et le manifeste de version. Aucun workflow updater n’est installé par défaut (`--updates off`). L’option `--updates dispatch` demande un workflow manuel et `--updates pr` demande un workflow planifié, tous deux soumis à la garde de visibilité/facturation ci-dessous.
 
 Pour Codex :
 
@@ -53,7 +53,7 @@ Pour Claude :
 ./install.sh --kit claude --mode shared --target /chemin/absolu/vers/mon-projet
 ```
 
-Le mode partagé conserve les fichiers universels dans `AGENTIC_KIT_HOME` et les projets ne conservent que leur état local. Les mises à jour sont donc reçues par tous les projets depuis une source unique.
+Le mode partagé conserve les fichiers universels dans `AGENTIC_KIT_HOME` et les projets ne conservent que leur état local. Les mises à jour sont donc reçues par tous les projets depuis une source unique après activation de l’updater. L’installation de base le laisse désactivé; après avoir renseigné et confirmé les champs de visibilité et d’approbation du profil, lancez `bash .codex/scripts/init-project.sh --updates dispatch` ou remplacez `.codex` par `.claude` pour un déclencheur manuel. Pour le calendrier, utilisez `--updates pr`. Sans profil admissible, le gate refuse la création.
 
 Définir le chemin local du dépôt source. Adapter ce chemin à votre machine.
 
@@ -121,7 +121,7 @@ Une nouvelle conversation n'est pas obligatoire. Si une conversation existe déj
 Mode initialisation :
 ```
 
-Ce mode est prioritaire sur le sujet de la conversation. L'agent recharge les instructions du kit, vérifie l'état local du projet et recherche le cahier des charges ainsi que le profil technique. Tant que le cahier des charges n'est pas reçu et accepté, il ne doit pas coder, créer de work item, modifier Trello ou choisir une architecture.
+Ce mode est prioritaire sur le sujet de la conversation. L'agent recharge les instructions du kit, vérifie l'état local du projet et recherche le cahier des charges ainsi que le profil technique. Tant que le cahier des charges n'est pas reçu et accepté, il ne doit pas coder, créer de work item, modifier un gestionnaire distant ou choisir une architecture.
 
 Après réception du cahier des charges, l'agent pose les questions manquantes avec une recommandation explicite. Il crée ensuite les documents de conception, le profil technique, le registre des décisions et le premier plan de livraison. Cette commande est donc la méthode fiable pour reprendre l'initialisation sans perdre la conversation existante.
 
@@ -152,22 +152,17 @@ L’agent formalise ensuite le document propre au projet :
 
 Le statut doit devenir `accepted` uniquement lorsque les informations essentielles sont présentes.
 
-## 7. Répondre au choix Trello
+## 7. Choisir le gestionnaire de suivi
 
-Après le cahier, l’agent pose obligatoirement cette question :
+Après réception du cahier des charges, l’agent demande quel gestionnaire utiliser, avec trois choix :
 
-```text
-Veux-tu que je prépare un Trello complet avec toutes les tâches détaillées du projet ? Réponds oui ou non.
-```
+- `local` (recommandé par défaut) : work items conservés dans `.codex/work-items/` ou `.claude/work-items/`, sans service distant.
+- `github` : GitHub Issues et, si sélectionné et accessible, un GitHub Project pour organiser les Issues.
+- `trello` : un tableau Trello, ses cartes et checklists, si l’utilisateur le choisit explicitement.
 
-Répondre explicitement `oui` ou `non`.
+Enregistrer le choix dans `[tracking].mode` de `project-profile.toml`. Activer uniquement le gestionnaire choisi : `github_projects_choice = "enabled"` pour `github`, `trello_choice = "enabled"` pour `trello`; mettre à `"disabled"` le choix de l’autre service distant. Pour `local`, désactiver les deux intégrations distantes. Si un service choisi n’est pas accessible, conserver le suivi local et inscrire `pending_activation`; ne jamais prétendre qu’une synchronisation distante a réussi.
 
-Si la réponse est `oui`, fournir aussi, si possible, le nom du tableau et préciser si l’on veut :
-
-- Un plan Trello versionné uniquement dans le dépôt.
-- Une création ou synchronisation externe via une intégration autorisée.
-
-Le choix est inscrit dans `project-profile.toml`. Avec `oui`, l’agent génère `docs/project-management/trello-board.md` et le complète avec les listes, cartes, descriptions, dépendances, responsables, estimations, critères, preuves, tests, sécurité, documentation, audit et livraison. Le kit ne fabrique pas de tableau externe sans intégration et autorisation disponibles.
+Pour GitHub, les Issues portent les descriptions et tâches en Markdown; un Project relie les Issues et utilise les champs natifs réellement disponibles. Pour Trello, les cartes et checklists sont gérées dans le tableau. Le suivi local conserve les work items et n’exige aucun accès externe. Lorsque les colonnes de travail s’appliquent, utiliser les statuts canoniques `Todo`, `In Progress` et `Done`; les états de blocage ou de revue restent des labels ou métadonnées.
 
 ## 8. Laisser l’agent détecter la stack
 
@@ -186,14 +181,14 @@ Ce fichier contient notamment :
 - Runtime et gestionnaire de paquets.
 - Commandes install, lint, test, build et sécurité.
 - CI, déploiement, authentification et capacités.
-- Choix Trello.
+- Gestionnaire de suivi choisi : local, GitHub Projects ou Trello.
 - Limites Gitflow et règles de livraison.
 
 Ne pas remplir ce fichier avec une technologie supposée.
 
 ## 9. Générer et compléter la conception
 
-Après acceptation du cahier et du choix Trello, l’agent exécute le générateur de conception.
+Après acceptation du cahier des charges et enregistrement du gestionnaire choisi, l’agent exécute le générateur de conception.
 
 Codex :
 
@@ -225,7 +220,7 @@ Claude Code :
 bash .claude/scripts/preflight.sh
 ```
 
-Le résultat attendu est `Preflight OK`. Un échec est intentionnel lorsqu’il manque le cahier, le choix Trello, le profil, la conception ou une preuve obligatoire.
+Le résultat attendu est `Preflight OK`. Un échec est intentionnel lorsqu’il manque le cahier, le choix du gestionnaire, le profil, la conception ou une preuve obligatoire.
 
 ## 11. Créer un premier work item
 
@@ -313,7 +308,7 @@ bash .codex/scripts/generate-github-ci.sh
 bash .claude/scripts/generate-github-ci.sh
 ```
 
-Le générateur refuse d’écraser un workflow existant. Relire les commandes, configurer les secrets dans GitHub et faire vérifier le déploiement par Cybersécurité.
+Le générateur refuse d’écraser un workflow existant. Avant de l’exécuter, renseigner dans `[delivery]` la visibilité du dépôt (`github_repository_visibility`, défaut `unknown`) et la durée maximale par job (`github_actions_max_minutes_per_run`, entier de 1 à 360, défaut 30). Les clés absentes d’un profil existant prennent ces mêmes valeurs par défaut, et la visibilité reste `unknown`. Le générateur ne vérifie pas ces données en direct : la visibilité doit être confirmée par le propriétaire. Une valeur `public` confirmée autorise le runner hébergé standard. Pour `private` ou `unknown`, les champs `github_actions_private_billing_approved = true` (défaut `false`) et `github_actions_usage_limit_evidence` non vide et différente des valeurs de placeholder reconnues `none`, `unknown` et `[[A_COMPLETER]]` (défaut vide) sont requis avant toute création de workflow hébergé. La référence d’attestation doit désigner une limite ou un budget de compte vérifié manuellement et ne doit contenir aucun secret. Le délai maximal borne une exécution, pas la dépense mensuelle. Si ces conditions manquent, le générateur refuse avant toute création du dossier ou du workflow. Utiliser les contrôles locaux gratuits; un runner auto-hébergé ne peut être utilisé que par un workflow séparé déjà configuré et documenté, car le générateur du kit n’en configure pas. Relire le workflow généré et faire vérifier le déploiement par Cybersécurité.
 
 ## 18. GitFlow de livraison
 
@@ -365,13 +360,13 @@ Sous Windows, utiliser PowerShell pour les wrappers `run.ps1`. Sous macOS et Lin
 2. Exécutez `./install.sh --kit codex --target /chemin/du/projet` ou remplacez `codex` par `claude`.
 3. Ouvrez le projet dans Codex ou Claude.
 4. Complétez le profil projet demandé par l’agent.
-5. Dans GitHub, activez Actions. Les futures mises à jour arriveront automatiquement par Pull Request.
+5. Aucun updater n’est installé par défaut. Pour l’activer, demandez `--updates dispatch` pour un déclenchement manuel ou `--updates pr` pour un calendrier hebdomadaire, après avoir renseigné les attestations requises dans le profil. Sans garde satisfaite, aucun nouveau workflow updater n’est créé.
 
 Pour remplacer un kit existant, utilisez `--force` uniquement après avoir sauvegardé vos personnalisations.
 
 ## Parcours recommandé pour un débutant
 
-Cette procédure est la seule nécessaire pour installer le kit et recevoir ses mises à jour.
+Cette procédure installe le kit. L’updater reste désactivé par défaut et doit être activé explicitement après configuration du profil et validation de la garde de facturation.
 
 ### Étape 1. Installer les prérequis
 
@@ -411,17 +406,19 @@ Remplacez le chemin par celui de votre projet. L’installateur copie directemen
 Dans le projet, vérifiez la présence de l’une des structures suivantes :
 
 ```text
-Codex : AGENTS.md, .codex/, .github/workflows/update-workspace-kit.yml.
-Claude : CLAUDE.md, .claude/, .github/workflows/update-workspace-kit.yml.
+Codex : AGENTS.md, .codex/ (workflow updater seulement si demandé et autorisé par la garde; un updater préexistant peut rester actif).
+Claude : CLAUDE.md, .claude/ (workflow updater seulement si demandé et autorisé par la garde; un updater préexistant peut rester actif).
 ```
 
 N’installez jamais Codex et Claude ensemble dans le même projet.
 
 ### Étape 5. Activer les mises à jour
 
-Publiez le projet sur GitHub, ouvrez l’onglet `Actions` et activez les workflows si GitHub le demande. Le workflow est ensuite exécuté chaque lundi et peut être lancé immédiatement avec `Run workflow`.
+Par défaut, `./install.sh` n’installe aucun updater (`--updates off`). Pour demander un workflow manuel, utilisez `--updates dispatch`; pour demander également un calendrier hebdomadaire, utilisez `--updates pr`. Les mêmes options sont disponibles à l’initialisation avec `init-project.sh`; `ask` interactif propose le calendrier et `ask` sans terminal choisit le déclenchement manuel.
 
-Il compare le projet avec la branche `main` du dépôt officiel, lance les contrôles, puis ouvre une Pull Request nommée `chore/update-agentic-kit`. Il ne modifie jamais directement `main`.
+La garde s’applique à toute exécution hébergée, même manuelle, car elle peut consommer du quota facturable. Une visibilité `public` déclarée et confirmée par le propriétaire suffit; pour `private` ou `unknown`, le profil doit contenir `github_actions_private_billing_approved = true` et `github_actions_usage_limit_evidence` non vide et non placeholder. Ces attestations ne sont pas relues par API. Sans garde satisfaite, aucun nouveau workflow updater n’est installé. Une fois la garde satisfaite, `dispatch` se lance depuis `Actions` avec `Run workflow`; `pr` ajoute l’exécution chaque lundi. Le workflow compare le projet à la branche `main` du dépôt officiel, lance la mise à jour et ouvre une Pull Request vers la branche d’intégration. Il ne modifie jamais directement `main`.
+
+Si un workflow updater existe déjà, l’installateur ne le supprime ni ne le réécrit jamais automatiquement. Une demande `off` échoue avant toute mutation et signale que le workflow existant reste actif, à examiner manuellement. Les modes `dispatch` et `pr` acceptent uniquement le workflow correspondant exactement au modèle attendu; un workflow personnalisé ou un mode différent bloque l’opération avant mutation. La garde échouée bloque aussi lorsqu’un updater préexistant est trouvé.
 
 ### Étape 6. Accepter une mise à jour
 
@@ -448,12 +445,12 @@ Avec Claude, remplacez `.codex` par `.claude`. Cette procédure crée une branch
 
 Lors de l’exécution de `init-project.sh`, le kit demande si les mises à jour automatiques doivent être activées.
 
-- Répondez `O` pour installer le workflow qui ouvre automatiquement une Pull Request.
+- Répondez `O` pour demander le workflow planifié qui ouvre une Pull Request; la garde de facturation doit réussir avant toute installation.
 - Répondez `N` pour ne pas installer ce workflow.
-- Utilisez `--updates pr` pour activer directement le mode Pull Request.
-- Utilisez `--updates off` pour désactiver explicitement les mises à jour.
+- Utilisez `--updates dispatch` pour demander le workflow manuel, ou `--updates pr` pour demander son calendrier; les deux modes exigent la garde.
+- Utilisez `--updates off` (défaut de `install.sh`) pour ne pas installer de nouvel updater. Si un workflow existe déjà, il est conservé et l’opération échoue avec consigne de revue manuelle; `off` ne désactive pas un workflow préexistant.
 
-Le choix recommandé est `O`. L’agent peut alors détecter une nouvelle version, créer la branche de mise à jour, synchroniser les fichiers universels, préserver les données du projet, lancer les contrôles et ouvrir la Pull Request. Il ne modifie jamais directement `main`.
+Le choix recommandé est `O`. Pour le mode CLI `init-project.sh`, l’absence de terminal choisit `dispatch` après réussite de la garde; dans `install.sh`, le défaut est `off`. L’agent peut alors détecter une nouvelle version, créer la branche de mise à jour, synchroniser les fichiers universels, préserver les données du projet, lancer les contrôles et ouvrir la Pull Request. Il ne modifie jamais directement `main`.
 
 ## Branche des Pull Requests automatiques
 
@@ -473,9 +470,9 @@ Dans le sélecteur intégré, les flèches haut et bas parcourent les sous-dossi
 
 ### Gestion automatique du `.gitignore`
 
-L’installation crée `.gitignore` s’il est absent et ajoute uniquement les entrées nécessaires au kit choisi. Codex ajoute `.codex/` et `AGENTS.md`. Claude ajoute `.claude/` et `CLAUDE.md`. Les doublons ne sont pas ajoutés. Le fichier `.github/workflows/update-workspace-kit.yml` reste suivi par Git, car il est nécessaire aux mises à jour automatiques.
+L’installation crée `.gitignore` s’il est absent et ajoute uniquement les entrées nécessaires au kit choisi. Codex ajoute `.codex/` et `AGENTS.md`. Claude ajoute `.claude/` et `CLAUDE.md`. Les doublons ne sont pas ajoutés. Si l’updater est explicitement demandé et que la garde réussit, `.github/workflows/update-workspace-kit.yml` reste suivi par Git.
 
-Le workflow détecte automatiquement `develop`, puis `dev`. Il refuse `main` et ne demande aucune variable GitHub Actions supplémentaire.
+Le workflow détecte automatiquement `develop`, puis `dev`. Il refuse `main` et ne demande aucune variable GitHub Actions supplémentaire. Le workflow est manuel sauf demande explicite du mode `pr`; l’installateur `install.sh` reste en `off` par défaut. La garde s’applique à tout updater hébergé, même manuel, car une exécution peut consommer du quota facturable : une visibilité `public` déclarée et confirmée par le propriétaire suffit; pour `private` ou `unknown`, il faut aussi `github_actions_private_billing_approved = true` et une référence non vide, non placeholder dans `github_actions_usage_limit_evidence`. Le kit ne vérifie pas ces attestations via API. Si la garde manque, aucun nouveau workflow updater n’est installé. Après validation de la garde, `--updates dispatch` installe un lancement manuel et seul `--updates pr` ajoute le calendrier. `--updates off` laisse les workflows existants en place et échoue avec consigne de revue manuelle. Aucun workflow préexistant n’est modifié : il doit correspondre au modèle exact du mode demandé, sinon l’opération bloque.
 
 ## Publication Release et About
 
@@ -493,6 +490,6 @@ Le workflow GitHub crée alors la Release, vérifie la cohérence avec `VERSION`
 Pour autoriser l’actualisation automatique de la description et des topics, créez dans GitHub un secret de dépôt nommé `REPO_SETTINGS_TOKEN`. Utilisez un token appartenant à une personne autorisée à administrer le dépôt, avec les droits de dépôt nécessaires à la modification de ses métadonnées. La Release reste fonctionnelle sans ce secret, mais la section About devra alors être mise à jour manuellement.
 
 Le workflow de publication est idempotent : si une Release portant le tag existe déjà, il la conserve et poursuit la mise à jour About.
-Le workflow de mise à jour doit être ajouté au premier commit du projet. L’installateur affiche les commandes nécessaires et vérifie qu’il n’est pas ignoré.
+Si l’updater a été explicitement installé et que la garde a réussi, le workflow de mise à jour doit être ajouté au premier commit du projet. L’installateur affiche les commandes nécessaires et vérifie qu’il n’est pas ignoré. Un workflow préexistant est conservé; si la demande est `off`, si la garde échoue, ou si le fichier ne correspond pas exactement au modèle attendu, l’opération échoue avant mutation et demande une revue manuelle.
 
 La distribution unique `shared` est documentée dans le dossier `distributions/`.

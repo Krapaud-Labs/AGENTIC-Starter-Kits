@@ -146,18 +146,18 @@ Ce document est la référence synthétique du comportement livré par les kits.
 |---|---|---|
 | `SessionStart` | recharge version, runtime, Goal et consignes | contexte automatique |
 | `PreToolUse` | bloque les écritures sans Goal ou état valide | blocage exécutable |
-| `PermissionRequest` | refuse API payante, branche protégée et commande destructive | blocage exécutable |
+| `PermissionRequest` | refuse curl, wget, http et httpie vers les endpoints OpenAI et Anthropic couverts, les commandes de push détectées vers les branches protégées et les commandes destructives; une mention seule dans une commande locale est permise | blocage exécutable |
 | `PostToolUse` | journalise outil et identifiant de preuve | traçabilité |
 | `SubagentStart` | enregistre l'identifiant et le type du sous-agent | traçabilité |
 | `SubagentStop` | demande la vérification du livrable indépendant | contrôle |
 | `Stop` | appelle le garde avant réponse et continue si la livraison est incomplète | continuité |
 
-Les hooks locaux doivent être relus et approuvés dans Codex avec `/hooks` après chaque installation ou modification. Le dépôt ne peut pas s'auto-approuver auprès du runtime.
+Les hooks locaux doivent être relus et approuvés dans Codex avec `/hooks` après chaque installation ou modification. Le dépôt ne peut pas s'auto-approuver auprès du runtime. Le filtre PermissionRequest analyse le texte de la commande et ne peut pas certifier qu’un script arbitraire ou obfusqué ne déclenchera pas un appel externe.
 
 ## Facturation et outils externes
 
 - Le mode par défaut utilise l'authentification abonnement de Codex ou Claude.
-- Les clés `OPENAI_API_KEY`, `CODEX_API_KEY`, `ANTHROPIC_API_KEY` et `ANTHROPIC_AUTH_TOKEN` bloquent l'initialisation sans autorisation explicite.
+- Les noms exportés correspondant aux familles conventionnelles de credentials API, jetons d’accès et configurations d’authentification cloud bloquent l’initialisation sans autorisation explicite, même si leur valeur est vide. La garde compare les noms sans déréférencer les valeurs; les noms arbitraires restent hors de sa portée et les motifs larges peuvent bloquer des configurations non facturables.
 - Les Agents API, Agents SDK, gateways et fournisseurs cloud sont hors périmètre abonnement par défaut.
 - GitHub Actions, Trello, navigateur, Docker et autres services restent soumis à leur disponibilité et à leurs propres quotas.
 - Une intégration non disponible ne doit jamais être déclarée comme exécutée.

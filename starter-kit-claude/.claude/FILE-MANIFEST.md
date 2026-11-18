@@ -16,13 +16,13 @@
 - `scripts/check-kit-update.sh` vérifie la version distante au démarrage de chaque session.
 - `policies/`, `agents/`, `prompts/`, `skills/`, `scripts/`, `templates/`, `evaluations/`
 - `policies/DOCUMENTATION-LANGUAGE-POLICY.md` impose la qualité et la langue des documents techniques.
-- `policies/TRELLO-VISUAL-SYSTEM.md` définit les listes, étiquettes et règles de lisibilité Trello.
+- `policies/PROJECT-TRACKER-VISUAL-SYSTEM.md` définit les statuts, étiquettes et règles communes au gestionnaire sélectionné; `policies/TRELLO-VISUAL-SYSTEM.md` précise les particularités de Trello.
 - `policies/BROWSER-SESSION-LIFECYCLE.md` impose l'ouverture ciblée, la réutilisation sûre et la fermeture des sessions navigateur.
-- `policies/TRELLO-START-STATE.md` impose le passage dans `In Progress` et la synchronisation séquentielle.
+- `policies/TRELLO-START-STATE.md` décrit l’état initial et la synchronisation adaptée au gestionnaire configuré.
 
 ## Attentes de qualité
 
-Chaque Skill Claude est placé dans `skills/<nom>/SKILL.md` et commence par un frontmatter YAML avec `name` et `description`. Chaque sous-agent Claude est un fichier Markdown dans `agents/` avec frontmatter YAML. Chaque script est non interactif, échoue explicitement en cas de précondition manquante et ne détruit pas de fichier existant.
+Chaque Skill Claude est placé dans `skills/<nom>/SKILL.md` et commence par un frontmatter YAML avec `name` et `description`. Chaque sous-agent Claude est un fichier Markdown dans `agents/` avec frontmatter YAML. Chaque script est non interactif : il échoue explicitement en cas de précondition manquante et ne détruit pas de fichier existant. Les questions et attentes utilisateur appartiennent à l’orchestrateur, qui recueille la réponse avant d’appeler le script et lui transmet des paramètres explicites. Un script ne bloque jamais en attente d’une saisie interactive.
 
 ## Auto-contrôle
 

@@ -96,7 +96,7 @@ Ne jamais inventer une source, masquer un échec, désactiver un contrôle pour 
 
 La fusion d’une Pull Request est un checkpoint technique et jamais une clôture automatique du work item ou de la carte Trello. Après une fusion réussie, relire immédiatement la checklist, identifier la prochaine action et reprendre le travail jusqu’à la Definition of Done. Ne pas attendre un nouveau message utilisateur et ne pas demander « Continue » pour une étape déjà autorisée.
 
-Si des éléments de la carte restent ouverts, maintenir la carte dans son état approprié, créer ou sélectionner le prochain work item, exécuter les validations nécessaires et synchroniser Trello après chaque étape. Arrêter uniquement pour un blocage réel, une décision humaine requise ou une action sensible non autorisée.
+Si des éléments de la carte restent ouverts, maintenir la carte dans son état approprié, créer ou sélectionner le prochain work item, exécuter les validations nécessaires et synchroniser le gestionnaire configuré aux checkpoints importants. Relire après chaque écriture distante, à la fin d’un lot, en cas de blocage ou reprise, à la livraison, à la PR, à la CI et à la fusion; regrouper les mises à jour liées à un checkpoint. Arrêter uniquement pour un blocage réel, une décision humaine requise ou une action sensible non autorisée.
 
 ## Interdiction d'arrêt silencieux
 

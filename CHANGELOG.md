@@ -1,5 +1,21 @@
 ## Unreleased
 
+- Étend les contrôles de credentials externes par familles de noms de variables exportées et aligne les hooks PermissionRequest sur les actions détectées, sans lire ni afficher leurs valeurs; documente l’opt-in et ses limites, et réaligne les gates executable/sandbox sur le comportement du hook.
+
+- Bloque la génération de workflows hébergés pour une visibilité privée ou inconnue sans approbation explicite et preuve d’une limite d’usage, avec un délai maximal par job borné.
+- Documente les champs d’attestation locale et précise qu’un timeout par job ne garantit pas un plafond de facturation mensuel.
+- Désactive l’installation du workflow updater par défaut; dispatch manuel et calendrier explicite exigent tous deux les attestations de visibilité/facturation requises, et seul `--updates pr` planifie les exécutions. Les workflows préexistants ne sont ni supprimés ni migrés automatiquement.
+- Limite les permissions du CI généré à `contents: read` et annule les exécutions obsolètes par workflow et référence.
+
+- Aligne l’onboarding sur le gestionnaire choisi dans le profil : suivi local, GitHub Projects ou Trello, avec leurs capacités documentées.
+- Normalise les statuts de travail à `Todo`, `In Progress` et `Done` dans les parcours GitHub Projects.
+- Garde les tableaux Trello à trois colonnes et suit membres et phases dans les métadonnées de carte.
+
+- Harmonise les statuts de suivi sur `Todo`, `In Progress` et `Done`; les états exceptionnels restent des étiquettes ou métadonnées.
+- Fait primer le gestionnaire configuré et les limites spécifiques de tâche, et précise les checkpoints de relecture distante.
+- Définit les runners GitHub standards comme choix par défaut et encadre l’usage explicite des runners auto-hébergés.
+- Clarifie la priorité des substitutions de risque des modèles, la frontière d’interaction orchestrateur/scripts et la langue française des documents.
+
 ## 2.0.11 - 2026-11-14
 
 - Réduit le contexte initial des Goals au work item, au manifeste, au runtime et aux preuves concernées.

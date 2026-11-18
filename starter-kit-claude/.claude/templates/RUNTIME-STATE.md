@@ -37,6 +37,7 @@
 - independent_reaudit_status: not-applicable
 - goal_blocked_condition: none
 - goal_session_id: none
+<!-- native_goal_status accepts active, unavailable, complete, blocked, budget-limited, paused -->
 - native_goal_status: unavailable
 - native_goal_id: none
 - native_goal_evidence: Goal natif à créer par l'orchestrateur au démarrage
