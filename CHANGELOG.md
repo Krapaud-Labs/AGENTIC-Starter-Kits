@@ -1,13 +1,16 @@
 ## Unreleased
 
-<<<<<<< HEAD
-=======
+## 2.0.13 - 2026-11-18
+
+- Rend le mode `quick-fix` prioritaire pour les corrections et modifications courantes.
+- Diffère les audits lourds, responsive exhaustif et relectures indépendantes à la passe finale ou à une demande explicite.
+- Clarifie le routage des agents pour éviter les audits longs pendant l'implémentation.
+
 ## 2.0.12 - 2026-11-18
 
 - Réduit le coût local des contrôles de session grâce à un cache distant court et au réemploi du hash du kit lorsque sa version n’a pas changé.
 - Conserve la vérification forcée avec `AGENTIC_KIT_CHECK_FORCE=1` et la validation complète après toute mise à jour.
 
->>>>>>> origin/dev
 - Étend les contrôles de credentials externes par familles de noms de variables exportées et aligne les hooks PermissionRequest sur les actions détectées, sans lire ni afficher leurs valeurs; documente l’opt-in et ses limites, et réaligne les gates executable/sandbox sur le comportement du hook.
 
 - Bloque la génération de workflows hébergés pour une visibilité privée ou inconnue sans approbation explicite et preuve d’une limite d’usage, avec un délai maximal par job borné.
