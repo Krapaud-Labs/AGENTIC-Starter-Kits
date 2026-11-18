@@ -1,5 +1,5 @@
 # Point d'entrée Codex
-<!-- ENTRYPOINT-CONTRACT: 2.0.11 -->
+<!-- ENTRYPOINT-CONTRACT: 2.0.15 -->
 
 ## Contrat obligatoire de chaque nouveau chat
 
@@ -73,6 +73,8 @@ La limite d'autonomie est la suivante : tout est exécuté automatiquement jusqu
 ## Installation Git obligatoire
 
 Après l’installation du kit, vérifier que `.github/workflows/update-workspace-kit.yml` existe et n’est pas ignoré. Avant le premier commit, l’ajouter explicitement avec `.gitignore` et `.workspace.toml`, puis vérifier son suivi avec `git ls-files --error-unmatch .github/workflows/update-workspace-kit.yml`. Le workflow doit être présent dans la première branche publiée. Ne jamais le supprimer, le placer dans `.gitignore` ou le pousser directement vers `main`.
+
+Si `.workspace.toml` apparaît dans `git status`, dans les fichiers staged ou dans les fichiers en attente de commit, il fait partie du lot de configuration du kit et doit être livré avec le travail en cours. L’ajouter au commit de la branche dédiée, le vérifier dans la PR et ne jamais le laisser volontairement en attente. Ne pas le supprimer, le réinitialiser ni le masquer dans `.gitignore`.
 
 
 ## Contrat du premier message d initialisation
