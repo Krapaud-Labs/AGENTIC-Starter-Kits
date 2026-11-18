@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.14 - 2026-11-18
+
+- Sérialise le bootstrap de session par projet pour éviter les reprises concurrentes entre fenêtres.
+- Protège le registre d'outils partagé contre les écritures concurrentes et ajoute un test de concurrence.
+
 ## 2.0.13 - 2026-11-18
 
 - Rend le mode `quick-fix` prioritaire pour les corrections et modifications courantes.
