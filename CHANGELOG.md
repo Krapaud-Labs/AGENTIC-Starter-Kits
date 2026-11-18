@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.15 - 2026-11-18
+
+- Rend obligatoire la livraison de `.workspace.toml` lorsqu il est modifié ou en attente dans le lot courant.
+- Aligne le contrat d entrée Codex sur la version publiée.
+
 ## 2.0.14 - 2026-11-18
 
 - Sérialise le bootstrap de session par projet pour éviter les reprises concurrentes entre fenêtres.
