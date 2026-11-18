@@ -8,6 +8,18 @@ else
   root="$(cd "$config/.." && pwd)"
 fi
 project_config="$root/.claude"
+session_lock="$project_config/.session-start.lock"
+for lock_attempt in $(seq 1 100); do
+  if mkdir "$session_lock" 2>/dev/null; then
+    trap 'rmdir "$session_lock" 2>/dev/null || true' EXIT
+    break
+  fi
+  sleep 0.05
+  if [ "$lock_attempt" -eq 100 ]; then
+    echo "KIT-SESSION: une autre session initialise déjà ce projet" >&2
+    exit 4
+  fi
+done
 if [ -x "$script_dir/archive-project-brief.sh" ]; then
   bash "$script_dir/archive-project-brief.sh"
 fi

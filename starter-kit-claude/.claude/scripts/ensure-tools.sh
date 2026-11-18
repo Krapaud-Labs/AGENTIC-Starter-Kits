@@ -12,12 +12,28 @@ else
   rm -f "$AGENTIC_TOOLS_HOME/.write-test"
 fi
 registry="$AGENTIC_TOOLS_HOME/registry.tsv"
+registry_lock="$registry.lock"
 [ -f "$registry" ] || printf 'tool\tcommand\tversion\tsource\tlast_checked\n' > "$registry"
 record() {
   local name="$1" command_name="$2" version="$3" source="$4"
-  awk -F '\t' -v name="$name" 'NR == 1 || $1 != name' "$registry" > "$registry.tmp"
-  printf '%s\t%s\t%s\t%s\t%s\n' "$name" "$command_name" "$version" "$source" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$registry.tmp"
-  mv "$registry.tmp" "$registry"
+  local attempt tmp
+  for attempt in $(seq 1 100); do
+    if mkdir "$registry_lock" 2>/dev/null; then
+      tmp="$registry.$$.$attempt.tmp"
+      if awk -F '\t' -v name="$name" 'NR == 1 || $1 != name' "$registry" > "$tmp" \
+        && printf '%s\t%s\t%s\t%s\t%s\n' "$name" "$command_name" "$version" "$source" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$tmp" \
+        && mv "$tmp" "$registry"; then
+        rmdir "$registry_lock"
+        return 0
+      fi
+      rm -f "$tmp"
+      rmdir "$registry_lock"
+      return 1
+    fi
+    sleep 0.05
+  done
+  echo "REGISTRE OUTILS: écriture concurrente différée" >&2
+  return 0
 }
 version_of() { "$1" --version 2>/dev/null | head -n 1 || "$1" -v 2>/dev/null | head -n 1 || echo unknown; }
 check_command() {

@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.14 | 2026-11-18 | Sérialise les sessions et protège le registre shared contre les collisions concurrentes. |
+
 | 2.0.13 | 2026-11-18 | Rend les corrections courantes rapides et reporte les audits lourds à la fin ou sur demande explicite. |
 
 | 2.0.12 | 2026-11-18 | Réduit les contrôles réseau et les recalculs SHA coûteux au démarrage tout en conservant une vérification forcée disponible. |
