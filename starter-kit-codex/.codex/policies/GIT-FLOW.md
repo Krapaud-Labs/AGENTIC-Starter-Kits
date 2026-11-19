@@ -48,6 +48,8 @@ Si Git est indisponible, le Coordinateur peut préparer le travail et les preuve
 
 Une PR de travail cible `develop` ou `dev`. Une fois cette PR fusionnée et vérifiée, le Coordinateur crée automatiquement l'unique PR de promotion vers `main`, attend les contrôles, la fusionne et vérifie le SHA distant lorsque la demande de livraison est active. Aucun push direct vers une branche protégée n'est autorisé.
 
+Après vérification de la fusion dans `dev` ou `develop`, le Coordinateur exécute `scripts/cleanup-integrated-branch.sh <branche-intégration> <branche-travail>`. Le script refuse toute branche protégée, vérifie l ancêtre fusionné, exige un worktree propre, puis supprime la branche de travail sur `origin` et en local. Une branche n est conservée que si la fusion, la preuve distante ou le nettoyage échoue.
+
 ## Cadence des Pull Requests
 
 Un push sur une branche de travail ne crée pas automatiquement une nouvelle PR. Le Coordinateur pousse les commits nécessaires sur la branche existante, puis ouvre une seule PR vers la branche d'intégration `dev` ou `develop` uniquement lorsque la carte est prête à intégrer, que les contrôles locaux sont passés et que les preuves de la Definition of Done sont réunies. Si une PR existe déjà pour la carte, elle est mise à jour au lieu d'en créer une autre. Les micro-corrections, commits de checkpoint et changements de documentation liés restent dans la même PR.
