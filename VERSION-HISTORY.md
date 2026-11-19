@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.17 | 2026-11-19 | Récupère les verrous de démarrage périmés et distingue les processus actifs. |
+
 | 2.0.16 | 2026-11-19 | Ajoute l agent juriste, son routage, ses sources et ses garde-fous de décision humaine. |
 
 | 2.0.15 | 2026-11-18 | Livre systématiquement `.workspace.toml` avec le travail en cours et réaligne le contrat d entrée Codex. |

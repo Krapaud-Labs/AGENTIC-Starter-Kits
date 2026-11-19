@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.17 - 2026-11-19
+
+- Récupère les verrous de démarrage abandonnés après interruption ou processus disparu.
+- Évite de confondre une initialisation concurrente réelle avec un verrou périmé.
+
 ## 2.0.16 - 2026-11-19
 
 - Ajoute l agent juriste pour les recherches juridiques sourcées et la qualification prudente des obligations.

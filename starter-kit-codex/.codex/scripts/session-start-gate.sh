@@ -9,8 +9,20 @@ else
 fi
 project_config="$root/.codex"
 session_lock="$project_config/.session-start.lock"
+lock_owner="$session_lock/pid"
 for lock_attempt in $(seq 1 100); do
+  if [ -d "$session_lock" ] && [ ! -s "$lock_owner" ]; then
+    if lock_mtime="$(stat -f %m "$session_lock" 2>/dev/null || stat -c %Y "$session_lock" 2>/dev/null)" && [ $(( $(date +%s) - lock_mtime )) -gt 120 ]; then
+      rmdir "$session_lock" 2>/dev/null || true
+    fi
+  elif [ -s "$lock_owner" ]; then
+    lock_pid="$(cat "$lock_owner" 2>/dev/null || true)"
+    if [ -n "$lock_pid" ] && ! kill -0 "$lock_pid" 2>/dev/null; then
+      rmdir "$session_lock" 2>/dev/null || true
+    fi
+  fi
   if mkdir "$session_lock" 2>/dev/null; then
+    printf '%s\n' "$$" > "$lock_owner"
     trap 'rmdir "$session_lock" 2>/dev/null || true' EXIT
     break
   fi
