@@ -1,5 +1,7 @@
 # Historique des versions
 
+| 2.0.19 | 2026-11-19 | Supprime les branches de travail après fusion vérifiée dans dev ou develop. |
+
 | 2.0.18 | 2026-11-19 | Isole les conversations, Goals, branches et rapports par scope persistant. |
 
 | 2.0.17 | 2026-11-19 | Récupère les verrous de démarrage périmés et distingue les processus actifs. |

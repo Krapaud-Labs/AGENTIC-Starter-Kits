@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.19 - 2026-11-19
+
+- Supprime automatiquement les branches de travail locales et distantes après fusion vérifiée dans dev ou develop.
+- Protège les branches principales et refuse le nettoyage si la branche n est pas réellement fusionnée ou si le worktree est sale.
+
 ## 2.0.18 - 2026-11-19
 
 - Isole les conversations par scope persistant lié au Goal, à la branche et au work item.
