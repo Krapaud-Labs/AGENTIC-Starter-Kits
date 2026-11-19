@@ -52,6 +52,7 @@ data = "coding"
 documentation = "routine"
 release = "orchestration"
 conformite = "audit"
+juriste = "audit"
 
 [risk_override]
 low = "routine"

@@ -2,7 +2,7 @@
 
 La version 2.0 inclut le runtime canonique, la migration shared et les contrôles de release multi-plateforme.
 
-![Version du kit](https://img.shields.io/badge/version-2.0.15-blue.svg)
+![Version du kit](https://img.shields.io/badge/version-2.0.16-blue.svg)
 
 Les gestionnaires sélectionnables (local, Trello ou GitHub Projects) suivent la politique commune dans `starter-kit-codex/.codex/policies/PROJECT-TRACKER-VISUAL-SYSTEM.md`.
 
@@ -245,7 +245,7 @@ Le kit Codex comprend 16 agents : six agents du noyau et dix spécialistes optio
 | `.codex/agents/cybersecurite.toml` | Cybersécurité | menaces, vulnérabilités, contrôles et blocage critique |
 | `.codex/agents/auditeur.toml` | Auditeur | vérification indépendante, preuves, régressions et décision |
 
-Les spécialistes optionnels sont activés dans `[agents]` de `.codex/project-profile.toml` : `produit`, `qa`, `devops`, `performance`, `ux_research`, `accessibilite`, `data`, `documentation`, `release` et `conformite`. Le Coordinateur les active selon les besoins détectés, le risque et le budget.
+Les spécialistes optionnels sont activés dans `[agents]` de `.codex/project-profile.toml` : `produit`, `qa`, `devops`, `performance`, `ux_research`, `accessibilite`, `data`, `documentation`, `release`, `conformite` et `juriste`. Le Coordinateur les active selon les besoins détectés, le risque et le budget.
 
 Le hook de fin distingue un événement générique du Goal d’un spécialiste identifié. Une référence orpheline ne bloque donc pas en boucle, mais un spécialiste réel sans rapport vérifiable reste bloqué.
 
@@ -273,12 +273,13 @@ Le dépôt central peut exécuter `scripts/auto-correct-kit-report.sh --report <
 | `documentation` | `.codex/agents/documentation.toml` | Documentation utilisateur, API et exploitation. |
 | `release` | `.codex/agents/release.toml` | Version, changelog, migration et notes de livraison. |
 | `conformite` | `.codex/agents/conformite.toml` | Exigences RGPD, licences et preuves de conformité. |
+| `juriste` | `.codex/agents/juriste.toml` | Recherche juridique sourcée et décision humaine attendue. |
 
 Le Coordinateur ne les appelle pas tous systématiquement. Il lit `.codex/SPECIALIST-AGENTS.md`, vérifie la condition d’activation, inscrit la justification dans le work item et exige le livrable correspondant.
 
 Une CI en cours ne clôture jamais le work item. Le Coordinateur attend les résultats, traite les erreurs, corrige les lints et les dettes historiques du périmètre par lots, puis relance les contrôles jusqu’à la Definition of Done.
 
-Le kit est actuellement en version `2.0.15`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
+Le kit est actuellement en version `2.0.16`. Toute modification du kit doit mettre à jour ce README, le changelog et la version selon `VERSIONING.md`.
 
 Le contrat central `.codex/policies/CORE-EXECUTION-CONTRACT.md` impose un registre d obligations, huit portes de validation et une reprise persistante. Une tâche ne peut être clôturée tant qu une obligation applicable ne possède pas de preuve.
 

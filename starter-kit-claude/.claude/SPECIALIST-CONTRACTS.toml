@@ -85,6 +85,12 @@ activation = "donnée personnelle, licence ou obligation avérée"
 deliverable = "exigence applicable, preuve, écart, responsable et décision"
 reviewer = "cybersecurite,auditeur"
 
+[juriste]
+domain = "recherche juridique, sources officielles, juridiction et qualification prudente"
+activation = "question juridique, RGPD, licence, contrat ou publication réglementée"
+deliverable = "question, périmètre, sources datées, analyse, risques et décision humaine attendue"
+reviewer = "conformite,auditeur"
+
 [release]
 domain = "versioning, GitFlow, CI, PR, promotion et publication"
 activation = "fin de carte ou livraison"

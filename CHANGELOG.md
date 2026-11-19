@@ -1,5 +1,10 @@
 ## Unreleased
 
+## 2.0.16 - 2026-11-19
+
+- Ajoute l agent juriste pour les recherches juridiques sourcées et la qualification prudente des obligations.
+- Route automatiquement les demandes juridiques applicables sans confondre recherche documentaire et avis d avocat.
+
 ## 2.0.15 - 2026-11-18
 
 - Rend obligatoire la livraison de `.workspace.toml` lorsqu il est modifié ou en attente dans le lot courant.
