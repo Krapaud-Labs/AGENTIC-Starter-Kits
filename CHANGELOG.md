@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 2.0.18 - 2026-11-19
+
+- Isole les conversations par scope persistant lié au Goal, à la branche et au work item.
+- Empêche une conversation de réutiliser silencieusement l état d une autre branche.
+- Ajoute un manifeste de session et un test d isolation Codex/Claude.
+
 ## 2.0.17 - 2026-11-19
 
 - Récupère les verrous de démarrage abandonnés après interruption ou processus disparu.
