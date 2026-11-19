@@ -79,6 +79,7 @@ if [[ "$GOAL_DELEGATION" =~ (parall|indépend|multi[-_]t[aâ]che|plusieurs) ]]; 
 fi
 export GOAL_STARTED_AT="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 export GOAL_SESSION_ID="goal-${GOAL_STARTED_AT//:/}"
+[ -x "$script_dir/bind-session.sh" ] && bash "$script_dir/bind-session.sh" "${NATIVE_GOAL_ID:-$GOAL_SESSION_ID}" >/dev/null
 
 python3 - "$state" <<'PY'
 import os
