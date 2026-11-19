@@ -3,7 +3,7 @@
 La branche 2.0 ajoute les lots de migration, chaos testing, observabilité et compatibilité multi-plateforme.
 La promotion vers `main` reste soumise à une demande humaine explicite après validation de `dev`.
 
-[![Version](https://img.shields.io/badge/version-2.0.15-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-2.0.16-blue.svg)](VERSION)
 
 Pendant l'implémentation, seuls les contrôles rapides directement nécessaires à la régression sont exécutés. Les audits visuels, responsive, accessibilité, navigateur, performance et indépendants sont regroupés en une seule passe finale, sur une carte dédiée ou sur demande explicite.
 
@@ -199,6 +199,7 @@ Le kit comprend aussi un registre de spécialistes activables dans `[agents]` du
 | `documentation` | Documentation utilisateur, développeur, API et exploitation. |
 | `release` | Versionnement, changelog, migrations, notes de version et livraison. |
 | `conformite` | RGPD, conservation, consentement, licences et exigences réglementaires. |
+| `juriste` | Recherche juridique, juridiction, contrats, licences et sources officielles. |
 
 Chaque spécialiste possède un fichier Codex, un fichier Claude, un modèle cohérent, des livrables, des interdictions, des escalades et une intégration au journal qualité. Aucun spécialiste ne peut s’auto-approuver.
 

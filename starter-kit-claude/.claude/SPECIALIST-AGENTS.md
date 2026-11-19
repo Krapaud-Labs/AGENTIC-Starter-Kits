@@ -23,6 +23,7 @@ L’activation est déclarée dans `[agents]` de `.claude/project-profile.toml`.
 | `documentation` | Une API, une installation, une exploitation ou un parcours utilisateur est livré. | Documentation ciblée, exemples vérifiés et procédure de maintenance. |
 | `release` | Une version, une migration ou une livraison externe est préparée. | Changelog, version, checklist, migration, rollback et notes de livraison. |
 | `conformite` | Des données personnelles, licences ou obligations réglementaires existent. | Registre des exigences, écarts, preuves et risques résiduels. |
+| `juriste` | Une question juridique, une juridiction, un contrat, une licence ou une publication réglementée doit être recherchée. | Question, périmètre, sources officielles datées, analyse prudente, risques et décision humaine attendue. |
 
 ## Contrat commun
 
